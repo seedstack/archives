@@ -1,0 +1,941 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/bridge/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/bridge/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/w20-bridge/</link>
+      <pubDate>Mon, 15 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/w20-bridge/</guid>
+      <description>
+
+&lt;p&gt;The SeedStack W20 bridge acts as an integration bridge between the Seed Java framework and the W20 Web framework. You can
+add it with the following dependency:&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-w20-w20-bridge-web-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-w20-w20-bridge-web-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-w20-w20-bridge-web-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.w20&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;w20-bridge-web&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-w20-w20-bridge-web-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.2&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-w20-w20-bridge-web-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-w20-w20-bridge-web-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-w20-w20-bridge-web-version, #org-seedstack-addons-w20-w20-bridge-web-warn&#39;).show(); $(&#39;#org-seedstack-addons-w20-w20-bridge-web-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-w20-w20-bridge-web-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.w20:w20-bridge-web:2.3.2&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;If you don&amp;rsquo;t want to serve W20 static files from the Java application, use the following dependency instead:&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-w20-w20-bridge-rest-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-w20-w20-bridge-rest-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-w20-w20-bridge-rest-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.w20&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;w20-bridge-rest&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-w20-w20-bridge-rest-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.2&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-w20-w20-bridge-rest-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-w20-w20-bridge-rest-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-w20-w20-bridge-rest-version, #org-seedstack-addons-w20-w20-bridge-rest-warn&#39;).show(); $(&#39;#org-seedstack-addons-w20-w20-bridge-rest-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-w20-w20-bridge-rest-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.w20:w20-bridge-rest:2.3.2&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;This will only provide the REST API required by the W20 frontend to bridge. Use the default masterpage template presented below to update your own index.html page on the frontend.&lt;/p&gt;
+
+&lt;h1 id=&#34;how-it-works&#34;&gt;How it works&lt;/h1&gt;
+
+&lt;p&gt;The W20 bridge automatically generates and serves W20 resources that should normally be written manually:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The W20 masterpage is automatically generated and served under &lt;code&gt;/&lt;/code&gt;. There is no need to provide an &lt;code&gt;index.html&lt;/code&gt; file,
+except for advanced use cases (see below).&lt;/li&gt;
+&lt;li&gt;The W20 configuration file (&lt;code&gt;w20.app.json&lt;/code&gt;) is read from the &lt;code&gt;META-INF/configuration&lt;/code&gt; classpath location and a managed,
+enriched version is served under &lt;code&gt;/seed-w20/application/configuration&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;A resource for basic authentication is served under &lt;code&gt;/seed-w20/security/basic-authentication&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;A resource for retrieving the authorizations of the authenticated subject is served under &lt;code&gt;/seed-w20/security/authorizations&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;automatic-activation-of-fragments&#34;&gt;Automatic activation of fragments&lt;/h2&gt;
+
+&lt;p&gt;The W20 bridge automatically detects W20 fragments (manifests ending with the &lt;code&gt;.w20.json&lt;/code&gt; extension) present in the classpath
+under &lt;code&gt;META-INF/resources&lt;/code&gt; and enables them in the generated W20 configuration.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that the W20 bridge cannot detect fragments located outside the local classpath, like the ones in the document root
+or external to the application. Those fragments must still be explicitly specified in the W20 configuration.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;fragment-variables&#34;&gt;Fragment variables&lt;/h2&gt;
+
+&lt;p&gt;The W20 bridge provides several fragments variables containing path information about the application. These variables
+can be used as &lt;code&gt;${variable-name[:default-value]}&lt;/code&gt; placeholders in the fragment manifests:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;seed-base-path&lt;/code&gt;: the application base path without a trailing slash,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;seed-base-path-slash&lt;/code&gt;: the application base path with a trailing slash,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;seed-rest-path&lt;/code&gt;: the path under which the REST resources are served (without a trailing slash),&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;seed-rest-path-slash&lt;/code&gt;: the path under which the REST resources are served (with a trailing slash),&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;components-path&lt;/code&gt;: the path under which the Web components are served (without a trailing slash),&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;components-path-slash&lt;/code&gt;: the path under which the Web components are served (with a trailing slash).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;automatic-configuration&#34;&gt;Automatic configuration&lt;/h2&gt;
+
+&lt;p&gt;Several aspects of the configuration are automatically managed:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The application identifier (&lt;code&gt;w20-core&lt;/code&gt; -&amp;gt; &lt;code&gt;application&lt;/code&gt; -&amp;gt; &lt;code&gt;id&lt;/code&gt;) is automatically set with the same value as the backend
+application identifier,&lt;/li&gt;
+&lt;li&gt;The environment type (&lt;code&gt;w20-core&lt;/code&gt; -&amp;gt; &lt;code&gt;env&lt;/code&gt; -&amp;gt; &lt;code&gt;type&lt;/code&gt;) is automatically set to the &lt;code&gt;org.seedstack.w20.environment&lt;/code&gt; property
+if any.&lt;/li&gt;
+&lt;li&gt;Several elements in the masterpage are automatically derived from the bridge configuration values. See the &lt;a href=&#34;#configuration&#34;&gt;configuration
+section below&lt;/a&gt; for more details.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;w20.&amp;amp;#8203;spi.&amp;amp;#8203;FragmentConfigurationHandler&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/w20/spi/FragmentConfigurationHandler.html&#39;&gt;FragmentConfigurationHandler&lt;/a&gt;&lt;/code&gt; interface can be implemented to further enrich or
+override the generated configuration. As an example, it is used by the &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/i18n/&#34;&gt;i18n add-on&lt;/a&gt; for automatically managing
+the frontend &lt;code&gt;culture&lt;/code&gt; module if backend internationalization is active.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;pretty-urls&#34;&gt;Pretty URLS&lt;/h1&gt;
+
+&lt;p&gt;By default AngularJS HTML5 mode is enabled when using the W20 bridge.  Its allows pretty URLs to be used instead of historic hashbang URLs (#!). To achieve this, a servlet filter is automatically placed at the root of the application: it redirects any URL that doesn&amp;rsquo;t exist on the server to the masterpage, so the W20 frontend can load and AngularJS can then display the corresponding view.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The HTML5 redirect filter tries its best to avoid redirecting legitimate 404 or special cases like WebSocket upgrades. To ensure that your REST API calls returning legitimate 404 are not redirected by the filter, you must place the API on its own base path (like &lt;code&gt;/api&lt;/code&gt;). See the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/rest/#base-prefix&#34;&gt;REST manual page&lt;/a&gt; to learn how to do so.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Sometimes it is desirable to revert to hashbang URLs. You can do so with the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.w20]
+pretty-urls = false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;The behavior of W20 bridge can be altered with several backend configuration properties, described below.&lt;/p&gt;
+
+&lt;h2 id=&#34;application-title&#34;&gt;Application title&lt;/h2&gt;
+
+&lt;p&gt;You can set the W20 application title with the following option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.w20]
+application.title = My application
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The default value is set to the Seed application name (coming from the &lt;code&gt;org.seedstack.seed.core.application-name&lt;/code&gt;).&lt;/p&gt;
+
+&lt;h2 id=&#34;application-subtitle&#34;&gt;Application subtitle&lt;/h2&gt;
+
+&lt;p&gt;You can set the W20 application subtitle with the following option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.w20]
+application.subtitle = A great application
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is no default value.&lt;/p&gt;
+
+&lt;h2 id=&#34;application-version&#34;&gt;Application version&lt;/h2&gt;
+
+&lt;p&gt;You can set the W20 application version with the following option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.w20]
+application.version = 1.2.3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The version is treated as a string so there is no restriction format. The default value is set to the Seed application
+version (coming from the &lt;code&gt;org.seedstack.seed.core.application-version&lt;/code&gt;). It is not recommended to change this default
+value, other than for testing purposes or special cases. The version string is appended to all assets URLs by the
+W20 loader to ensure that resources are refreshed when the version change.&lt;/p&gt;
+
+&lt;h2 id=&#34;loading-timeout&#34;&gt;Loading timeout&lt;/h2&gt;
+
+&lt;p&gt;The W20 loader has a predefined time limit to load all the application assets. Although the default value of 30 seconds
+should be enough for all applications, tt is sometimes desirable to increase it with the following option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.w20]
+timeout = 60
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;cors-with-credentials&#34;&gt;CORS with credentials&lt;/h2&gt;
+
+&lt;p&gt;To allow the application to access &lt;strong&gt;secured&lt;/strong&gt; resources from other domains than its own, use the following option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.w20]
+cors-with-credentials = true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This option is not necessary when accessing its own resources or publicly accessible cross-origin resources only.&lt;/p&gt;
+
+&lt;h1 id=&#34;masterpage-customization&#34;&gt;Masterpage customization&lt;/h1&gt;
+
+&lt;h2 id=&#34;disable-the-masterpage&#34;&gt;Disable the masterpage&lt;/h2&gt;
+
+&lt;p&gt;The generation of the masterpage can be completely disabled with the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.w20]
+disable-masterpage = true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;custom-masterpage-template&#34;&gt;Custom masterpage template&lt;/h2&gt;
+
+&lt;p&gt;Each theme provides its own general-purpose masterpage template. If no theme is used or the theme doesn&amp;rsquo;t contain a masterpage, the W20 bridge will fallback to a default masterpage with minimal body content. You can override the masterpage template by specifying its classpath path in the following configuration property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.w20]
+masterpage-template = path/to/masterpage-template.html
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Masterpage templates can use &lt;code&gt;${}&lt;/code&gt; placeholders for some configuration-dependant values. The following variables are available:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;applicationTitle&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;applicationSubtitle&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;applicationVersion&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;timeout&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;corsWithCredentials&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;basePath&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;basePathSlash&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;restPath&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;restPathSlash&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;componentsPath,&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;componentsPathSlash&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Below, you can find the fallback masterpage template that can be used as a starting point for your own custom templates:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!doctype html&amp;gt;
+&amp;lt;html data-w20-app=&amp;quot;${restPathSlash}seed-w20/application/configuration&amp;quot; data-w20-app-version=&amp;quot;${applicationVersion}&amp;quot; data-w20-timeout=&amp;quot;${timeout}&amp;quot; data-w20-cors-with-credentials=&amp;quot;${corsWithCredentials}&amp;quot;&amp;gt;
+&amp;lt;head&amp;gt;
+    &amp;lt;meta http-equiv=&amp;quot;X-UA-Compatible&amp;quot; content=&amp;quot;IE=Edge&amp;quot;&amp;gt;
+    &amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1.0&amp;quot;&amp;gt;
+    &amp;lt;meta charset=&amp;quot;utf-8&amp;quot;&amp;gt;
+    &amp;lt;title&amp;gt;${applicationTitle}&amp;lt;/title&amp;gt;
+    &amp;lt;script type=&amp;quot;text/javascript&amp;quot; data-main=&amp;quot;${componentsPathSlash}w20/modules/w20.js?__v=${applicationVersion}&amp;quot; src=&amp;quot;${componentsPathSlash}requirejs/require.js?__v=${applicationVersion}&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;base href=&amp;quot;${basePathSlash}&amp;quot;&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+&amp;lt;div id=&amp;quot;w20-loading-cloak&amp;quot;&amp;gt;
+    &amp;lt;div class=&amp;quot;w20-loading-indicator&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;div id=&amp;quot;w20-view&amp;quot; class=&amp;quot;w20-content&amp;quot; data-ng-view&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;div data-w20-error-report&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/spring-bridge/</link>
+      <pubDate>Wed, 25 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/spring-bridge/</guid>
+      <description>
+
+&lt;p&gt;Seed Spring support is a bi-directional injection bridge between Seed managed instances and Spring beans. It allows to
+inject Spring beans in Seed instances and Seed instances as Spring beans.&lt;/p&gt;
+
+&lt;p&gt;Additionally, this support fills in a gap between Seed and Spring code allowing for instance to initiate a Spring-based
+transaction from Seed code. Tt also provides a Spring namespace handler to make its features as easy to use as possible.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-spring-spring-core-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-spring-spring-core-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-spring-spring-core-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.spring&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;spring-core&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-spring-spring-core-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.2.1&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-spring-spring-core-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-spring-spring-core-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-spring-spring-core-version, #org-seedstack-addons-spring-spring-core-warn&#39;).show(); $(&#39;#org-seedstack-addons-spring-spring-core-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-spring-spring-core-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.spring:spring-core:2.2.1&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h1 id=&#34;spring-to-seed&#34;&gt;Spring to Seed&lt;/h1&gt;
+
+&lt;p&gt;Any Spring context located in the &lt;code&gt;META-INF/spring&lt;/code&gt; classpath directory and named with the pattern &lt;code&gt;*-context.xml&lt;/code&gt; will
+be autodetected by Seed. You can turn off auto detection with the following configuration property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.seedstack.spring.autodetect = false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can add custom contexts located anywhere in the classpath with the following configuration property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.seedstack.spring.contexts = /resource/path/to/context1.xml, /resource/path/to/context2.xml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can inject any Spring bean from contexts detected by Seed in any Seed injectable component. You can inject using the
+bean Class and the bean name:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject @Named(&amp;quot;theBeanId&amp;quot;) BeanClass bean;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can inject using the bean parent&amp;rsquo;s Class (if not Object) and the bean name:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject @Named(&amp;quot;theBeanId&amp;quot;) BeanParentClass bean;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can inject using any directly implemented Interface and the bean name:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject @Named(&amp;quot;theBeanId&amp;quot;) BeanImplementedInterface bean;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that you always need to qualify your injection with the bean identifier (&lt;code&gt;@Named(&amp;quot;theBeanId&amp;quot;)&lt;/code&gt;)&lt;/p&gt;
+
+&lt;h1 id=&#34;seed-to-spring&#34;&gt;Seed to Spring&lt;/h1&gt;
+
+&lt;p&gt;To use Seed instances in Spring contexts, you need to add the Seed namespace to your Spring files:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;beans xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot; 
+       xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+       xmlns:seed=&amp;quot;http://www.seedstack.org/xml-schemas/spring-support&amp;quot;
+
+       xsi:schemaLocation=&amp;quot;
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+        http://www.seedstack.org/xml-schemas/spring-support http://www.seedstack.org/xml-schemas/spring-support/spring-support-1.1.xsd&amp;quot;&amp;gt;
+
+    ...
+
+&amp;lt;/beans&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can then create a spring bean from any Seed instance bound with a class name:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;seed:instance id=&amp;quot;myService&amp;quot; class=&amp;quot;org.myorganization.myproject.MyService&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It is equivalent to this Seed injection:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+org.myorganization.myproject.MyService myService;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Named Seed bindings (bound with a &lt;code&gt;@Named&lt;/code&gt; qualifier) are also supported:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;seed:instance id=&amp;quot;myService&amp;quot; class=&amp;quot;org.myorganization.myproject.MyService&amp;quot; qualifier=&amp;quot;myQualifier&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It is equivalent to this Seed injection:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+@Named(&amp;quot;myQualifier&amp;quot;)
+org.myorganization.myproject.MyService myService;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Since Seed can inject Spring beans and Spring can inject Seed instances, there is a circular dependency between the two
+injectors. To alleviate this problem, Seed instances are by default proxied for lazy initialization. It allows Spring to
+initialize its context without needing the Seed injector to be initialized too. You can explicitly disable this proxy:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;seed:instance id=&amp;quot;myService&amp;quot; class=&amp;quot;org.myorganization.myproject.MyService&amp;quot; qualifier=&amp;quot;myQualifier&amp;quot; proxy=&amp;quot;false&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can also inject configuration values directly:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;bean id=&amp;quot;...&amp;quot; class=&amp;quot;...&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;configurationValue&amp;quot;&amp;gt;
+        &amp;lt;seed:configuration key=&amp;quot;org.myorganization.myproject.my-configuration-value&amp;quot;/&amp;gt;
+    &amp;lt;/property&amp;gt;
+&amp;lt;/bean&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It is equivalent to this Seed configuration injection:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Configuration(&amp;quot;org.myorganization.myproject.my-configuration-value&amp;quot;)
+String configurationValue;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Configuration values don&amp;rsquo;t require Seed injector to be initialized and are all available at context initialization. You
+can specify a default value:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;seed:configuration key=&amp;quot;org.myorganization.myproject.my-configuration-value&amp;quot; default=&amp;quot;myDefaultValue&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It is equivalent to this Seed configuration injection:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Configuration(value = &amp;quot;org.myorganization.myproject.my-configuration-value&amp;quot;, defaultValue=&amp;quot;myDefaultValue&amp;quot;)
+String configurationValue;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can control if a property is mandatory with the mandatory attribute (true by default):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;seed:configuration key=&amp;quot;org.myorganization.myproject.my-configuration-value&amp;quot; mandatory=&amp;quot;false&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If no configuration value nor default value is available and the injection is not mandatory, &lt;code&gt;null&lt;/code&gt; will be used.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Batch</title>
+      <link>http://seedstack.org/archives/16.7/addons/spring-bridge/batch/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/spring-bridge/batch/</guid>
+      <description>
+
+&lt;p&gt;A specific Spring-Batch integration is also provided. Spring-Batch is a comprehensive solution to implement full-featured
+batch jobs in Java. More information about Spring Batch on &lt;a href=&#34;http://docs.spring.io/spring-batch/&#34;&gt;http://docs.spring.io/spring-batch/&lt;/a&gt;.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-spring-spring-bridge-batch-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-spring-spring-bridge-batch-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-spring-spring-bridge-batch-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.spring&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;spring-bridge-batch&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-spring-spring-bridge-batch-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.2.1&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-spring-spring-bridge-batch-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-spring-spring-bridge-batch-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-spring-spring-bridge-batch-version, #org-seedstack-addons-spring-spring-bridge-batch-warn&#39;).show(); $(&#39;#org-seedstack-addons-spring-spring-bridge-batch-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-spring-spring-bridge-batch-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.spring:spring-bridge-batch:2.2.1&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;All Spring context XML files &lt;strong&gt;must be&lt;/strong&gt; in under the &lt;code&gt;META-INF/spring&lt;/code&gt; classpath location.&lt;/p&gt;
+
+&lt;h1 id=&#34;running-jobs&#34;&gt;Running jobs&lt;/h1&gt;
+
+&lt;p&gt;The &lt;code&gt;org.seedstack.seed.cli.SeedRunner&lt;/code&gt; class contains a &lt;code&gt;main()&lt;/code&gt; method. Its role is to launch a named command directly
+from the operating system command line. SeedStack Spring Batch support provides the &lt;code&gt;run-job&lt;/code&gt; command to start a Spring
+Batch job:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;java [java-options] org.seedstack.seed.cli.SeedRunner run-job [run-job-options]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will start the Spring Batch job named &lt;code&gt;job&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;options&#34;&gt;Options&lt;/h2&gt;
+
+&lt;p&gt;A number of options are available for customizing the &lt;code&gt;run-job&lt;/code&gt; command behavior:&lt;/p&gt;
+
+&lt;table class=&#34;table table-striped&#34;&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;th&gt;Short option&lt;/th&gt;
+&lt;th&gt;Long option&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-j&lt;/td&gt;
+&lt;td&gt;--job jobName&lt;/td&gt;
+&lt;td&gt;Specify the job to launch by name (&lt;code&gt;job&lt;/code&gt; by default).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-l&lt;/td&gt;
+&lt;td&gt;--jobLauncher jobLauncherName&lt;/td&gt;
+&lt;td&gt;Specify the job launcher by name (&lt;code&gt;jobLauncher&lt;/code&gt; by default).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-P&lt;/td&gt;
+&lt;td&gt;--jobParameters paramName=paramValue&lt;/td&gt;
+&lt;td&gt;Specify a job parameter. Can be used multiple times.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;example&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;Consider the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;java -cp &amp;quot;...&amp;quot; -Dsysprop=sysvalue org.seedstack.seed.cli.SeedRunner run-job --job myJob --jobParameter param1=value1 --jobParameter param2=value2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will execute a Spring Batch job with the following characteristics:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The classpath will be defined by the -cp option of the JVM,&lt;/li&gt;
+&lt;li&gt;A system property &lt;code&gt;sysprop&lt;/code&gt; with the value &lt;code&gt;sysvalue&lt;/code&gt; will be set,&lt;/li&gt;
+&lt;li&gt;The job named &lt;code&gt;myJob&lt;/code&gt; will be executed,&lt;/li&gt;
+&lt;li&gt;Two parameters will be passed to the job: &lt;code&gt;param1&lt;/code&gt; with value &lt;code&gt;value1&lt;/code&gt; and &lt;code&gt;param2&lt;/code&gt; with value &lt;code&gt;value2&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;executable-über-jar&#34;&gt;Executable Über-JAR&lt;/h2&gt;
+
+&lt;p&gt;To run the batch from a unique JAR, you can build the project with the Apache Maven Shade Plugin. This plugin will package
+the artifact as an über JAR with all necessary dependencies. For more information please refer to the plugin
+&lt;a href=&#34;http://maven.apache.org/plugins/maven-shade-plugin/examples/executable-jar.html&#34;&gt;documentation&lt;/a&gt;. You can find a typical
+configuration of the plugin below:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;build&amp;gt;
+    &amp;lt;plugins&amp;gt;
+        &amp;lt;plugin&amp;gt;
+            &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;maven-shade-plugin&amp;lt;/artifactId&amp;gt;
+            &amp;lt;version&amp;gt;...&amp;lt;/version&amp;gt;
+            &amp;lt;configuration&amp;gt;
+                &amp;lt;transformers&amp;gt;
+                    &amp;lt;transformer
+                        implementation=&amp;quot;org.apache.maven.plugins.shade.resource.AppendingTransformer&amp;quot;&amp;gt;
+                        &amp;lt;resource&amp;gt;META-INF/spring.handlers&amp;lt;/resource&amp;gt;
+                    &amp;lt;/transformer&amp;gt;
+
+                    &amp;lt;transformer
+                        implementation=&amp;quot;org.apache.maven.plugins.shade.resource.AppendingTransformer&amp;quot;&amp;gt;
+                        &amp;lt;resource&amp;gt;META-INF/spring.schemas&amp;lt;/resource&amp;gt;
+                    &amp;lt;/transformer&amp;gt;
+
+                    &amp;lt;transformer
+                        implementation=&amp;quot;org.apache.maven.plugins.shade.resource.ManifestResourceTransformer&amp;quot;&amp;gt;
+                        &amp;lt;manifestEntries&amp;gt;
+                            &amp;lt;Main-Class&amp;gt;org.seedstack.seed.cli.SeedRunner&amp;lt;/Main-Class&amp;gt;
+                        &amp;lt;/manifestEntries&amp;gt;
+                    &amp;lt;/transformer&amp;gt;
+
+                    &amp;lt;transformer
+                        implementation=&amp;quot;org.apache.maven.plugins.shade.resource.ServicesResourceTransformer&amp;quot; /&amp;gt;
+                &amp;lt;/transformers&amp;gt;
+            &amp;lt;/configuration&amp;gt;
+            &amp;lt;executions&amp;gt;
+                &amp;lt;execution&amp;gt;
+                    &amp;lt;phase&amp;gt;package&amp;lt;/phase&amp;gt;
+                    &amp;lt;goals&amp;gt;
+                        &amp;lt;goal&amp;gt;shade&amp;lt;/goal&amp;gt;
+                    &amp;lt;/goals&amp;gt;
+                &amp;lt;/execution&amp;gt;
+            &amp;lt;/executions&amp;gt;
+        &amp;lt;/plugin&amp;gt;
+    &amp;lt;/plugins&amp;gt;
+&amp;lt;/build&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;testing&#34;&gt;Testing&lt;/h1&gt;
+
+&lt;p&gt;To be able to do SeedStack integration testing, add the Seed integration test support to your project. Check the
+documentation &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/testing/&#34;&gt;here&lt;/a&gt;. The following example checks that the batch returns
+with the exit code 0 and subsequently that injection works.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import org.seedstack.seed.it.AbstractSeedIT;
+
+public class RunnerBatchIT extends AbstractSeedIT {
+    @Inject
+    MessageService messageService;
+
+    @Test
+    @WithCommandLine(
+        command = &amp;quot;run-job&amp;quot;, 
+        args = {&amp;quot;--job&amp;quot;, &amp;quot;mySimpleJob&amp;quot;}, 
+        expectedExitCode = 0
+    )
+    public void testBatch() {
+        assertThat(messageService).isNotNull();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We could easily use the service (or any injectable class) to check for the batch results. The &lt;code&gt;@WithCommandLine&lt;/code&gt; annotation
+simulates the running of a command from the operating system command line. All the arguments of the &lt;code&gt;run-job&lt;/code&gt; command
+can be used in the &lt;code&gt;args&lt;/code&gt; attribute. Look &lt;a href=&#34;#running-jobs&#34;&gt;here&lt;/a&gt; for information about these arguments.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that the test method is called &lt;strong&gt;after&lt;/strong&gt; the job is completed. &lt;code&gt;@Before&lt;/code&gt; annotated methods are executed after Kernel
+startup (so you can use injection in them) but before job execution (so you can prepare a dataset if needed).&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;full-example&#34;&gt;Full example&lt;/h1&gt;
+
+&lt;p&gt;The goal of this section is to create your first batch. This one-step job will just print “My Simple Job”.&lt;/p&gt;
+
+&lt;h2 id=&#34;add-maven-dependencies&#34;&gt;Add Maven dependencies&lt;/h2&gt;
+
+&lt;p&gt;This example requires &lt;code&gt;business-core&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;spring-batch&amp;lt;/artifactId&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+       &amp;lt;groupId&amp;gt;org.seedstack.business&amp;lt;/groupId&amp;gt;
+       &amp;lt;artifactId&amp;gt;business-core&amp;lt;/artifactId&amp;gt;
+   &amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-the-application-context&#34;&gt;Create the application context&lt;/h2&gt;
+
+&lt;p&gt;We need to set up a Spring Batch environment. Spring files must be in the &lt;code&gt;META-INF/spring&lt;/code&gt; classpath location and end
+with &lt;code&gt;-context.xml&lt;/code&gt; to be automatically detected. The &lt;code&gt;application-context.xml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;beans xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;
+       xmlns:batch=&amp;quot;http://www.springframework.org/schema/batch&amp;quot;
+       xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+       xmlns:seed=&amp;quot;http://www.seedstack.org/xml-schemas/spring-support&amp;quot;
+       xsi:schemaLocation=&amp;quot;http://www.springframework.org/schema/batch
+        http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.seedstack.org/xml-schemas/spring-support
+        http://www.seedstack.org/xml-schemas/spring-support/spring-support-1.1.xsd&amp;quot;&amp;gt;
+
+    &amp;lt;bean id=&amp;quot;jobRepository&amp;quot; class=&amp;quot;org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean&amp;quot;&amp;gt;
+        &amp;lt;property name=&amp;quot;transactionManager&amp;quot; ref=&amp;quot;transactionManager&amp;quot; /&amp;gt;
+    &amp;lt;/bean&amp;gt;
+
+    &amp;lt;bean id=&amp;quot;transactionManager&amp;quot; class=&amp;quot;org.springframework.batch.support.transaction.ResourcelessTransactionManager&amp;quot; /&amp;gt;
+
+    &amp;lt;bean id=&amp;quot;jobLauncher&amp;quot; class=&amp;quot;org.springframework.batch.core.launch.support.SimpleJobLauncher&amp;quot;&amp;gt;
+        &amp;lt;property name=&amp;quot;jobRepository&amp;quot; ref=&amp;quot;jobRepository&amp;quot; /&amp;gt;
+    &amp;lt;/bean&amp;gt;
+&amp;lt;/beans&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Description of the beans:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;JobRepository&lt;/code&gt; : responsible for persistence of batch meta-data information.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;JobLauncher&lt;/code&gt; : responsible for launching the batch job.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;TransactionManager&lt;/code&gt; : As this example won’t be dealing with transactional data, we are using &lt;code&gt;ResourcelessTransactionManager&lt;/code&gt;
+which is mainly used for testing purpose. &lt;strong&gt;Don&amp;rsquo;t use in production&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;create-the-service&#34;&gt;Create the service&lt;/h2&gt;
+
+&lt;p&gt;We will create a service that will be injected directly in a Spring Batch tasklet. The service interface:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.myorg.myapp.domain.services;
+
+import org.seedstack.seed.business.api.Service;
+
+@Service
+public interface MessageService {
+    public String getMessage();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The service implementation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.myorg.myapp.infrastructure.services;
+
+import org.myorg.myapp.domain.services.MessageService;
+
+public class MessageServiceImpl implements MessageService {
+
+    public String getMessage() {
+        return &amp;quot;--- My Simple Job ----&amp;quot;;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-the-tasklet&#34;&gt;Create the Tasklet&lt;/h2&gt;
+
+&lt;p&gt;A tasklet is a Class containing custom logic to be ran as a part of a job. &lt;code&gt;PrintTasklet&lt;/code&gt; is our custom tasklet which
+implements &lt;code&gt;Tasklet&lt;/code&gt; interface and overrides the &lt;code&gt;execute()&lt;/code&gt; method which prints the message from &lt;code&gt;MessageService&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.seedstack.seed.batch.tasklet;
+
+import org.springframework.batch.core.StepContribution;
+import org.springframework.batch.core.scope.context.ChunkContext;
+import org.springframework.batch.core.step.tasklet.Tasklet;
+import org.springframework.batch.repeat.RepeatStatus;
+
+import org.seedstack.seed.service.MessageService;
+
+public class PrintTasklet implements Tasklet {
+
+    private MessageService messageService;
+    private Logger logger = LoggerFactory.getLogger(PrintTasklet.class);
+
+    public RepeatStatus execute(StepContribution contribution,
+            ChunkContext chunkContext) throws Exception {
+        logger.info(messageService.getMessage());
+        return RepeatStatus.FINISHED;
+    }
+
+    public MessageService getMessageService() {
+        return messageService;
+    }
+
+    public void setMessageService(MessageService messageService) {
+        this.messageService = messageService;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;define-the-job-configuration&#34;&gt;Define the job Configuration&lt;/h2&gt;
+
+&lt;p&gt;In this section we will configure the Spring Batch job context to use our Tasklet and inject the &lt;code&gt;MessageService&lt;/code&gt; Service.
+The &lt;code&gt;job-context.xml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;beans xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;
+       xmlns:batch=&amp;quot;http://www.springframework.org/schema/batch&amp;quot;
+       xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+       xmlns:seed=&amp;quot;http://www.seedstack.org/xml-schemas/spring-support&amp;quot;
+       xsi:schemaLocation=&amp;quot;http://www.springframework.org/schema/batch
+        http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.seedstack.org/xml-schemas/spring-support
+        http://www.seedstack.org/xml-schemas/spring-support/spring-support-1.1.xsd&amp;quot;&amp;gt;
+
+    &amp;lt;import resource=&amp;quot;application-context.xml&amp;quot;/&amp;gt;
+
+    &amp;lt;batch:job id=&amp;quot;mySimpleJob&amp;quot;&amp;gt;        
+        &amp;lt;batch:step id=&amp;quot;printStep&amp;quot; &amp;gt;
+            &amp;lt;batch:tasklet&amp;gt;
+                &amp;lt;bean class=&amp;quot;org.seedstack.seed.batch.tasklet.PrintTasklet&amp;quot;&amp;gt;
+                    &amp;lt;property name=&amp;quot;messageService&amp;quot;&amp;gt;
+                        &amp;lt;seed:instance class=&amp;quot;org.seedstack.seed.service.MessageService&amp;quot;/&amp;gt;
+                    &amp;lt;/property&amp;gt;                        
+                &amp;lt;/bean&amp;gt;
+            &amp;lt;/batch:tasklet&amp;gt;
+        &amp;lt;/batch:step&amp;gt;        
+    &amp;lt;/batch:job&amp;gt;
+&amp;lt;/beans&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The example above illustrates the basic structure of a job. A job (&lt;code&gt;&amp;lt;batch:joby&amp;gt;&lt;/code&gt; tag) is made of steps (&lt;code&gt;&amp;lt;batch:step&amp;gt;&lt;/code&gt;
+tag) with a Tasklet (&lt;code&gt;&amp;lt;batch:tasklet&amp;gt;&lt;/code&gt; tag) and irelated beans to be injected. Steps are executed one by one following
+their declared order. For more information, please read the &lt;a href=&#34;http://docs.spring.io/spring-batch/reference/html/index.html&#34;&gt;Spring Batch documentation&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Transactions</title>
+      <link>http://seedstack.org/archives/16.7/addons/spring-bridge/transactions/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/spring-bridge/transactions/</guid>
+      <description>
+
+&lt;p&gt;When using Spring framework along SeedStack, you might need to trigger transactions accross framework boundaries. The Spring bridge add-on provides a solution that goes both ways and lets you choose beteween either:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Managing Spring transactions from Seed code,&lt;/li&gt;
+&lt;li&gt;Managing Seed transactions from Spring code.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;seed-managed-transactions&#34;&gt;Seed-managed transactions&lt;/h1&gt;
+
+&lt;p&gt;You can specify a Spring-based transaction handler in your Seed transaction demarcation by adding the
+&lt;code&gt;@SpringTransactionManager&lt;/code&gt; annotation besides the &lt;code&gt;@Transactional&lt;/code&gt; one.&lt;/p&gt;
+
+&lt;p&gt;You can define any valid Spring transaction manager in any Spring context known by Seed Spring support. Example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot; class=&amp;quot;org.springframework.orm.hibernate3.HibernateTransactionManager&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;sessionFactory&amp;quot; ref=&amp;quot;sessionFactory&amp;quot; /&amp;gt;
+&amp;lt;/bean&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The value of the &lt;code&gt;@SpringTransactionManager&lt;/code&gt; annotation is used to choose the right transaction manager. Its default
+value is &lt;code&gt;transactionManager&lt;/code&gt;. Example of use in an integration test:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@RunWith(SeedITRunner.class)
+public class SpringTransactionHandlerIT {
+
+    @Inject
+    @Named(&amp;quot;customerDao&amp;quot;)
+    CustomerDao customerDao;
+
+    @Test
+    @Transactional
+    @SpringTransactionManager(&amp;quot;myTransactionManager&amp;quot;)
+    public void testTransactional() {
+        Assertions.assertThat(customerDao).isNotNull();
+        Customer customer = new Customer(&amp;quot;john&amp;quot;, &amp;quot;doe&amp;quot;, &amp;quot;john.doe@gmail.com&amp;quot;,
+                null);
+        customerDao.save(customer);
+        customerDao.delete(customer);
+        Assertions.assertThat(customer).isNotNull();
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;spring-managed-transactions&#34;&gt;Spring-managed transactions&lt;/h1&gt;
+
+&lt;p&gt;Seed has the ability to inject a Spring-configured &lt;strong&gt;JPA EntityManger&lt;/strong&gt;  in your Seed components. In that case, Spring will be managing all the JPA transactions. Seed code will be executed whithin Spring transactions. This feature can be very useful in batch jobs, when you need to let Spring manage transactions for performance reasons.&lt;/p&gt;
+
+&lt;h2 id=&#34;spring-configuration&#34;&gt;Spring configuration&lt;/h2&gt;
+
+&lt;p&gt;As stated above Spring will be the one that will manage all JPA features (mapping, transaction &amp;hellip;). As such, your Spring context files need to be configured explicitly with JPA context (JPA Datasources, TransactionManagers, EntityManagerFactories).&lt;/p&gt;
+
+&lt;h2 id=&#34;seed-configuration&#34;&gt;Seed configuration&lt;/h2&gt;
+
+&lt;p&gt;Seed JPA add-on can be removed if possible or at least left unconfigured. Add the following configuration for Spring bridge add-on instead:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.spring]
+manage-transactions = true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

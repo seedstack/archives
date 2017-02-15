@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/testing/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/testing/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Testing</title>
+      <link>http://seedstack.org/archives/16.7/addons/web-services/testing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/web-services/testing/</guid>
+      <description>&lt;p&gt;Web Services can be tested in Seed managed integration tests. You can find more about these kind of tests
+&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/testing/#integration-tests&#34;&gt;here&lt;/a&gt; and &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/testing/#web-integration-tests&#34;&gt;here&lt;/a&gt;.
+You&amp;rsquo;ll find a Web black box example below:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class HelloWSIT extends AbstractSeedWebIT {
+    @Deployment
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class).setWebXML(&amp;quot;WEB-INF/web.xml&amp;quot;);
+    }
+
+    @Test
+    @RunAsClient
+    public void webservice_is_working_correctly(@ArquillianResource URL baseURL)
+    throws Exception {
+    
+        HelloService helloServiceClient = new HelloService();
+        Hello helloServicePort = helloServiceClient.getHelloServicePort();
+        ((BindingProvider)helloServicePort).getRequestContext()
+            .put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, baseURL + &amp;quot;ws/hello&amp;quot;);
+        
+        String response = helloServicePort.sayHello(&amp;quot;World&amp;quot;);
+        Assertions.assertThat(response).isEqualTo(&amp;quot;Hello World&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You have to specify the endpoint using &lt;code&gt;@ArquillianResource URL baseURL&lt;/code&gt;, because Arquillian generates
+a different base URL for each run. You may also create standalone integration tests (outside a Web environment and as such,
+without Arquillian).&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If you need to do manual testing, you can access the WSDL via HTTP at &lt;code&gt;http://{server}:{port}/ws/hello?wsdl&lt;/code&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/imap/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/imap/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/javamail/</link>
+      <pubDate>Sun, 15 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/javamail/</guid>
+      <description>
+
+&lt;p&gt;The JavaMail add-on integrates JavaMail API (JSR 919) with SeedStack. To add the JavaMail add-on to your project, use
+the following dependency snippet:&lt;/p&gt;
+
+&lt;p&gt;&amp;lt;
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-javamail-javamail-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-javamail-javamail-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-javamail-javamail-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.javamail&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;javamail&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-javamail-javamail-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.1.1&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-javamail-javamail-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-javamail-javamail-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-javamail-javamail-version, #org-seedstack-addons-javamail-javamail-warn&#39;).show(); $(&#39;#org-seedstack-addons-javamail-javamail-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-javamail-javamail-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.javamail:javamail:2.1.1&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;You may also need to add the JavaMail API (depending on your runtime environment):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;   &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;javax.mail&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;mail&amp;lt;/artifactId&amp;gt;
+        &amp;lt;version&amp;gt;1.4.7&amp;lt;/version&amp;gt;
+        &amp;lt;scope&amp;gt;provided&amp;lt;/scope&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;You can configure mail providers by using the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.seedstack.seed.mail.providers = myProvider1, myProvider2, myProvider3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;smtp&#34;&gt;SMTP&lt;/h2&gt;
+
+&lt;p&gt;To configure a provider as an SMTP one, use the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.seed.mail.provider.myProvider1.property]
+mail.transport.protocol = smtp
+mail.smtp.host = ...
+mail.smtp.port = ...
+mail.smtp.auth = ...
+mail.smtp.user = ...
+mail.smtp.password = ...
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Any property specified here will be used to configure the corresponding JAVA mail session.&lt;/p&gt;
+
+&lt;h2 id=&#34;imap&#34;&gt;IMAP&lt;/h2&gt;
+
+&lt;p&gt;To configure a provider as an IMAP one, use the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.seed.mail.provider.myProvider2.property]
+mail.store.protocol = imap
+mail.imap.user = ...
+mail.imap.host = ...
+mail.imap.port = ...
+mail.imap.auth.login.disable = ...
+mail.imap.auth.plain.disable = ...
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Any property specified here will be used to configure the corresponding JAVA mail session.&lt;/p&gt;
+
+&lt;h2 id=&#34;pop3&#34;&gt;POP3&lt;/h2&gt;
+
+&lt;p&gt;To configure a provider as a POP3 one, use the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.seed.mail.provider.myProvider3.property]
+mail.store.protocol = pop3
+mail.pop3.user = ...
+mail.pop3.host = ...
+mail.pop3.port = ...
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Any property specified here will be used to configure the corresponding JAVA mail session.&lt;/p&gt;
+
+&lt;h1 id=&#34;testing&#34;&gt;Testing&lt;/h1&gt;
+
+&lt;p&gt;JavaMail add-on provides testing fixtures which enable to emulate an SMTP server and easily assert that your sent mails
+are valid. You can then use the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;javamail.&amp;amp;#8203;test.&amp;amp;#8203;WithMailServer&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/javamail/test/WithMailServer.html&#39;&gt;@WithMailServer&lt;/a&gt;&lt;/code&gt; annotation and the
+&lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;javamail.&amp;amp;#8203;test.&amp;amp;#8203;MessageRetriever&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/javamail/test/MessageRetriever.html&#39;&gt;MessageRetriever&lt;/a&gt;&lt;/code&gt; in your tests:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@WithMailServer(host = &amp;quot;localhost&amp;quot;, port = 6457)
+public class SmtpIT extends AbstractSeedIT {
+    @Inject
+    @Named(&amp;quot;smtp-test&amp;quot;)
+    Session smtpSession;
+
+    @Inject
+    MessageRetriever retriever;
+
+    @Test
+    public void test_send() throws MessagingException {
+        Transport transport = null;
+        try {
+            Message message = new MimeMessage(smtpSession);
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(&amp;quot;...&amp;quot;));
+            message.setFrom(new InternetAddress(&amp;quot;...&amp;quot;));
+            message.setSubject(&amp;quot;...&amp;quot;);
+            message.setText(&amp;quot;...&amp;quot;);
+            message.setSentDate(new Date());
+
+            transport = smtpSession.getTransport();
+            transport.connect();
+            transport.sendMessage(message, message.getAllRecipients());
+        } finally {
+            if (transport != null) {
+                transport.close();
+            }
+        }
+
+        for (Message message : retriever.getSentMessages()) {
+            MockMailServerAssertions.assertThat(message)
+                .hasRecipients(Message.RecipientType.TO);
+            MockMailServerAssertions.assertThat(message)
+                .recipientEqualsTo(Message.RecipientType.TO,
+                        InternetAddress.parse(TestConstantsValues.DEFAULT_RECIPIENT));
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The following configuration is needed to define the &lt;code&gt;smtp-test&lt;/code&gt; session to the corresponding mock mail server:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.seed]
+mail.providers= smtp-test
+
+[org.seedstack.seed.mail.provider.smtp-test.property]
+mail.transport.protocol = smtp
+mail.smtp.host = localhost
+mail.smtp.port = 6457
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

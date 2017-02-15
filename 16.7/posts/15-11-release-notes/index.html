@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    
+
+<title>
+    15.11 release notes
+</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="robots" content="noindex,nofollow">
+
+
+
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,700,300,400" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Bitter:700" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/css/style.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/plugins/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/css/style.css">
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "SoftwareApplication",
+  "name" : "SeedStack",
+  "image" : "http://www.seedstack.org/img/logos/seedstack-logo-round.svg",
+  "publisher" : {
+    "@type" : "Organization",
+    "name" : "Open-Source Software"
+  },
+  "applicationCategory" : "development stack"
+}
+</script>
+
+
+
+<meta property="og:title" content="15.11 release notes" />
+<meta property="og:description" content="We are happy to announce the release of SeedStack 15.11, codenamed &laquo;Hibiscus&raquo;. This new version comes with a new
+add-on architecture and several new features like business framework improvements, a full-featured cryptography
+module and support for several NoSQL technologies." />
+<meta property="og:url" content="http://seedstack.org/archives/16.7/posts/15-11-release-notes/" />
+<meta property="og:site_name" content="SeedStack" />
+<meta property="og:image" content="http://seedstack.org/archives/16.7/img/opengraph-default.png" />
+
+
+
+<link rel="search" type="application/opensearchdescription+xml" href="http://seedstack.org/archives/16.7/opensearch.xml" title="SeedStack" />
+
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="http://seedstack.org/archives/16.7/img/favicons/manifest.json">
+<meta name="apple-mobile-web-app-title" content="SeedStack">
+<meta name="application-name" content="SeedStack">
+<meta name="msapplication-TileColor" content="#00a300">
+<meta name="msapplication-TileImage" content="/img/favicons/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<script type="text/javascript">
+    window.seedstack = {
+        baseUrl: "http:\/\/seedstack.org\/archives\/16.7\/",
+        state: {}
+    };
+</script>
+
+
+</head>
+<body>
+
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5R5FP9"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5R5FP9');</script>
+
+
+<div id="header">
+    <div class="header">
+    <div class="container">
+        <a class="logo" href="http://seedstack.org/archives/16.7/">SeedStack</a>
+        <div class="topbar hidden-xs hidden-sm">
+            <ul class="loginbar pull-right">
+                <li><i class="fa fa-stack-overflow"></i> <a style="color: orange;" target="_blank" href="http://stackoverflow.com/questions/ask?tags=seedstack">Ask a question</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-comments"></i> <a target="_blank" href="https://kiwiirc.com/client/irc.freenode.net#seedstack">Discuss on IRC</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-github"></i> <a target="_blank" href="https://github.com/seedstack">GitHub</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-keyboard-o"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openHelp();">Shortcuts</a></li>
+            </ul>
+        </div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="fa fa-bars"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse navbar-responsive-collapse" data-role="navigation" style="pointer-events: none;">
+        <div class="container">
+            <ul class="nav navbar-nav" style="pointer-events: auto;">
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/getting-started">Getting started</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        Documentation
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://seedstack.org/archives/16.7/docs/seed">Java framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/w20">Web framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/business">Business framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/guides">Guides</a></li>
+                        <li><a target="_blank" href="https://github.com/seedstack/samples">Samples</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/addons">Add-ons</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/themes">Themes</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/posts">Blog</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        More
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="http://seedstack.org/archives/16.7/project/community">Community</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/roadmap">Roadmap</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/faq">FAQ</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/glossary">Glossary</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/tags">Tags</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <i class="search fa fa-search search-btn"></i>
+                    <div class="search-open">
+                        <form method="GET" action="/search">
+                            <div class="input-group animated fadeInDown">
+                                <input id="search-field" type="text" class="form-control" placeholder="Search" name="q">
+                                <span class="input-group-btn">
+                                    <button class="btn-u" type="submit">Go</button>
+                                </span>
+                            </div>
+                        </form>
+                        
+                            
+                        
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+    <div class="title-header small">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-12">
+                <h2>Blog</h2>
+                <p class="hidden-xs">News and articles about SeedStack.</p>
+            </div>
+            <div class="col-md-3 hidden-sm hidden-xs">
+                <div class="header-image-wrapper">
+                    <img class="header-image" src="http://seedstack.org/archives/16.7/img/logos/blog-logo.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="title-subheader">
+        <div class="container">
+            <ul>
+                <li><h3><i class="fa fa-list"></i> <a href="http://seedstack.org/archives/16.7/posts">All posts</a></h3></li>
+                <li><h3 class="active"><i class="fa fa-file-text"></i> <a href="">15.11 release notes</a></h3></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="content" class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="content-wrapper">
+                <div class="doc-content">
+                    <p>We are happy to announce the release of SeedStack 15.11, codenamed &laquo;Hibiscus&raquo;. This new version comes with a new
+add-on architecture and several new features like business framework improvements, a full-featured cryptography
+module and support for several NoSQL technologies.</p>
+
+<h1 id="automatic-upgrade">Automatic upgrade</h1>
+
+<p>The vast majority of upgrade tasks can be carried-on by our automatic upgrade tool. To automatically upgrade your project
+download the tool executable available <a href="https://github.com/seedstack/tools/releases">here</a>, go to your project root directory
+and execute the following command line:</p>
+
+<pre><code class="language-plain">seed -t https://raw.githubusercontent.com/seedstack/distribution/master/upgrades/15.7-to-15.11-upgrade.toml fix
+</code></pre>
+
+<p>Note that a small amount of tasks cannot be done automatically by the upgrade tool and must be applied manually. The rest
+of this post describes all changes made by the tool but also details the eventual changes you need to apply.</p>
+
+<h1 id="changes">Changes</h1>
+
+<h2 id="add-on-architecture">Add-on architecture</h2>
+
+<p>A lot of modules have been extracted as add-ons. As such the foundation frameworks are lighter and simpler to understand.
+The full list of available add-ons is available <a href="http://seedstack.org/archives/16.7/addons">here</a>. Click on the add-on title to access
+its documentation.</p>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>The refactoring into add-ons doesn&rsquo;t induce any behavior breaking change. These changes are automatically done by the upgrade
+tool but some cleanup may be required:</p>
+
+<ul>
+<li>Some previous dependencies have been merged into a unique dependency and the tool is currently unable to eliminate the
+leftover duplicates. <strong>Please check your POM files for duplicate dependencies.</strong> Don&rsquo;t forget that some dependencies can
+be duplicated through inheritance.</li>
+<li>Business framework JPA-specific classes have been moved to the JPA add-on. As such the tool will convert any <code>business-jpa</code>
+dependency into a <code>jpa</code> add-on dependency. If you did not also have the <code>business-core</code> dependency in the first place, it
+will be missing: add it manually if you&rsquo;re in that case.</li>
+</ul>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="simplified-packaging">Simplified packaging</h2>
+
+<p>We have also simplified our package naming conventions. All the APIs of a module are under the package <code>org.seedstack.[modulename]</code>.
+For instance <code>org.seedstack.jpa</code> for the JPA add-on or <code>org.seedstack.business</code> for the business framework. The <code>api</code>
+sub-package has been merged into the module top-level package. When an SPI is provided, it is still located under
+<code>org.seedstack.[modulename].spi</code>. Finally all internal classes are located under <code>org.seedstack.[modulename].internal</code>.
+<strong>No compatibility is guaranteed for internal classes so your code should never rely on them.</strong></p>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>The simplified packaging doesn&rsquo;t induce any behavior breaking change. These changes are automatically done by the upgrade
+tool.</p>
+
+        </div>
+    </div>
+</div>
+
+<div class="callout callout-tips">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+                <i class="fa fa-lightbulb-o icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>As the package layout is simpler, we decided to aggregate the Javadoc for the whole distribution (foundation frameworks
+and official add-ons) into a <a href="/javadoc">unique aggregated Javadoc</a>.</p>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="simplified-configuration">Simplified configuration</h2>
+
+<p>The configuration prefixes have also been updated to reflect these changes. This:</p>
+
+<pre><code class="language-ini">org.seedstack.seed.persistence.jpa.units
+org.seedstack.seed.persistence.jdbc.datasources
+</code></pre>
+
+<p>Becomes:</p>
+
+<pre><code class="language-ini">org.seedstack.jpa.units
+org.seedstack.jdbc.datasources
+</code></pre>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>These changes are automatically done by the upgrade tool but some cleanup may be required. If a part of a key is defined
+as a section, the upgrade tool may not recognize it:</p>
+
+<pre><code class="language-ini">[org.seedstack.seed.persistence]
+jpa.units
+jdbc.datasources
+</code></pre>
+
+<p>In this case, as the keys are broken apart, the tool cannot recognize the whole key and will not replace it. Please
+review your configuration files for any occurence of this case.</p>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="dependency-management">Dependency management</h2>
+
+<p>To avoid leaking dependency management in your projects, we have removed it all from SeedStack modules. Of course, the
+distribution BOM still exists but importing it will not manage dependencies outside the SeedStack itself.</p>
+
+<p>In the same reduction spirit, we have removed a lot of libraries bring by Seed. If you rely on some of them for your
+project add their version explicitly in your <code>pom.xml</code> file.</p>
+
+<h2 id="dependency-reduction">Dependency reduction</h2>
+
+<p>To reduce the footprint of SeedStack we removed dependencies that were not strictly necessary. Please add the required
+one(s) back to your <code>pom.xml</code>:</p>
+
+<p>Compile scope:</p>
+
+<pre><code class="language-plain">commons-beanutils:commons-beanutils:1.8.3
+org.json:json:20140107
+commons-lang:commons-lang:2.6
+</code></pre>
+
+<p>Test scope:</p>
+
+<pre><code class="language-plain">commons-io:commons-io:2.4
+pl.pragmatists:JUnitParams:1.0.3
+org.easytesting:fest-reflect:1.4.1
+org.json:json:20140107
+org.jukito:jukito:1.1
+org.hamcrest:hamcrest-core:1.3
+org.hamcrest:hamcrest-library:1.3
+org.powermock:powermock-core:1.6.2
+org.powermock:powermock-api-mockito:1.6.2
+org.powermock:powermock-module-junit4:1.6.2
+org.skyscreamer:jsonassert:1.2.3
+</code></pre>
+
+<h2 id="w20-fragments-refactoring">W20 fragments refactoring</h2>
+
+<p>The W20 framework has been further modularized:</p>
+
+<ul>
+<li>Every fragment has become an addon to the exception of the core fragment which is mandatory.</li>
+<li>The <code>w20-ui</code> fragment has been <strong>removed</strong> and its rich components (UI-Grid and UI-Select) have been moved to a new <code>w20-components</code>
+fragment. Its CSS framework-independent code has been merged into <code>w20-core</code>. Bootstrap 3 and UI-Bootstrap have been
+moved to a new <code>w20-bootstrap-3</code> fragment.</li>
+<li>The <code>w20-components</code> fragment is new and contains the UI-Grid and UI-Select rich components previously found in the <code>w20-ui</code>
+fragment.</li>
+<li>The <code>w20-bootstrap-3</code> fragment is new and contains the Bootstrap 3 CSS framework with its corresponding UI-Bootstrap helper.</li>
+<li>The <code>w20-bootstrap-2</code> fragment is new and contains the Bootstrap 2 CSS framework with its corresponding UI-Bootstrap helper.</li>
+<li>The <code>w20-material</code> fragment is new and contains the Angular Material CSS framework.</li>
+</ul>
+
+<p>This allows to use alternative CSS frameworks with W20 such as the older Bootstrap 2 for compatibility purposes or
+<a href="https://material.angularjs.org/">Angular Material</a> to easily implement <a href="https://www.google.com/design/spec/material-design/introduction.html">material design</a>.
+Bootstrap 4 support will be introduced as a fragment when released.</p>
+
+<p>For <code>w20-bridge-addon</code> user, it is necessary to include the additional fragments which was all previously distributed by the <code>w20-bridge-web</code>artifact. For instance, this is the declaration necessary for including the w20-core, w20-dataviz, w20-bootstrap-3 and w20-business-theme fragments in maven:</p>
+
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.seedstack.addons.w20&lt;/groupId&gt;
+    &lt;artifactId&gt;w20-bridge-web&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.seedstack.addons.w20&lt;/groupId&gt;
+    &lt;artifactId&gt;w20-bridge-web-dataviz&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.seedstack.addons.w20&lt;/groupId&gt;
+    &lt;artifactId&gt;w20-bridge-web-bootstrap-3&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.seedstack.addons.w20&lt;/groupId&gt;
+    &lt;artifactId&gt;w20-bridge-web-business-theme&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<h1 id="new-features">New features</h1>
+
+<h2 id="cryptography">Cryptography</h2>
+
+<p>Seed provides a new <a href="http://seedstack.org/archives/16.7/docs/seed/manual/crypto/">cryptography module</a> which allow you to easily configure and use keystores.
+It also provides a simpler API to encrypt and decrypt data.</p>
+
+<h2 id="domain-registry">Domain registry</h2>
+
+<p>A domain registry has been added to the Business framework. It allows to dynamically retrieve a domain object instance.
+This is particularly useful when you have multiple implementations for the same interface and you need to programatically
+choose a specific implementation. The is often the case for policies. For instance, if you want to choose a tax policy
+according the user&rsquo;s locale, you can do it as follows:</p>
+
+<pre><code class="language-java">TaxPolicy taxPolicy = domainRegistry.getPolicy(TaxPolicy.class, userLocale);
+</code></pre>
+
+<p>A static equivalent would be limited to an hard-coded locale value:</p>
+
+<pre><code class="language-java">@Inject
+@Named(&quot;fr&quot;)
+TaxPolicy taxPolicy;
+</code></pre>
+
+<div class="callout callout-tips">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+                <i class="fa fa-lightbulb-o icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>This new registry can be used for factories, policies, repositories and services.</p>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="spring-managed-jpa-transactions">Spring-managed JPA transactions</h2>
+
+<p>When using the Spring-bridge add-on, you can now let Spring manage the JPA transactions across framework boundaries.
+In this case, Seed code will be injected with a Spring-managed JPA entity manager instead of the Seed-managed one. This
+is particularly useful in Spring batch jobs where there are clear performance benefits to let Spring batch manage the
+transactions. More information about this feature <a href="http://seedstack.org/archives/16.7/addons/spring-bridge/transactions/">here</a>.</p>
+
+<h2 id="nosql-add-ons">NoSQL add-ons</h2>
+
+<p>Three new add-ons are now provided to use popular NoSQL databases:</p>
+
+<ul>
+<li><a href="http://seedstack.org/archives/16.7/addons/mongodb/">MongoDB add-on</a>,</li>
+<li><a href="http://seedstack.org/archives/16.7/addons/redis/">Redis add-on</a>,</li>
+<li><a href="http://seedstack.org/archives/16.7/addons/neo4j/">Neo4J add-on</a>,</li>
+</ul>
+
+<h2 id="solr-add-on">Solr add-on</h2>
+
+<p>A <a href="http://seedstack.org/archives/16.7/addons/solr/">Solr add-on</a> is now provided to access Solr indexing servers.</p>
+
+<h1 id="component-versions">Component versions</h1>
+
+<h2 id="base">Base</h2>
+
+<ul>
+<li>poms: 2.1.1</li>
+<li>seed: 2.1.0</li>
+<li>business: 2.1.0</li>
+<li>w20: 2.1.1</li>
+</ul>
+
+<h2 id="add-ons">Add-ons</h2>
+
+<ul>
+<li>audit-addon: 2.1.0</li>
+<li>monitoring-addon: 2.1.0</li>
+<li>elasticsearch-addon: 2.1.0</li>
+<li>i18n-addon: 2.1.0</li>
+<li>io-addon: 2.1.0</li>
+<li>javamail-addon: 2.1.0</li>
+<li>jcache-addon: 2.1.0</li>
+<li>jdbc-addon: 2.1.1</li>
+<li>jms-addon: 2.1.0</li>
+<li>jpa-addon: 2.1.1</li>
+<li>ldap-addon: 2.1.0</li>
+<li>mongodb-addon: 1.0.0</li>
+<li>neo4j-addon: 1.0.0</li>
+<li>redis-addon: 1.0.0</li>
+<li>scheduling-addon: 2.1.0</li>
+<li>solr-addon: 1.0.0</li>
+<li>spring-bridge-addon: 2.2.0</li>
+<li>validation-addon: 2.1.0</li>
+<li>w20-bridge-addon: 2.1.1</li>
+<li>web-services-addon: 2.1.1</li>
+<li>w20-extras: 2.1.0</li>
+<li>w20-dataviz: 2.1.0</li>
+<li>w20-material: 2.1.1</li>
+<li>w20-components: 2.1.1</li>
+<li>w20-bootstrap-2: 2.1.1</li>
+<li>w20-bootstrap-3: 2.1.1</li>
+</ul>
+
+<h2 id="themes">Themes</h2>
+
+<ul>
+<li>w20-simple-theme: 3.1.0</li>
+<li>w20-business-theme: 1.1.0</li>
+</ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="side-menu">
+                <div class="list-group">
+                    <ul class="nav">
+                        <li class="list-group-item"><div style="margin-bottom: 10px;"><i class="fa fa-tag"></i> Tags</div>
+                            <div class="tags">
+                                
+                                <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/release">Release</a>
+                                
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer">
+    <div class="footer-v3">
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="headline"><h2>About</h2></div>
+                    <p class="margin-bottom-25 md-margin-bottom-40">SeedStack is an Open-Source enterprise-class development stack for building modern and robust applications.</p>
+                </div>
+
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="posts">
+                        <div class="headline"><h2>License</h2></div>
+                        <p>
+                            Code licensed under the <a href="https://www.mozilla.org/MPL/2.0" target="_blank">Mozilla Public License 2.0</a>.
+                            <br/>
+                            Documentation licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 map-img">
+                    <div class="headline"><h2>Contact us</h2></div>
+                    <address>
+                        <p>
+                            IRC channel <a href="irc://chat.freenode.net/seedstack">#seedstack on Freenode community</a>
+                            <br/>
+                            Google group <a href="https://groups.google.com/forum/#!forum/seedstack">seedstack@googlegroups.com</a>
+                        </p>
+                    </address>
+
+                    <div class="headline"><h2>Stay in touch</h2></div>
+                    <div style="margin-bottom: 20px;">
+                        <a class="twitter-follow-button"
+                           href="https://twitter.com/seedstack"
+                           data-show-count="false"
+                           data-lang="en">
+                            Follow @seedstack
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<div id="hotkeys-modal" class="modal">
+    <div class="modal-dialog" style="min-width: 960px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Keyboard shortcuts <a id="show-all-shortcuts" style="cursor: pointer;" onclick="seedstack.ui.showAllShortcuts();">(Show all)</a></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Global shortcuts</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>?</kbd>
+                                </td>
+                                <td>Show this help dialog</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>/</kbd>
+                                </td>
+                                <td>Focus the search field</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↑</kbd>
+                                </td>
+                                <td>Go to previous menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↓</kbd>
+                                </td>
+                                <td>Go to next menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>S</kbd>
+                                </td>
+                                <td>Go to Seed framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>W</kbd>
+                                </td>
+                                <td>Go to W20 framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>B</kbd>
+                                </td>
+                                <td>Go to Business framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>A</kbd>
+                                </td>
+                                <td>Go to add-ons</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>G</kbd>
+                                </td>
+                                <td>Go to guides</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Seed framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>t</kbd>
+                                </td>
+                                <td>Go to testing</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to cryptography</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>w</kbd>
+                                </td>
+                                <td>Go to Web</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>r</kbd>
+                                </td>
+                                <td>Go to REST</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>o</kbd>
+                                </td>
+                                <td>Go to operations</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>T</kbd>
+                                </td>
+                                <td>Go to transactions</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Business framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>m</kbd>
+                                </td>
+                                <td>Go to model</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>l</kbd>
+                                </td>
+                                <td>Go to lifecycle</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>e</kbd>
+                                </td>
+                                <td>Go to events</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>p</kbd>
+                                </td>
+                                <td>Go to policies</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>a</kbd>
+                                </td>
+                                <td>Go to assemblers</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>f</kbd>
+                                </td>
+                                <td>Go to finders</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>P</kbd>
+                                </td>
+                                <td>Go to pagination</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>W20 framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to culture</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>h</kbd>
+                                </td>
+                                <td>Go to hypermedia</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>u</kbd>
+                                </td>
+                                <td>Go to UI</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="versions-modal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 id="versions-title" class="modal-title">Fetching components...</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="versions-table" class="table table-striped table-hover table-bordered">
+                            <tr>
+                                <th>Component</th>
+                                <th>Version</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/github.min.css">
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mousetrap/1.4.6/mousetrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lunr.js/0.5.9/lunr.min.js"></script>
+<script src="/assets/unify/plugins/smoothScroll.js"></script>
+<script src="/js/xml2json.js"></script>
+<script src="/js/jquery.highlight.js"></script>
+<script src="/js/seedstack.js"></script>
+<script>
+    $(document).ready(function () {
+        var $search = $('.search-btn');
+
+        $('.search').click(function () {
+            if ($search.hasClass('fa-search')) {
+                seedstack.ui.openSearch();
+            } else {
+                seedstack.ui.closeSearch();
+            }
+        });
+
+        $('pre code').each(function (i, block) {
+            hljs.highlightBlock(block);
+        });
+
+        $('.side-menu').affix({
+            offset: {
+                top: $('#header').height() + 20,
+                bottom: $('#footer').height() + 40
+            }
+        });
+
+        Mousetrap.bind('/', function () {
+            seedstack.ui.openSearch();
+            return false;
+        });
+
+        Mousetrap.bind('alt+up', function () {
+            if (seedstack.state.previousPage) {
+                window.location = seedstack.state.previousPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('alt+down', function () {
+            if (seedstack.state.nextPage) {
+                window.location = seedstack.state.nextPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('?', function () {
+            seedstack.ui.openHelp();
+            return false;
+        });
+
+        Mousetrap.bind('esc', function () {
+            seedstack.ui.closeHelp();
+            seedstack.ui.closeSearch();
+            return false;
+        });
+
+        var originalCallback = Mousetrap.stopCallback;
+        Mousetrap.stopCallback = function (e, element, combo) {
+            if (combo === 'esc') {
+                return false;
+            }
+
+            return originalCallback(e, element, combo);
+        };
+
+        function bindShortcuts(value) {
+            $.each(value, function (sequence, item) {
+                if (typeof item === 'string') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item;
+                        return false;
+                    });
+                } else if (typeof item === 'object') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item.path;
+                        return false;
+                    });
+                    if (item.shortcuts && location.pathname.indexOf(item.path) === 0) {
+                        bindShortcuts(item.shortcuts);
+                    }
+                }
+            });
+        }
+
+        function resolveVersions() {
+            var $versionsTitle = $('#versions-title');
+            if (!seedstack.versions) {
+                $.ajax({
+                    dataType: 'text',
+                    url: '/distribution.pom.xml'
+                }).done(function (data) {
+                    var pom = new X2JS().xml_str2json(data);
+
+                    if (pom.project && pom.project.properties && pom.project.version) {
+                        var $versions = $('#versions-table');
+                        var blackList = ['seedstack-maven-plugin', 'java-compiler', 'maven-failsafe-plugin', 'logback'];
+                        var versions = {};
+
+                        $versionsTitle.text("SeedStack " + pom.project.version);
+
+                        $.each(pom.project.properties, function (name, value) {
+                            if (/\.version$/.test(name)) {
+                                var shortName = name.substr(0, name.indexOf('.version'));
+                                if ($.inArray(shortName, blackList) === -1) {
+                                    versions[shortName] = value;
+                                    $versions.append(
+                                            '<tr>' +
+                                            '<td>' +
+                                            shortName.substr(0, 1).toUpperCase() + shortName.substr(1, shortName.length - 1).replace(/-/g, ' ') +
+                                            '</td>' +
+                                            '<td>' + value + '</td>' +
+                                            '</tr>');
+                                }
+                            }
+                        });
+
+                        $('.loginbar').prepend(
+                                '<li class="hidden-xs hidden-sm"><i class="fa fa-tag"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openVersions();">Latest version: ' + pom.project.version + '</a></li>' +
+                                '<li class="topbar-devider"></li>'
+                        );
+
+                        seedstack.versions = versions;
+                    }
+                }).error(function () {
+                    console.error("SeedStack version could not be resolved");
+                });
+            }
+        }
+
+        bindShortcuts(seedstack.ui.shortcuts);
+
+        resolveVersions();
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $('#hotkeys-modal, #versions-modal').bind('hidden.bs.modal', function () {
+            $("html").css("margin-right", "0px");
+        }).bind('show.bs.modal', function () {
+            $("html").css("margin-right", "-15px");
+        });
+
+        var query = seedstack.strings.parseQueryString(location);
+        if (query.h && query.h.length > 0) {
+            $('.doc-content').highlight(query.h);
+            if (query.scroll) {
+                $('html, body').animate({
+                    scrollTop: $('span[class=highlight]:first').offset().top - 20
+                }, 250);
+            }
+        }
+    });
+</script>
+<script>window.twttr = (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+    if (d.getElementById(id))return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    t._e = [];
+    t.ready = function (f) {
+        t._e.push(f);
+    };
+    return t;
+}(document, "script", "twitter-wjs"));</script>
+
+</body>
+</html>

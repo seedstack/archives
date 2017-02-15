@@ -1,0 +1,1540 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/resource/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/resource/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Hypermedia</title>
+      <link>http://seedstack.org/archives/16.7/docs/w20/manual/hypermedia/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/w20/manual/hypermedia/</guid>
+      <description>&lt;p&gt;Hypermedia is a powerful aspect of the REST architectural style. A client application can consume and navigate through
+REST resources via structured links relations. Navigation through APIs resemble web navigation: from a web page it is
+possible to follow links to new documents. In the same way, hypermedia provides a mechanism to interact with remote data
+with navigation and discovery in mind.&lt;/p&gt;
+
+&lt;p&gt;For an overview of this concept, please refer to the documentation of the Java framework &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/rest/#designing-restful-api&#34;&gt;Restful API&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;hypermedia-module&#34;&gt;Hypermedia module&lt;/h1&gt;
+
+&lt;p&gt;To enable the hypermedia module, declare it in the core fragment configuration.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&amp;quot;hypermedia&amp;quot;: {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Available configuration for this module is provided below along with short introductions to
+the hypermedia formats supported.&lt;/p&gt;
+
+&lt;h1 id=&#34;json-home&#34;&gt;JSON-HOME&lt;/h1&gt;
+
+&lt;p&gt;The MIME type &lt;a href=&#34;http://tools.ietf.org/html/draft-nottingham-json-home-03&#34;&gt;application/json-home&lt;/a&gt; specify a
+document &amp;laquo;map&amp;raquo; of resources  that can serve as entry points for clients into an hypermedia api.&lt;/p&gt;
+
+&lt;h2 id=&#34;json-home-sample-catalog-and-product&#34;&gt;Json-home sample: catalog and product&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;    {
+        &amp;quot;resources&amp;quot;: {
+            &amp;quot;catalog&amp;quot;: {
+                &amp;quot;href&amp;quot;: &amp;quot;api/products&amp;quot;
+            },
+            &amp;quot;product&amp;quot;: {
+                &amp;quot;href-template&amp;quot;: &amp;quot;api/product/{name}&amp;quot;,
+                &amp;quot;href-vars&amp;quot;: {
+                    &amp;quot;name&amp;quot;: &amp;quot;api/doc/param/name&amp;quot;
+                }
+            }
+        }
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this scenario a client can enter a commercial api by requesting the json home document which will provide it
+with two &lt;strong&gt;&lt;em&gt;relations&lt;/em&gt;&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;&amp;laquo;catalog&amp;raquo;&lt;/em&gt;&lt;/strong&gt; with an URI defined in the &lt;strong&gt;&lt;em&gt;href&lt;/em&gt;&lt;/strong&gt; property which, when queried, could for instance return a
+list of available products in the catalog.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;&amp;laquo;product&amp;raquo;&lt;/em&gt;&lt;/strong&gt; with an &lt;a href=&#34;https://tools.ietf.org/html/rfc6570&#34;&gt;URI template&lt;/a&gt; defined in the &lt;strong&gt;&lt;em&gt;href-template&lt;/em&gt;&lt;/strong&gt;
+property which uses the name of a product as a criteria for the query. Note that since we are using an
+URI template, the property is href-template instead of href. Now, how should this parameter be used ? Whether by
+implicit knowledge or through documentation for parameters that can be provided in a &lt;strong&gt;&lt;em&gt;href-vars&lt;/em&gt;&lt;/strong&gt; property.
+This allows client to discover the usability of an api by querying the URL at this location.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;More information can be provided in a json home document such as &lt;strong&gt;&lt;em&gt;hints&lt;/em&gt;&lt;/strong&gt; for available actions on the resource
+and/or accepted format. We advice you to take a look at the specification for an exhaustive documentation of the
+json home document type.&lt;/p&gt;
+
+&lt;h2 id=&#34;configuring-json-home-endpoints&#34;&gt;Configuring Json home endpoints&lt;/h2&gt;
+
+&lt;p&gt;In your hypermedia module declaration of the core fragment, specify the api endpoint which exposes your json-home
+resources with the &lt;code&gt;api&lt;/code&gt; property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&amp;quot;api&amp;quot;: {
+    &amp;quot;myFirstApi&amp;quot;: &amp;quot;http://domain:port/&amp;quot;,
+    &amp;quot;mySecondApi&amp;quot;: &amp;quot;/&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can specify a full absolute url (starting with the http/https protocol) or an absolute url (starting with &amp;laquo;/&amp;raquo;).
+In the last case, the domain and port from which the application is served will be used as the hostname of the api.&lt;/p&gt;
+
+&lt;h2 id=&#34;using-aliases&#34;&gt;Using aliases&lt;/h2&gt;
+
+&lt;p&gt;You can use alias for your api endpoint to refer to a previously declared api.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&amp;quot;api&amp;quot;: {
+    &amp;quot;namedAlias&amp;quot;: &amp;quot;http://domain:port/&amp;quot;,
+    &amp;quot;myApi&amp;quot;: &amp;quot;@namedAlias&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is one default alias &lt;code&gt;@home&lt;/code&gt; which resolve to &lt;strong&gt;&lt;em&gt;/&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&amp;quot;api&amp;quot;: {
+    &amp;quot;home&amp;quot;: &amp;quot;@home&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;homeservice&#34;&gt;HomeService&lt;/h2&gt;
+
+&lt;p&gt;The &lt;code&gt;HomeService&lt;/code&gt; allows you to interact with the declared api endpoint(s). All endpoint declared in the manifest
+are automatically registered. To access an api use the following declaration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;homeService(&#39;&amp;lt;api&amp;gt;&#39;); //&amp;lt;api&amp;gt; is the property used to reference the api URL
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The service has 3 methods:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;enter(api, parameters, actions, options)&lt;/code&gt;: Provide a modified $resource object configured from a registered home
+resource. It signature is the same as the $resource service of AngularJS but instead of providing a url as the first
+parameter, you provide the name of the wanted relation provided in the Json home document. Another important difference
+is that only the get method is available by default on the returned object since it is used only for retrieving entry
+point resources.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;homeService(&#39;myApi&#39;).enter(&#39;catalog&#39;).get(function (products) {
+    ...
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;register(jsonHomeResource)&lt;/code&gt;: Programmatically register a new resource. The resource should respect the format for
+a Json-home document resource.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;homeService(&#39;myApi&#39;).register({
+    &amp;quot;someNewResource&amp;quot;: {
+        &amp;quot;href&amp;quot;: &amp;quot;/some/url/&amp;quot;
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;getDefinition(resourceNAme)&lt;/code&gt;: Return the definition of the resource.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;homeService(&#39;myApi&#39;).getDefinition(&#39;someNewResource&#39;); 
+// { &amp;quot;href&amp;quot;: &amp;quot;/some/url/&amp;quot; }
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;hal-hypertext-application-language&#34;&gt;HAL (Hypertext Application Language)&lt;/h1&gt;
+
+&lt;p&gt;W20 provide support for &lt;a href=&#34;http://stateless.co/hal_specification.html&#34;&gt;application/hal+json&lt;/a&gt; resources. If Json home
+document constitute a &amp;laquo;map&amp;raquo; of the available entry points to the api, HAL is the format for these entry points and
+any subsequent resources obtained by following the links provided in these resources. Check the example below:&lt;/p&gt;
+
+&lt;h2 id=&#34;hal-sample-querying-products&#34;&gt;HAL sample: querying products&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;currentPage&amp;quot;: 1,
+  &amp;quot;totalProduct&amp;quot;: 20,
+  &amp;quot;_links&amp;quot;: {
+    &amp;quot;self&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/api/products?page=1&amp;quot;
+    },
+    &amp;quot;next&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/api/products?page=2&amp;quot;
+    },
+    &amp;quot;find&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/api/products{?q}&amp;quot;,
+      &amp;quot;templated&amp;quot;: true
+    }
+  },
+  &amp;quot;_embedded&amp;quot;: {
+    &amp;quot;products&amp;quot;: [
+      {
+        &amp;quot;name&amp;quot;: &amp;quot;myProduct&amp;quot;,
+        &amp;quot;_links&amp;quot;: {
+          &amp;quot;self&amp;quot;: {
+            &amp;quot;href&amp;quot;: &amp;quot;/api/product/myProduct&amp;quot;
+          }
+        },
+        &amp;quot;_embedded&amp;quot;: {
+          &amp;quot;related&amp;quot;: [
+            {
+              &amp;quot;name&amp;quot;: &amp;quot;productRelatedToMyProduct&amp;quot;,
+              &amp;quot;_links&amp;quot;: {
+                &amp;quot;self&amp;quot;: {
+                  &amp;quot;href&amp;quot;: &amp;quot;/api/product/myProduct/related&amp;quot;
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;HAL document must validate against the JSON specification and contains two important recognizable fields:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;_links&lt;/em&gt;&lt;/strong&gt; which is mandatory and must contain at the very least a &lt;strong&gt;&lt;em&gt;&amp;laquo;self&amp;raquo;&lt;/em&gt;&lt;/strong&gt; property which reference
+the resource itself. Additional links constitute the actual power of hypermedia: they provide additional resources
+in the form of named actions/resources. In this example two actions are available: going to the next page by following
+the &amp;laquo;next&amp;raquo; links or finding a product through the &amp;laquo;find&amp;raquo; links. This last one uses URI template to define
+the available query parameter.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;_embedded&lt;/em&gt;&lt;/strong&gt; is not mandatory but allow to provide embedded resources directly in the response. In this example
+we embedded a list of products (with one element). Each embedded resources respect itself the HAL specification
+so it must contain a &amp;laquo;_links&amp;raquo; with a reference to itself and optional embedded resources.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;usage&#34;&gt;Usage&lt;/h2&gt;
+
+&lt;p&gt;When a resource is served with the application/hal+json MIME type, the hypermedia module will intercept the response
+and return a $resource object augmented with two additional methods:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;$links(link, parameters, actions, options)&lt;/code&gt;: This method has the same signature as $resource but will use the name
+of the links instead of the url. Suppose we return the HAL document above when querying the catalog api. We can get
+the next page by following the &amp;laquo;next&amp;raquo; link.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;homeService(&#39;myApi&#39;).enter(&#39;catalog&#39;).get(function (products) {
+
+    var nextProductPage = products.$links(&#39;next&#39;).get();
+
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If the $links method is called without parameter, it returns a list of the available links on the resource.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;$embedded(name)&lt;/code&gt;: If the resource contains embedded items, they can be accessed with this method. Suppose we
+return the HAL document above when querying the catalog api. We can get the embedded items with the following
+declaration&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;homeService(&#39;myApi&#39;).enter(&#39;catalog&#39;).get(function (products) {
+
+    var embeddedProducts = products.$embedded(&#39;products&#39;);
+    console.info(embeddedProducts.name); // &amp;quot;myProduct&amp;quot;
+    
+    var relatedProducts = embeddedProducts.$embedded(&#39;related&#39;)[0].$links(&#39;self&#39;).get();
+    
+    // the last line will GET /api/product/myProduct/related
+
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note: Although we used the HomeService in these example to start querying the api, it is not an obligation. Provided
+that a resource is served with the MIME type application/hal+json, we could have used a simple $resource object to
+start querying the api with a url.&lt;/p&gt;
+
+&lt;h1 id=&#34;manual-interception&#34;&gt;Manual interception&lt;/h1&gt;
+
+&lt;p&gt;By default if the hypermedia module is configured and a resource is served with the MIME type application/hal+json, the
+response will automatically be intercepted and processed according to what we said above. If you want to disable this
+behavior and intercept response manually you need to set the &lt;code&gt;interceptAll&lt;/code&gt; property to false in the hypermedia module
+configuration.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&amp;quot;hypermedia&amp;quot;: {
+    &amp;quot;interceptAll&amp;quot;: false
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To do a manual interception you then need to inject the &lt;code&gt;HypermediaRestAdapter&lt;/code&gt; and use it as follow:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;HypermediaRestAdapter.process(response.data).then(function (processedResponse) {
+    ...
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;additional-configuration&#34;&gt;Additional configuration&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&amp;quot;hypermedia&amp;quot;: {
+    &amp;quot;api&amp;quot;: { // key-value pair of api endpoint name and url },
+    &amp;quot;interceptAll&amp;quot;: true, (default)  // Intercept all hal+json response automatically
+    &amp;quot;linksKey&amp;quot;: &amp;quot;_links&amp;quot;, (default) // Rename the links key
+    &amp;quot;linksHrefKey&amp;quot;: &amp;quot;href&amp;quot;, (default) // Rename the href key
+    &amp;quot;linksSelfLinkName&amp;quot;: &amp;quot;self&amp;quot;, (default) // Rename self link
+    &amp;quot;embeddedKey&amp;quot;: &amp;quot;_embedded&amp;quot;, (default) // Rename embedded key
+    &amp;quot;embeddedNewKey&amp;quot;: &amp;quot;$embedded&amp;quot;, (default) // Rename the embedded function
+    &amp;quot;resourcesKey&amp;quot;: &amp;quot;$links&amp;quot;, (default) // Rename the links function
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>REST</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/manual/rest/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/manual/rest/</guid>
+      <description>&lt;p&gt;Seed provides support for &lt;a href=&#34;https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm&#34;&gt;Representational State Transfer&lt;/a&gt; (REST) architectural style through the &lt;strong&gt;JAX-RS&lt;/strong&gt;
+specification. Implementation rely on &lt;a href=&#34;https://jersey.java.net/&#34;&gt;Jersey&lt;/a&gt;. To enable REST support in your project, add
+the &lt;code&gt;seed-rest-jersey2&lt;/code&gt; module.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-rest-jersey2-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-rest-jersey2-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-seed-seed-rest-jersey2-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;seed-rest-jersey2&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-seed-seed-rest-jersey2-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-seed-seed-rest-jersey2-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-seed-seed-rest-jersey2-show&#34; onclick=&#34;$(&#39;#org-seedstack-seed-seed-rest-jersey2-version, #org-seedstack-seed-seed-rest-jersey2-warn&#39;).show(); $(&#39;#org-seedstack-seed-seed-rest-jersey2-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-seed-seed-rest-jersey2-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.seed:seed-rest-jersey2:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;A &lt;code&gt;seed-rest-jersey1&lt;/code&gt; module is also provided when JAX-RS 2.0 cannot be used in your environment.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;base-prefix&#34;&gt;Base prefix&lt;/h1&gt;
+
+&lt;p&gt;REST resources are exposed on &lt;code&gt;/&lt;/code&gt; by default and have precedence when their path conflict with a static resource. You can choose to change the default prefix by specifying the following configuration property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.seed.rest.path = /api
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This would place the REST API on its own path, avoiding any conflict with other application resources.&lt;/p&gt;
+
+&lt;h1 id=&#34;jax-rs-basics&#34;&gt;JAX-RS basics&lt;/h1&gt;
+
+&lt;p&gt;Within JAX-RS context, resources are classes annotated with &lt;code&gt;@Path&lt;/code&gt;. All these classes are automatically detected and registered
+by Seed. This means that you can inject any other classes managed by Seed in your resources. A new instance of the resource
+class is created for each request.&lt;/p&gt;
+
+&lt;p&gt;Below is an example of a simple &amp;laquo;Hello World&amp;raquo; REST resource:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Path(&amp;quot;/hello&amp;quot;)
+public class HelloResource {
+
+    @GET
+    @Produces(&amp;quot;text/plain&amp;quot;)
+    @Path(&amp;quot;/{msg}&amp;quot;)
+    public String sayHello(@PathParam(&amp;quot;msg&amp;quot;) String message) {
+        return Response.ok(&amp;quot;Hello &amp;quot; + message).build();
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This resource is exposed by default on &lt;code&gt;/hello&lt;/code&gt;. You can request the resource with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;curl &#39;http://localhost:8080/hello/world&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The returned response body will be:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;Hello world
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;requests&#34;&gt;Requests&lt;/h2&gt;
+
+&lt;p&gt;An HTTP request is mapped to resource method according to its: path, verb and content-type. If no resource method matches
+an HTTP request, the HTTP status 405 (Method not allowed) is returned.&lt;/p&gt;
+
+&lt;h3 id=&#34;path&#34;&gt;Path&lt;/h3&gt;
+
+&lt;p&gt;The path is determined by the annotation &lt;code&gt;@Path&lt;/code&gt;. This annotation is &lt;strong&gt;mandatory&lt;/strong&gt; on the class and can be also added
+on the method to express the notion of sub-resources. The annotation &lt;a href=&#34;https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm&#34;&gt;value&lt;/a&gt; is the relative URI path but can also
+contain a URI template or a regex expression.&lt;/p&gt;
+
+&lt;h3 id=&#34;verb&#34;&gt;Verb&lt;/h3&gt;
+
+&lt;p&gt;HTTP verb is determined by a corresponding annotation. Each verb has its own annotation: &lt;code&gt;@GET&lt;/code&gt;, &lt;code&gt;@POST&lt;/code&gt;, &lt;code&gt;@PUT&lt;/code&gt;, etc.&lt;/p&gt;
+
+&lt;h3 id=&#34;content-type&#34;&gt;Content-type&lt;/h3&gt;
+
+&lt;p&gt;The content type is determined with &lt;code&gt;@Produces(MediaType.APPLICATION_JSON)&lt;/code&gt; and &lt;code&gt;@Consumes(MediaType.APPLICATION_JSON)&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;responses&#34;&gt;Responses&lt;/h2&gt;
+
+&lt;p&gt;JAX-RS allows to return a detailed response, with the resource representation and an HTTP status code. For instance the
+following resource will return HTTP status code 201 (Created) with the URI of the created resource.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@POST
+public Response createPerson(PersonRepresentation pr, @Context UriInfo uriInfo) {
+    PersonRepresentation createdPerson = accountService.register(pr);
+
+    URI newUri = new URI(
+        uriInfo.getRequestUri().toString() + 
+        &amp;quot;/&amp;quot; +  
+        createdPerson.getId()
+    );
+
+    return Response.created(newUri).entity(createdPerson).build();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;exception-handling&#34;&gt;Exception handling&lt;/h2&gt;
+
+&lt;p&gt;Exception handling is an important part of any API design. Carefully designed error handling will allow you to provide
+meaningful status codes and messages to the client instead of dumping raw stacktraces in your HTTP response.&lt;/p&gt;
+
+&lt;h3 id=&#34;web-application-exceptions&#34;&gt;Web application exceptions&lt;/h3&gt;
+
+&lt;p&gt;One way to implement clean exception handling in your REST API is to extend the &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;javax.&amp;amp;#8203;ws.&amp;amp;#8203;rs.&amp;amp;#8203;WebApplicationException&#39;&gt;WebApplicationException&lt;/span&gt;&lt;/code&gt;
+class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class NotFoundException extends WebApplicationException {
+
+    public NotFoundException(String msg) {
+        super(Response.status(Response.Status.NOT_FOUND).entity(msg).build());
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If the exception is thrown from within a resource method, the server will return an HTTP status code &lt;code&gt;404&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;exception-mappers&#34;&gt;Exception mappers&lt;/h3&gt;
+
+&lt;p&gt;Another way of implementing exception handling is to map existing exceptions to &lt;code&gt;Response&lt;/code&gt; using an &lt;code&gt;ExceptionMapper&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Provider
+public class MyBusinessExceptionMapper implements ExceptionMapper&amp;lt;MyBusinessException&amp;gt; {
+
+    @Override
+    public Response toResponse(MyBusinessException exception) {
+        return Response
+                .status(Response.Status.BAD_REQUEST)
+                .entity(exception.getMessage())
+                .build();
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If the a &lt;code&gt;MyBusinessException&lt;/code&gt; exception class is thrown from within a resource method, the server will return an HTTP
+status code &lt;code&gt;400&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;testing&#34;&gt;Testing&lt;/h1&gt;
+
+&lt;p&gt;Testing REST resources can be done in a real Web environment by using &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/testing/#web-integration-tests&#34;&gt;Seed Web integration testing&lt;/a&gt;.
+Consider this example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class ProductsResourceIT extends AbstractSeedWebIT {
+
+    @ArquillianResource
+    private URL baseURL;
+
+    @Deployment
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class);
+    }
+
+    @RunAsClient
+    @Test
+    public void testCreate() throws JSONException {
+        JSONObject obj = new JSONObject();
+        obj.put(&amp;quot;summary&amp;quot;, &amp;quot;The world&#39;s highest resolution notebook&amp;quot;);
+        obj.put(&amp;quot;categoryId&amp;quot;, 1);
+        obj.put(&amp;quot;designation&amp;quot;, &amp;quot;macbook pro&amp;quot;);
+        obj.put(&amp;quot;picture&amp;quot;, &amp;quot;mypictureurl&amp;quot;);
+        obj.put(&amp;quot;price&amp;quot;, 200.0);
+
+        String response = expect().statusCode(201).given()
+                .header(&amp;quot;Accept&amp;quot;, &amp;quot;application/json&amp;quot;)
+                .header(&amp;quot;Content-Type&amp;quot;, &amp;quot;application/json&amp;quot;)
+                .body(obj.toString())
+                .post(baseURL.toString() + &amp;quot;rest/products/&amp;quot;)
+                .asString();
+
+        JSONAssert.assertEquals(obj, new JSONObject(response), false);
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This example uses two libraries for easy REST testing:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/jayway/rest-assured&#34;&gt;REST Assured&lt;/a&gt; which can test various HTTP request/response scenarios.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/skyscreamer/JSONassert&#34;&gt;JSONassert&lt;/a&gt; which can assert conditions on JSON documents.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;working-with-streams&#34;&gt;Working with streams&lt;/h1&gt;
+
+&lt;h2 id=&#34;send-a-stream&#34;&gt;Send a stream&lt;/h2&gt;
+
+&lt;p&gt;To send bytes (like images) JAX-RS can return special stream:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; @GET
+ @Produces(&amp;quot;text/plain&amp;quot;)
+ public StreamingOutput  hello() {
+     return new StreamingOutput() {
+         @Override
+         public void write(OutputStream output) throws IOException, WebApplicationException {
+             output.write(&amp;quot;Hello World&amp;quot;.getBytes());
+         }
+    };
+ }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;receive-a-stream&#34;&gt;Receive a stream&lt;/h2&gt;
+
+&lt;p&gt;To read a data stream (file, image or bytes) JAX-RS can inject a Reader or an InputStream :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Path(&amp;quot;/files&amp;quot;)
+public class FileResource {
+
+    @POST
+    @Path(&amp;quot;/upload&amp;quot;)
+    @Consumes(&amp;quot;application/pdf&amp;quot;)
+    public void doSomething(InputStream is) {
+        readFileWithInputStream(is);
+    }
+
+    @POST
+    @Path(&amp;quot;/upload-image&amp;quot;)
+    public void doSomethingWithReader(@FormDataParam(&amp;quot;file&amp;quot;) Reader reader) {
+        readFileWithReader(reader);
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;custom-formats&#34;&gt;Custom formats&lt;/h1&gt;
+
+&lt;p&gt;Seed REST support works out-of-the-box with XML and JSON formats. If your project requires a custom format, you can implement
+your own readers and/or writers:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Create a class which implements &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;javax.&amp;amp;#8203;ws.&amp;amp;#8203;rs.&amp;amp;#8203;ext.&amp;amp;#8203;MessageBodyWriter&#39;&gt;MessageBodyWriter&lt;/span&gt;&lt;/code&gt; and/or &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;javax.&amp;amp;#8203;ws.&amp;amp;#8203;rs.&amp;amp;#8203;ext.&amp;amp;#8203;MessageBodyReader&#39;&gt;MessageBodyReader&lt;/span&gt;&lt;/code&gt;
+with the custom format specified as the generic type.&lt;/li&gt;
+&lt;li&gt;Add the &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;javax.&amp;amp;#8203;ws.&amp;amp;#8203;rs.&amp;amp;#8203;ext.&amp;amp;#8203;Provider&#39;&gt;@Provider&lt;/span&gt;&lt;/code&gt; annotation.&lt;/li&gt;
+&lt;li&gt;Add the &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;javax.&amp;amp;#8203;ws.&amp;amp;#8203;rs.&amp;amp;#8203;Produces&#39;&gt;@Produces&lt;/span&gt;&lt;/code&gt; if this is a writer.&lt;code&gt;@Produces&lt;/code&gt; and &lt;code&gt;@Consumes&lt;/code&gt; if relevant.&lt;/li&gt;
+&lt;li&gt;Add the &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;javax.&amp;amp;#8203;ws.&amp;amp;#8203;rs.&amp;amp;#8203;Consumes&#39;&gt;@Consumes&lt;/span&gt;&lt;/code&gt; if this is a reader.&lt;/li&gt;
+&lt;li&gt;Implement the necessary methods.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;More documentation is available in the &lt;a href=&#34;http://docs.oracle.com/javaee/6/api/javax/ws/rs/ext/package-summary.html&#34;&gt;JAX-RS Javadoc&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;restful-api-design&#34;&gt;RESTful API design&lt;/h1&gt;
+
+&lt;p&gt;The &lt;a href=&#34;https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm&#34;&gt;Representational State Transfer&lt;/a&gt; (REST) architectural style was defined in 2000 by Roy Fielding. This architectural
+style defines a set of constraints based on the Web architecture. These constraints are the following:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Client-Server&lt;/li&gt;
+&lt;li&gt;Stateless&lt;/li&gt;
+&lt;li&gt;Cache&lt;/li&gt;
+&lt;li&gt;Uniform interface&lt;/li&gt;
+&lt;li&gt;Layered System&lt;/li&gt;
+&lt;li&gt;Code-On-Demand&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;In this section, we will focus on the fourth constraint and how to implement it in a Seed application.&lt;/p&gt;
+
+&lt;h2 id=&#34;uniform-interface&#34;&gt;Uniform interface&lt;/h2&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;REST is defined by four interface constraints: identification of
+resources; manipulation of resources through representations;
+self-descriptive messages; and, hypermedia as the engine of
+application state. Roy T. Fielding.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;identification-of-resources&#34;&gt;Identification of resources&lt;/h3&gt;
+
+&lt;p&gt;The identification of resources means that each resource should be accessible through an URI. For instance a book &lt;code&gt;123&lt;/code&gt;
+will be accessible though the &lt;code&gt;/books/123&lt;/code&gt; URI.&lt;/p&gt;
+
+&lt;h3 id=&#34;manipulation-of-resources-through-representations&#34;&gt;Manipulation of resources through representations&lt;/h3&gt;
+
+&lt;p&gt;Resources should be manipulated through representation. This means that you &lt;strong&gt;should not&lt;/strong&gt; expose your resource (like a
+business object) directly because it will make refactoring impossible without breaking the clients.&lt;/p&gt;
+
+&lt;h3 id=&#34;self-descriptive-messages&#34;&gt;Self-descriptive messages&lt;/h3&gt;
+
+&lt;p&gt;The messages should be context-free to respect the stateless constraint. Each message should embedded self-descripting
+messaging. For this, the HTTP 1.1 specification defines a list of &lt;a href=&#34;http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html&#34;&gt;HTTP verbs&lt;/a&gt;, &lt;a href=&#34;http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html&#34;&gt;status codes&lt;/a&gt;, and &lt;a href=&#34;http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14&#34;&gt;headers&lt;/a&gt; to
+exchange metadata. For instance the following JAX-RS method specify that the HTTP verb is &lt;code&gt;POST&lt;/code&gt;, it accepts the media
+type &lt;code&gt;application/json&lt;/code&gt; and return &lt;code&gt;201&lt;/code&gt; (Created).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@POST
+@Consumes(MediaType.APPLICATION_JSON)
+public Response createPerson(PersonRepresentation pr, @Context UriInfo uriInfo) {
+    PersonRepresentation createdPerson = accountService.register(pr);
+
+    URI newUri = new URI(
+        uriInfo.getRequestUri().toString() + 
+        &amp;quot;/&amp;quot; + 
+        createdPerson.getId()
+    );
+
+    return Response.created(newUri).entity(createdPerson).build();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;hypermedia-as-the-engine-of-application-state-hateoas&#34;&gt;Hypermedia as the engine of application state (HATEOAS)&lt;/h3&gt;
+
+&lt;p&gt;According to Roy T. Fielding, a REST API is a set of resources that can be explored by following links. Each resource is
+a representation of a state of the application and the links are the transitions between those states.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;The name &amp;laquo;Representational State Transfer&amp;raquo; is intended to evoke an
+image of how a well-designed Web application behaves: a network of
+web pages (a virtual state-machine), where the user progresses
+through the application by selecting links (state transitions),
+resulting in the next page (representing the next state of the
+application) being transferred to the user and rendered for their
+use. Roy T. Fielding.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Such a Web application has the following advantages:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The state of the application controlled by the server as it tells the client what it can do next.&lt;/li&gt;
+&lt;li&gt;It allows the refactoring of server&amp;rsquo;s URI scheme without breaking clients.&lt;/li&gt;
+&lt;li&gt;It helps client developers to explore the API.&lt;/li&gt;
+&lt;li&gt;It allows the server developers to advertise deprecation or new capabilities by adding hints on existing links or by
+adding new links.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The benefits of an hypermedia API are obvious but it is often seen as difficult to implement in real-life applications.&lt;/p&gt;
+
+&lt;p&gt;With Seed, we want to make it so easy that all Seed REST application will support hypermedia by default. In order to do
+this, Seed supports two dedicated media types. They are both based on JSON and describe conventions to link to other
+resources.&lt;/p&gt;
+
+&lt;h2 id=&#34;json-home&#34;&gt;JSON-HOME&lt;/h2&gt;
+
+&lt;p&gt;To ease REST API discovery, Seed exposes an API home resource with the &lt;a href=&#34;http://tools.ietf.org/html/draft-nottingham-json-home-03&#34;&gt;JSON-HOME&lt;/a&gt; media type. This is similar to a Website
+homepage but for REST APIs.&lt;/p&gt;
+
+&lt;p&gt;The goal of the JSON-HOME media type is to expose an home resource which provides all the entry points of the application&amp;rsquo;s
+API. It tells the client developer what it can do and give him hints on how to use the resources.&lt;/p&gt;
+
+&lt;p&gt;The following example shows a JSON-HOME resource with two entry points &amp;laquo;widgets&amp;raquo; and &amp;laquo;widget&amp;raquo;. For the &amp;laquo;widgets&amp;raquo; resource,
+the JSON-HOME provides just an href indicating the URI of the resource. But for the &amp;laquo;widget&amp;raquo; resource, the JSON-HOME provides
+an href-template instead.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;GET / HTTP/1.1
+Host: example.org
+Accept: application/json-home
+
+HTTP/1.1 200 OK
+Content-Type: application/json-home
+Cache-Control: max-age=3600
+Connection: close
+
+{
+  &amp;quot;resources&amp;quot;: {
+    &amp;quot;http://example.org/rel/widgets&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/widgets/&amp;quot;
+    },
+    &amp;quot;http://example.org/rel/widget&amp;quot;: {
+      &amp;quot;href-template&amp;quot;: &amp;quot;/widgets/{widget_id}&amp;quot;,
+      &amp;quot;href-vars&amp;quot;: {
+        &amp;quot;widget_id&amp;quot;: &amp;quot;http://example.org/param/widget&amp;quot;
+      },
+      &amp;quot;hints&amp;quot;: {
+        &amp;quot;allow&amp;quot;: [&amp;quot;GET&amp;quot;, &amp;quot;PUT&amp;quot;, &amp;quot;DELETE&amp;quot;, &amp;quot;PATCH&amp;quot;],
+        &amp;quot;formats&amp;quot;: {
+          &amp;quot;application/json&amp;quot;: {}
+        },
+        &amp;quot;accept-patch&amp;quot;: [&amp;quot;application/json-patch&amp;quot;],
+        &amp;quot;accept-post&amp;quot;: [&amp;quot;application/xml&amp;quot;],
+        &amp;quot;accept-ranges&amp;quot;: [&amp;quot;bytes&amp;quot;]
+      }
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To expose a JAX-RS resource in the JSON-HOME resource, annotate the resource with &lt;code&gt;@Rel&lt;/code&gt; and set the home attribute to
+&lt;code&gt;true&lt;/code&gt;. The annotation can be on the class or the method.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Rel(value = CatalogRels.PRODUCT, home = true) // Add it to JSON-HOME
+@Path(&amp;quot;/products/{title}&amp;quot;)
+@Produces({MediaType.APPLICATION_JSON, &amp;quot;application/hal+json&amp;quot;})
+public class ProductResource {
+
+    @GET
+    public Response getProduct() {
+        ...
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;hypertext-application-language-hal&#34;&gt;Hypertext Application Language (HAL)&lt;/h2&gt;
+
+&lt;p&gt;Beyond providing an &amp;laquo;API homepage&amp;raquo;, you have to provide a way to navigate between these pages. That&amp;rsquo;s the role of the
+&lt;a href=&#34;https://tools.ietf.org/html/draft-kelly-json-hal-06&#34;&gt;HAL+JSON&lt;/a&gt; media type, which establishes conventions for expressing hypermedia controls. An HAL representation
+looks like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;GET /orders HTTP/1.1
+Host: example.org
+Accept: application/hal+json
+
+HTTP/1.1 200 OK
+Content-Type: application/hal+json
+
+{
+  &amp;quot;_links&amp;quot;: {
+    &amp;quot;self&amp;quot;: { &amp;quot;href&amp;quot;: &amp;quot;/orders&amp;quot; },
+    &amp;quot;next&amp;quot;: { &amp;quot;href&amp;quot;: &amp;quot;/orders?page=2&amp;quot; },
+    &amp;quot;find&amp;quot;: { &amp;quot;href&amp;quot;: &amp;quot;/orders{?id}&amp;quot;, &amp;quot;templated&amp;quot;: true }
+  },
+  &amp;quot;_embedded&amp;quot;: {
+    &amp;quot;orders&amp;quot;: [{
+        &amp;quot;_links&amp;quot;: {
+          &amp;quot;self&amp;quot;: { &amp;quot;href&amp;quot;: &amp;quot;/orders/123&amp;quot; },
+          &amp;quot;basket&amp;quot;: { &amp;quot;href&amp;quot;: &amp;quot;/baskets/98712&amp;quot; },
+          &amp;quot;customer&amp;quot;: { &amp;quot;href&amp;quot;: &amp;quot;/customers/7809&amp;quot; }
+        },
+        &amp;quot;total&amp;quot;: 30.00,
+        &amp;quot;currency&amp;quot;: &amp;quot;USD&amp;quot;,
+        &amp;quot;status&amp;quot;: &amp;quot;shipped&amp;quot;,
+      },{
+        &amp;quot;_links&amp;quot;: {
+          &amp;quot;self&amp;quot;: { &amp;quot;href&amp;quot;: &amp;quot;/orders/124&amp;quot; },
+          &amp;quot;basket&amp;quot;: { &amp;quot;href&amp;quot;: &amp;quot;/baskets/97213&amp;quot; },
+          &amp;quot;customer&amp;quot;: { &amp;quot;href&amp;quot;: &amp;quot;/customers/12369&amp;quot; }
+        },
+        &amp;quot;total&amp;quot;: 20.00,
+        &amp;quot;currency&amp;quot;: &amp;quot;USD&amp;quot;,
+        &amp;quot;status&amp;quot;: &amp;quot;processing&amp;quot;
+    }]
+  },
+  &amp;quot;currentlyProcessing&amp;quot;: 14,
+  &amp;quot;shippedToday&amp;quot;: 20
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It is a JSON representation with just two reserved keywords:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;_links&lt;/code&gt;: this property is used to share links to other resources. Links are represented as a set of keys and
+values. The keys represents a relation type (rel) and the value a link object. The only required value of the link object
+is &lt;code&gt;href&lt;/code&gt; which can be an URI or an URI template (&lt;code&gt;/orders{?id}&lt;/code&gt;). By convention, a resource always returns a &lt;code&gt;self&lt;/code&gt; link
+with its own URI. However, the propery &lt;code&gt;_links&lt;/code&gt; is optional. For more information on link object see the &lt;a href=&#34;https://tools.ietf.org/html/draft-kelly-json-hal-06#section-5&#34;&gt;section 5&lt;/a&gt; of
+the specification.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;_embedded&lt;/code&gt;: this property is a set of keys and values. Keys are relation types and values can be a resource object or
+an array of resource objects. The embedded resources can be full or partial representations of a resource.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;usage&#34;&gt;Usage&lt;/h2&gt;
+
+&lt;h3 id=&#34;building-hal-links&#34;&gt;Building HAL links&lt;/h3&gt;
+
+&lt;p&gt;Concatenating strings for building hrefs can quickly become painful and error-prone. With Seed, you have access to a
+&lt;code&gt;RelRegistry&lt;/code&gt; which can greatly simplify the task. This registry contains all the resources annotated by &lt;code&gt;@Rel&lt;/code&gt; and their
+href. HAL links can have two distinct forms:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;An expanded form, where all variables are sent already resolved to the client,&lt;/li&gt;
+&lt;li&gt;A templated form, where the URI template is sent to the client.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Consider the following resource:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Path(&amp;quot;/products&amp;quot;)
+public class ProductsResource {
+
+    GET
+    Rel(value = &amp;quot;products&amp;quot;) // defines the resource rel
+    Produces({MediaType.APPLICATION_JSON, &amp;quot;application/hal+json&amp;quot;})
+    public Response products(@DefaultValue(&amp;quot;0&amp;quot;) @QueryParam(&amp;quot;pageIndex&amp;quot;) Integer pageIndex,
+                            @DefaultValue(&amp;quot;10&amp;quot;) @QueryParam(&amp;quot;pageSize&amp;quot;) Integer pageSize) {
+       ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The expanded link can be created as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Link link = relRegistry.uri(&amp;quot;products&amp;quot;) // points to the resource rel
+                         .set(&amp;quot;pageIndex&amp;quot;, pageIndex)
+                         .set(&amp;quot;pageSize&amp;quot;, pageSize);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will result in the following JSON sent to the client:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{ 
+    &amp;quot;href&amp;quot;: &amp;quot;/products?pageIndex=0&amp;amp;pageSize=10&amp;quot; 
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The templated link can be created as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Link link = relRegistry.uri(&amp;quot;products&amp;quot;) // points to the resource rel
+                         .set(&amp;quot;pageIndex&amp;quot;, pageIndex)
+                         .set(&amp;quot;pageSize&amp;quot;, pageSize)
+                         .templated();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will result in the following JSON sent to the client:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{ 
+    &amp;quot;href&amp;quot;: &amp;quot;/products{?pageIndex,pageSize}&amp;quot;, 
+    &amp;quot;templated&amp;quot;: true 
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that seed will automatically use the Servlet context path and the REST prefix to build HAL links, alleviating the need for you
+to build any URI manually.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;creating-hal-representations&#34;&gt;Creating HAL representations&lt;/h3&gt;
+
+&lt;p&gt;Seed provides two options to simplify the creation of HAL representations. First, you can take an existing representation
+and transform it to an HAL representation using the &lt;code&gt;HALBuilder&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject RelRegistry relRegistry;
+
+...
+
+HalRepresentation representation = HalBuilder.create(productRepresentation)
+                .self(relRegistry.uri(&amp;quot;products&amp;quot;).set(&amp;quot;id&amp;quot;, productId)
+                .link(relRegistry.uri(&amp;quot;find&amp;quot;).templated())
+                .embedded(&amp;quot;related&amp;quot;, relatedProducts);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The second option is to make your representation inherit the &lt;code&gt;HalRepresentation&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class ProductsRepresentation extends HalRepresentation {
+    private long totalSize;
+    private long currentPage;
+
+    ProductsRepresentation() {
+    }
+
+    public ProductsRepresentation(List&amp;lt;Product&amp;gt; products, int totalSize, int pageIndex) {
+        this.totalSize = totalSize;
+        this.currentPage = pageIndex;
+        embedded(&amp;quot;products&amp;quot;, products);
+    }
+
+    public long getTotalSize() {
+        return totalSize;
+    }
+
+    public long getCurrentPage() {
+        return currentPage;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Web</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/manual/web/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/manual/web/</guid>
+      <description>&lt;p&gt;Seed has great support for Web applications whether by using its lightweight embedded Web server or in more classical
+environments, when using an external Web application server. Seed provides tight integration with the Java Servlet
+specification along with support for HTTP security, WebSockets, Cross-Origin Resource Sharing (CORS), or advanced
+static-resources serving. To enable Web support in your project, add the &lt;code&gt;seed-web-core&lt;/code&gt; module to your classpath.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-web-core-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-web-core-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-seed-seed-web-core-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;seed-web-core&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-seed-seed-web-core-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-seed-seed-web-core-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-seed-seed-web-core-show&#34; onclick=&#34;$(&#39;#org-seedstack-seed-seed-web-core-version, #org-seedstack-seed-seed-web-core-warn&#39;).show(); $(&#39;#org-seedstack-seed-seed-web-core-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-seed-seed-web-core-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.seed:seed-web-core:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;When deploying a Seed application in a standalone Web container, the required minimum Servlet compliance level is 2.5
+though some features require a Servlet 3.0 compliance level. The presence of a &lt;code&gt;web.xml&lt;/code&gt; file is only required for servlet 2.5.&lt;/p&gt;
+
+&lt;p&gt;All the features are available with the embedded Web server.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;security&#34;&gt;Security&lt;/h1&gt;
+
+&lt;p&gt;When running in a Servlet environment (Web), you might want to secure access to the application URLs by specifying
+filtering patterns. To enable this feature, add the &lt;code&gt;seed-web-security&lt;/code&gt; module to your project.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-web-security-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-web-security-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-seed-seed-web-security-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;seed-web-security&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-seed-seed-web-security-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-seed-seed-web-security-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-seed-seed-web-security-show&#34; onclick=&#34;$(&#39;#org-seedstack-seed-seed-web-security-version, #org-seedstack-seed-seed-web-security-warn&#39;).show(); $(&#39;#org-seedstack-seed-seed-web-security-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-seed-seed-web-security-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.seed:seed-web-security:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;This module depends upon the &lt;code&gt;seed-security-core&lt;/code&gt; module. A servlet filter is automatically added on &lt;code&gt;/*&lt;/code&gt; and, as such,
+has the ability to intercept all application URLs. You can then define its interception behavior by specifying a list or
+URL patterns with their associated chains of security filters.&lt;/p&gt;
+
+&lt;h2 id=&#34;url-patterns&#34;&gt;URL patterns&lt;/h2&gt;
+
+&lt;p&gt;Declaring URL patterns for security interception is done in configuration, by prefixing patterns with
+&lt;code&gt;org.seedstack.seed.security.urls&lt;/code&gt;. This can be easily done in a Props file by defining a section:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.seed.security.urls]
+/some/path/specific = filter1, filter2
+/some/path/** = filter3, filter4, filter5
+/other/path/* = filter6
+/** = fallbackFilter
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The patterns (at the left of the equal sign) are &lt;a href=&#34;https://ant.apache.org/manual/dirtasks.html#patterns&#34;&gt;Ant-style path expressions&lt;/a&gt;
+relative to your Web application&amp;rsquo;s context root. The order matters as the first pattern to match the incoming request is
+applied and subsequent patterns are ignored. This allows to define a catch-all default pattern at the end that will apply
+if no above filters matched. When a pattern is matched, the filters (at the right of the equal sign) are applied in sequence.&lt;/p&gt;
+
+&lt;h2 id=&#34;filters&#34;&gt;Filters&lt;/h2&gt;
+
+&lt;p&gt;Filters can be used for various task such as:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Authentication (form, basic),&lt;/li&gt;
+&lt;li&gt;Authorization (verify some permission, role),&lt;/li&gt;
+&lt;li&gt;Other security checks or tasks.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You can directly use built-in filters or define custom ones.&lt;/p&gt;
+
+&lt;h3 id=&#34;built-in-filters&#34;&gt;Built-in filters&lt;/h3&gt;
+
+&lt;p&gt;Various built-in filters are directly available by specifying their names (and eventual parameters) in the filter chain:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;anon&lt;/code&gt;: immediately allows access to the path without performing security checks of any kind (unless you add other
+filters after it in the chain).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;authc&lt;/code&gt;: authentifies the subject using the request params (&lt;code&gt;username&lt;/code&gt; and &lt;code&gt;password&lt;/code&gt;). This can be used for form
+authentication.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;authcBasic&lt;/code&gt;: triggers and checks a Basic authentication.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cert&lt;/code&gt;: extracts the certificates found by the JEE server and provides them to a &lt;code&gt;X509CertificateRealm&lt;/code&gt;. You can specify
+the &lt;code&gt;optional&lt;/code&gt; parameter to allow the request even if certificate authentication fails: &lt;code&gt;cert[optional]&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;logout&lt;/code&gt;: logouts the current Subject. Note that it will clear the subject session and will invalidate the corresponding
+security caches. Note that basic authentication credentials are kept by user-agents (like browsers), meaning that
+authentication will automatically happen again during the next request.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;noSessionCreation&lt;/code&gt;: will prevent the creation of a security session.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;perms&lt;/code&gt;: checks for the permission specified as a parameter. Only allows access if the current subject has the
+specified permission. Multiple permissions can be specified with commas: &lt;code&gt;perms[users:delete, cache:invalidate]&lt;/code&gt; for
+instance.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;port&lt;/code&gt;: requires the request to be on the specified port: &lt;code&gt;port[8080]&lt;/code&gt; for instance.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;rest&lt;/code&gt;: similar to the &lt;code&gt;perms&lt;/code&gt; filter but appends a CRUD verb derived from the HTTP method to the specified permission(s).
+For instance, &lt;code&gt;rest[users]&lt;/code&gt; will check the following permissions depending on the HTTP verb:
+
+&lt;ul&gt;
+&lt;li&gt;DELETE checks for the &lt;code&gt;users:delete&lt;/code&gt; permission,&lt;/li&gt;
+&lt;li&gt;GET checks for the &lt;code&gt;users:read&lt;/code&gt; permission,&lt;/li&gt;
+&lt;li&gt;HEAD checks for the &lt;code&gt;users:read&lt;/code&gt; permission,&lt;/li&gt;
+&lt;li&gt;OPTIONS checks for the &lt;code&gt;users:read&lt;/code&gt; permission,&lt;/li&gt;
+&lt;li&gt;POST checks for the &lt;code&gt;users:create&lt;/code&gt; permission,&lt;/li&gt;
+&lt;li&gt;PUT checks for the &lt;code&gt;users:update&lt;/code&gt; permission,&lt;/li&gt;
+&lt;li&gt;TRACE checks for the &lt;code&gt;users:read&lt;/code&gt; permission.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;roles&lt;/code&gt;: checks that the subject has the specified role(s). Only allows access if current subject has &lt;strong&gt;all&lt;/strong&gt; the
+specified roles. Multiple roles can be specified with commas: &lt;code&gt;roles[manager, admin]&lt;/code&gt; for instance.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ssl&lt;/code&gt;: Only allows access if the request is on port 443 and &lt;code&gt;ServletRequest.isSecure()&lt;/code&gt; returns true.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;user&lt;/code&gt;: Only allows access if the user is identified.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;custom-filters&#34;&gt;Custom filters&lt;/h3&gt;
+
+&lt;p&gt;You can define you own custom security filters by creating a class implementing &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;javax.&amp;amp;#8203;servlet.&amp;amp;#8203;Filter&#39;&gt;Filter&lt;/span&gt;&lt;/code&gt; and
+annotating it with &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;web.&amp;amp;#8203;security.&amp;amp;#8203;SecurityFilter&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/web/security/SecurityFilter.html&#39;&gt;@SecurityFilter&lt;/a&gt;&lt;/code&gt;. The annotation value will define
+the name of the filter that can be used in filter chains.&lt;/p&gt;
+
+&lt;p&gt;As an example, consider a filter that always returns HTTP response code 418:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@SecurityFilter(&amp;quot;teapot&amp;quot;)
+public class TeapotFilter implements Filter {
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, 
+                         ServletResponse response, 
+                         FilterChain chain) throws IOException, ServletException {
+        ((HttpServletResponse)response).sendError(418);
+    }
+
+    @Override
+    public void destroy() {
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can use it in filter chains like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.security.urls]
+/teapot = teapot
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When a subject access the &lt;code&gt;/teapot&lt;/code&gt; URL, an HTTP response code 418 will be returned. To create advanced security filters,
+you can extend existing Shiro security filters, or use them as models.&lt;/p&gt;
+
+&lt;h2 id=&#34;example&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;Consider the following example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.security.urls]
+/resources/** = anon
+/rest/users = ssl, authcBasic, rest[users]
+/rest/** = authcBasic, roles[normal]
+/** = authcBasic
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Anything served under &lt;code&gt;/resource/**&lt;/code&gt; can be accessed anonymously.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;/rest/users&lt;/code&gt; resource can only be accessed by authenticated subjects in HTTPS with the &lt;code&gt;users:action&lt;/code&gt; permission,
+where action is dependent upon the HTTP method used (see the &lt;code&gt;rest&lt;/code&gt; filter definition for details).&lt;/li&gt;
+&lt;li&gt;Anything served under &lt;code&gt;/rest/**&lt;/code&gt; can only be accessed by authenticated subjects with the &lt;code&gt;normal&lt;/code&gt; application-role.&lt;/li&gt;
+&lt;li&gt;All others URLs can only be accessed by authenticated subjects.&lt;/li&gt;
+&lt;li&gt;In this example, authentication is handled with the Basic Authentication scheme.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;servlets-and-filters&#34;&gt;Servlets and Filters&lt;/h1&gt;
+
+&lt;p&gt;You can register a servlet and its mappings automatically by annotating your servlet class with &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;javax.&amp;amp;#8203;servlet.&amp;amp;#8203;annotation.&amp;amp;#8203;WebServlet&#39;&gt;WebServlet&lt;/span&gt;&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@WebServlet(&amp;quot;/myservlet/*&amp;quot;)
+public class MyServlet extends HttpServlet {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Similarly, you can register a filter and its mappings automatically by annotating your servlet class with &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;javax.&amp;amp;#8203;servlet.&amp;amp;#8203;annotation.&amp;amp;#8203;WebFilter&#39;&gt;WebFilter&lt;/span&gt;&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@WebFilter(&amp;quot;/myfilter/*&amp;quot;)
+public class MyFilter implements Filter {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;static-resources&#34;&gt;Static resources&lt;/h1&gt;
+
+&lt;p&gt;Seed provides automatic static resource serving from the classpath and the document root with some benefits over the container
+default resource serving:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Automatic serving of pre-minified and/or pre-gzipped versions of resources,&lt;/li&gt;
+&lt;li&gt;On-the-fly gzipping of resources,&lt;/li&gt;
+&lt;li&gt;Cache friendly,&lt;/li&gt;
+&lt;li&gt;Emulation of servlet 3.0 serving from classpath when not available.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Static resource serving is enabled by default. It has a low priority
+Docroot resources always have precedence over classpath resources. If a file under document root leads to the same resulting
+path as in classpath, then the document root file have priority (like robots.txt in above example).&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;default-behavior&#34;&gt;Default behavior&lt;/h2&gt;
+
+&lt;p&gt;The default behavior is to serve resources located under the document root folder and, if not found, under the
+&lt;code&gt;META-INF/resources&lt;/code&gt; classpath location on the &lt;code&gt;/*&lt;/code&gt; path. For example, consider the following folder tree:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;docroot/
+    index.html
+    robots.txt
+
+META-INF/
+    resources/
+        robots.txt
+        lib/
+            jquery.js
+            jquery.min.js
+            jquery.min.js.gz
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The default behavior is to serve index.html, robots.txt and jquery.js on the following paths:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/robots.txt
+/index.html
+/lib/jquery.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The jquery.js file will be served as a minified and gzipped version (without the overhead of on-the-fly gzipping since
+a pre-gzipped version is already available).&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Docroot resources always have precedence over classpath resources. If a file under document root leads to the same resulting
+path as in classpath, then the document root file have priority (like robots.txt in above example).&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+
+&lt;p&gt;Resources are always served on &lt;code&gt;/*&lt;/code&gt; with a low priority&lt;/p&gt;
+
+&lt;p&gt;The default serving path can be altered. For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.seedstack.seed.web.resources.path = /my-custom-resource-path
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The serving paths then are updated by appending &lt;code&gt;/my-custom-resource-path&lt;/code&gt; to the document root base path and the
+&lt;code&gt;META-INF/resources&lt;/code&gt; classpath location thus serving from respective following paths:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;docroot/my-custom-resource-path&lt;/code&gt; for document root based resources&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;META-INF/resources/my-custom-resource-path&lt;/code&gt; for classpath based resources&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Note that specifying an empty resource path would mean that resources are served directly under the application context root.
+In that case the webapp must be dedicated to serving web resources since it will not be able to register additional
+servlets (&lt;code&gt;/*&lt;/code&gt; will be reserved for web resources).&lt;/p&gt;
+
+&lt;h2 id=&#34;minification-and-gzip-support&#34;&gt;Minification and gzip support&lt;/h2&gt;
+
+&lt;p&gt;The file extension is determined from the requested URL as the characters&amp;rsquo; sequence after the last dot &lt;code&gt;.&lt;/code&gt; of the
+hierarchical part. For instance &lt;code&gt;js&lt;/code&gt; extension would be retrieved from:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;http://myapplication/resources/lib/jquery.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If minification support is enabled and a file with a &lt;code&gt;min.&lt;/code&gt; prefixed extension is found, then it is used instead of the
+originally requested file In below example, the last file would be served:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;/resources/lib/jquery.js
+/resources/lib/jquery.min.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If gzip support is enabled and the browser accepts gzip encoding and a file with a &lt;code&gt;.gzip&lt;/code&gt; suffixed extension is found,
+then it is used instead of the originally requested file (or instead of the minified file determined in the previous step):&lt;/p&gt;
+
+&lt;p&gt;For instance, in below example, the last file would be served:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;/resources/lib/jquery.js
+/resources/lib/jquery.min.js
+/resources/lib/jquery.js.gzip
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If no gzipped version has been found but on-the-fly gzip support is enabled, the resource will be gzipped in-memory for
+serving. To control the minification and gzip behavior, use the following properties:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.seedstack.seed.web.resources.minification-support = true | false
+org.seedstack.seed.web.resources.gzip-support = true | false
+org.seedstack.seed.web.resources.gzip-on-the-fly = true | false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;mime-types&#34;&gt;MIME types&lt;/h2&gt;
+
+&lt;p&gt;The following MIME types are automatically derived from extensions:&lt;/p&gt;
+
+&lt;table class=&#34;table table-striped&#34;&gt;
+&lt;tr&gt;&lt;th&gt;Mime type&lt;/th&gt;&lt;th&gt;Extensions&lt;/th&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;text/html&lt;/td&gt;&lt;td&gt;html htm HTML HTM&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;text/plain&lt;/td&gt;&lt;td&gt;txt text TXT TEXT&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;text/javascript&lt;/td&gt;&lt;td&gt;js JS&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;text/css&lt;/td&gt;&lt;td&gt;css less CSS LESS&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;image/gif&lt;/td&gt;&lt;td&gt;gif GIF&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;image/jpeg&lt;/td&gt;&lt;td&gt;jpeg jpg jpe JPEG JPG JPE&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;image/png&lt;/td&gt;&lt;td&gt;png PNG&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;image/vnd.microsoft.icon&lt;/td&gt;&lt;td&gt;ico ICO&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;application/pdf&lt;/td&gt;&lt;td&gt;pdf PDF&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;application/json&lt;/td&gt;&lt;td&gt;json JSON&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;application/font-woff&lt;/td&gt;&lt;td&gt;woff WOFF&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;application/vnd.ms-fontobject&lt;/td&gt;&lt;td&gt;eot EOT&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;font/truetype&lt;/td&gt;&lt;td&gt;ttf TTF&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;font/opentype&lt;/td&gt;&lt;td&gt;otf OTF&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;caching&#34;&gt;Caching&lt;/h2&gt;
+
+&lt;p&gt;Resource information is determined by calls to classloader &lt;code&gt;getResource()&lt;/code&gt; for classpath locations and by calls to
+&lt;code&gt;File.canRead()&lt;/code&gt; for docroot locations. The number of these calls per resource lookup can increase when:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Using multiple locations (classpath or docroot based), in which case the lookup logic is invoked for each location.&lt;/li&gt;
+&lt;li&gt;Using minification and gzip support, in which case the lookup logic itself is more costly trying to find
+the resource in the following order :&lt;br /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;gzipped minified version&lt;/li&gt;
+&lt;li&gt;gzipped version&lt;/li&gt;
+&lt;li&gt;minified version&lt;/li&gt;
+&lt;li&gt;normal version&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A built-in cache is used to improve the lookup performance of resources that were served at least one time. You can
+alter the cache properties as follows (below example with default values):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.seed.web.resources.cache.max-size = 8192
+org.seedstack.seed.web.resources.cache.concurrency = 32
+org.seedstack.seed.web.resources.cache.initial-size = 2048
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you don&amp;rsquo;t specify the initial-size configuration property, it will be set at &lt;code&gt;max-size / 4&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;cors&#34;&gt;CORS&lt;/h1&gt;
+
+&lt;p&gt;Cross-Origin Resource Sharing (CORS) is supported through a Java filter and can be enabled in any Seed application.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Seed integrates the CORS filter from &lt;a href=&#34;http://software.dzhuvinov.com/cors-filter.html&#34;&gt;dzhuvinov software&lt;/a&gt;. There is no
+need to install and configure the filter manually, it is automatically registered by Seed. All filter options can be
+specified through configuration properties.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;configuration-1&#34;&gt;Configuration&lt;/h2&gt;
+
+&lt;p&gt;To enable CORS support just add the following configuration to your application:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.seed.web.cors.enabled = true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;filter-properties&#34;&gt;Filter properties&lt;/h2&gt;
+
+&lt;p&gt;The CORS filter allows to alter its default behavior with various parameters. The filter documentation enumerates all
+configuration parameters. Seed can transform any configuration property prefixed with &lt;code&gt;org.seedstack.seed.web.cors.property&lt;/code&gt;
+to the corresponding filter parameter. For instance, to specify the recognized verbs, you can use the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.web.cors.property]
+supportedMethods= GET\\, POST\\, HEAD\\, OPTIONS\\, PUT\\, DELETE
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This configuration property is automatically translated to the &lt;code&gt;cors.supportedMethods&lt;/code&gt; filter parameter found in the
+documentation. Note that the escaping of the commas is required to inhibit Seed from parsing this value as a list.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Please refer to this page of the &lt;a href=&#34;http://software.dzhuvinov.com/cors-filter-configuration.html&#34;&gt;filter documentation&lt;/a&gt;
+for a complete list of configuration parameters.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;websockets&#34;&gt;WebSockets&lt;/h1&gt;
+
+&lt;p&gt;Seed also integrates the Java API for WebSocket (JSR 356), allowing server and client endpoints to be injected. WebSocket
+support requires Java 7 and a compatible server to work.&lt;/p&gt;
+
+&lt;h2 id=&#34;server-endpoints&#34;&gt;Server endpoints&lt;/h2&gt;
+
+&lt;p&gt;No specific configuration is required for server endpoint. Just declare a standard JSR 356 endpoint:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@ServerEndpoint(value = &amp;quot;/chat&amp;quot;)
+public class ChatEndpoint {
+
+    @Logging
+    private Logger logger;
+
+    @Inject
+    EchoService echoService;
+
+    @OnOpen
+    public void onOpen(Session session) {
+        logger.info(&amp;quot;Connected ... &amp;quot; + session.getId());
+    }
+
+    @OnMessage
+    public void message(String message, 
+                        Session client) throws IOException, EncodeException {
+        for (Session peer : client.getOpenSessions()) {
+            peer.getBasicRemote().sendText(echoService.echo(message));
+        }
+    }
+
+    @OnClose
+    public void onClose(Session session, CloseReason closeReason) {
+        logger.info(String.format(&amp;quot;Session %s close because of %s&amp;quot;, 
+            session.getId(), closeReason));
+    }
+
+    @OnError
+    public void onError(Session session, Throwable t) {
+        logger.error(t.getMessage, t);
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this example, the endpoint receives a message and then broadcast it to all clients.&lt;/p&gt;
+
+&lt;h2 id=&#34;client-endpoints&#34;&gt;Client endpoints&lt;/h2&gt;
+
+&lt;p&gt;Unlike server endpoints, client endpoints have to explicitly specify a &lt;code&gt;SeedClientEndpointConfigurator&lt;/code&gt; in order to be
+managed by Seed.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@ClientEndpoint(configurator = SeedClientEndpointConfigurator.class)
+public class ChatClientEndpoint1 {
+    public static final String TEXT = &amp;quot;Client1 joins&amp;quot;;
+    public static CountDownLatch latch;
+    public static String response;
+
+    @OnOpen
+    public void onOpen(Session session) {
+        try {
+            session.getBasicRemote().sendText(TEXT);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    @OnMessage
+    public void processMessage(String message) {
+        response = message;
+        latch.countDown();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;testing&#34;&gt;Testing&lt;/h2&gt;
+
+&lt;p&gt;You can test WebSocket endpoints with &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/testing/&#34;&gt;Seed Web integration testing&lt;/a&gt;. Here is an example which tests two
+client endpoints:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class WebSocketIT extends AbstractSeedWebIT {
+
+    @Logging
+    private Logger logger;
+
+    @Inject
+    ChatClientEndpoint1 chatClientEndpoint1;
+
+    @Inject
+    ChatClientEndpoint2 chatClientEndpoint2;
+
+    @Deployment
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class);
+    }
+
+    @Test
+    @RunAsClient
+    public void communication_is_working(@ArquillianResource URL baseUrl) throws Exception {
+        ChatClientEndpoint1.latch = new CountDownLatch(1);
+
+        final Session session1 = connectToServer(baseUrl, chatClientEndpoint1);
+        assertNotNull(session1);
+
+        assertTrue(ChatClientEndpoint1.latch.await(2, TimeUnit.SECONDS));
+        assertEquals(&amp;quot;echo: &amp;quot; + ChatClientEndpoint1.TEXT, ChatClientEndpoint1.response);
+
+        ChatClientEndpoint1.latch = new CountDownLatch(1);
+        ChatClientEndpoint2.latch = new CountDownLatch(1);
+
+        final Session session2 = connectToServer(baseUrl, chatClientEndpoint2);
+        assertNotNull(session2);
+
+        assertTrue(ChatClientEndpoint1.latch.await(2, TimeUnit.SECONDS));
+        assertTrue(ChatClientEndpoint2.latch.await(2, TimeUnit.SECONDS));
+        assertEquals(&amp;quot;echo: &amp;quot; + ChatClientEndpoint2.TEXT, ChatClientEndpoint1.response);
+        assertEquals(&amp;quot;echo: &amp;quot; + ChatClientEndpoint2.TEXT, ChatClientEndpoint2.response);
+    }
+
+    private Session connectToServer(URL baseUrl, Object endpoint) {
+        try {
+        WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+        URI uri = new URI(&amp;quot;ws://&amp;quot; + baseUrl.getHost() + &amp;quot;:&amp;quot; + baseUrl.getPort()
+            + baseUrl.getPath() + &amp;quot;chat&amp;quot;);
+        return container.connectToServer(endpoint, uri);
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+            fail();
+        }
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

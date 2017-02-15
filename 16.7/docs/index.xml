@@ -1,0 +1,3645 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docs-rsses on </title>
+    <link>http://seedstack.org/archives/16.7/docs/index.xml</link>
+    <description>Recent content in Docs-rsses on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/docs/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Aggregates</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/manual/aggregates/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/manual/aggregates/</guid>
+      <description>&lt;p&gt;Domain objects have a lifecycle: they are created, go through various states and eventually die (either being archived
+or deleted). Many of these objects are simple, transient objects which are simply created with a call to their constructor
+and thrown away after use. There is no need to complicate such objects. But some objects are more rich, with a complex
+lifecycle and numerous relationships with other objects.&lt;/p&gt;
+
+&lt;p&gt;The challenges of managing these objects can also be addressed with several patterns. The first one is the &lt;strong&gt;aggregate pattern,
+which define clear ownership and boundaries between domain objects&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;what-is-an-aggregate&#34;&gt;What is an aggregate ?&lt;/h1&gt;
+
+&lt;p&gt;Most business domains have very interconnected entities, sometimes up to the point where there is always a path going from
+any Entity to any other. We can try to minimize the number of associations in our design, and this is a good practice
+but it can lead to a translation loss between business and software. In a typical object model, it is difficult to clearly
+see the boundaries of a change. This is particularly acute in systems with concurrent access such as Web applications.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;It is also difficult to guarantee the consistency of changes to objects in a model with complex associations and no clear
+boundaries between objects. Considering every object as independent from each other is not a valid approach, but on the
+other side, refreshing every object because of a change is not practical. &lt;strong&gt;A balanced solution must be found&lt;/strong&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&#34;../img/aggregate-typologies.png&#34; alt=&#34;Aggregate typologies&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;With the &lt;strong&gt;aggregate pattern&lt;/strong&gt;, we want to be as close as possible to the center pattern in the figure above. The aggregate
+is a cluster of associated objects that are considered as a unit for the purpose of data changes. Each Aggregate has root
+and a boundary which determines what is inside the Aggregate.&lt;/p&gt;
+
+&lt;p&gt;The Aggregate root is a specific Entity contained in the Aggregate. It is the only entry-point of the Aggregate, meaning
+that it is the only Aggregate Entity that client objects can hold references to. Other objects of the Aggregate are only
+accessible through the context of the Aggregate root.&lt;/p&gt;
+
+&lt;h1 id=&#34;characteristics&#34;&gt;Characteristics&lt;/h1&gt;
+
+&lt;p&gt;The following rules apply to Aggregates:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The Aggregate root has a global identity and is responsible for checking invariants within the Aggregate.&lt;/li&gt;
+&lt;li&gt;Non-root Entities inside the Aggregate have a local identity that is only unique within the Aggregate.&lt;/li&gt;
+&lt;li&gt;Code outside the Aggregate can only hold references to the Aggregate root. The root can hand references to internal
+entities but they must only use them transiently and not hold to the reference. Value Objects can be handed without
+any concern because they are immutable and side-effect free.&lt;/li&gt;
+&lt;li&gt;Only Aggregate roots can be loaded directly from the persistence. All other objects must be found by traversal of
+associations.&lt;/li&gt;
+&lt;li&gt;Any change within the Aggregate boundary must satisfy all the Aggregate invariants.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;declaration&#34;&gt;Declaration&lt;/h1&gt;
+
+&lt;p&gt;Creating an Aggregate with the Business Framework, consists in:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Creating a package with the Aggregate name,&lt;/li&gt;
+&lt;li&gt;Create all the domain objects belonging to the Aggregate in this package,&lt;/li&gt;
+&lt;li&gt;From all those domain objects, one Entity should be created as the &lt;strong&gt;Aggregate root&lt;/strong&gt;. This step is the focus of this
+section.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To create an Aggregate root using the Business framework you have three choices:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Extend the &lt;code&gt;BaseAggregateRoot&lt;/code&gt; class. This class directly extends &lt;code&gt;BaseEntity&lt;/code&gt; and as such the &lt;code&gt;equals()&lt;/code&gt;, &lt;code&gt;hashCode()&lt;/code&gt;
+and &lt;code&gt;compareTo()&lt;/code&gt; methods will be provided out-of-the-box.&lt;/li&gt;
+&lt;li&gt;Implement the &lt;code&gt;AggregateRoot&lt;/code&gt; interface. You must implement the &lt;code&gt;equals()&lt;/code&gt;, &lt;code&gt;hashCode()&lt;/code&gt; and &lt;code&gt;compareTo()&lt;/code&gt; methods in
+this case.&lt;/li&gt;
+&lt;li&gt;Simply annotate any class with the &lt;code&gt;@DomainAggregateRoot&lt;/code&gt; annotation. In this case, you won&amp;rsquo;t be able to use helpers and
+tools from the framework.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With the two first options (base class and interface), you have to provide a generic parameter with the type of the
+Aggregate root identifier.&lt;/p&gt;
+
+&lt;h1 id=&#34;example&#34;&gt;Example&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Order extends BaseAggregateRoot&amp;lt;Long&amp;gt; {
+    private Long orderId;
+    private Date checkoutDate;
+    private double price;
+    private List&amp;lt;OrderItem&amp;gt; items;
+
+    Order() {
+    }
+
+    @Override
+    public Long getEntityId() {
+        return orderId;
+    }
+
+    public void addOrderItem(int quantity, long productId, double price) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setQuantity(quantity);
+        orderItem.setProductId(productId);
+        orderItem.setPrice(price);
+        items.add(orderItem);
+    }
+
+    public void clearOrderItems() {
+        items.clear();
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Assemblers</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/manual/assemblers/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/manual/assemblers/</guid>
+      <description>&lt;p&gt;The assembler pattern is used to transfer a representation of the state of &lt;em&gt;Aggregates&lt;/em&gt; to &lt;em&gt;DTO/Representation&lt;/em&gt; objects.
+The Business Framework provides a interface and few base classes to ease the development of assemblers.&lt;/p&gt;
+
+&lt;h1 id=&#34;default-assembler&#34;&gt;Default assembler&lt;/h1&gt;
+
+&lt;p&gt;By default, if your mapping is obvious, you don&amp;rsquo;t have to create an explicit assembler. You just add the &lt;code&gt;@DtoOf&lt;/code&gt; annotation
+on your DTO class to link them to their related Aggregate root:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@DtoOf(Product.class)
+class ProductRepresentation {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can then inject a ModelMapper-based assembler with the &lt;code&gt;@ModelMapper&lt;/code&gt; annotation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+@ModelMapper
+Assembler&amp;lt;Product, ProductRepresentation&amp;gt; productAssembler;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This assembler uses the default settings of the &lt;a href=&#34;http://modelmapper.org/&#34;&gt;ModelMapper library&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;It is strongly recommended to always have a DTO. &lt;strong&gt;Never serialize domain objects to your clients.&lt;/strong&gt; Even with the default
+assembler you can define a DTO that is a flat and/or partial mapping of your domain Aggregate. ModelMapper will
+automatically figure out the field mapping if you respect &lt;a href=&#34;http://modelmapper.org/getting-started/#mapping&#34;&gt;their conventions&lt;/a&gt;.
+Besides, you should always have integration tests that checks that the automatic mapping is correct.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;explicit-assembler&#34;&gt;Explicit assembler&lt;/h1&gt;
+
+&lt;p&gt;Create an assembler extending &lt;code&gt;BaseAssembler&lt;/code&gt; class. It will contains
+the logic of the copy between aggregate and DTO. Then, inject your
+assembler in your class.&lt;/p&gt;
+
+&lt;p&gt;There are two methods to implement:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;doAssembleDtoFromAggregate(dto, aggregate)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;doMergeAggregateWithDto(aggregate, dto)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The first method creates a DTO from an aggregate root. The second
+merge the mutable fields of an &lt;strong&gt;existing&lt;/strong&gt; aggregate with the data
+from the dto.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that the aggregate identity should never be updated by the DTO.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;example&#34;&gt;Example&lt;/h1&gt;
+
+&lt;p&gt;An assembler assembling a representation of a product.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class ProductAssembler extends BaseAssembler&amp;lt;Product,ProductRepresentation&amp;gt; {
+
+    @Override
+    protected void doAssembleDtoFromAggregate(ProductRepresentation targetDto, 
+	         Product sourceAggregate) {
+        // Flatten the id
+        targetDto.setStoreId(sourceAggregate.getAggregateId().getStoreId());
+        targetDto.setProductCode(sourceAggregate.getAggregateId().getProductCode());
+         
+        targetDto.setName(sourceAggregate.getName());
+        targetDto.setDescription(sourceAggregate.getDescription());
+    }
+	 
+    @Override
+    protected void doMergeAggregateWithDto(Product targetAggregate, 
+	        ProductRepresentation sourceDto) {
+        // The id is not modified
+        targetAggregate.setName(sourceDto.getName());
+        targetAggregate.setDescription(sourceDto.getDescription());
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can inject the assembler via its interface or directly via the
+implementation class. Both way are acceptable, but the first way
+provides a more encapsulated interface to the developer using it.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+Assembler&amp;lt;Product, ProductRepresentation&amp;gt; productAssembler;
+
+@Inject
+ProductAssembler productAssembler;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// assemble a representation
+representation = productAssembler.assembleDtoFromAggregate(product);
+
+// merge an aggregate
+Product productToMerge = catalog.retrieve(productId);
+productAssembler.mergeAggregateWithDto(productToMerge, productRepresentationSource);
+catalog.update(productToMerge);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;domain-specific-language&#34;&gt;Domain-Specific Language&lt;/h1&gt;
+
+&lt;p&gt;Assembler implementations remains simple, but its usage can become
+tedious when using lists or complexe worflows. To simplify this use
+cases the Business Framework provides a DSL throught
+&lt;code&gt;FluentAssembler&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;lists&#34;&gt;Lists&lt;/h2&gt;
+
+&lt;p&gt;Replace common boilerplate code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;List&amp;lt;ProductRepresentation&amp;gt; representations = new ArrayList&amp;lt;&amp;gt;();
+for (Product product : products {
+    representations.add(productAssembler.assembleDtoFromAggregate(product))
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;by oneliners:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;fluentAssembler.assemble(products).to(ProductRepresentation.class)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;tuples&#34;&gt;Tuples&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;fluentAssembler.assemble(product, order).to(RecipeRepresentation.class)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;qualified-assemblers&#34;&gt;Qualified assemblers&lt;/h2&gt;
+
+&lt;p&gt;You can specify the assembler the DSL should use by specifying a
+qualifier.
+For instance, the following example use the &lt;strong&gt;default ModelMapper
+assembler&lt;/strong&gt;.
+So in this case you don&amp;rsquo;t even have to create an assembler class.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;fluently.assemble(products).with(AssemblerTypes.MODEL_MAPPER).to(MyDto.class)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;advanced-usage&#34;&gt;Advanced usage&lt;/h2&gt;
+
+&lt;p&gt;When we merge a representation to an aggregate, the assembler expects
+an existing aggregate root instance. Normally you have to retreive
+this instance from a repository or to create it from a factory. This
+can become a little tedious when you have to do it a lot. Or by adding
+few metadata to your DTO, you can have the DSL doing it for you.&lt;/p&gt;
+
+&lt;h3 id=&#34;get-an-aggregate-from-its-factory&#34;&gt;Get an aggregate from its factory&lt;/h3&gt;
+
+&lt;p&gt;If the aggregate root to merge doesn&amp;rsquo;t exists, you can tell the DSL to
+create it from its factory.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;fluentAssembler.merge(repr).into(Product.class).fromFactory();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It will search the aggregate root&amp;rsquo;s factory
+(&lt;code&gt;GenericFactory&amp;lt;Product&amp;gt;&lt;/code&gt;). Then it will search the appropriate
+method to call. In order to indicate to the DSL which method should be called,
+annotate the DTO&amp;rsquo;s getters matching the factory method&amp;rsquo;s parameters
+with &lt;code&gt;@MatchingFactoryParameter(index=0)&lt;/code&gt;. The index represents the
+position of the parameters in the factory method.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class ProductRepesentation {
+
+    private Short storeId;
+    private Short productCode;
+    private String name;
+    private String description
+
+    @MatchingFactoryParameter(index=0)
+    public Short getStoreId() { ... }
+
+    @MatchingFactoryParameter(index=1)
+    public Short getProductCode() { ... }
+
+    @MatchingFactoryParameter(index=2)
+    public Short getName() { ... }
+
+    public Short getDescription() { ... }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;public interface ProductFactory extends GenericFactory&amp;lt;Product&amp;gt; {
+
+	Product createProduct(Short storeId, Short productCode, String name);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;get-an-aggregate-from-its-repository&#34;&gt;Get an aggregate from its repository&lt;/h3&gt;
+
+&lt;p&gt;If the aggregate root to merge already exists, you can tell the DSL to
+get it from its repository. If the DSL doesn&amp;rsquo;t find the aggregate root
+from the repository, two strategies are possible. The first throw an
+exception, the second fall back to the &lt;code&gt;fromFactory()&lt;/code&gt; method.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;try {
+    product = fluentAssembler.merge(representation).into(Product.class)
+        .fromRepository().orFail();
+
+} catch (AggregateNotFoundException e) {
+    return Response.status(Response.Status.NOT_FOUND).build();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;product = fluentAssembler.merge(repr).into(Product.class)
+    .fromRepository().thenFromFactory();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It will search the aggregate root&amp;rsquo;s repository
+(&lt;code&gt;GenericRepository&amp;lt;Product&amp;gt;&lt;/code&gt;). Then it will call its &lt;code&gt;load()&lt;/code&gt;
+method.
+In order to indicate to the DSL how to find the ID,
+annotate the DTO getter matching the aggregate root ID with
+&lt;code&gt;@MatchingEntityId&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If the ID is composite annotate the getter
+methods matching the ID constructor parameters with
+&lt;code&gt;@MatchingEntityId(index=0)&lt;/code&gt;. In this case, the index is mandatory and
+represents the position of the parameters in the constructor method.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code&gt;public class ProductRepesentation {
+
+    private Short storeId;
+    private Short productCode;
+    private String name;
+    private String description
+
+    @MatchingEntityId(index=0)
+    public Short getStoreId() { ... }
+
+    @MatchingEntityId(index=1)
+    public Short getProductCode() { ... }
+
+    public Short getName() { ... }
+
+    public Short getDescription() { ... }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;public class ProductId extends BaseValueObject {
+
+	private Short storeId;
+	private Short productCode;
+
+	public ProductId(Short storeId, Short productCode) {
+		this.storeId = storeId;
+		this.productCode = productCode;
+	}
+
+    // Getters ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;automation-with-modelmapper&#34;&gt;Automation with ModelMapper&lt;/h1&gt;
+
+&lt;p&gt;DTOs are meant to expose domain objects or a part of these objects.
+So there are often similarities between the DTOs and the domain
+object.
+This can lead to a lot of boilerplate code when the assembler doesn&amp;rsquo;t
+hold complex logic but just populates objects.&lt;/p&gt;
+
+&lt;p&gt;For this use case, you can now &lt;strong&gt;use a default&lt;/strong&gt; assembler based on
+&lt;a href=&#34;http://modelmapper.org/&#34;&gt;ModelMapper&lt;/a&gt;. It&amp;rsquo;s an &lt;em&gt;automatic assembler&lt;/em&gt;
+which provides an &lt;strong&gt;intelligent mapping&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;how-to-use-it&#34;&gt;How to use it ?&lt;/h2&gt;
+
+&lt;p&gt;The only thing you have to do is to annotate the DTO with
+&lt;code&gt;@DtoOf(MyAggregate.class)&lt;/code&gt;. It tells the framework to bind a default
+assembler for assembling &lt;code&gt;MyAggregate&lt;/code&gt; into the annotated DTO.
+After you can inject the assembler as follows, and use it as usual.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@DtoOf(MyProduct.class)
+public class MyDto { ... }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+@ModelMapper
+private Assembler&amp;lt;MyAggregate,MyDto&amp;gt; myDtoAssemebler;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;how-does-it-work&#34;&gt;How does it work ?&lt;/h2&gt;
+
+&lt;p&gt;It uses a intelligent mapping provided by the ModelMapper library.
+You can find the detailed explanation here
+&lt;a href=&#34;http://modelmapper.org/user-manual/how-it-works/&#34;&gt;matching documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;can-i-customize-it&#34;&gt;Can I customize it ?&lt;/h2&gt;
+
+&lt;p&gt;Yes. If there are ambiguities, or if you only want to change the mapping of
+one field, you don&amp;rsquo;t need to fall back to the old assembler. You can
+just create an assembler extending the &lt;code&gt;ModelMapperAssembler&lt;/code&gt; class and
+implement the methods returning a &lt;code&gt;ModelMapper&lt;/code&gt; instance.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;See here &lt;a href=&#34;http://modelmapper.org/user-manual/property-mapping/&#34;&gt;how to override the mapping&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;It supports:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Deep mapping&lt;/li&gt;
+&lt;li&gt;Skipping properties&lt;/li&gt;
+&lt;li&gt;Providers&lt;/li&gt;
+&lt;li&gt;Conditional mapping&lt;/li&gt;
+&lt;li&gt;String mapping&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;can-i-see-some-code&#34;&gt;Can I see some code ?&lt;/h3&gt;
+
+&lt;p&gt;Below is an example from the &lt;a href=&#34;https://github.com/seedstack/store-webapp-sample&#34;&gt;Web application sample&lt;/a&gt;.
+The Product contains a field &lt;code&gt;entityId&lt;/code&gt; and a field &lt;code&gt;categoryId&lt;/code&gt;, but the representation only contains a field
+&lt;code&gt;id&lt;/code&gt;. So ModelMapper doesn&amp;rsquo;t know which field match.&lt;/p&gt;
+
+&lt;p&gt;To fix this, extend &lt;code&gt;ModelMapperAssembler&lt;/code&gt; and add a &lt;code&gt;PropertyMap&lt;/code&gt; to the &lt;code&gt;modelMapper&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that, as you implemented an assembler, you don&amp;rsquo;t use the default
+assembler anymore. So remove the &lt;code&gt;@DtoOf&lt;/code&gt; annotation on the DTO.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code&gt;public class ProductModelMapperAssembler extends ModelMapperAssembler&amp;lt;Product, ProductRepresentation&amp;gt; {
+
+    @Override
+    protected void configureAssembly(ModelMapper modelMapper) {
+        modelMapper.addMappings(new PropertyMap&amp;lt;Product, ProductRepresentation&amp;gt;() {
+            @Override
+            protected void configure() {
+                // Required due to the ambiguity with the categoryId field
+                map().setId(source.getEntityId());
+            }
+        });
+    }
+
+    @Override
+    protected void configureMerge(ModelMapper modelMapper) {
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then use it as usual.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private Assembler&amp;lt;Product, ProductRepresentation&amp;gt; assembler;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;assembler.assembleDtoFromAggregate(aProduct);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bibliography</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/bibliography/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/bibliography/</guid>
+      <description>
+
+&lt;p&gt;To go beyond what is described in this documentation, we recommend a few books which will help you to better understand
+DDD, independently of the business framework.&lt;/p&gt;
+
+&lt;h1 id=&#34;eric-evans-domain-driven-design&#34;&gt;Eric Evans: Domain-Driven Design&lt;/h1&gt;
+
+
+&lt;figure class=&#34;img-thumbnail pull-right&#34;&gt;
+    
+        &lt;img src=&#34;img/book_ddd.jpg&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;This is the original book of Domain-Driven Design, the one which introduced this approach to the world.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215/&#34;&gt;Buy it online&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div style=&#34;clear: both;&#34;&gt;&lt;/div&gt;
+
+&lt;h1 id=&#34;vaughn-vernon-implementing-domain-driven-design&#34;&gt;Vaughn Vernon: Implementing Domain-Driven Design&lt;/h1&gt;
+
+
+&lt;figure class=&#34;img-thumbnail pull-right&#34;&gt;
+    
+        &lt;img src=&#34;img/book_implementing_ddd.jpg&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;This books builds upon the one from Eric Evans and a decade of DDD experience to provide concrete guidance on
+implementing the DDD in real-world projects. This book is a must-read for anybody looking to put DDD into practice.
+It also addresses the use of DDD in relation to popular architectural styles like REST.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.amazon.com/Implementing-Domain-Driven-Design-Vaughn-Vernon/dp/0321834577&#34;&gt;Buy it online&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div style=&#34;clear: both;&#34;&gt;&lt;/div&gt;
+
+&lt;h1 id=&#34;abel-avram-floyd-marinescu-domain-driven-design-quickly&#34;&gt;Abel Avram, Floyd Marinescu: Domain-Driven Design Quickly&lt;/h1&gt;
+
+
+&lt;figure class=&#34;img-thumbnail pull-right&#34;&gt;
+    
+        &lt;img src=&#34;img/book_ddd_quickly.jpg&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;This book is a short, quickly-readable summary and introduction to the fundamentals of DDD; it does not introduce any
+new concepts; it attempts to concisely summarize the essence of what DDD is, drawing mostly Eric Evans&amp;rsquo; original book,
+as well other sources since published such as Jimmy Nilsson&amp;rsquo;s Applying Domain Driven Design, and various DDD discussion
+forums. The main topics covered in the book include: Building Domain Knowledge, The Ubiquitous Language, Model Driven
+Design, Refactoring Toward Deeper Insight, and Preserving Model Integrity.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.infoq.com/resource/minibooks/domain-driven-design-quickly/en/pdf/DomainDrivenDesignQuicklyOnline.pdf&#34;&gt;Free PDF version&lt;/a&gt;, also available in &lt;a href=&#34;http://blog.infosaurus.fr/public/docs/DDDViteFait.pdf&#34;&gt;french&lt;/a&gt; or in
+&lt;a href=&#34;http://www.infoq.com/resource/minibooks/domain-driven-design-quickly/zh/pdf/dddquickly-chinese-version.pdf&#34;&gt;chinese&lt;/a&gt;. You can also &lt;a href=&#34;http://www.amazon.com/Domain-Driven-Design-Quickly-Abel-Avram/dp/1411609255&#34;&gt;buy a paper version&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div style=&#34;clear: both;&#34;&gt;&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Business framework</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/</guid>
+      <description>&lt;p&gt;SeedStack business framework is a simple and coherent set of building blocks that enable you to code high quality business
+logic efficiently. It is based on the &lt;strong&gt;&amp;laquo;Domain-Driven Design (DDD)&amp;raquo;&lt;/strong&gt; software development approach from which it implements
+the main concepts. Following the DDD principles will help you to produce a supple and scalable design. Using the business
+framework will help you to implement it quickly and cleanly.&lt;/p&gt;
+
+&lt;p&gt;The term term has been coined by Eric Evans in his book &amp;laquo;Domain-Driven design&amp;raquo;, published in 2003. It is an approach of
+software development for medium to complex needs, based on the following premises:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Placing the project&amp;rsquo;s primary focus on the core domain and domain logic.&lt;/li&gt;
+&lt;li&gt;Basing design on a model of the domain.&lt;/li&gt;
+&lt;li&gt;Initiating a creative collaboration between technical and domain experts to iteratively refine a conceptual model that
+addresses particular domain problems.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;DDD really shines when applied on medium to complex business needs but can also be used successfully on simpler projects,
+especially since the business framework considerably lowers the cost of implementing such projects by providing many
+helpers and base implementations.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;This documentation is not intended to replace a good understanding of DDD principles which can be gathered from various
+source material described in the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/business/bibliography/&#34;&gt;bibliography&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;requirements&#34;&gt;Requirements&lt;/h1&gt;
+
+&lt;h2 id=&#34;an-iterative-process&#34;&gt;An iterative process&lt;/h2&gt;
+
+&lt;p&gt;An iterative design and development process is required to successfully implement DDD in a project. Any agile methodology
+that fits the team can be used. Frequent communication between domain experts and the development team is key to get
+the model right before too much code is written. This communication should not cease after the first version of the model
+is produced because the software will probably be continuously refined until it is no longer needed by the business.&lt;/p&gt;
+
+&lt;h2 id=&#34;business-involvement&#34;&gt;Business involvement&lt;/h2&gt;
+
+&lt;p&gt;The domain being the area of application of the software, an access to domain experts is critical to achieve a high quality
+model. One goal of the DDD is to express the mental model spread across business experts into a refined, precise and
+usable domain model. To be able to achieve this goal, domain experts should contribute to software design by defining
+the &lt;a href=&#39;http://seedstack.org/archives/16.7/glossary#ubiquitous-language&#39;&gt;Ubiquitous Language&lt;/a&gt; with the development team.&lt;/p&gt;
+
+&lt;p&gt;This collaboration will lead to a software that is exactly what is needed by business.&lt;/p&gt;
+
+&lt;h2 id=&#34;development&#34;&gt;Development&lt;/h2&gt;
+
+&lt;p&gt;To successfully apply DDD and use the business framework, some prerequisites must be met by the development team:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Being fluent with Object-Oriented (OO) programming paradigm with a focus on polymorphism, encapsulation and composition.&lt;/li&gt;
+&lt;li&gt;Have a good knowledge of design patterns:
+
+&lt;ul&gt;
+&lt;li&gt;Identify patterns,&lt;/li&gt;
+&lt;li&gt;Know when to use them,&lt;/li&gt;
+&lt;li&gt;Know when NOT use them.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Some patterns are widely employed in the business framework and in SeedStack in general. Having a good understanding of
+them is required.&lt;/p&gt;
+
+&lt;h1 id=&#34;the-business-framework&#34;&gt;The business framework&lt;/h1&gt;
+
+&lt;p&gt;The business framework is a Java implementation of the DDD approach that builds upon the java framework to provide
+high-level, ready to use building blocks. To add the business framework to your project, add the following dependency:&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-business-business-core-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-business-business-core-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-business-business-core-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.business&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;business-core&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-business-business-core-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.1&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-business-business-core-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-business-business-core-show&#34; onclick=&#34;$(&#39;#org-seedstack-business-business-core-version, #org-seedstack-business-business-core-warn&#39;).show(); $(&#39;#org-seedstack-business-business-core-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-business-business-core-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.business:business-core:2.3.1&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Your will be guided through the design and development of your project but it is crucial for its success to understand the
+concepts and the associated building blocks. While the business framework provides a rich set of helpers and base
+implementations, no code is generated. &lt;strong&gt;The development team has to design and write the code, according to this
+documentation and the DDD philosophy.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Sometimes, several design or implementation choices are possible for a given business need. In that case, the pros
+and cons of each choice are presented to help you decide which is right for you specific need. When available, additional
+source material is referenced for a further understanding.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Because the business framework is mostly about development, it focus itself on the &lt;a href=&#39;http://seedstack.org/archives/16.7/glossary#tactical-design&#39;&gt;tactical side&lt;/a&gt;
+of DDD with the implementation of concepts such as entities, repositories, aggregates and so on. But there is a
+&lt;a href=&#39;http://seedstack.org/archives/16.7/glossary#strategic-design&#39;&gt;strategic side&lt;/a&gt; to DDD that you shouldn&amp;rsquo;t overlook and is crucial to your project success,
+especially if its domain is large or complex. SeedStack inherent modularity will help you to separate bounded contexts
+in modules and reuse them across multiple projects easily.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;A majority of DDD concepts are implemented as building blocks by the business framework to help you code faster. But you
+don&amp;rsquo;t always want to go for the fastest implementation and may need to abstract your code from the framework a bit further.&lt;/p&gt;
+
+&lt;h1 id=&#34;three-abstraction-levels&#34;&gt;Three abstraction levels&lt;/h1&gt;
+
+&lt;p&gt;The business framework allows you to choose the abstraction level you want for your code. There are three abstraction
+level that can you can choose from, on a class-by-class basis:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Annotation level&lt;/strong&gt;. You can make the framework recognize your classes simply by annotating them. No need to implement any
+interface, nor extend base classes. While this mode is great for decoupling your code from the framework you may find that
+some of the helpers cannot work these classes as they won&amp;rsquo;t have the required signatures. You will have full dependency
+injection though, provided that you define interfaces for your classes yourself. &lt;em&gt;Framework coupling is at the minimum
+but development speed is reduced. Also note that this mode is preferably reserved to people fluent with DDD principles.&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Interface level&lt;/strong&gt;. Implementing framework interfaces will make the framework recognize your classes and will allow
+it to work with them as they will have the required signatures. In this mode you benefit from full dependency injection
+and almost full framework functionality. Some predefined behaviors may be missing for some objects like out-of-the-box
+equality for entities and value objects. &lt;em&gt;It is a good balance between framework coupling and development speed and is
+suitable to people that know the DDD principles well.&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Base class level&lt;/strong&gt;. Extending framework base classes will provide you full framework functionality, including base
+behavior. &lt;em&gt;Framework coupling is higher but a higher development speed is gained. It allows people starting with DDD to
+benefit from implementation correctness in various areas.&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that although you can mix the three levels in the same project, it is recommended to define which approach suits
+your team best and stick with it.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;code-pattern-detection&#34;&gt;Code pattern detection&lt;/h1&gt;
+
+&lt;p&gt;To recognize your classes, the business framework scans them and recognize code patterns depending on the abstraction
+level you use (see above). It works in two steps:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;First it scans interfaces that are annotated with a recognized concept,&lt;/li&gt;
+&lt;li&gt;Then is collects classes implementing those interfaces. If multiple implementations are found for an interface, it
+can detects qualifiers to differentiate them. See &lt;a href=&#34;#qualified-injection&#34;&gt;qualified injection&lt;/a&gt; below for more information.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Once a code pattern is properly recognized, it can be injected through its interface in any managed instance.&lt;/p&gt;
+
+&lt;div class=&#39;pull-right margin-top-20&#39;&gt;
+    &lt;a href=&#39;manual&#39; class=&#34;btn btn-u&#34;&gt;Next: start reading the manual...&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&#34;clearfix&#34;&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Business framework basics</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/manual/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/manual/</guid>
+      <description>&lt;p&gt;This manual will begin by to introducing and explaining all the concepts that you will need to know and master to build
+successful business applications. These concepts come from the DDD software approach which is central to the Business
+framework. You will NOT be presented with in-depth coverage of all the DDD subtleties, so to go beyond the basics you
+should have a look at the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/business/bibliography/&#34;&gt;bibliography&lt;/a&gt;. Moreover, links will be provided in the text when related
+quality content is available.&lt;/p&gt;
+
+&lt;p&gt;Domain-Driven Design is &lt;strong&gt;more about a way of thinking than about code&lt;/strong&gt; but this approach has nonetheless a great
+impact on the way your business will be coded. DDD does not introduce new concepts or design patterns on its own. As
+a matter of fact, you will surely recognize some patterns you already know behind DDD names. It goes beyond design
+patterns though, as it dictates when, where and how to use them to solve real business problems.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;As its name suggest, DDD is focused on the business and its model. This model exists independently of applications and
+specific use cases and should be designed a such. Applications are clients of the model: software that will use this
+model to address enterprise needs. Naturally, particular use cases and UI ideas can be used as inputs for thinking about
+the model as the software is produced. But the model itself should be independent of its clients.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;big-picture&#34;&gt;Big picture&lt;/h1&gt;
+
+&lt;p&gt;The following diagram represents the key concepts of tactical Domain-Driven Design and how they relate to each other.
+This manual will describe all those patterns and how they can be implemented with SeedStack.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/all-domain.png&#34; alt=&#34;Tactical domain-driven design&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;architecture&#34;&gt;Architecture&lt;/h1&gt;
+
+&lt;p&gt;For starters, it is important to know that DDD doesn&amp;rsquo;t require a particular architecture. Since the domain is defined
+and contained inside a &lt;a href=&#39;http://seedstack.org/archives/16.7/glossary#bounded-context&#39;&gt;bounded context&lt;/a&gt;, it doesn&amp;rsquo;t influence the architecture of the whole application
+or system. There are several pertinent architectural styles that you can apply to the surroundings of the domain. Some
+are very broad and tend to define every aspect of the system, others are more focused and try to address a specific
+demand.&lt;/p&gt;
+
+&lt;p&gt;The business framework can itself adapt to several of these architectural styles. In this section we will present
+the &lt;strong&gt;layers architecture pattern&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;layers&#34;&gt;Layers&lt;/h2&gt;
+
+&lt;p&gt;The layers architecture pattern is commonly used in Web, enterprise and desktop applications. In this architecture
+pattern, the concerns are separated into well-defined layers.&lt;/p&gt;
+
+&lt;h3 id=&#34;traditional-definition&#34;&gt;Traditional definition&lt;/h3&gt;
+
+&lt;p&gt;The main rule of this pattern is that each layer may couple only to itself and below. The strict layers architecture
+only allows to couple to the layer directly below. We recommend to use the &lt;strong&gt;relaxed layers architecture&lt;/strong&gt; though, which
+allows any higher-level layer to couple to any layer below it.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/layers.png&#34; alt=&#34;DDD applied to layers architecture&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;dependency-inversion-principle&#34;&gt;Dependency Inversion Principle&lt;/h3&gt;
+
+&lt;p&gt;In the traditional view of the layers architecture, the infrastructure is at the bottom, containing technical
+mechanisms like persistence, messaging or any component dependent on third-party libraries. So every upper-layer must
+couple to the infrastructure layer to use the technical facilities. It is not desirable in DDD where we want to avoid
+any coupling of the domain to the infrastructure. In fact we want to avoid any coupling of any layer to the
+infrastructure. To achieve this independence, we will apply the &lt;strong&gt;&lt;a href=&#39;http://seedstack.org/archives/16.7/glossary#dependency-inversion-principle&#39;&gt;Dependency Inversion Principle&lt;/a&gt;&lt;/strong&gt; which
+states that:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;High-level modules should not depend on low-level modules. Both should depend on abstractions.&lt;/p&gt;
+
+&lt;p&gt;Abstractions should not depend upon details. Details should depend upon abstractions.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;What does it mean in terms of code, is that a low-level component should implement interfaces defined by high components.
+As such, we can move the infrastructure layer to the side.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/layers_dip.png&#34; alt=&#34;DDD applied to layers architecture&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As an example of this architecture, we would have a &lt;code&gt;JpaCustomerRepository&lt;/code&gt; implementation class which would belong to
+the infrastructure and which implements the &lt;code&gt;CustomerRepository&lt;/code&gt; interface defined in the domain layer. When injecting
+the repository elsewhere like in services, we would only use the interface. The
+&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/#dependency-injection&#34;&gt;dependency injection mechanism&lt;/a&gt; of the Java framework would provide
+the correct implementation from the infrastructure.&lt;/p&gt;
+
+&lt;h2 id=&#34;interface-layer&#34;&gt;Interface layer&lt;/h2&gt;
+
+&lt;p&gt;The interface layer contains the components that handle &lt;strong&gt;interactions with other systems&lt;/strong&gt;, such as Web application
+views, REST resources, Web-Services, etc&amp;hellip;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It handles the &lt;strong&gt;interpretation&lt;/strong&gt;, &lt;strong&gt;validation&lt;/strong&gt; and &lt;strong&gt;translation&lt;/strong&gt; of the inputs.&lt;/li&gt;
+&lt;li&gt;It handles the &lt;strong&gt;serialization&lt;/strong&gt; of the outputs, such as DTO classes to JSON, XML, etc.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;application-layer&#34;&gt;Application layer&lt;/h2&gt;
+
+&lt;p&gt;The application layer is responsible for &lt;strong&gt;driving the workflow of the application&lt;/strong&gt;, executing the use cases of the system.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;These operations are independent of the interfaces by which they are exposed.&lt;/li&gt;
+&lt;li&gt;This layer is well suited for &lt;strong&gt;spanning transactions&lt;/strong&gt;, high-level &lt;strong&gt;logging&lt;/strong&gt; and &lt;strong&gt;security&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;The application layer is thin in terms of domain logic, it merely &lt;strong&gt;coordinates the domain layer objects&lt;/strong&gt; to perform
+the actual work through &lt;strong&gt;Application Services&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;domain-layer&#34;&gt;Domain layer&lt;/h2&gt;
+
+&lt;p&gt;The Domain Layer is where the &lt;strong&gt;business is expressed&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The domain is independent of the use cases of the system, but is used to achieve their realization,&lt;/li&gt;
+&lt;li&gt;It is a very &lt;strong&gt;behaviour-rich&lt;/strong&gt; and &lt;strong&gt;expressive&lt;/strong&gt; model of the domain, based on entities, values objects and aggregates.&lt;/li&gt;
+&lt;li&gt;It contains additional blocks, such as domain services, repositories, factories, policies, etc&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;infrastructure-layer&#34;&gt;Infrastructure layer&lt;/h2&gt;
+
+&lt;p&gt;The infrastructure layer contains the technology-specific implementations of interfaces defined in other layers.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It supports all of the three other layers in different ways, facilitating communication between the layers.&lt;/li&gt;
+&lt;li&gt;It consists of everything that would still exist without the application: external libraries, database engine,
+application server, messaging backend and so on.&lt;/li&gt;
+&lt;li&gt;This layer can be completely replaced by another one with other technological choices without altering the system behavior.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We often declare interfaces in &lt;strong&gt;Interfaces&lt;/strong&gt;, &lt;strong&gt;Application&lt;/strong&gt; and &lt;strong&gt;Domain&lt;/strong&gt; layers and implement them in the
+infrastructure Layer. A good example is the repository: interfaces are located in the domain layer but the
+implementation is in the infrastructure.&lt;/p&gt;
+
+&lt;h1 id=&#34;supple-design&#34;&gt;Supple design&lt;/h1&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;The ultimate purpose of software is to serve users. But first, that
+same software has to serve developers. [Eric Evans]&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;A software is not a piece code written in a one shot sprint. It is
+project that evolves. A lot of developers will have to work on it, to
+refactor it or add new features. Supple design is about making it
+a pleasure. It should invite to change and avoid the maintenance hell.&lt;/p&gt;
+
+&lt;p&gt;Complex and monolithic methods make hard to refactor or reuse parts of
+the code. When developers are not confident about what the software
+does, they start duplicating code. When this happens, iterative
+process and refactoring stops.&lt;/p&gt;
+
+&lt;p&gt;A supple design reveals the intent of the design. Side effects should
+contained and easy to predict. Behaviour should be obvious making it
+easy to reason about without having to investigate the implementation.&lt;/p&gt;
+
+&lt;p&gt;There is no one-way to achieve this suppleness but Eric Evans provides
+us some clues with a set of patterns. We will try to define and
+illustrate them.&lt;/p&gt;
+
+&lt;h2 id=&#34;intention-revealing-interface&#34;&gt;Intention-Revealing Interface&lt;/h2&gt;
+
+&lt;p&gt;This concept is all about communication between developers through
+code. Names of classes and methods should describe intents instead of
+means. The &lt;em&gt;ubiquitous language&lt;/em&gt; must be used to define these
+names. It will improves the comprehension of the code by the other
+members of the team.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;If a developer must consider the implementation of a component in
+order to use it, the value of encapsulation is lost.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Implementation changes should not affect the expected behaviour.&lt;/p&gt;
+
+&lt;p&gt;You can also make methods signatures clearer using meaningful Value
+Objects and Entities rather than primitives and associated classes
+(eg. String, long, BigDecimal, etc.). For instance, given the
+following method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;void setAddress(String address)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;How the client developer can know what the address should look like ?
+Does the model allow to change the address or is it just for
+initialization purpose ? Using the concept of &lt;em&gt;Intention-Revealing
+Interface&lt;/em&gt; will leads us to this newer version of the method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;void changeAddress(Address address)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;side-effect-free-function&#34;&gt;Side-Effect-Free Function&lt;/h2&gt;
+
+&lt;p&gt;We just explained how a good naming can improve the comprehension of a
+model, but this is not always enougth. Complex methods usually call a
+combination of other methods. When all these nested methods have
+side-effects, it become hard to predict the overall behaviour.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;In computer science side-effect means any modification in the state of
+a system.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Lets say we are working on a software managing teams. We had to
+implement a method allowing to merged teams. So we first wrote this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;teamOne.add(teamTwo)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ok, it takes members of the &lt;em&gt;teamTwo&lt;/em&gt; and add them to the
+&lt;em&gt;teamOne&lt;/em&gt;. It does the job. Wait ! What happens to &lt;em&gt;teamTwo&lt;/em&gt; ? Has it
+been modified also ? We can&amp;rsquo;t be sure whithout looking at the code of
+the &lt;em&gt;add&lt;/em&gt; method because this method is not &lt;em&gt;side-effect-free&lt;/em&gt;. After
+refactoring the code, here is the second version:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Team newTeam = teamOne.mergeWith(teamTwo)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the newer version, &lt;em&gt;teamOne&lt;/em&gt; and &lt;em&gt;teamTwo&lt;/em&gt; are not
+modified. Instead we create a new object, like that developers don&amp;rsquo;t
+have to understand the implementation. The knowledge is capture in the
+newly created team. The idea here is not to remove all the
+side-effects otherwise the code will just allow you to perform
+queries. But side-effects should be contained in small entities
+methods and complex computation isoltated in value objects.&lt;/p&gt;
+
+&lt;h2 id=&#34;assertion&#34;&gt;Assertion&lt;/h2&gt;
+
+&lt;p&gt;In the previous section we talk about limiting side-effects. But some
+of them will remains. The problem is that when they are implicit, it becomes
+impossible to anticipate the changes on the state of the application
+whithout following the execution path. Which breaks the
+encapsulation. So in order to make them explicit use &lt;em&gt;assertions&lt;/em&gt;. It
+can be done using method post-condition (for instance, with &lt;code&gt;@Valid&lt;/code&gt; from the
+Validation JSR) or by using unit tests.&lt;/p&gt;
+
+&lt;h2 id=&#34;going-further&#34;&gt;Going further&lt;/h2&gt;
+
+&lt;p&gt;In this article, we described methods for making intentions explicit
+using &lt;em&gt;Intention-Revealing Interface&lt;/em&gt;, &lt;em&gt;Side-Effect-Free Functions&lt;/em&gt;
+and &lt;em&gt;Assertion&lt;/em&gt;. These methods allow us to communicate intents,
+protecting encapsulation. This is very important if we want to keep
+the advantages of using a &lt;em&gt;Object-oriented-language&lt;/em&gt;. It also allow
+the client developer to focus on his design instead of having
+understand all the inner workings of the API he uses.&lt;/p&gt;
+
+&lt;p&gt;In his book &amp;laquo;Domain Driven Design&amp;raquo;, Eric Evans go further describing
+three additional concepts: &lt;em&gt;Conceptual contour&lt;/em&gt;, &lt;em&gt;Standalone&lt;/em&gt;,
+&lt;em&gt;Closure of Operations&lt;/em&gt;. I invite you to read his book if you want to
+have all the tools to reach the suppleness.&lt;/p&gt;
+
+&lt;h1 id=&#34;package-layout&#34;&gt;Package layout&lt;/h1&gt;
+
+&lt;p&gt;We propose and recommend a well-defined package layout for organizing your business code, which is described in this
+section.&lt;/p&gt;
+
+&lt;h2 id=&#34;the-domain&#34;&gt;The domain&lt;/h2&gt;
+
+&lt;h3 id=&#34;standalone-domain&#34;&gt;Standalone domain&lt;/h3&gt;
+
+&lt;p&gt;If you want to build a reusable domain it must be located in its own project. It is the recommended way to build a domain
+because it allows to reuse it across applications and doesn&amp;rsquo;t cost more than in-application domains. In that case, the
+domain must be named and live in its own package, for instance:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.myorganization.domains.mydomain
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here the domain is named &lt;code&gt;mydomain&lt;/code&gt;. Its prefix would naturally be adapted to your organization rules.&lt;/p&gt;
+
+&lt;h3 id=&#34;in-application-domain&#34;&gt;In-application domain&lt;/h3&gt;
+
+&lt;p&gt;If you plan to place the domain inside to your application (which is not recommended), you can just code it along
+your application packages. In that case it can stay without name and live as a subpackage of your project, for instance:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.myorganization.myproject.domain
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here the domain is not named, as it lives under the domain subpackage of the project. The project package would naturally
+be adapted to your organization rules.&lt;/p&gt;
+
+&lt;h3 id=&#34;package-organization&#34;&gt;Package organization&lt;/h3&gt;
+
+&lt;p&gt;In the DDD approach, entities are grouped in sets called aggregates. Aggregates are represented as a package containing
+an aggregate root and possibly additional entities. This package also contains the factory (interface and implementation),
+the repository interface and the possible value objects or policies related to your aggregate.
+Value objects and policies which may be used by multiple aggregates should be placed in a shared package.
+Services are located in their own package.&lt;/p&gt;
+
+&lt;p&gt;Implementations can be located in the &lt;code&gt;internal&lt;/code&gt; subpackage if they are independent of technical aspects like a third-party
+library. Otherwise they must be located in the infrastructure.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;org.myorganization.domains.mydomain (can also be org.myorganization.myproject.domain for in-application domain)
+    - model
+        - myaggregate1
+            - MyAggregateRoot
+            - MyEntity1
+            - MyEntity2
+            - MyAggregateFactory
+            - MyValueObject
+            - MyRepository
+            - MyPolicy
+            - internal
+                - MyPolicyImpl
+                - MyAggregateFactoryImpl
+        - myaggregate2
+            ...
+
+    - services
+        - MyService1
+        - MyService2
+        - internal
+            - MyService1Impl
+
+    - shared
+        - MySharedValueObject
+        - MySharedPolicy1
+        - internal
+            - MySharedPolicy1Impl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-warn&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The domain should never depends on specific technical aspects. As such no infrastructure package have a place in a reusable
+domain. The infrastructure for the domain should reside in the client of the domain (the application using the domain) as
+it is specific to it (a same domain can be persisted very differently in different applications).&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;the-application&#34;&gt;The application&lt;/h2&gt;
+
+&lt;p&gt;The application layer contains application services which should be located in the application package. Implementations
+can be in &lt;code&gt;internal&lt;/code&gt; subpackages if they are independent of technical aspects (third-party library). Otherwise, they must
+be located in the infrastructure package.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;org.myorganization.myproject
+    - application
+        - services
+            - MyService3
+            - MyService4
+            - internal
+                - MyService3Impl
+
+    - infrastructure
+        - services
+            - 3rdparty-lib
+                - MyService4Lib
+        - repositories
+            - jpa
+                - MyRepositoryJpa
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that the infrastructure also contains the implementation of domain concepts related to a specific technology, such
+as implementations of repositories or of some services.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;the-interfaces&#34;&gt;The interfaces&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;org.myorganization.myproject
+    - rest
+        - usecase1
+            - UseCase1Assembler
+            - UserCase1Resource
+            - UseCase1Finder
+            - UseCase1Representation
+        - usecase2
+            ...
+
+    - infrastructure
+        - finders
+            - jpa
+                - UseCase1FinderJpa
+                - UseCase2FinderJpa
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;tuples&#34;&gt;Tuples&lt;/h1&gt;
+
+&lt;p&gt;A tuple is a data structure corresponding to a sequence of immutable
+objects. It&amp;rsquo;s just like an array of objects but typed and which can&amp;rsquo;t be changed,
+i.e. tuples are immutable.&lt;/p&gt;
+
+&lt;p&gt;Tuples are commonly used to:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Represent a set of data without creating temparary object
+that have no real meaning.&lt;/li&gt;
+&lt;li&gt;Easy access to, and manipulation of, a data set.&lt;/li&gt;
+&lt;li&gt;Returning mutliple values from a method.&lt;/li&gt;
+&lt;li&gt;Passing multiple values to a method through a single parameter.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In the Business framework, we usually see them in factories and
+assemblers. As implementation for tuples we use
+&lt;a href=&#34;http://javatuples.org&#34;&gt;javatuples.org&lt;/a&gt;. It provides tuple classes
+from one to ten elements:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Unit&amp;lt;A&amp;gt; (1 element)
+Pair&amp;lt;A,B&amp;gt; (2 elements)
+Triplet&amp;lt;A,B,C&amp;gt; (3 elements)
+Quartet&amp;lt;A,B,C,D&amp;gt; (4 elements)
+Quintet&amp;lt;A,B,C,D,E&amp;gt; (5 elements)
+Sextet&amp;lt;A,B,C,D,E,F&amp;gt; (6 elements)
+Septet&amp;lt;A,B,C,D,E,F,G&amp;gt; (7 elements)
+Octet&amp;lt;A,B,C,D,E,F,G,H&amp;gt; (8 elements)
+Ennead&amp;lt;A,B,C,D,E,F,G,H,I&amp;gt; (9 elements)
+Decade&amp;lt;A,B,C,D,E,F,G,H,I,J&amp;gt; (10 elements)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Plus a couple of very common 2-element tuple classes equivalent to
+Pair, just for the sake of code semantics:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;KeyValue&amp;lt;A,B&amp;gt;
+LabelValue&amp;lt;A,B&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All the tuple classes respect the following properties:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Typesafe&lt;/li&gt;
+&lt;li&gt;Immutable&lt;/li&gt;
+&lt;li&gt;Iterable&lt;/li&gt;
+&lt;li&gt;Serializable&lt;/li&gt;
+&lt;li&gt;Comparable (implements Comparable)&lt;/li&gt;
+&lt;li&gt;Implementing equals(&amp;hellip;) and hashCode()&lt;/li&gt;
+&lt;li&gt;Implementing toString()&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Usage:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Pair&amp;lt;Integer, String&amp;gt; pair = new Pair&amp;lt;Integer, String&amp;gt;(10, &amp;quot;foo&amp;quot;);
+Integer value0 = pair.getValue0();
+String value1 = pair.getValue1();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We also provide an helper class to create tuples.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Pair&amp;lt;Integer, String&amp;gt; pair = Tuples.create(10, &amp;quot;foo&amp;quot;);
+Tuple tuple = Tuples.create(10, &amp;quot;foo&amp;quot;, new Customer());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;qualified-injection&#34;&gt;Qualified injection&lt;/h1&gt;
+
+&lt;p&gt;The Business framework supports the use of qualifiers defined by the JSR 330. This feature provides the ability to
+create multiple implementations for the same interface. This is useful when you have multiple algorithms or implementation
+technologies for an interface.&lt;/p&gt;
+
+&lt;h2 id=&#34;an-example-with-policies&#34;&gt;An example with policies&lt;/h2&gt;
+
+&lt;p&gt;This pattern can be used in various situations but proves itself very useful in the case of DDD policies. To leverage it,
+define a Policy interface as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Policy
+public interface TaxesPolicy {
+
+    Integer computeTaxes(Order order);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then define an implementation annotated by a qualifier. The annotation &lt;code&gt;@Named&lt;/code&gt; allows to qualify an implementation with
+a String.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Named(&amp;quot;FR&amp;quot;)
+public class FranceTaxesPolicy implements TaxesService {
+
+    Integer computeTaxes(Order order){
+        ...
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally you can inject it as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject @Named(&amp;quot;FR&amp;quot;)
+private TaxesPolicy frenchTaxes;
+
+@Inject @Named(&amp;quot;UK&amp;quot;)
+private TaxesPolicy ukTaxes;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or you can select it dynamically using the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;business.&amp;amp;#8203;domain.&amp;amp;#8203;DomainRegistry&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/business/domain/DomainRegistry.html&#39;&gt;DomainRegistry&lt;/a&gt;&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;TaxesPolicy userTaxesPolicy = domainRegistry.getPolicy(TaxesPolicy.class, userLocal);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;use-a-custom-qualifier&#34;&gt;Use a custom qualifier&lt;/h2&gt;
+
+&lt;p&gt;If a qualifier is often used, you can create a custom qualifier annotation as follows.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import javax.inject.Qualifier;
+
+@Qualifier
+@Target({ TYPE, METHOD, FIELD })
+@Retention(RUNTIME)
+public @interface France {
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then you use it like the &lt;code&gt;@Named&lt;/code&gt; annotation.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject @France
+private TaxesService taxesService;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;list-of-concepts-supporting-qualifiers&#34;&gt;List of concepts supporting qualifiers&lt;/h2&gt;
+
+&lt;p&gt;Qualified injection can be used on these concepts out-of-the-box:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Assembler,&lt;/li&gt;
+&lt;li&gt;Repository,&lt;/li&gt;
+&lt;li&gt;Factory,&lt;/li&gt;
+&lt;li&gt;Policy,&lt;/li&gt;
+&lt;li&gt;Service,&lt;/li&gt;
+&lt;li&gt;Finder.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Command-line</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/manual/cli/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/manual/cli/</guid>
+      <description>&lt;p&gt;Writing advanced command-line applications is simple with the Java framework command-line interface (CLI) module. Seed
+provides support for multiple commands, each with their own options and argument combinations. To enable CLI support
+to your project, add the &lt;code&gt;seed-cli&lt;/code&gt; module to your classpath.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-cli-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-cli-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-seed-seed-cli-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;seed-cli&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-seed-seed-cli-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-seed-seed-cli-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-seed-seed-cli-show&#34; onclick=&#34;$(&#39;#org-seedstack-seed-seed-cli-version, #org-seedstack-seed-seed-cli-warn&#39;).show(); $(&#39;#org-seedstack-seed-seed-cli-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-seed-seed-cli-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.seed:seed-cli:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h1 id=&#34;defining-commands&#34;&gt;Defining commands&lt;/h1&gt;
+
+&lt;p&gt;To define a CLI command, simply declare a class implementing the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;cli.&amp;amp;#8203;CommandLineHandler&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/cli/CommandLineHandler.html&#39;&gt;CommandLineHandler&lt;/a&gt;&lt;/code&gt;
+interface and annotated with &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;cli.&amp;amp;#8203;CliCommand&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/cli/CliCommand.html&#39;&gt;@CliCommand&lt;/a&gt;&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@CliCommand(&amp;quot;my-command&amp;quot;)
+public class MyCommandLineHandler implements CommandLineHandler {
+
+    @Override
+    public Integer call() throws Exception {
+        return 0;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will register the command named &lt;code&gt;my-command&lt;/code&gt; without any option or argument. When this command is invoked
+from the command-line, the &lt;code&gt;call&lt;/code&gt; method is invoked. You must return an integer code from this method which will be
+returned to the operating system.&lt;/p&gt;
+
+&lt;h1 id=&#34;running-commands&#34;&gt;Running commands&lt;/h1&gt;
+
+&lt;p&gt;When the &lt;code&gt;seed-cli&lt;/code&gt; module is present on the classpath, you can launch any command by invoking the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;core.&amp;amp;#8203;SeedMain&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/core/SeedMain.html&#39;&gt;SeedMain&lt;/a&gt;&lt;/code&gt;
+main class from the command-line:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;java [jvm-args] -cp ... org.seedstack.core.SeedMain my-command
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will execute the &lt;code&gt;call()&lt;/code&gt; method of the &lt;code&gt;MyCommandLineHandler&lt;/code&gt; class defined above.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;core.&amp;amp;#8203;SeedMain&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/core/SeedMain.html&#39;&gt;SeedMain&lt;/a&gt;&lt;/code&gt; class will search for a &lt;em&gt;unique&lt;/em&gt; implementation of the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;spi.&amp;amp;#8203;SeedLauncher&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/spi/SeedLauncher.html&#39;&gt;SeedLauncher&lt;/a&gt;&lt;/code&gt;
+interface in the classpath and execute it. The &lt;code&gt;seed-cli&lt;/code&gt; module provides an implementation for command-line execution
+but the &lt;code&gt;seed-web-undertow&lt;/code&gt; module provides one for embedded Web server execution. If both are in
+the classpath at the same time, an exception will occur. &lt;strong&gt;To avoid this situation, be sure use separate modules for
+command-line applications and web applications.&lt;/strong&gt;&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;One difficulty of running a Java application from the command line is to properly set its classpath. As such, launching
+a Seed application from the command line is often used in combination with über-JAR packaging where a unique JAR contains
+all the necessary classes and dependencies to run the application. With this kind of packaging, launching the application
+becomes as simple as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;java [jvm-args] -jar app.jar [app-args]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Check the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/maven-plugin/&#34;&gt;SeedStack Maven plugin&lt;/a&gt; for more information about how to easily package such a JAR.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;arguments-and-options&#34;&gt;Arguments and options&lt;/h1&gt;
+
+&lt;p&gt;More often than not, commands must accept various options and arguments to alter their behaviors. This is well supported
+by the Java framework through annotations:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;cli.&amp;amp;#8203;CliOption&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/cli/CliOption.html&#39;&gt;@CliOption&lt;/a&gt;&lt;/code&gt; annotation can be applied to &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;cli.&amp;amp;#8203;CommandLineHandler&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/cli/CommandLineHandler.html&#39;&gt;CommandLineHandler&lt;/a&gt;&lt;/code&gt;s
+fields to inject an option.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;cli.&amp;amp;#8203;CliArgs&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/cli/CliArgs.html&#39;&gt;@CliArgs&lt;/a&gt;&lt;/code&gt; annotation can be applied to &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;cli.&amp;amp;#8203;CommandLineHandler&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/cli/CommandLineHandler.html&#39;&gt;CommandLineHandler&lt;/a&gt;&lt;/code&gt;s
+fields to inject command arguments.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Consider the following example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@CliCommand(&amp;quot;test&amp;quot;)
+public class SampleCommandLineHandler implements CommandLineHandler {
+    @CliOption(name = &amp;quot;o1&amp;quot;, longName = &amp;quot;option1&amp;quot;)
+    private Boolean hasOption1;
+
+    @CliOption(name = &amp;quot;o2&amp;quot;, longName = &amp;quot;option2&amp;quot; valueCount = 1, mandatory = true)
+    private String option2;
+
+    @CliOption(name = &amp;quot;o3&amp;quot;, valueCount = 2, mandatoryValue = true, defaultValues = {&amp;quot;1&amp;quot;, &amp;quot;2&amp;quot;})
+    private String[] option3;
+
+    @CliOption(name = &amp;quot;o4&amp;quot;, valueCount = -1, valueSeparator = &#39;=&#39;)
+    private Map&amp;lt;String, String&amp;gt; option4;
+
+    @CliArgs(mandatoryCount = 2)
+    private String[] args;
+
+    @Override
+    public Integer call() throws Exception {
+        return 0;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The annotations above define:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;An option named &lt;code&gt;o1&lt;/code&gt; or &lt;code&gt;option1&lt;/code&gt; which acts as a flag, present or not. Its presence is injected in the &lt;code&gt;hasOption1&lt;/code&gt;
+boolean field. &lt;em&gt;This can be specified with &lt;code&gt;-o1&lt;/code&gt; or &lt;code&gt;--option1&lt;/code&gt; on the command-line.&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;An option named &lt;code&gt;o2&lt;/code&gt; or &lt;code&gt;option2&lt;/code&gt; which takes a unique value. Its value is injected in the &lt;code&gt;option2&lt;/code&gt; string field.
+This option is mandatory. &lt;em&gt;This can be specified with the &lt;code&gt;-o2 value&lt;/code&gt; or &lt;code&gt;--option2 value&lt;/code&gt; on the command-line.&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;An option named &lt;code&gt;o3&lt;/code&gt; which takes 2 comma-separated values (the default separator). The values for this option are
+mandatory and default to &lt;code&gt;1&lt;/code&gt; and &lt;code&gt;2&lt;/code&gt;. They are injected in the &lt;code&gt;option3&lt;/code&gt; string array field. &lt;em&gt;This can be specified with
+&lt;code&gt;-o3 5,6&lt;/code&gt; on the command-line&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;An option named &lt;code&gt;o4&lt;/code&gt; which takes and unlimited number of values separated by &lt;code&gt;=&lt;/code&gt;. The odd/even value pairs are injected
+as key/value pairs in the map. &lt;em&gt;This can be specified as &lt;code&gt;-o4 key1=value1 -o4 key2=value2&lt;/code&gt; on the command-line&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Any number of arguments with at-least two which are mandatory. &lt;em&gt;This can be specified as &lt;code&gt;arg1 arg2&lt;/code&gt; on the command-line&lt;/em&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;You can find more information about the various parameters and combinations in the &lt;a href=&#34;http://seedstack.org/javadoc/org/seedstack/seed/cli/package-summary.html&#34;&gt;Javadoc&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Cryptography</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/manual/crypto/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/manual/crypto/</guid>
+      <description>&lt;p&gt;Seed provides helpers for Java cryptography: private key encryption, secure hashing, KeyStore configuration and SSL
+configuration. To use these helpers add the &lt;code&gt;seed-crypto&lt;/code&gt; module to your classpath.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-crypto-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-crypto-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-seed-seed-crypto-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;seed-crypto&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-seed-seed-crypto-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-seed-seed-crypto-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-seed-seed-crypto-show&#34; onclick=&#34;$(&#39;#org-seedstack-seed-seed-crypto-version, #org-seedstack-seed-seed-crypto-warn&#39;).show(); $(&#39;#org-seedstack-seed-seed-crypto-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-seed-seed-crypto-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.seed:seed-crypto:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h1 id=&#34;encryption&#34;&gt;Encryption&lt;/h1&gt;
+
+&lt;p&gt;Seed provides an &lt;code&gt;EncryptionService&lt;/code&gt; which allows you to securely store or exchange data. It is based on a Public Key Infrastructure (PKI),
+i.e. it encrypt data using a public key and then decrypt it with a private key. To use it you will have to declare the key pair to use.
+In java keys are stored using a &lt;code&gt;KeyStore&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;keystores&#34;&gt;KeyStores&lt;/h2&gt;
+
+&lt;p&gt;Key stores are created using the &lt;code&gt;keytool&lt;/code&gt; command-line tool (see &lt;a href=&#34;http://docs.oracle.com/javase/8/docs/technotes/tools/windows/keytool.html&#34;&gt;keytool documentation&lt;/a&gt;).
+Here is an example creating a keystore with a key pair:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;keytool -genkeypair -dname &amp;quot;cn=Mark Jones, ou=Java, o=Oracle, c=US&amp;quot;
+    -alias database -keypass &amp;lt;new password for private key&amp;gt;
+    -keystore ./src/main/resources/app.keystore
+    -storepass &amp;lt;new password for keystore&amp;gt; -validity 180
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then, it is possible to declare the key store in your configuration as follows. Notice that multiple key stores can be registered.
+The key store configuration is prefixed by &lt;code&gt;org.seedstack.seed.crypto.keystore.&amp;lt;keystore name&amp;gt;&lt;/code&gt;. The prefix ends with a
+logical key store name.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.seed.crypto.keystores=keystoreName, keystoreName2
+
+[org.seedstack.seed.crypto.keystore.keystoreName]
+path=src/main/resources/app.keystore
+password=&amp;lt;new password for keystore&amp;gt;
+
+# Optional configuration
+type=&amp;lt;keystore type&amp;gt;
+provider=&amp;lt;keystore provider&amp;gt;
+
+[org.seedstack.seed.crypto.keystore.keystoreName2]
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Two keytstore names are registered by default: &lt;code&gt;master&lt;/code&gt; and &lt;code&gt;default&lt;/code&gt;. The usage of the master keystore is described later
+in this &lt;a href=&#34;#configuration-files-protection&#34;&gt;documentation&lt;/a&gt;. The default is only a shortcut when you don&amp;rsquo;t need to have multiple
+keystores. So you don&amp;rsquo;t have to specify:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.seed.crypto.keystores=default, master
+&lt;/code&gt;&lt;/pre&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;key-pairs&#34;&gt;Key pairs&lt;/h2&gt;
+
+&lt;p&gt;Java key stores protect keys using passwords and associate public/private key pairs to aliases. For instance, if you want
+to register the previously key pair, do it as follows.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.crypto.keystore.keystoreName.alias]
+database.password=21B06221FC9EC83BAAD
+ssl.password=70E65711ACFEF03F59A
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;It is recommended for security to store certificates in a key store. But if you can&amp;rsquo;t, it is still possible to use an external certificate as follows.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.crypto.cert]
+client1.resource=client.cer
+client2.file=src/main/resources/seed.crt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this example &lt;code&gt;client1&lt;/code&gt; and &lt;code&gt;client2&lt;/code&gt; correspond to keystore aliases. The first alias is loaded from a resource and
+the second from a file. A current limitation with external certificates is that the aliases have to be present in one of the configured keystores.&lt;/p&gt;
+
+&lt;h2 id=&#34;encryptionservice&#34;&gt;EncryptionService&lt;/h2&gt;
+
+&lt;p&gt;When a key store is configured, it is then possible to inject an &lt;code&gt;EncryptionService&lt;/code&gt; for a specific alias.
+The alias password has to be configured for accessing the private key. Otherwise the &lt;code&gt;EncryptionService&lt;/code&gt;
+will still be bound, but it won&amp;rsquo;t be able to decrypt data. Only the encryption will be possible.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+@Named(&amp;quot;database&amp;quot;) // named with the key pair alias
+private EncryptionService encryptionService;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And use it to crypt or decrypt data as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;final String stringToCrypt = &amp;quot;secret in plain text&amp;quot;;
+
+byte[] encryptedString = encryptionService.encrypt(chaine.getBytes());
+byte[] decryptedString = encryptionService.decrypt(encrypt);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;secure-hashing&#34;&gt;Secure hashing&lt;/h1&gt;
+
+&lt;p&gt;Seed crypto also comes with an &lt;code&gt;HashService&lt;/code&gt; which provides the current best default hashing algorithms.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+private HashingService hashingService;
+...
+Hash hash = hashingService.createHash(&amp;quot;string to hash&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It also provides a &lt;strong&gt;secure password validation&lt;/strong&gt;. It takes a password, hashes it and checks
+it against the previously hashed password.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Hash hash = hashingService.validatePassword(passwordToCheck, verifiedHash);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;configuration-files-protection&#34;&gt;Configuration files protection&lt;/h1&gt;
+
+&lt;p&gt;Sometimes, you need to have &lt;strong&gt;sensitive data in your configuration files&lt;/strong&gt;. Using Seed cryto, it is possible to
+encrypt values in your props files. This values are decrypted at runtime. For instance, you can encrypt a password
+and specify it in the props file with the &lt;code&gt;${password:XXX}&lt;/code&gt; syntax.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.crypto.keystore.keystoreName.alias]
+client.password=${password:70E65711ACFEF03F59AFCED...F96563A19B18954B49DD59}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The password decrypting is done using an &lt;code&gt;EncryptionService&lt;/code&gt;. This service expect a key store named &lt;code&gt;master&lt;/code&gt; with a
+key alias named &lt;code&gt;seed&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.crypto.keystore.master]
+path=src/main/resources/masterkeystore.jck
+password=${env:KS_PASSWD}
+alias.seed.password=${env:KEY_PASSWD}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Culture</title>
+      <link>http://seedstack.org/archives/16.7/docs/w20/manual/culture/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/w20/manual/culture/</guid>
+      <description>&lt;p&gt;W20 provides an extensive culture support through the jQuery Globalize library. It provides the developer tools to
+internationalize a W20 application which can then be localized via fragment manifests. As AngularJS
+also provides internalization support, W20 attempts to convert the active Globalize culture definition to an
+AngularJS locale, on a best-effort basis. This automatic conversion has limits, so it is recommended to stick to
+the W20 functions and services for internationalization.&lt;/p&gt;
+
+&lt;h1 id=&#34;cultures&#34;&gt;Cultures&lt;/h1&gt;
+
+&lt;p&gt;Cultures are defined as a combination of the language and the country speaking it. Each culture is given a unique code
+that is a combination of an ISO 639 two-letter lowercase culture code for the language, and a two-letter uppercase code
+for the country or region. For example, &amp;laquo;en-US&amp;raquo; is the culture code for English in the United States. Only one culture
+can be active at a time in the application but you can format values in any culture supported by the application,
+without switching the active one. This module handles:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Textual internationalization,&lt;/li&gt;
+&lt;li&gt;Date and time formatting,&lt;/li&gt;
+&lt;li&gt;Currency formatting,&lt;/li&gt;
+&lt;li&gt;Number formatting.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;W20 supports about 350 cultures but can also be extended to custom-defined ones. Here is the list of out-of-the-box
+supported cultures:&lt;/p&gt;
+
+&lt;h3 id=&#34;supported-cultures&#34;&gt;Supported cultures&lt;/h3&gt;
+
+&lt;p&gt;af-ZA, af, am-ET, am, ar-AE, ar-BH, ar-DZ, ar-EG, ar-IQ, ar-JO, ar-KW, ar-LB, ar-LY, ar-MA, ar-OM,
+ar-QA, ar-SA, ar-SY, ar-TN, ar-YE, ar, arn-CL, arn, as-IN, as, az-Cyrl-AZ, az-Cyrl, az-Latn-AZ,
+az-Latn, az, ba-RU, ba, be-BY, be, bg-BG, bg, bn-BD, bn-IN, bn, bo-CN, bo, br-FR, br,
+bs-Cyrl-BA, bs-Cyrl, bs-Latn-BA, bs-Latn, bs, ca-ES, ca, co-FR, co, cs-CZ, cs, cy-GB, cy, da-DK,
+da, de-AT, de-CH, de-DE, de-LI, de-LU, de,  dsb-DE, dsb, dv-MV, dv, el-GR, el, en-029, en-AU,
+en-BZ, en-CA, en-GB, en-IE, en-IN, en-JM, en-MY, en-NZ, en-PH, en-SG, en-TT, en-US, en-ZA,
+en-ZW, es-AR, es-BO, es-CL, es-CO, es-CR, es-DO, es-EC, es-ES, es-GT, es-HN, es-MX, es-NI,
+es-PA, es-PE, es-PR, es-PY, es-SV, es-US, es-UY, es-VE, es, et-EE, et, eu-ES, eu, fa-IR,
+fa, fi-FI, fi, fil-PH, fil, fo-FO, fo, fr-BE, fr-CA, fr-CH, fr-FR, fr-LU, fr-MC, fr, fy-NL,
+fy, ga-IE, ga, gd-GB, gd, gl-ES, gl, gsw-FR, gsw, gu-IN, gu, ha-Latn-NG, ha-Latn, ha, he-IL,
+he, hi-IN, hi, hr-BA, hr-HR, hr, hsb-DE, hsb, hu-HU, hu, hy-AM, hy, id-ID, id, ig-NG, ig,
+ii-CN, ii, is-IS, is, it-CH, it-IT, it, iu-Cans-CA, iu-Cans, iu-Latn-CA, iu-Latn, iu,
+ja-JP, ja, ka-GE, ka, kk-KZ, kk, kl-GL, kl, km-KH, km, kn-IN, kn, ko-KR, ko, kok-IN,
+kok, ky-KG, ky, lb-LU, lb, lo-LA, lo, lt-LT, lt, lv-LV, lv, mi-NZ, mi, mk-MK, mk,
+ml-IN, ml, mn-Cyrl, mn-MN, mn-Mong-CN, mn-Mong, mn, moh-CA, moh, mr-IN, mr, ms-BN,
+ms-MY, ms, mt-MT, mt, nb-NO, nb, ne-NP, ne, nl-BE, nl-NL, nl, nn-NO, nn, no, nso-ZA,
+nso, oc-FR, oc, or-IN, or, pa-IN, pa, pl-PL, pl, prs-AF, prs, ps-AF, ps, pt-BR, pt-PT, pt,
+qut-GT, qut, quz-BO, quz-EC, quz-PE, quz, rm-CH, rm, ro-RO, ro, ru-RU, ru, rw-RW, rw,
+sa-IN, sa, sah-RU, sah, se-FI, se-NO, se-SE, se, si-LK, si, sk-SK, sk, sl-SI, sl, sma-NO,
+sma-SE, sma, smj-NO, smj-SE, smj, smn-FI, smn, sms-FI, sms, sq-AL, sq, sr-Cyrl-BA, sr-Cyrl-CS,
+sr-Cyrl-ME, sr-Cyrl-RS, sr-Cyrl, sr-Latn-BA, sr-Latn-CS, sr-Latn-ME, sr-Latn-RS, sr-Latn, sr,
+sv-FI, sv-SE, sv, sw-KE, sw, syr-SY, syr, ta-IN, ta, te-IN, te, tg-Cyrl-TJ, tg-Cyrl, tg,
+th-TH, th, tk-TM, tk, tn-ZA, tn, tr-TR, tr, tt-RU, tt, tzm-Latn-DZ, tzm-Latn, tzm, ug-CN,
+ug, uk-UA, uk, ur-PK, ur, uz-Cyrl-UZ, uz-Cyrl, uz-Latn-UZ, uz-Latn, uz, vi-VN, vi, wo-SN,
+wo, xh-ZA, xh, yo-NG, yo, zh-CHS, zh-CHT, zh-CN, zh-Hans, zh-Hant, zh-HK, zh-MO,
+zh-SG, zh-TW, zh, zu-ZA, zu.&lt;/p&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;The culture module of w20 core can be configured with the following attribute:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;available&lt;/code&gt; (array of string) which list the available culture in the application&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;default&lt;/code&gt; (string) which is the culture name of the default culture. It defaults to &amp;laquo;en&amp;raquo;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Example&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;path/w20-core.w20.json&amp;quot;: {
+    &amp;quot;culture&amp;quot;: {
+        &amp;quot;available&amp;quot;: [&amp;quot;en&amp;quot;, &amp;quot;fr&amp;quot;],
+        &amp;quot;default&amp;quot;: &amp;quot;en&amp;quot;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;fragment-declaration&#34;&gt;Fragment declaration&lt;/h1&gt;
+
+&lt;p&gt;The &amp;laquo;i18n&amp;raquo; section of a fragment manifest allows to declare culture localization bundles:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;i18n&amp;quot; : {
+    &amp;quot;&amp;quot; : [ &amp;quot;rest/i18n/bundle/:language&amp;quot; ]
+    &amp;quot;en&amp;quot; : [ &amp;quot;i18n/en-bundle-1.json&amp;quot;, &amp;quot;i18n/en-bundle-2.json&amp;quot;, ...  ],
+    &amp;quot;fr-FR&amp;quot; : [ &amp;quot;i18n/fr-FR-bundle-1.json&amp;quot;, &amp;quot;i18n/fr-FR-bundle-1.json&amp;quot;, ...  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Bundles modules will be loaded as a text dependency and parsed as JSON. The empty string culture code can be used to
+point to remote bundle. In that case, two placeholders can be used in the URL:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;:language&lt;/code&gt; placeholder will be replaced by the actual language code,&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;:culture&lt;/code&gt; placeholder will be replaced by the actual culture code.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Dynamic bundles will always be loaded for any language. If no keys are available for a particular language an empty
+object can be returned.&lt;/p&gt;
+
+&lt;h1 id=&#34;usage&#34;&gt;Usage&lt;/h1&gt;
+
+&lt;p&gt;As an example if our bundle for en-EN culture contains the following entry:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;application.key&amp;quot;: &amp;quot;my translation&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Inside an html template use the localize filter.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;p&amp;gt; {{ &#39;application.key&#39; | localize }} &amp;lt;/p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can also apply the localization programmatically by calling the CultureService.&lt;/p&gt;
+
+&lt;h1 id=&#34;formatting&#34;&gt;Formatting&lt;/h1&gt;
+
+&lt;p&gt;Numbers and dates can be formatted in various ways by using formatting patterns.&lt;/p&gt;
+
+&lt;h2 id=&#34;number-formatting&#34;&gt;Number formatting&lt;/h2&gt;
+
+&lt;p&gt;When formatting a number, the main purpose is to convert the number into a human readable string using the culture&amp;rsquo;s
+standard grouping and decimal rules. The rules between cultures can vary a lot. For example, in some cultures, the
+grouping of numbers is done unevenly. In the &amp;laquo;te-IN&amp;raquo; culture (Telugu in India), groups have 3 digits and then 2 digits.
+The number 1000000 (one million) is written as &amp;laquo;10,00,000&amp;raquo;. Some cultures do not group numbers at all. There are four
+main types of number formatting:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;n&lt;/strong&gt; for number&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;d&lt;/strong&gt; for decimal digits&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;p&lt;/strong&gt; for percentage&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;c&lt;/strong&gt; for currency&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Even within the same culture, the formatting rules can vary between these four types of numbers. For example, the expected
+number of decimal places may differ from the number format to the currency format. Each format token may also be
+followed by a number. The number determines how many decimal places to display for all the format types except decimal,
+for which it means the minimum number of digits to display, zero padding it if necessary. Also note that the way negative
+numbers are represented in each culture can vary, such as what the negative sign is, and whether the negative sign
+appears before or after the number. This is especially apparent with currency formatting, where many cultures use
+parentheses instead of a negative sign. For instance in the &amp;laquo;en-US&amp;raquo; culture:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;123.45 formatted with &amp;laquo;n&amp;raquo; will give &lt;strong&gt;123.45&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;123.45 formatted with &amp;laquo;n0&amp;raquo; will give &lt;strong&gt;123&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;123.45 formatted with &amp;laquo;n1&amp;raquo; will give &lt;strong&gt;123.5&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;123.45 formatted with &amp;laquo;d&amp;raquo; will give &lt;strong&gt;123&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;12 formatted with &amp;laquo;d3&amp;raquo; will give &lt;strong&gt;012&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;123.45 formatted with &amp;laquo;c&amp;raquo; will give &lt;strong&gt;$123.45&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;123.45 formatted with &amp;laquo;c0&amp;raquo; will give &lt;strong&gt;$123&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;123.45 formatted with &amp;laquo;c1&amp;raquo; will give &lt;strong&gt;$123.5&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;-123.45 formatted with &amp;laquo;c&amp;raquo; will give &lt;strong&gt;($123.45)&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;0.12345 formatted with &amp;laquo;p&amp;raquo; will give &lt;strong&gt;12.35 %&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;0.12345 formatted with &amp;laquo;p0&amp;raquo; will give &lt;strong&gt;12 %&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;0.12345 formatted with &amp;laquo;p4&amp;raquo; will give &lt;strong&gt;12.3450 %&lt;/strong&gt;
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Parsing also accepts any of these formats.&lt;/p&gt;
+
+&lt;h2 id=&#34;date-formatting&#34;&gt;Date formatting&lt;/h2&gt;
+
+&lt;p&gt;Date formatting varies wildly by culture, not just in the spelling of month and day names, and the date separator, but
+by the expected order of the various date components, whether to use a 12 or 24 hour clock, and how months and days
+are abbreviated. Many cultures even include &amp;laquo;genitive&amp;raquo; month names, which are different from the typical names and are
+used only in certain cases. Also, each culture has a set of &amp;laquo;standard&amp;raquo; or &amp;laquo;typical&amp;raquo; formats. For example, in &amp;laquo;en-US&amp;raquo;,
+when displaying a date in its fullest form, it looks like &amp;laquo;Saturday, November 05, 1955&amp;raquo;. Note the non-abbreviated day
+and month name, the zero padded date, and four digit year.&lt;/p&gt;
+
+&lt;table class=&#34;table table-striped&#34;&gt;
+&lt;tr&gt;
+&lt;th&gt;Format&lt;/th&gt;
+&lt;th&gt;Meaning&lt;/th&gt;
+&lt;th&gt;&#34;en-US&#34;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;f&lt;/td&gt;
+&lt;td&gt;Long Date, Short Time&lt;/td&gt;
+&lt;td&gt;dddd, MMMM dd, yyyy h:mm tt&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;F&lt;/td&gt;
+&lt;td&gt;Long Date, Long Time&lt;/td&gt;
+&lt;td&gt;dddd, MMMM dd, yyyy h:mm:ss tt&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;t&lt;/td&gt;
+&lt;td&gt;Short Time&lt;/td&gt;
+&lt;td&gt;h:mm tt&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;T&lt;/td&gt;
+&lt;td&gt;Long Time&lt;/td&gt;
+&lt;td&gt;h:mm:ss tt&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;d&lt;/td&gt;
+&lt;td&gt;Short Date&lt;/td&gt;
+&lt;td&gt;M/d/yyyy&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;D&lt;/td&gt;
+&lt;td&gt;Long Date&lt;/td&gt;
+&lt;td&gt;dddd, MMMM dd, yyyy&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Y&lt;/td&gt;
+&lt;td&gt;Month/Year&lt;/td&gt;
+&lt;td&gt;MMMM, yyyy&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;M&lt;/td&gt;
+&lt;td&gt;Month/Day&lt;/td&gt;
+&lt;td&gt;MMMM dd&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+In addition to these standard formats, there is the &#34;S&#34; format. This is a
+sortable format that is identical in every culture:
+&#34;&lt;strong&gt;yyyy&#39;-&#39;MM&#39;-&#39;dd&#39;T&#39;HH&#39;:&#39;mm&#39;:&#39;ss&lt;/strong&gt;&#34;.
+When more specific control is needed over the formatting, you may use any
+format you wish by specifying the following custom tokens:
+&lt;table class=&#34;table table-striped&#34;&gt;
+&lt;tr&gt;
+&lt;th&gt;Token&lt;/th&gt;
+&lt;th&gt;Meaning&lt;/th&gt;
+&lt;th&gt;Example&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;d&lt;/td&gt;
+&lt;td&gt;Day of month (no leading zero)&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;dd&lt;/td&gt;
+&lt;td&gt;Day of month (leading zero)&lt;/td&gt;
+&lt;td&gt;05&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ddd&lt;/td&gt;
+&lt;td&gt;Day name (abbreviated)&lt;/td&gt;
+&lt;td&gt;Sat&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;dddd&lt;/td&gt;
+&lt;td&gt;Day name (full)&lt;/td&gt;
+&lt;td&gt;Saturday&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;M&lt;/td&gt;
+&lt;td&gt;Month of year (no leading zero)&lt;/td&gt;
+&lt;td&gt;9&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;MM&lt;/td&gt;
+&lt;td&gt;Month of year (leading zero)&lt;/td&gt;
+&lt;td&gt;09&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;MMM&lt;/td&gt;
+&lt;td&gt;Month name (abbreviated)&lt;/td&gt;
+&lt;td&gt;Sep&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;MMMM&lt;/td&gt;
+&lt;td&gt;Month name (full)&lt;/td&gt;
+&lt;td&gt;September&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;yy&lt;/td&gt;
+&lt;td&gt;Year (two digits)&lt;/td&gt;
+&lt;td&gt;55&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;yyyy&lt;/td&gt;
+&lt;td&gt;Year (four digits)&lt;/td&gt;
+&lt;td&gt;1955&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&#39;literal&#39;&lt;/td&gt;
+&lt;td&gt;Literal Text&lt;/td&gt;
+&lt;td&gt;&#39;of the clock&#39;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;\&#39;&lt;/td&gt;
+&lt;td&gt;Single Quote&lt;/td&gt;
+&lt;td&gt;&#39;o&#39;\&#39;&#39;clock&#39;&lt;/td&gt;&lt;!-- o&#39;clock --&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;m&lt;/td&gt;
+&lt;td&gt;Minutes (no leading zero)&lt;/td&gt;
+&lt;td&gt;9&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;mm&lt;/td&gt;
+&lt;td&gt;Minutes (leading zero)&lt;/td&gt;
+&lt;td&gt;09&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;h&lt;/td&gt;
+&lt;td&gt;Hours (12 hour time, no leading zero)&lt;/td&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;hh&lt;/td&gt;
+&lt;td&gt;Hours (12 hour time, leading zero)&lt;/td&gt;
+&lt;td&gt;06&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;H&lt;/td&gt;
+&lt;td&gt;Hours (24 hour time, no leading zero)&lt;/td&gt;
+&lt;td&gt;5 (5am) 15 (3pm)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;HH&lt;/td&gt;
+&lt;td&gt;Hours (24 hour time, leading zero)&lt;/td&gt;
+&lt;td&gt;05 (5am) 15 (3pm)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;s&lt;/td&gt;
+&lt;td&gt;Seconds (no leading zero)&lt;/td&gt;
+&lt;td&gt;9&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ss&lt;/td&gt;
+&lt;td&gt;Seconds (leading zero)&lt;/td&gt;
+&lt;td&gt;09&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;f&lt;/td&gt;
+&lt;td&gt;Deciseconds&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;ff&lt;/td&gt;
+&lt;td&gt;Centiseconds&lt;/td&gt;
+&lt;td&gt;11&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;fff&lt;/td&gt;
+&lt;td&gt;Milliseconds&lt;/td&gt;
+&lt;td&gt;111&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;t&lt;/td&gt;
+&lt;td&gt;AM/PM indicator (first letter)&lt;/td&gt;
+&lt;td&gt;A or P&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;tt&lt;/td&gt;
+&lt;td&gt;AM/PM indicator (full)&lt;/td&gt;
+&lt;td&gt;AM or PM&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;z&lt;/td&gt;
+&lt;td&gt;Timezone offset (hours only, no leading zero)&lt;/td&gt;
+&lt;td&gt;-8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;zz&lt;/td&gt;
+&lt;td&gt;Timezone offset (hours only, leading zero)&lt;/td&gt;
+&lt;td&gt;-08&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;zzz&lt;/td&gt;
+&lt;td&gt;Timezone offset (full hours/minutes)&lt;/td&gt;
+&lt;td&gt;-08:00&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;g or gg&lt;/td&gt;
+&lt;td&gt;Era name&lt;/td&gt;
+&lt;td&gt;A.D.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;</description>
+    </item>
+    
+    <item>
+      <title>Domain events</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/manual/events/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/manual/events/</guid>
+      <description>&lt;p&gt;Seed Business Framework contains an API to manage domain events. The &lt;code&gt;EventService&lt;/code&gt; service is used to fire events. Events
+must be immutable and extend &lt;code&gt;DomainEvent&lt;/code&gt; (which extends &lt;code&gt;BaseValueObject&lt;/code&gt;).&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;&lt;strong&gt;Notice:&lt;/strong&gt; Events can also be defined by implementing the &lt;code&gt;Event&lt;/code&gt; interface. Nevertheless, this requires to
+implement &lt;code&gt;equals()&lt;/code&gt; and &lt;code&gt;hashCode()&lt;/code&gt; methods. Otherwise event test fixtures and call cycle detection will not work.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;For instance this event&amp;hellip;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class MyEvent extends DomainEvent {
+	...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&amp;hellip;could be fired as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private EventService
+
+@Inject
+private MyEventFactory eventFactory;
+
+eventService.fire(eventFactory.createMyEvent());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;handling-events&#34;&gt;Handling events&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;EventHandlers&lt;/strong&gt; must implement &lt;code&gt;EventHandler&lt;/code&gt; in order to receive fired events:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class MyHandler implements EventHandler&amp;lt;MyEvent&amp;gt; {
+    @Override
+    public void handle(MyEvent event) {
+        ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;MyHandler&lt;/code&gt; implements &lt;code&gt;EventHandler&amp;lt;MyEvent&amp;gt;&lt;/code&gt; which means it listens to events of &lt;code&gt;MyEvent&lt;/code&gt; type.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;handle&lt;/code&gt; method has to be implemented to define the handler&amp;rsquo;s behaviour.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;synchronous-behavior&#34;&gt;Synchronous behavior&lt;/h2&gt;
+
+&lt;p&gt;Events are fired synchronously and &lt;strong&gt;belong to current transaction&lt;/strong&gt;. Depending on &lt;code&gt;Exception&lt;/code&gt; management, a fired exception might rollback the transaction.&lt;/p&gt;
+
+&lt;h2 id=&#34;event-inheritance&#34;&gt;Event inheritance&lt;/h2&gt;
+
+&lt;p&gt;If a triggered event is assignable to &lt;code&gt;MyEvent&lt;/code&gt; (by inheritance), it will also be handled - consequently, a handler that &lt;code&gt;implements EventHandler&amp;lt;DomainEvent&amp;gt;&lt;/code&gt; will be called on any event implementing &lt;code&gt;DomainEvent&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;testing-events&#34;&gt;Testing events&lt;/h1&gt;
+
+&lt;p&gt;The &lt;strong&gt;seed-business-core-test&lt;/strong&gt; module provides an &lt;code&gt;EventFixture&lt;/code&gt; class for integration tests on events.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Test that a given event was handled by an expected &lt;code&gt;EventHandler&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private EventFixture fixture;
+...
+fixture.given(eventFactory.createMyEvent())
+    .whenFired()
+    .wasHandledBy(MyHandler.class);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Test that a given event was handled by exactly a provided list of &lt;code&gt;EventHandler&lt;/code&gt;s:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private EventFixture fixture;
+...
+fixture.given(eventFactory.createMyEvent())
+    .whenFired()
+    .wasHandledExactlyBy(MyHandler.class, MyHandler2.class);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Test that a given event was not handled by an expected  &lt;code&gt;EventHandler&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private EventFixture fixture;
+...
+fixture.given(eventFactory.createMyEvent())
+    .whenFired()
+    .wasNotHandledBy(MyHandler3.class);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Test that a given event was generated from an expected &lt;code&gt;method()&lt;/code&gt; with appropriate &lt;em&gt;parameters&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private EventFixture fixture;
+...
+MyEvent myEvent = eventFactory.createMyEvent(SOME_EVENT_PARAM);
+fixtures.given(MyService.class)
+     .whenCalled(&amp;quot;doSomething&amp;quot;, SOME_METHOD_PARAM)
+     .eventWasHandledBy(myEvent, MyHandler.class);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Test if &lt;code&gt;MyHandler&lt;/code&gt; handler received &lt;code&gt;myEvent&lt;/code&gt; event when &lt;code&gt;doSomething()&lt;/code&gt; method of &lt;code&gt;MyService&lt;/code&gt; is called.&lt;/p&gt;
+
+&lt;h1 id=&#34;provided-events&#34;&gt;Provided events&lt;/h1&gt;
+
+&lt;h2 id=&#34;aggregate-events&#34;&gt;Aggregate events&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Seed Business Framework&lt;/strong&gt; provides following events:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;AggregateReadEvent&lt;/code&gt;: triggered when reading an aggregate - eg. repository &lt;code&gt;load()&lt;/code&gt; method&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;AggregatePersistedEvent&lt;/code&gt;: triggered when persisting an aggregate - eg. repository &lt;code&gt;save()&lt;/code&gt; method&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;AggregateDeletedEvent&lt;/code&gt;: triggered when deleting an aggregate - eg. repository &lt;code&gt;delete()&lt;/code&gt; method&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Above behaviour is defined by method annotations, respectively: &lt;code&gt;@Read&lt;/code&gt;, &lt;code&gt;@Persist&lt;/code&gt; and &lt;code&gt;@Delete&lt;/code&gt;.
+These annotations are only intercepted (and functional) within a repository class implementing &lt;code&gt;GenericRepository&lt;/code&gt; (read &lt;a href=&#34;#!/business-doc/hands-on-domain/repository&#34;&gt;more&lt;/a&gt; on repositories).&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;This mechanism is disabled by default.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;To enable this feature, use following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.business.event]
+domain.watch=true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Handle aggregate read events:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Define a custom read method:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;public interface MyRepository extends GenericRepository&amp;lt;AgregateRoot, AggregateIdKey&amp;gt; {
+    ...
+    @Read
+    AgregateRoot loadByName(String name);
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;GenericRepository&lt;/code&gt; methods (load, delete, persist, save) are already annotated with appropriate annotations.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The repository reading method is called, triggering an &lt;code&gt;AggregateReadEvent&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;// fire an AggregateReadEvent for the AgregateRoot
+productRepository.loadByName(aggregateName);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;MyHandler&lt;/code&gt; handles the triggered &lt;code&gt;AggregateReadEvent&lt;/code&gt; event:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;// handle an AggregateReadEvent
+class MyHandler implements EventHandler&amp;lt;AggregateReadEvent&amp;gt; {
+    public void handle(BaseRepositoryEvent event) {
+        ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;&lt;strong&gt;IMPORTANT:&lt;/strong&gt; Above handler receives all &lt;code&gt;AggregateReadEvent&lt;/code&gt; from any repository
+&lt;code&gt;@Read&lt;/code&gt; annotated method. Since &lt;code&gt;AggregateReadEvent&lt;/code&gt; events contain the aggregate root
+class and a context with the called method and its arguments, the handler behaviour can be defined accordingly.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Since all &amp;laquo;aggregate events&amp;raquo; extend &lt;code&gt;BaseAggregateEvent&lt;/code&gt;, it is possible to intercept them all in one handler:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// handle an BaseAggregateEvent
+class MyHandler implements EventHandler&amp;lt;BaseAggregateEvent&amp;gt; {
+    public void handle(BaseRepositoryEvent event) {
+        // if &amp;quot;event&amp;quot; depends on Product aggregate
+        if (Product.class.isAssignableFrom(event.getAggregateRoot())) {
+            ...
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;See above &lt;a href=&#34;#!/business-doc/hands-on-domain/events#handling-events&#34;&gt;handlers&lt;/a&gt; documentation for more detail about their generic behaviour.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+    <item>
+      <title>Domain model</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/manual/model/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/manual/model/</guid>
+      <description>&lt;p&gt;The domain model is expressed through three patterns:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Entity&lt;/strong&gt; which is an object defined primarily by its identity.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Value Object&lt;/strong&gt; which is an object with no conceptual identity and solely defined by is attributes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Service&lt;/strong&gt; which hold domain logic that doesn&amp;rsquo;t clearly belong to an entity nor a value object.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;entities&#34;&gt;Entities&lt;/h1&gt;
+
+&lt;p&gt;Entities are used to represent a domain concept which has an identity.&lt;/p&gt;
+
+&lt;p&gt;Often DDD beginners have a tendency to focus more on data than on the software. This often leads in all the concepts of
+the &amp;laquo;domain&amp;raquo; being coded as entities. Specially, in anemic entities using only getters and setters. Using them is not
+wrong but it&amp;rsquo;s not enough to hold the insights of a domain. That&amp;rsquo;s why designing entities should be taken very carefully.&lt;/p&gt;
+
+&lt;p&gt;The entity concept should be used for an element of your domain when you take care of its identity. An identity must be
+unique and immutable. Even it an object can change during its lifetime, its identity must stay untouched. If this is not
+true for your element, you should consider using a &lt;a href=&#34;#value-objects&#34;&gt;value object&lt;/a&gt; instead.&lt;/p&gt;
+
+&lt;p&gt;When designing an entity, the critical part is to determine what is the identity and how to create it. An identity can be
+hold by a set of properties. In this case, a value object can be well fitted to guaranty the identity consistency and immutability.&lt;/p&gt;
+
+&lt;p&gt;There are different kind of creation strategies for identities:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The client can pass values handling himself the uniqueness.&lt;/li&gt;
+&lt;li&gt;The application can generate the identity using an algorithm.&lt;/li&gt;
+&lt;li&gt;The application can rely on an external identity generator, like a database sequence.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The first case is easily handled using factories. The other cases, can be usually more complicated, but the Business
+framework provides an API for them (see &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/business/manual/factories/#identity-generation&#34;&gt;identity generation&lt;/a&gt;).&lt;/p&gt;
+
+&lt;h2 id=&#34;declaration&#34;&gt;Declaration&lt;/h2&gt;
+
+&lt;p&gt;To create an Entity using the Business framework you have three choices:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Extend the &lt;code&gt;BaseEntity&lt;/code&gt; class. The &lt;code&gt;equals()&lt;/code&gt; and &lt;code&gt;hashCode()&lt;/code&gt; methods will be provided out-of-the-box as well as a basic  &lt;code&gt;toString()&lt;/code&gt; method. You must implement the &lt;code&gt;getEntityId()&lt;/code&gt; method.&lt;/li&gt;
+&lt;li&gt;Implement the &lt;code&gt;Entity&lt;/code&gt; interface. You must implement the &lt;code&gt;equals()&lt;/code&gt;, &lt;code&gt;hashCode()&lt;/code&gt; and &lt;code&gt;getEntityId()&lt;/code&gt;
+methods in this case.&lt;/li&gt;
+&lt;li&gt;Simply annotate any class with the &lt;code&gt;@DomainEntity&lt;/code&gt; annotation. In this case, you won&amp;rsquo;t be able to use helpers and
+tools from the framework.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With the two first options (base class and interface), you have to provide a generic parameter with the type of the
+Entity identifier.&lt;/p&gt;
+
+&lt;h2 id=&#34;example&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;Consider the following example in which a &lt;code&gt;Customer&lt;/code&gt; Entity is identified by an e-mail of String type.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Customer extends BaseEntity&amp;lt;String&amp;gt; {
+    private String email;
+    private Address address;
+
+    public Customer (String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String getEntityId() {
+        return this.email;
+    }
+
+    /* Meaningful methods */
+    public void changeAddress(Address newAddress) { ... }
+
+    /* Getters */
+    public Address getAddress() { ... }
+    public String getEmail() { ... }
+    public List&amp;lt;Order&amp;gt; getOrders() { ... }
+    
+    /* Try to avoid setters as they allow to alter the internal state of the entity */
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;value-objects&#34;&gt;Value-Objects&lt;/h1&gt;
+
+&lt;p&gt;An object that don&amp;rsquo;t have a conceptual identity but is just describing some characteristics of a thing is called a
+Value Object. Because the most visible objects in a model are usually Entities, there is a natural tendency to assign
+an identity to every domain object. But this tendency should be refrained. Here are the main characteristics of a
+Value Object:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It measures, quantifies or describes a thing in the domain.&lt;/li&gt;
+&lt;li&gt;It is immutable, meaning that its state cannot be changed after creation.&lt;/li&gt;
+&lt;li&gt;It describes a conceptual whole. Its attributes are related to each other and are all participating to the description.
+This means that all the required values should be assigned upon creation (i.e. in the constructor).&lt;/li&gt;
+&lt;li&gt;It is comparable to others using value equality.&lt;/li&gt;
+&lt;li&gt;Its behavior is side-effect free.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;declaration-1&#34;&gt;Declaration&lt;/h2&gt;
+
+&lt;p&gt;To create a Value Object using the Business framework you have three choices:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Extend the &lt;code&gt;BaseValueObject&lt;/code&gt; class. In this case, the &lt;code&gt;equals()&lt;/code&gt;, &lt;code&gt;hashCode()&lt;/code&gt; methods will be
+provided out-of-the-box as well as a basic &lt;code&gt;toString()&lt;/code&gt; method.&lt;/li&gt;
+&lt;li&gt;Implement the &lt;code&gt;ValueObject&lt;/code&gt; interface. You must implement the &lt;code&gt;equals()&lt;/code&gt; and &lt;code&gt;hashCode()&lt;/code&gt; in this case.&lt;/li&gt;
+&lt;li&gt;Simply annotate any class with the &lt;code&gt;@DomainValueObject&lt;/code&gt; annotation. In this case, you won&amp;rsquo;t be able to use helpers and
+tools from the framework.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example-1&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;Cars are identified by a &amp;laquo;Vehicle Identification Number&amp;raquo; (VIN). See this &lt;a href=&#34;http://en.wikipedia.org/wiki/Vehicle_Identification_Number#Components_of_the_VIN&#34;&gt;wikipedia article&lt;/a&gt;
+for the conceptual definition. To simplify our example, we will just consider the VIN as composed respectively of 3 parts:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;3 DIGITS : World Manufacturer Identifier&lt;/li&gt;
+&lt;li&gt;6 DIGITS : Vehicle descriptor section&lt;/li&gt;
+&lt;li&gt;8 DIGITS : Vehicle identifier section&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here is a possible implementation of the VIN class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.mycompany.myapp.shared.domain.after.sales.vehicle;
+
+import org.seedstack.business.domain.BaseValueObject;
+
+public class VIN extends BaseValueObject {
+    private final String worldManufacturerIdentifier;
+    private final String vehicleDescriptorSection;
+    private final String vehicleIdentifierSection;
+
+    public vehicleIdentificationNumber(
+            String worldManufacturerIdentifier,
+            String vehicleDescriptorSection,
+            String vehicleIdentifierSection) {
+        this.worldManufacturerIdentifier = worldManufacturerIdentifier;
+        this.vehicleDescriptorSection = vehicleDescriptorSection;
+        this.vehicleIdentifierSection = vehicleIdentifierSection;
+    }
+
+    public vehicleIdentificationNumber(String vin) {
+        this.worldManufacturerIdentifier = vin.substring(0,3);
+        this.vehicleDescriptorSection = vin.substring(3,9);
+        this.vehicleIdentifierSection = vin.substring(9,17);
+    }
+
+    /* Getters */
+    public String getWorldManufacturerIdentifier() { ... }
+    public String getVehicleDescriptorSection() { ... }
+    public String getVehicleIdentifierSection() { ... }
+
+    @Override
+    public String toString(){
+        return worldManufacturerIdentifier + vehicleDescriptorSection
+                + vehicleIdentifierSection;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;usage-as-identifiers&#34;&gt;Usage as identifiers&lt;/h2&gt;
+
+&lt;p&gt;Value Object can also be used to represent complex identifiers for entities. For instance, you can use the VIN class defined
+in the example above to identity a &lt;code&gt;Vehicle&lt;/code&gt; class. You can also add meaning and behavior to a simple value by embedding
+it into a Value Object:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.mycompany.myapp.domain.customer;
+
+import javax.persistence.Embeddable;
+import org.seedstack.business.domain.BaseValueObject;
+
+public class CustomerId extends BaseValueObject {
+    private String value;
+
+    public CustomerId(String customerId) {
+        this.value = customerId;
+    }
+    public String getValue() {
+        return value;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this example, the &lt;code&gt;CustomerId&lt;/code&gt; Value Object add meaning to the plain string. You won&amp;rsquo;t manipulate a String anymore
+in your code but a CustomerId, with its own type. This type can evolve later to provide additional behavior or to
+be adapt its internal structure.&lt;/p&gt;
+
+&lt;h1 id=&#34;services&#34;&gt;Services&lt;/h1&gt;
+
+&lt;p&gt;Services are stateless objects that implement logic which doesn&amp;rsquo;t fit in the aggregates.&lt;/p&gt;
+
+&lt;p&gt;Services can be found in various locations:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The domain, where services contain pure business logic. Naming should come from the &lt;a href=&#39;http://seedstack.org/archives/16.7/glossary#ubiquitous-language&#39;&gt;ubiquitous language&lt;/a&gt; or
+be introduced into it if necessary. Parameters and return values should be domain objects. Example: a bank account transfer service.&lt;/li&gt;
+&lt;li&gt;The infrastructure, where services deal with specific technological aspects. Example: a notification sending service.&lt;/li&gt;
+&lt;li&gt;The application, where services contain coordination logic between other services and are more tied to a specific use-case.
+These services are often the ideal place to begin and end a transaction.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;A good service is always stateless. That doesn&amp;rsquo;t mean that a service cannot change the global state of the application
+(that is, it may have side effects), but it should never hold a state of its own that could affect its behavior.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;declaration-2&#34;&gt;Declaration&lt;/h2&gt;
+
+&lt;p&gt;Creating a Service with the Business Framework, consists in:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Creating a service interface, annotated with the &lt;code&gt;@Service&lt;/code&gt; annotation. Business Framework Services are POJOs, there is no mandated super interface.&lt;/li&gt;
+&lt;li&gt;Creating a service implementation.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example-2&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;rsquo;s consider a bank account transfer, which is a service belonging to the domain.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;From the domain of a &lt;em&gt;bank account management&lt;/em&gt; perspective, the transfer consists of an amount debited on an
+account which is credited on another account.&lt;/li&gt;
+&lt;li&gt;The inherent logic of the transfer does not belong to any of the accounts but to a service of the Domain.
+It&amp;rsquo;s implementation can be rather simple or complex depending on the rules applying to the process (currency exchange
+rate, transfer authorisation between countries, amount on originating account, etc&amp;hellip;).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;@Service
+public interface AccountTransferService {
+
+    public AccountTransferReport transferMoney(Account toBeDebited, Account toBeCredited,
+            Amount transferAmount);
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Avoid services named like &amp;laquo;AccountManagement&amp;raquo; as they tend to become the place to handle all behaviour for a (sub)domain
+instead of clearly specifying the intent and responsibility.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Factories</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/manual/factories/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/manual/factories/</guid>
+      <description>&lt;p&gt;A factory is a pattern used to &lt;strong&gt;create domain objects&lt;/strong&gt;, checking that provided data is complete and consistent.&lt;/p&gt;
+
+&lt;p&gt;To be created by a factory the domain object must also implements &lt;code&gt;Producible&lt;/code&gt;. This is necessary because all
+the domain objects are not producible by a factory. For instance an entity is only be producible by an aggregate
+root.&lt;/p&gt;
+
+&lt;p&gt;The types implementing &lt;code&gt;DomainObject&lt;/code&gt; and &lt;code&gt;Producible&lt;/code&gt; are the followings:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;AggregateRoot,&lt;/li&gt;
+&lt;li&gt;DomainPolicy,&lt;/li&gt;
+&lt;li&gt;ValueObject,&lt;/li&gt;
+&lt;li&gt;DomainEvent,&lt;/li&gt;
+&lt;li&gt;DomainService.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;default-factory&#34;&gt;Default factory&lt;/h1&gt;
+
+&lt;p&gt;The default factory has a single method &lt;code&gt;create&lt;/code&gt; with varargs that will match via reflection the constructor corresponding
+to the passed arguments. The created domain object should implement the desired constructors:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Customer extends BaseAggregate&amp;lt;Long&amp;gt; {
+    private Long id;
+
+    Customer() {
+        ...
+    }
+
+    Customer(String firstName, String lastName) { // This constructor will be called
+        ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The default factory can then be injected and used by invoking its &lt;code&gt;create()&lt;/code&gt; method with arguments unambiguously corresponding
+to only one constructor:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+Factory&amp;lt;Customer&amp;gt; factory;
+
+Customer customer = factory.create(&amp;quot;John&amp;quot;, &amp;quot;Doe&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;One benefit over the plain constructor approach is that default factories will invoke identity generation (see &lt;a href=&#34;#identity-generation&#34;&gt;below&lt;/a&gt;)
+and/or validation automatically after object instantiation. The&lt;/p&gt;
+
+&lt;p&gt;As other factories this method will provide validation on the created object. But it won&amp;rsquo;t survive to refactoring, so be careful using the method (ie. unit test it!).&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;This factory can only be used to create domain objects that implement the &lt;code&gt;Producible&lt;/code&gt; and &lt;code&gt;DomainObject&lt;/code&gt; interfaces. Classes
+extending Business framework base classes will already implement those interfaces but annotated POJO, such as policies or
+services, must implement them explicitly. As an alternative, you implement the &lt;code&gt;GenericDomainPolicy&lt;/code&gt; and &lt;code&gt;GenericDomainService&lt;/code&gt;
+interfaces instead.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;custom-factory&#34;&gt;Custom factory&lt;/h1&gt;
+
+&lt;p&gt;A custom factory is composed of an interface, which is located in the package of the aggregate it constructs, and an
+implementation which can be located either:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;In the aggregate package too,&lt;/li&gt;
+&lt;li&gt;Or in an infrastructure package if it is dependent upon a specific technology.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The factory interface has to extend the &lt;code&gt;GenericFactory&lt;/code&gt; interface:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.mycompany.myapp.domain.model.order;
+
+import org.javatuples.Triplet;
+import org.seedstack.business.domain.GenericFactory;
+
+public interface OrderFactory extends GenericFactory&amp;lt;Order&amp;gt; {
+
+    Order createOrder(String customerId, Date checkoutDate, Double price,
+            List&amp;lt;Triplet&amp;lt;Integer, Double, Long&amp;gt;&amp;gt; orderItemTriplets);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Order&lt;/code&gt; is the type which is the expected to be returned by all the create methods.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;createOrder&lt;/code&gt; method creates an &lt;code&gt;Order&lt;/code&gt; aggregate with the required parameters. Some parameters can be grouped with a tuple like
+&lt;code&gt;oderItemTriplets&lt;/code&gt; which represents a list &lt;code&gt;OrderItem&lt;/code&gt; entities belonging to the &lt;code&gt;Order&lt;/code&gt; aggregate (see
+&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/business/manual/#tuples&#34;&gt;tuples&lt;/a&gt; for more information on tuple pattern).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The factory implementation must extend the &lt;code&gt;BaseFactory&lt;/code&gt; abstract class and implement its own interface.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.mycompany.myapp.domain.model.order;
+
+import org.javatuples.Triplet;
+import org.seedstack.business.domain.BaseFactory;
+import org.mycompany.myapp.domain.customer.CustomerId;
+
+public class OrderFactoryImpl extends BaseFactory&amp;lt;Order&amp;gt; implements OrderFactory {
+
+    @Override
+    public Order createOrder(String customerId) {
+        Order o = new Order();
+
+        o.setCustomerId(new CustomerId(customerId));
+        o.setCheckoutDate(new Date());
+
+        return o;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here, the factory encapsulates the logic of creating a minimal but valid &lt;code&gt;Order&lt;/code&gt; aggregate. This order can be further
+populated by an assembler or by custom logic.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;When the implementation and its interface share the same package, the &lt;strong&gt;implementation should be in package visibility&lt;/strong&gt;.
+It prevents any direct use of the implementation.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;identity-generation&#34;&gt;Identity generation&lt;/h1&gt;
+
+&lt;p&gt;Factories provide methods to create entities with a well defined identity. But sometimes, you want to delegate the identity
+creation, for instance to an Oracle sequence. For this use case Seed provides an &lt;strong&gt;identity generation strategies&lt;/strong&gt;.
+A generation strategy makes sure a unique identity is provided to any new Entity before it is even persisted.&lt;/p&gt;
+
+&lt;h2 id=&#34;declaration&#34;&gt;Declaration&lt;/h2&gt;
+
+&lt;p&gt;Below is an aggregate using the identity strategy:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.mycompany.myapp.domain.model.myaggregate;
+
+public class MyAggregate extends BaseAggregateRoot&amp;lt;UUID&amp;gt; {
+
+    @Identity(handler = UUIDHandler.class)
+    private UUID id;
+
+    private String name;
+    private MyEntity mySubEntity;
+    private Set&amp;lt;MyEntity&amp;gt; mySubEntities;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Below is an Entity using the identity strategy:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.mycompany.myapp.domain.model.myaggregate;
+
+public class MyEntity extends BaseEntity&amp;lt;Long&amp;gt; {
+
+    @Identity(handler = SequenceHandler.class)
+    private Long id;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;@Identity&lt;/code&gt; annotation is applied on attribute holding the object identity. This annotation takes two arguments:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;handler&lt;/code&gt;: strategy implementation&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;source&lt;/code&gt;: a String that can be used in a custom handler. For instance, it could provide a SEQUENCE name for DB.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Only specifying the identity strategy is not enough to effectively generate an identity. An implementation of the strategy
+must be configured:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.mycompany.myapp.domain.model.myaggregate.MyAggregate]
+identity.handler-qualifier = simple-UUID
+
+[org.mycompany.myapp.domain.model.myaggregate.MyEntity]
+identity.handler-qualifier = oracle-sequence
+identity.sequence-name = SEQ_TEST
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this case we can see that the &lt;code&gt;simple-UUID&lt;/code&gt; implementation will be used for &lt;code&gt;MyAggregate&lt;/code&gt;. Similarly, the &lt;code&gt;oracle-sequence&lt;/code&gt;
+implementation will be used for &lt;code&gt;MyEntity&lt;/code&gt; but is further configured with a sequence name.&lt;/p&gt;
+
+&lt;h2 id=&#34;usage&#34;&gt;Usage&lt;/h2&gt;
+
+&lt;p&gt;The chosen identity strategy is applied:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Automatically, on methods annotated with the &lt;code&gt;@Create&lt;/code&gt; annotation. They are intercepted to apply the identity strategy
+on their return value.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyAggregateFactoryDefault extends BaseFactory&amp;lt;MyAggregate&amp;gt;
+        implements MyAggregateFactory {
+
+    @Create
+    @Override
+    public MyAggregate createMyAggregate(String name) {
+        MyAggregate myAggregate = new MyAggregate();
+        myAggregate.setName(name);
+
+        MyEntity myEntity = createMyEntity();
+        myAggregate.setMyEntity(myEntity);
+
+        return myAggregate;
+    }
+
+    @Create
+    MyEntity createMyEntity() {
+        return new MyEntity();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Manually, by injecting the &lt;code&gt;IdentityService&lt;/code&gt; service and invoking its &lt;code&gt;identify()&lt;/code&gt; method with the entity to generate
+an identity for as argument.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyAggregateFactoryDefault extends BaseFactory&amp;lt;MyAggregate&amp;gt;
+        implements MyAggregateFactory {
+
+    @Inject
+    IdentityService identityService;
+
+    @Override
+    public MyAggregate createMyAggregate(String name) {
+        MyAggregate myAggregate = new MyAggregate();
+        identityService.identify(myAggregate);
+        myAggregate.setName(name);
+
+        MyEntity myEntity = new MyEntity();
+        identityService.identify(myEntity);
+        myAggregate.setMyEntity(myEntity);
+
+        return myAggregate;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that identity generation doesn&amp;rsquo;t walk the object graph to generate identities for eventual sub-entities. You must
+trigger identity generation (automatically or manually) separately on each entity.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If all methods of a factory delegate identity generation to Seed, a &lt;code&gt;@Create&lt;/code&gt; annotation can be applied directly at the
+class or interface level.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;custom-identity-handler&#34;&gt;Custom identity handler&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/manage-entity-spi.svg&#34; alt=&#34;identity-seed&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Two different options are available to define custom identity handlers:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/manage-entity-usage.png&#34; alt=&#34;identity-seed&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Below is an example of a basic Timestamp id generation strategy:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.mycompany.myapp.infrastructure.domain;
+
+import org.seedstack.business.domain.BaseEntity;
+import org.seedstack.business.domain.identity.IdentityHandler;
+
+@Named(&amp;quot;timestamp-id&amp;quot;)
+public class TimestampIdentityHandler implements IdentityHandler&amp;lt;BaseEntity&amp;lt;Long&amp;gt;, Long&amp;gt; {
+
+    @Override
+    public Long handle(BaseEntity&amp;lt;Long&amp;gt; entity, Map&amp;lt;String, String&amp;gt; entityConfig) {
+        return new Date().getTime();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;provided-identity-strategies&#34;&gt;Provided identity strategies&lt;/h2&gt;
+
+&lt;h3 id=&#34;sequencehandler&#34;&gt;SequenceHandler&lt;/h3&gt;
+
+&lt;p&gt;Handles sequence generated ID. Two implementations are provided:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;OracleSequenceHandler&lt;/code&gt;: Get next oracle sequence value for new entity id. The following properties.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.mycompany.myapp...YourEntity]
+identity.handler-qualifier = oracle-sequence
+identity.sequence-name = your_sequence_name
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;InMemorySequenceHandler&lt;/code&gt;: To be used &lt;strong&gt;ONLY&lt;/strong&gt; for testing (preserves behaviour without a database). The following
+properties.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.mycompany.myapp...YourEntity]
+identity.handler-qualifier = inmemory-sequence
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;uuidhandler&#34;&gt;UUIDHandler&lt;/h3&gt;
+
+&lt;p&gt;Use for handling UUID generated ID. One implementation is provided:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;SimpleUUIDHandler&lt;/code&gt;: Get new random UUID from java.util.UUID.randomUUID(). Need one property using entity props
+configuration:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.mycompany.myapp...YourEntity]
+identity.handler-qualifier = simple-UUID
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Finders</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/manual/finders/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/manual/finders/</guid>
+      <description>&lt;p&gt;The role of a finder is to query the persistence layer or any data source to obtain objects specific to an interface of
+the application. It only does &lt;strong&gt;read-only&lt;/strong&gt; operations and is NOT meant to replace the repository as it doesn&amp;rsquo;t produce
+domain objects but interface-specific objects like REST representations.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;A finder shouldn&amp;rsquo;t generally delegate its data retrieval to the domain repository. Instead it should directly issue the most efficient query against the persistence layer and construct DTO objects, completely bypassing the domain. Consider the following implications:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;You should write as many finders as required by your application interfaces.&lt;/li&gt;
+&lt;li&gt;You can query a model completely different from your domain model and optimized for reading purposes (i.e. a read model) or not model at all.&lt;/li&gt;
+&lt;li&gt;You can rely on a completely different technology than the domain persistence, like an high-performance index.&lt;/li&gt;
+&lt;/ul&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Don&amp;rsquo;t create finders needlessly: if your data retrieval needs are simple enough to not require a finder, just use the domain repositories directly in your interface and transform the retrieved domain objects to DTO with assemblers.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Creating a Finder with the Business Framework, consists in:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Creating a finder interface,&lt;/li&gt;
+&lt;li&gt;Creating a finder implementation, located in the infrastructure as it depends upon a persistence technology.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Business Framework Finders are POJOs, there is no mandated interface. Just annotate your finder interface with the
+&lt;code&gt;@Finder&lt;/code&gt; annotation.&lt;/p&gt;
+
+&lt;h1 id=&#34;interface&#34;&gt;Interface&lt;/h1&gt;
+
+&lt;p&gt;Create the interface for your finder. A finder is annotated with &lt;code&gt;@Finder&lt;/code&gt; and is declared as read only.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Finder
+public interface CustomerFinder {
+
+    List&amp;lt;CustomerRepresentation&amp;gt; findAllCustomers();
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;implementation&#34;&gt;Implementation&lt;/h1&gt;
+
+&lt;p&gt;In the infrastructure layer, provide the implementation (here with JPA):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class CustomerJpaFinder implements CustomerFinder {
+
+    @Inject
+    private FluentAssembler assembler;
+
+    @Override
+    public List&amp;lt;CustomerRepresentation&amp;gt; findAllCustomer() {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery&amp;lt;Customer&amp;gt; q = cb.createQuery(Customer.class);
+        q.select(q.from(Customer.class));
+
+        return fluentAssembler
+                   .assemble(entityManager.createQuery(q).getResultList())
+                   .to(CustomerRepresentation.class);
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Generate goal</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/generate/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/generate/</guid>
+      <description>&lt;p&gt;To create a SeedStack project from scratch you can use &lt;code&gt;generate&lt;/code&gt; goal from the SeedStack Maven Plugin.
+This goal is invoked from the command line.&lt;/p&gt;
+
+&lt;h1 id=&#34;parameters&#34;&gt;Parameters&lt;/h1&gt;
+
+&lt;p&gt;Parameters should be given as system properties (&lt;code&gt;-DparameterName=parameterValue&lt;/code&gt;):&lt;/p&gt;
+
+&lt;table class=&#34;table table-striped table-bordered table-condensed&#34;&gt;
+    &lt;thead&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Type&lt;/th&gt;
+        &lt;th&gt;Mandatory&lt;/th&gt;
+        &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td&gt;groupId&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;Yes&lt;/td&gt;
+        &lt;td&gt;The group identifier of your generated project. &lt;strong&gt;Required.&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;artifactId&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;Yes&lt;/td&gt;
+        &lt;td&gt;The artifact identifier of your generated project. &lt;strong&gt;Required.&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;version&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;The version of your generated project. Defaults to &lt;code&gt;1.0.0-SNAPSHOT&lt;/code&gt;.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;type&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;Specifies the archetype type to use for project generation. Needed if &lt;code&gt;archetypeArtifactId&lt;/code&gt; is
+        not specified explicitly. No default value. &lt;strong&gt;Available types are: web, rest, domain and batch.&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;allowSnapshots&lt;/td&gt;
+        &lt;td&gt;Boolean&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;Allow to use archetype snapshots. Defaults to &lt;code&gt;false&lt;/code&gt;.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;archetypeGroupId&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;Allow to explicitly specify the archetype group identifier. Defaults to &lt;code&gt;com.inetpsa.fnd.tools&lt;/code&gt;.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;archetypeArtifactId&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;Allow to explicitly specify the archetype artifact identifier. Needed if &lt;code&gt;type&lt;/code&gt; is not specified. Defaults to &lt;code&gt;seed-{type}-archetype&lt;/code&gt;.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;archetypeVersion&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;Allow to explicitly specify the archetype version. Defaults to latest release version available or to the latest snapshot available
+        if &lt;code&gt;allowSnapshots&lt;/code&gt; is also specified.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&#34;examples&#34;&gt;Examples&lt;/h1&gt;
+
+&lt;p&gt;Interactive mode:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mvn org.seedstack:seedstack-maven-plugin:generate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Batch mode:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mvn org.seedstack:seedstack-maven-plugin:generate -DgroupId=org.myorganization -DartifactId=myproject -Dtype=web
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;type&lt;/code&gt; property can be any of the archetype names provided by the distribution (i.e.: web, rest, domain, &amp;hellip;).&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Hypermedia</title>
+      <link>http://seedstack.org/archives/16.7/docs/w20/manual/hypermedia/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/w20/manual/hypermedia/</guid>
+      <description>&lt;p&gt;Hypermedia is a powerful aspect of the REST architectural style. A client application can consume and navigate through
+REST resources via structured links relations. Navigation through APIs resemble web navigation: from a web page it is
+possible to follow links to new documents. In the same way, hypermedia provides a mechanism to interact with remote data
+with navigation and discovery in mind.&lt;/p&gt;
+
+&lt;p&gt;For an overview of this concept, please refer to the documentation of the Java framework &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/rest/#designing-restful-api&#34;&gt;Restful API&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;hypermedia-module&#34;&gt;Hypermedia module&lt;/h1&gt;
+
+&lt;p&gt;To enable the hypermedia module, declare it in the core fragment configuration.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&amp;quot;hypermedia&amp;quot;: {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Available configuration for this module is provided below along with short introductions to
+the hypermedia formats supported.&lt;/p&gt;
+
+&lt;h1 id=&#34;json-home&#34;&gt;JSON-HOME&lt;/h1&gt;
+
+&lt;p&gt;The MIME type &lt;a href=&#34;http://tools.ietf.org/html/draft-nottingham-json-home-03&#34;&gt;application/json-home&lt;/a&gt; specify a
+document &amp;laquo;map&amp;raquo; of resources  that can serve as entry points for clients into an hypermedia api.&lt;/p&gt;
+
+&lt;h2 id=&#34;json-home-sample-catalog-and-product&#34;&gt;Json-home sample: catalog and product&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;    {
+        &amp;quot;resources&amp;quot;: {
+            &amp;quot;catalog&amp;quot;: {
+                &amp;quot;href&amp;quot;: &amp;quot;api/products&amp;quot;
+            },
+            &amp;quot;product&amp;quot;: {
+                &amp;quot;href-template&amp;quot;: &amp;quot;api/product/{name}&amp;quot;,
+                &amp;quot;href-vars&amp;quot;: {
+                    &amp;quot;name&amp;quot;: &amp;quot;api/doc/param/name&amp;quot;
+                }
+            }
+        }
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this scenario a client can enter a commercial api by requesting the json home document which will provide it
+with two &lt;strong&gt;&lt;em&gt;relations&lt;/em&gt;&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;&amp;laquo;catalog&amp;raquo;&lt;/em&gt;&lt;/strong&gt; with an URI defined in the &lt;strong&gt;&lt;em&gt;href&lt;/em&gt;&lt;/strong&gt; property which, when queried, could for instance return a
+list of available products in the catalog.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;&amp;laquo;product&amp;raquo;&lt;/em&gt;&lt;/strong&gt; with an &lt;a href=&#34;https://tools.ietf.org/html/rfc6570&#34;&gt;URI template&lt;/a&gt; defined in the &lt;strong&gt;&lt;em&gt;href-template&lt;/em&gt;&lt;/strong&gt;
+property which uses the name of a product as a criteria for the query. Note that since we are using an
+URI template, the property is href-template instead of href. Now, how should this parameter be used ? Whether by
+implicit knowledge or through documentation for parameters that can be provided in a &lt;strong&gt;&lt;em&gt;href-vars&lt;/em&gt;&lt;/strong&gt; property.
+This allows client to discover the usability of an api by querying the URL at this location.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;More information can be provided in a json home document such as &lt;strong&gt;&lt;em&gt;hints&lt;/em&gt;&lt;/strong&gt; for available actions on the resource
+and/or accepted format. We advice you to take a look at the specification for an exhaustive documentation of the
+json home document type.&lt;/p&gt;
+
+&lt;h2 id=&#34;configuring-json-home-endpoints&#34;&gt;Configuring Json home endpoints&lt;/h2&gt;
+
+&lt;p&gt;In your hypermedia module declaration of the core fragment, specify the api endpoint which exposes your json-home
+resources with the &lt;code&gt;api&lt;/code&gt; property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&amp;quot;api&amp;quot;: {
+    &amp;quot;myFirstApi&amp;quot;: &amp;quot;http://domain:port/&amp;quot;,
+    &amp;quot;mySecondApi&amp;quot;: &amp;quot;/&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can specify a full absolute url (starting with the http/https protocol) or an absolute url (starting with &amp;laquo;/&amp;raquo;).
+In the last case, the domain and port from which the application is served will be used as the hostname of the api.&lt;/p&gt;
+
+&lt;h2 id=&#34;using-aliases&#34;&gt;Using aliases&lt;/h2&gt;
+
+&lt;p&gt;You can use alias for your api endpoint to refer to a previously declared api.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&amp;quot;api&amp;quot;: {
+    &amp;quot;namedAlias&amp;quot;: &amp;quot;http://domain:port/&amp;quot;,
+    &amp;quot;myApi&amp;quot;: &amp;quot;@namedAlias&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is one default alias &lt;code&gt;@home&lt;/code&gt; which resolve to &lt;strong&gt;&lt;em&gt;/&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&amp;quot;api&amp;quot;: {
+    &amp;quot;home&amp;quot;: &amp;quot;@home&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;homeservice&#34;&gt;HomeService&lt;/h2&gt;
+
+&lt;p&gt;The &lt;code&gt;HomeService&lt;/code&gt; allows you to interact with the declared api endpoint(s). All endpoint declared in the manifest
+are automatically registered. To access an api use the following declaration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;homeService(&#39;&amp;lt;api&amp;gt;&#39;); //&amp;lt;api&amp;gt; is the property used to reference the api URL
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The service has 3 methods:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;enter(api, parameters, actions, options)&lt;/code&gt;: Provide a modified $resource object configured from a registered home
+resource. It signature is the same as the $resource service of AngularJS but instead of providing a url as the first
+parameter, you provide the name of the wanted relation provided in the Json home document. Another important difference
+is that only the get method is available by default on the returned object since it is used only for retrieving entry
+point resources.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;homeService(&#39;myApi&#39;).enter(&#39;catalog&#39;).get(function (products) {
+    ...
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;register(jsonHomeResource)&lt;/code&gt;: Programmatically register a new resource. The resource should respect the format for
+a Json-home document resource.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;homeService(&#39;myApi&#39;).register({
+    &amp;quot;someNewResource&amp;quot;: {
+        &amp;quot;href&amp;quot;: &amp;quot;/some/url/&amp;quot;
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;getDefinition(resourceNAme)&lt;/code&gt;: Return the definition of the resource.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;homeService(&#39;myApi&#39;).getDefinition(&#39;someNewResource&#39;); 
+// { &amp;quot;href&amp;quot;: &amp;quot;/some/url/&amp;quot; }
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;hal-hypertext-application-language&#34;&gt;HAL (Hypertext Application Language)&lt;/h1&gt;
+
+&lt;p&gt;W20 provide support for &lt;a href=&#34;http://stateless.co/hal_specification.html&#34;&gt;application/hal+json&lt;/a&gt; resources. If Json home
+document constitute a &amp;laquo;map&amp;raquo; of the available entry points to the api, HAL is the format for these entry points and
+any subsequent resources obtained by following the links provided in these resources. Check the example below:&lt;/p&gt;
+
+&lt;h2 id=&#34;hal-sample-querying-products&#34;&gt;HAL sample: querying products&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;currentPage&amp;quot;: 1,
+  &amp;quot;totalProduct&amp;quot;: 20,
+  &amp;quot;_links&amp;quot;: {
+    &amp;quot;self&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/api/products?page=1&amp;quot;
+    },
+    &amp;quot;next&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/api/products?page=2&amp;quot;
+    },
+    &amp;quot;find&amp;quot;: {
+      &amp;quot;href&amp;quot;: &amp;quot;/api/products{?q}&amp;quot;,
+      &amp;quot;templated&amp;quot;: true
+    }
+  },
+  &amp;quot;_embedded&amp;quot;: {
+    &amp;quot;products&amp;quot;: [
+      {
+        &amp;quot;name&amp;quot;: &amp;quot;myProduct&amp;quot;,
+        &amp;quot;_links&amp;quot;: {
+          &amp;quot;self&amp;quot;: {
+            &amp;quot;href&amp;quot;: &amp;quot;/api/product/myProduct&amp;quot;
+          }
+        },
+        &amp;quot;_embedded&amp;quot;: {
+          &amp;quot;related&amp;quot;: [
+            {
+              &amp;quot;name&amp;quot;: &amp;quot;productRelatedToMyProduct&amp;quot;,
+              &amp;quot;_links&amp;quot;: {
+                &amp;quot;self&amp;quot;: {
+                  &amp;quot;href&amp;quot;: &amp;quot;/api/product/myProduct/related&amp;quot;
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;HAL document must validate against the JSON specification and contains two important recognizable fields:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;_links&lt;/em&gt;&lt;/strong&gt; which is mandatory and must contain at the very least a &lt;strong&gt;&lt;em&gt;&amp;laquo;self&amp;raquo;&lt;/em&gt;&lt;/strong&gt; property which reference
+the resource itself. Additional links constitute the actual power of hypermedia: they provide additional resources
+in the form of named actions/resources. In this example two actions are available: going to the next page by following
+the &amp;laquo;next&amp;raquo; links or finding a product through the &amp;laquo;find&amp;raquo; links. This last one uses URI template to define
+the available query parameter.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;em&gt;_embedded&lt;/em&gt;&lt;/strong&gt; is not mandatory but allow to provide embedded resources directly in the response. In this example
+we embedded a list of products (with one element). Each embedded resources respect itself the HAL specification
+so it must contain a &amp;laquo;_links&amp;raquo; with a reference to itself and optional embedded resources.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;usage&#34;&gt;Usage&lt;/h2&gt;
+
+&lt;p&gt;When a resource is served with the application/hal+json MIME type, the hypermedia module will intercept the response
+and return a $resource object augmented with two additional methods:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;$links(link, parameters, actions, options)&lt;/code&gt;: This method has the same signature as $resource but will use the name
+of the links instead of the url. Suppose we return the HAL document above when querying the catalog api. We can get
+the next page by following the &amp;laquo;next&amp;raquo; link.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;homeService(&#39;myApi&#39;).enter(&#39;catalog&#39;).get(function (products) {
+
+    var nextProductPage = products.$links(&#39;next&#39;).get();
+
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If the $links method is called without parameter, it returns a list of the available links on the resource.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;$embedded(name)&lt;/code&gt;: If the resource contains embedded items, they can be accessed with this method. Suppose we
+return the HAL document above when querying the catalog api. We can get the embedded items with the following
+declaration&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;homeService(&#39;myApi&#39;).enter(&#39;catalog&#39;).get(function (products) {
+
+    var embeddedProducts = products.$embedded(&#39;products&#39;);
+    console.info(embeddedProducts.name); // &amp;quot;myProduct&amp;quot;
+    
+    var relatedProducts = embeddedProducts.$embedded(&#39;related&#39;)[0].$links(&#39;self&#39;).get();
+    
+    // the last line will GET /api/product/myProduct/related
+
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note: Although we used the HomeService in these example to start querying the api, it is not an obligation. Provided
+that a resource is served with the MIME type application/hal+json, we could have used a simple $resource object to
+start querying the api with a url.&lt;/p&gt;
+
+&lt;h1 id=&#34;manual-interception&#34;&gt;Manual interception&lt;/h1&gt;
+
+&lt;p&gt;By default if the hypermedia module is configured and a resource is served with the MIME type application/hal+json, the
+response will automatically be intercepted and processed according to what we said above. If you want to disable this
+behavior and intercept response manually you need to set the &lt;code&gt;interceptAll&lt;/code&gt; property to false in the hypermedia module
+configuration.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&amp;quot;hypermedia&amp;quot;: {
+    &amp;quot;interceptAll&amp;quot;: false
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To do a manual interception you then need to inject the &lt;code&gt;HypermediaRestAdapter&lt;/code&gt; and use it as follow:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;HypermediaRestAdapter.process(response.data).then(function (processedResponse) {
+    ...
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;additional-configuration&#34;&gt;Additional configuration&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;&amp;quot;hypermedia&amp;quot;: {
+    &amp;quot;api&amp;quot;: { // key-value pair of api endpoint name and url },
+    &amp;quot;interceptAll&amp;quot;: true, (default)  // Intercept all hal+json response automatically
+    &amp;quot;linksKey&amp;quot;: &amp;quot;_links&amp;quot;, (default) // Rename the links key
+    &amp;quot;linksHrefKey&amp;quot;: &amp;quot;href&amp;quot;, (default) // Rename the href key
+    &amp;quot;linksSelfLinkName&amp;quot;: &amp;quot;self&amp;quot;, (default) // Rename self link
+    &amp;quot;embeddedKey&amp;quot;: &amp;quot;_embedded&amp;quot;, (default) // Rename embedded key
+    &amp;quot;embeddedNewKey&amp;quot;: &amp;quot;$embedded&amp;quot;, (default) // Rename the embedded function
+    &amp;quot;resourcesKey&amp;quot;: &amp;quot;$links&amp;quot;, (default) // Rename the links function
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Java framework</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/</guid>
+      <description>&lt;p&gt;SeedStack Java framework, also simply known as &amp;laquo;Seed&amp;raquo;, is a comprehensive solution enabling you to build Java applications
+or cloud services easily and efficiently.&lt;/p&gt;
+
+&lt;h1 id=&#34;opinionated&#34;&gt;Opinionated&amp;hellip;&lt;/h1&gt;
+
+&lt;p&gt;Whatever you aim to build, from a small command-line tool to the next successful cloud-based service, Seed provides you
+with the right set of concepts and technologies from the start. More importantly, it does so without getting in your way
+and yet scales well when applied on full-blown enterprise projects.&lt;/p&gt;
+
+&lt;h1 id=&#34;yet-modular&#34;&gt;&amp;hellip;yet modular&lt;/h1&gt;
+
+&lt;p&gt;Built on an extensible plugin system, Seed is highly modular and allows you to choose the technologies you really
+need while leaving out the unnecessary bits. Besides, you can extend the core framework abilities by cherry-picking modules
+from the &lt;a href=&#34;http://seedstack.org/archives/16.7/addons&#34;&gt;add-ons library&lt;/a&gt; or by rolling-out your own.&lt;/p&gt;
+
+&lt;p&gt;The framework is composed of several separate modules, each one providing a particular technology. The &lt;code&gt;seed-core&lt;/code&gt; module
+implements basic framework functionality like application lifecycle, configuration or dependency injection. Its presence
+is required in any running application along its companion module &lt;code&gt;seed-specs&lt;/code&gt;, containing the corresponding API classes.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Modules are automatically detected and activated when present in the classpath. As such, simply adding a module JAR to
+your project will enable it and all its features.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;jar-organisation&#34;&gt;JAR organisation&lt;/h2&gt;
+
+&lt;p&gt;When relevant, modules provide their API in a separate sub-module suffixed with &lt;code&gt;-specs&lt;/code&gt; in which case the corresponding
+module implementation is suffixed &lt;code&gt;-core&lt;/code&gt;. This allows to implement classes using the API without activation. This is
+useful when designing reusable components. Besides, to provide a better separation of concerns, some modules are further
+split into optional sub-modules:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;seed-[module]-specs&lt;/code&gt; for the API and/or the SPI,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;seed-[module]-core&lt;/code&gt; for the main implementation,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;seed-[module]-[option]&lt;/code&gt; for an optional implementation module.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;package-organisation&#34;&gt;Package organisation&lt;/h2&gt;
+
+&lt;p&gt;The code of each module lives in several Java packages, all prefixed by org.seedstack.seed.???, where ??? is the name
+of the module:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;org.seedstack.seed.[module]&lt;/code&gt; which contains classes destined to be used by client code,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;org.seedstack.seed.[module].spi&lt;/code&gt; which contains the classes needed to extend the module features,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;org.seedstack.seed.[module].internal&lt;/code&gt; which contains the module internal classes,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;org.seedstack.seed.[module].test&lt;/code&gt; which contains testing tools for the module.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-danger&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that application code should &lt;strong&gt;never&lt;/strong&gt; rely on any class from the internal package. It is implementation-specific
+and subject to change between versions without notice.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;class-organisation&#34;&gt;Class organisation&lt;/h2&gt;
+
+&lt;p&gt;Seed follows &lt;a href=&#34;https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)&#34;&gt;SOLID principles&lt;/a&gt; and each class tend to only
+have one responsibility, allowing to easily understand what it does. It also does help to keep you implementation simple
+and testable.&lt;/p&gt;
+
+&lt;h1 id=&#34;lifecycle&#34;&gt;Lifecycle&lt;/h1&gt;
+
+&lt;p&gt;At the heart of Seed lies the kernel which is started by different means, depending on the runtime context (web
+application, standalone java app, test runner, &amp;hellip;). The responsibility of the kernel is to orchestrate all the plugins
+in order to setup a fully working application. In turn, each plugin has its own responsibility such as providing
+application configuration, integrating a specific technology or augment the application code with a particular behavior.&lt;/p&gt;
+
+&lt;h2 id=&#34;classpath-scanning&#34;&gt;Classpath scanning&lt;/h2&gt;
+
+&lt;p&gt;At the start of kernel, all plugins have the opportunity to request information about classes and resources. Using this
+mechanism, they can detect predefined code patterns such as:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Classes annotated or meta-annotated with a specific annotation,&lt;/li&gt;
+&lt;li&gt;Classes implementing an interface or extending a base class,&lt;/li&gt;
+&lt;li&gt;Classes matching a complex predefined specification,&lt;/li&gt;
+&lt;li&gt;Resources matching a specific regex,&lt;/li&gt;
+&lt;li&gt;etc&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Code pattern detection is heavily used throughout SeedStack, for instance to dynamically define injection bindings, to
+automatically register classes or to enable particular features. Combined with the convention-over-configuration principle
+and sensible default values, it greatly simplifies SeedStack usage.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;phases&#34;&gt;Phases&lt;/h2&gt;
+
+&lt;p&gt;The kernel orchestrates the application lifecycle through the following phases:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;In the bootstrapping phase, the runtime starts the kernel which uses the Java service loader mechanism to detect all
+the plugins present in the classpath. These plugins register their classpath information requests to the kernel and express
+their requirements on other plugins.&lt;/li&gt;
+&lt;li&gt;In the initialization phase, the kernel resolve all the classpath requests in only one full classpath scan and invoke
+the initialization logic of all plugins in the correct order.&lt;/li&gt;
+&lt;li&gt;In the starting phase, the kernel collects the injection bindings dynamically defined by each plugin from the results of the
+initialization phase and builds the application main injector. Then the kernel invokes the starting logic of all plugins
+in the correct order. At this point, the application is fully operational.&lt;/li&gt;
+&lt;li&gt;In the stopping phase, the runtime stops the kernel which invokes the stopping logic of all plugins in the correct
+order. A this point, the application is stopped.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The kernel is a part of &lt;a href=&#34;https://github.com/nuun-io&#34;&gt;Nuun IO&lt;/a&gt; and is independent of SeedStack. For more information
+about it, please check &lt;a href=&#34;https://github.com/nuun-io/kernel/wiki&#34;&gt;its own documentation&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;pull-right margin-top-20&#39;&gt;
+    &lt;a href=&#39;manual&#39; class=&#34;btn btn-u&#34;&gt;Next: start reading the manual...&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&#34;clearfix&#34;&gt;&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

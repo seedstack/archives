@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/domain/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/domain/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Aggregates</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/manual/aggregates/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/manual/aggregates/</guid>
+      <description>&lt;p&gt;Domain objects have a lifecycle: they are created, go through various states and eventually die (either being archived
+or deleted). Many of these objects are simple, transient objects which are simply created with a call to their constructor
+and thrown away after use. There is no need to complicate such objects. But some objects are more rich, with a complex
+lifecycle and numerous relationships with other objects.&lt;/p&gt;
+
+&lt;p&gt;The challenges of managing these objects can also be addressed with several patterns. The first one is the &lt;strong&gt;aggregate pattern,
+which define clear ownership and boundaries between domain objects&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;what-is-an-aggregate&#34;&gt;What is an aggregate ?&lt;/h1&gt;
+
+&lt;p&gt;Most business domains have very interconnected entities, sometimes up to the point where there is always a path going from
+any Entity to any other. We can try to minimize the number of associations in our design, and this is a good practice
+but it can lead to a translation loss between business and software. In a typical object model, it is difficult to clearly
+see the boundaries of a change. This is particularly acute in systems with concurrent access such as Web applications.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;It is also difficult to guarantee the consistency of changes to objects in a model with complex associations and no clear
+boundaries between objects. Considering every object as independent from each other is not a valid approach, but on the
+other side, refreshing every object because of a change is not practical. &lt;strong&gt;A balanced solution must be found&lt;/strong&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&#34;../img/aggregate-typologies.png&#34; alt=&#34;Aggregate typologies&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;With the &lt;strong&gt;aggregate pattern&lt;/strong&gt;, we want to be as close as possible to the center pattern in the figure above. The aggregate
+is a cluster of associated objects that are considered as a unit for the purpose of data changes. Each Aggregate has root
+and a boundary which determines what is inside the Aggregate.&lt;/p&gt;
+
+&lt;p&gt;The Aggregate root is a specific Entity contained in the Aggregate. It is the only entry-point of the Aggregate, meaning
+that it is the only Aggregate Entity that client objects can hold references to. Other objects of the Aggregate are only
+accessible through the context of the Aggregate root.&lt;/p&gt;
+
+&lt;h1 id=&#34;characteristics&#34;&gt;Characteristics&lt;/h1&gt;
+
+&lt;p&gt;The following rules apply to Aggregates:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The Aggregate root has a global identity and is responsible for checking invariants within the Aggregate.&lt;/li&gt;
+&lt;li&gt;Non-root Entities inside the Aggregate have a local identity that is only unique within the Aggregate.&lt;/li&gt;
+&lt;li&gt;Code outside the Aggregate can only hold references to the Aggregate root. The root can hand references to internal
+entities but they must only use them transiently and not hold to the reference. Value Objects can be handed without
+any concern because they are immutable and side-effect free.&lt;/li&gt;
+&lt;li&gt;Only Aggregate roots can be loaded directly from the persistence. All other objects must be found by traversal of
+associations.&lt;/li&gt;
+&lt;li&gt;Any change within the Aggregate boundary must satisfy all the Aggregate invariants.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;declaration&#34;&gt;Declaration&lt;/h1&gt;
+
+&lt;p&gt;Creating an Aggregate with the Business Framework, consists in:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Creating a package with the Aggregate name,&lt;/li&gt;
+&lt;li&gt;Create all the domain objects belonging to the Aggregate in this package,&lt;/li&gt;
+&lt;li&gt;From all those domain objects, one Entity should be created as the &lt;strong&gt;Aggregate root&lt;/strong&gt;. This step is the focus of this
+section.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To create an Aggregate root using the Business framework you have three choices:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Extend the &lt;code&gt;BaseAggregateRoot&lt;/code&gt; class. This class directly extends &lt;code&gt;BaseEntity&lt;/code&gt; and as such the &lt;code&gt;equals()&lt;/code&gt;, &lt;code&gt;hashCode()&lt;/code&gt;
+and &lt;code&gt;compareTo()&lt;/code&gt; methods will be provided out-of-the-box.&lt;/li&gt;
+&lt;li&gt;Implement the &lt;code&gt;AggregateRoot&lt;/code&gt; interface. You must implement the &lt;code&gt;equals()&lt;/code&gt;, &lt;code&gt;hashCode()&lt;/code&gt; and &lt;code&gt;compareTo()&lt;/code&gt; methods in
+this case.&lt;/li&gt;
+&lt;li&gt;Simply annotate any class with the &lt;code&gt;@DomainAggregateRoot&lt;/code&gt; annotation. In this case, you won&amp;rsquo;t be able to use helpers and
+tools from the framework.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With the two first options (base class and interface), you have to provide a generic parameter with the type of the
+Aggregate root identifier.&lt;/p&gt;
+
+&lt;h1 id=&#34;example&#34;&gt;Example&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Order extends BaseAggregateRoot&amp;lt;Long&amp;gt; {
+    private Long orderId;
+    private Date checkoutDate;
+    private double price;
+    private List&amp;lt;OrderItem&amp;gt; items;
+
+    Order() {
+    }
+
+    @Override
+    public Long getEntityId() {
+        return orderId;
+    }
+
+    public void addOrderItem(int quantity, long productId, double price) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setQuantity(quantity);
+        orderItem.setProductId(productId);
+        orderItem.setPrice(price);
+        items.add(orderItem);
+    }
+
+    public void clearOrderItems() {
+        items.clear();
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

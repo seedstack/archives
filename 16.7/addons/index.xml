@@ -1,0 +1,2158 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Addons-rsses on </title>
+    <link>http://seedstack.org/archives/16.7/addons/index.xml</link>
+    <description>Recent content in Addons-rsses on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 18 May 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://seedstack.org/archives/16.7/addons/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/mqtt/</link>
+      <pubDate>Wed, 18 May 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/mqtt/</guid>
+      <description>&lt;p&gt;MQTT (formerly Message Queuing Telemetry Transport) is an ISO standard (ISO/IEC PRF 20922) publish-subscribe based &amp;laquo;light weight&amp;raquo; messaging protocol for use on top of the TCP/IP protocol.
+This add-on provides an Eclipse PAHO implementation. It automatically manages brokers, connections and message consumers/publishers. Moreover connection
+ try to reconnect automatically after a MQTT connection failure.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-mqtt-mqtt-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-mqtt-mqtt-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-mqtt-mqtt-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.mqtt&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mqtt&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-mqtt-mqtt-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;1.1.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-mqtt-mqtt-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-mqtt-mqtt-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-mqtt-mqtt-version, #org-seedstack-addons-mqtt-mqtt-warn&#39;).show(); $(&#39;#org-seedstack-addons-mqtt-mqtt-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-mqtt-mqtt-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.mqtt:mqtt:1.1.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Eclipse PAHO implementation is not provided by this add-on and must be configured.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.eclipse.paho&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;org.eclipse.paho.client.mqttv3&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;1.0.2&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/web-services/</link>
+      <pubDate>Wed, 09 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/web-services/</guid>
+      <description>
+
+&lt;p&gt;SeedStack Web-Services add-on provides a JAX-WS integration. JAX-WS offers facilities to create and connect to web services.
+To enable Web-Services standalone add-on (without a Web environment) use the following dependency snippet in your module.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-ws-web-services-core-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-ws-web-services-core-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-ws-web-services-core-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.ws&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;web-services-core&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-ws-web-services-core-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.2.2&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-ws-web-services-core-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-ws-web-services-core-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-ws-web-services-core-version, #org-seedstack-addons-ws-web-services-core-warn&#39;).show(); $(&#39;#org-seedstack-addons-ws-web-services-core-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-ws-web-services-core-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.ws:web-services-core:2.2.2&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;In a Web environment you must use the following dependency snippet instead:&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-ws-web-services-web-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-ws-web-services-web-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-ws-web-services-web-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.ws&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;web-services-web&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-ws-web-services-web-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.2.2&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-ws-web-services-web-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-ws-web-services-web-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-ws-web-services-web-version, #org-seedstack-addons-ws-web-services-web-warn&#39;).show(); $(&#39;#org-seedstack-addons-ws-web-services-web-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-ws-web-services-web-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.ws:web-services-web:2.2.2&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h1 id=&#34;best-practices&#34;&gt;Best practices&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Since classes &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/web-services/maven-tools/&#34;&gt;generated&lt;/a&gt; from WSDL are both for client and server side, this logic should belong to a shared module.
+This module can then be used as a dependency both on client and server side.&lt;/li&gt;
+&lt;li&gt;Keep one source WSDL per Web Service and use &lt;code&gt;copy-resources&lt;/code&gt; of &lt;code&gt;maven-resources-plugin&lt;/code&gt; just after generating classes from WSDL. Reasons are:
+
+&lt;ul&gt;
+&lt;li&gt;successful code generation means the WSDL is probably valid and generated code match that WSDL&lt;/li&gt;
+&lt;li&gt;a copy of last valid WSDL is copied everywhere it is required (eg. published to &lt;code&gt;META-INF/ws&lt;/code&gt;)
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;endorsement&#34;&gt;Endorsement&lt;/h1&gt;
+
+&lt;h2 id=&#34;jdk-6&#34;&gt;JDK 6&lt;/h2&gt;
+
+&lt;p&gt;JDK 6 contains an older version of the JAX-WS specifications than the one used in WS add-on.
+Therefore the endorsed mechanism has to be used with required version of &lt;code&gt;webservices-api.jar&lt;/code&gt; available
+&lt;a href=&#34;http://search.maven.org/remotecontent?filepath=org/glassfish/metro/webservices-api/2.3/webservices-api-2.3.jar&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;endorse-ws-api&#34;&gt;Endorse WS API&lt;/h3&gt;
+
+&lt;p&gt;There are two options:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Java Endorsed Standards Override Mechanism&lt;/strong&gt; applies to all projects using the JDK with endorsed library:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Copy &lt;code&gt;webservices-api.jar&lt;/code&gt; into &lt;strong&gt;&amp;laquo;JDK6 folder&amp;raquo;\jre\lib\endorsed&lt;/strong&gt; (create &lt;strong&gt;endorsed&lt;/strong&gt; directory if it does not exist).&lt;/li&gt;
+&lt;li&gt;Alternative: set the &lt;code&gt;java.endorsed.dirs&lt;/code&gt; system property to the directory containing &lt;code&gt;webservices-api.jar&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Documentation is available &lt;a href=&#34;http://docs.oracle.com/javase/6/docs/technotes/guides/standards/&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;IDE classpath override. This method must be applied per-project:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Add the &lt;code&gt;webservices-api.jar&lt;/code&gt; library to the &lt;strong&gt;bootstrap classpath&lt;/strong&gt; of your project. This ensures that this library
+overrides the one in the JRE.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;endorse-the-web-server&#34;&gt;Endorse the Web server&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;To use the WS add-on in a Web application, the server JRE has to endorse the library as well. Add the &lt;strong&gt;webservices-api.jar&lt;/strong&gt;
+JAR to the server &lt;code&gt;endorsed&lt;/code&gt; directory or to server buildpath.&lt;/li&gt;
+&lt;li&gt;As described in &lt;strong&gt;Java Endorsed Standards Override Mechanism&lt;/strong&gt;, you can check endorsed directories through &lt;code&gt;java.endorsed.dirs&lt;/code&gt; java System property.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;jdk-7&#34;&gt;JDK 7&lt;/h2&gt;
+
+&lt;p&gt;JDK 7 works out of the box as required version of JAX-Ws is already embedded.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/w20-bridge/</link>
+      <pubDate>Mon, 15 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/w20-bridge/</guid>
+      <description>
+
+&lt;p&gt;The SeedStack W20 bridge acts as an integration bridge between the Seed Java framework and the W20 Web framework. You can
+add it with the following dependency:&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-w20-w20-bridge-web-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-w20-w20-bridge-web-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-w20-w20-bridge-web-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.w20&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;w20-bridge-web&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-w20-w20-bridge-web-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.2&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-w20-w20-bridge-web-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-w20-w20-bridge-web-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-w20-w20-bridge-web-version, #org-seedstack-addons-w20-w20-bridge-web-warn&#39;).show(); $(&#39;#org-seedstack-addons-w20-w20-bridge-web-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-w20-w20-bridge-web-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.w20:w20-bridge-web:2.3.2&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;If you don&amp;rsquo;t want to serve W20 static files from the Java application, use the following dependency instead:&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-w20-w20-bridge-rest-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-w20-w20-bridge-rest-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-w20-w20-bridge-rest-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.w20&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;w20-bridge-rest&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-w20-w20-bridge-rest-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.2&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-w20-w20-bridge-rest-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-w20-w20-bridge-rest-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-w20-w20-bridge-rest-version, #org-seedstack-addons-w20-w20-bridge-rest-warn&#39;).show(); $(&#39;#org-seedstack-addons-w20-w20-bridge-rest-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-w20-w20-bridge-rest-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.w20:w20-bridge-rest:2.3.2&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;This will only provide the REST API required by the W20 frontend to bridge. Use the default masterpage template presented below to update your own index.html page on the frontend.&lt;/p&gt;
+
+&lt;h1 id=&#34;how-it-works&#34;&gt;How it works&lt;/h1&gt;
+
+&lt;p&gt;The W20 bridge automatically generates and serves W20 resources that should normally be written manually:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The W20 masterpage is automatically generated and served under &lt;code&gt;/&lt;/code&gt;. There is no need to provide an &lt;code&gt;index.html&lt;/code&gt; file,
+except for advanced use cases (see below).&lt;/li&gt;
+&lt;li&gt;The W20 configuration file (&lt;code&gt;w20.app.json&lt;/code&gt;) is read from the &lt;code&gt;META-INF/configuration&lt;/code&gt; classpath location and a managed,
+enriched version is served under &lt;code&gt;/seed-w20/application/configuration&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;A resource for basic authentication is served under &lt;code&gt;/seed-w20/security/basic-authentication&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;A resource for retrieving the authorizations of the authenticated subject is served under &lt;code&gt;/seed-w20/security/authorizations&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;automatic-activation-of-fragments&#34;&gt;Automatic activation of fragments&lt;/h2&gt;
+
+&lt;p&gt;The W20 bridge automatically detects W20 fragments (manifests ending with the &lt;code&gt;.w20.json&lt;/code&gt; extension) present in the classpath
+under &lt;code&gt;META-INF/resources&lt;/code&gt; and enables them in the generated W20 configuration.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that the W20 bridge cannot detect fragments located outside the local classpath, like the ones in the document root
+or external to the application. Those fragments must still be explicitly specified in the W20 configuration.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;fragment-variables&#34;&gt;Fragment variables&lt;/h2&gt;
+
+&lt;p&gt;The W20 bridge provides several fragments variables containing path information about the application. These variables
+can be used as &lt;code&gt;${variable-name[:default-value]}&lt;/code&gt; placeholders in the fragment manifests:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;seed-base-path&lt;/code&gt;: the application base path without a trailing slash,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;seed-base-path-slash&lt;/code&gt;: the application base path with a trailing slash,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;seed-rest-path&lt;/code&gt;: the path under which the REST resources are served (without a trailing slash),&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;seed-rest-path-slash&lt;/code&gt;: the path under which the REST resources are served (with a trailing slash),&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;components-path&lt;/code&gt;: the path under which the Web components are served (without a trailing slash),&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;components-path-slash&lt;/code&gt;: the path under which the Web components are served (with a trailing slash).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;automatic-configuration&#34;&gt;Automatic configuration&lt;/h2&gt;
+
+&lt;p&gt;Several aspects of the configuration are automatically managed:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The application identifier (&lt;code&gt;w20-core&lt;/code&gt; -&amp;gt; &lt;code&gt;application&lt;/code&gt; -&amp;gt; &lt;code&gt;id&lt;/code&gt;) is automatically set with the same value as the backend
+application identifier,&lt;/li&gt;
+&lt;li&gt;The environment type (&lt;code&gt;w20-core&lt;/code&gt; -&amp;gt; &lt;code&gt;env&lt;/code&gt; -&amp;gt; &lt;code&gt;type&lt;/code&gt;) is automatically set to the &lt;code&gt;org.seedstack.w20.environment&lt;/code&gt; property
+if any.&lt;/li&gt;
+&lt;li&gt;Several elements in the masterpage are automatically derived from the bridge configuration values. See the &lt;a href=&#34;#configuration&#34;&gt;configuration
+section below&lt;/a&gt; for more details.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;w20.&amp;amp;#8203;spi.&amp;amp;#8203;FragmentConfigurationHandler&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/w20/spi/FragmentConfigurationHandler.html&#39;&gt;FragmentConfigurationHandler&lt;/a&gt;&lt;/code&gt; interface can be implemented to further enrich or
+override the generated configuration. As an example, it is used by the &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/i18n/&#34;&gt;i18n add-on&lt;/a&gt; for automatically managing
+the frontend &lt;code&gt;culture&lt;/code&gt; module if backend internationalization is active.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;pretty-urls&#34;&gt;Pretty URLS&lt;/h1&gt;
+
+&lt;p&gt;By default AngularJS HTML5 mode is enabled when using the W20 bridge.  Its allows pretty URLs to be used instead of historic hashbang URLs (#!). To achieve this, a servlet filter is automatically placed at the root of the application: it redirects any URL that doesn&amp;rsquo;t exist on the server to the masterpage, so the W20 frontend can load and AngularJS can then display the corresponding view.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The HTML5 redirect filter tries its best to avoid redirecting legitimate 404 or special cases like WebSocket upgrades. To ensure that your REST API calls returning legitimate 404 are not redirected by the filter, you must place the API on its own base path (like &lt;code&gt;/api&lt;/code&gt;). See the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/rest/#base-prefix&#34;&gt;REST manual page&lt;/a&gt; to learn how to do so.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Sometimes it is desirable to revert to hashbang URLs. You can do so with the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.w20]
+pretty-urls = false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;The behavior of W20 bridge can be altered with several backend configuration properties, described below.&lt;/p&gt;
+
+&lt;h2 id=&#34;application-title&#34;&gt;Application title&lt;/h2&gt;
+
+&lt;p&gt;You can set the W20 application title with the following option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.w20]
+application.title = My application
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The default value is set to the Seed application name (coming from the &lt;code&gt;org.seedstack.seed.core.application-name&lt;/code&gt;).&lt;/p&gt;
+
+&lt;h2 id=&#34;application-subtitle&#34;&gt;Application subtitle&lt;/h2&gt;
+
+&lt;p&gt;You can set the W20 application subtitle with the following option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.w20]
+application.subtitle = A great application
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is no default value.&lt;/p&gt;
+
+&lt;h2 id=&#34;application-version&#34;&gt;Application version&lt;/h2&gt;
+
+&lt;p&gt;You can set the W20 application version with the following option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.w20]
+application.version = 1.2.3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The version is treated as a string so there is no restriction format. The default value is set to the Seed application
+version (coming from the &lt;code&gt;org.seedstack.seed.core.application-version&lt;/code&gt;). It is not recommended to change this default
+value, other than for testing purposes or special cases. The version string is appended to all assets URLs by the
+W20 loader to ensure that resources are refreshed when the version change.&lt;/p&gt;
+
+&lt;h2 id=&#34;loading-timeout&#34;&gt;Loading timeout&lt;/h2&gt;
+
+&lt;p&gt;The W20 loader has a predefined time limit to load all the application assets. Although the default value of 30 seconds
+should be enough for all applications, tt is sometimes desirable to increase it with the following option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.w20]
+timeout = 60
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;cors-with-credentials&#34;&gt;CORS with credentials&lt;/h2&gt;
+
+&lt;p&gt;To allow the application to access &lt;strong&gt;secured&lt;/strong&gt; resources from other domains than its own, use the following option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.w20]
+cors-with-credentials = true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This option is not necessary when accessing its own resources or publicly accessible cross-origin resources only.&lt;/p&gt;
+
+&lt;h1 id=&#34;masterpage-customization&#34;&gt;Masterpage customization&lt;/h1&gt;
+
+&lt;h2 id=&#34;disable-the-masterpage&#34;&gt;Disable the masterpage&lt;/h2&gt;
+
+&lt;p&gt;The generation of the masterpage can be completely disabled with the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.w20]
+disable-masterpage = true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;custom-masterpage-template&#34;&gt;Custom masterpage template&lt;/h2&gt;
+
+&lt;p&gt;Each theme provides its own general-purpose masterpage template. If no theme is used or the theme doesn&amp;rsquo;t contain a masterpage, the W20 bridge will fallback to a default masterpage with minimal body content. You can override the masterpage template by specifying its classpath path in the following configuration property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.w20]
+masterpage-template = path/to/masterpage-template.html
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Masterpage templates can use &lt;code&gt;${}&lt;/code&gt; placeholders for some configuration-dependant values. The following variables are available:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;applicationTitle&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;applicationSubtitle&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;applicationVersion&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;timeout&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;corsWithCredentials&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;basePath&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;basePathSlash&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;restPath&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;restPathSlash&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;componentsPath,&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;componentsPathSlash&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Below, you can find the fallback masterpage template that can be used as a starting point for your own custom templates:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!doctype html&amp;gt;
+&amp;lt;html data-w20-app=&amp;quot;${restPathSlash}seed-w20/application/configuration&amp;quot; data-w20-app-version=&amp;quot;${applicationVersion}&amp;quot; data-w20-timeout=&amp;quot;${timeout}&amp;quot; data-w20-cors-with-credentials=&amp;quot;${corsWithCredentials}&amp;quot;&amp;gt;
+&amp;lt;head&amp;gt;
+    &amp;lt;meta http-equiv=&amp;quot;X-UA-Compatible&amp;quot; content=&amp;quot;IE=Edge&amp;quot;&amp;gt;
+    &amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1.0&amp;quot;&amp;gt;
+    &amp;lt;meta charset=&amp;quot;utf-8&amp;quot;&amp;gt;
+    &amp;lt;title&amp;gt;${applicationTitle}&amp;lt;/title&amp;gt;
+    &amp;lt;script type=&amp;quot;text/javascript&amp;quot; data-main=&amp;quot;${componentsPathSlash}w20/modules/w20.js?__v=${applicationVersion}&amp;quot; src=&amp;quot;${componentsPathSlash}requirejs/require.js?__v=${applicationVersion}&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;base href=&amp;quot;${basePathSlash}&amp;quot;&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+&amp;lt;div id=&amp;quot;w20-loading-cloak&amp;quot;&amp;gt;
+    &amp;lt;div class=&amp;quot;w20-loading-indicator&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;div id=&amp;quot;w20-view&amp;quot; class=&amp;quot;w20-content&amp;quot; data-ng-view&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;div data-w20-error-report&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/ldap/</link>
+      <pubDate>Tue, 09 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/ldap/</guid>
+      <description>
+
+&lt;p&gt;Seed ldap addon enables your application to connect to a LDAP to identify, autentify and authorize users.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-ldap-ldap-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-ldap-ldap-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-ldap-ldap-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.ldap&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;ldap&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-ldap-ldap-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;PUT_LATEST_VERSION_HERE&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-ldap-ldap-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-ldap-ldap-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-ldap-ldap-version, #org-seedstack-addons-ldap-ldap-warn&#39;).show(); $(&#39;#org-seedstack-addons-ldap-ldap-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-ldap-ldap-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.ldap:ldap:PUT_LATEST_VERSION_HERE&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;In your properties file, you can add the following properties to configure the connection to the LDAP&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.ldap]
+server-host = ldaphost
+server-port = 53800
+account-dn = cn=admin, ou=people, dc=example,dc=com
+account-password = admin
+user-base = ou=people, dc=example,dc=com
+user-identity-attribute = sn
+group-base = ou=groups, dc=example,dc=com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;server-host: the hostname where the ldap is&lt;/li&gt;
+&lt;li&gt;server-port: the port to use&lt;/li&gt;
+&lt;li&gt;account-dn: the dn of the account that will make the requests. If none, requests will be anonymous&lt;/li&gt;
+&lt;li&gt;account-password: password of the above account&lt;/li&gt;
+&lt;li&gt;user-base: base dn where the users can be found in the LDAP&lt;/li&gt;
+&lt;li&gt;user-identity-attribute: name of the attribute that is used to identify the user&lt;/li&gt;
+&lt;li&gt;group-base: base dn where groups can be found in the LDAP&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Then you can configure SEED security so it uses the LDAP Realm&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.security]
+realms = LdapRealm
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can map the LDAP groups to your application functional roles&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.security.roles]
+jedi = SEED.JEDI
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And associate permissions to those roles&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;jedi = lightSaber:*, academy:*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With this configuration, the LDAP realm will be able to authenticate your user with their id and password, and retrieve the groups through the LDAP.&lt;/p&gt;
+
+&lt;h1 id=&#34;retrieving-attributes&#34;&gt;Retrieving attributes&lt;/h1&gt;
+
+&lt;h2 id=&#34;from-the-current-user&#34;&gt;From the current user&lt;/h2&gt;
+
+&lt;p&gt;When authenticating the user, the LDAP Realm also puts in the user principals an entry point to the user LDAP attributes: &lt;em&gt;LdapUserContext&lt;/em&gt;. You can then call the LdapService to retrieve attributes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class SomeClass {
+    @Inject
+    private SecuritySupport securitySupport;
+    @Inject
+    private LdapService ldapService;
+    
+    public void someMethod() {
+        LdapUserContext userContext = securitySupport
+                                        .getPrincipalsByType(LdapUserContext.class)
+                                        .iterator()
+                                        .next()
+                                        .getPrincipal();
+        String cn = ldapService.getAttributeValue(userContext, &amp;quot;cn&amp;quot;)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;for-any-user&#34;&gt;For any user&lt;/h2&gt;
+
+&lt;p&gt;You can also use the LdapService and LdapUserContext to retrieve user attributes from any user that you know the id&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class SomeClass {
+    @Inject
+    private LdapService ldapService;
+    
+    public void someMethod() {
+        LdapUserContext userContext = ldapService.findUser(userId);
+        String cn = userContext.getAttributeValue(userContext, &amp;quot;cn&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;list-a-user-groups&#34;&gt;List a user groups&lt;/h1&gt;
+
+&lt;p&gt;Once you have the user context you can also retrieve the list of the user groups&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class SomeClass {
+    @Inject
+    private LdapService ldapService;
+    
+    public void someMethod() {
+        LdapUserContext userContext = ldapService.findUser(userId);
+        Set&amp;lt;String&amp;gt; groups  = userContext.retrieveUserGroups(userContext);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;going-further&#34;&gt;Going further&lt;/h1&gt;
+
+&lt;p&gt;Seed uses &lt;a href=&#34;https://www.unboundid.com/&#34;&gt;unboundid&lt;/a&gt; library to connect to the ldap. You can inject its core component into your class to use it. Note that the connections you take from the pool are already configured and ready to be used.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class SomeClass {
+    @Inject
+    private LDAPConnectionPool ldapConnectionPool;
+    
+    public void someMethod() {
+        ldapConnectionPool.search(...);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/mongodb/</link>
+      <pubDate>Tue, 09 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/mongodb/</guid>
+      <description>
+
+&lt;p&gt;SeedStack MongoDB add-on enables your application to connect with MongoDB instances.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-mongodb-mongodb-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-mongodb-mongodb-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-mongodb-mongodb-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.mongodb&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mongodb&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-mongodb-mongodb-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;1.1.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-mongodb-mongodb-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-mongodb-mongodb-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-mongodb-mongodb-version, #org-seedstack-addons-mongodb-mongodb-warn&#39;).show(); $(&#39;#org-seedstack-addons-mongodb-mongodb-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-mongodb-mongodb-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.mongodb:mongodb:1.1.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;You also need to add the MongoDB Java client:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.mongodb&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mongo-java-driver&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;...&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can choose to use the MongoDB asynchronous client instead (or in addition as you can mix asynchronous and synchronous
+clients in the same application):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.mongodb&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mongodb-driver-async&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;...&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;MongoDB clients are used to access databases and are declared with the following configuration property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb]
+clients = client1, client2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Each client must then be configured separately with the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+# configuration of client1 
+
+[org.seedstack.mongodb.client.client2]
+# configuration of client2
+ 
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;As MongoDB has a different Java driver for synchronous and asynchronous clients, the type of a client will determine how
+it can be configured and used. Clients use the &lt;a href=&#34;http://mongodb.github.io/mongo-java-driver/3.0/driver/&#34;&gt;synchronous driver&lt;/a&gt;
+by default, to switch to the &lt;a href=&#34;http://mongodb.github.io/mongo-java-driver/3.0/driver-async/&#34;&gt;asynchronous driver&lt;/a&gt;, specify
+the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+async = true
+&lt;/code&gt;&lt;/pre&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;uri-connection-string&#34;&gt;URI connection string&lt;/h2&gt;
+
+&lt;p&gt;A client can be configured with an URI:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+uri = mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]      
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;URI allows to directly specify a set of options common to synchronous and asynchronous clients. More information about
+the URI and its options can be found &lt;a href=&#34;http://docs.mongodb.org/manual/reference/connection-string/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;explicit-hosts&#34;&gt;Explicit hosts&lt;/h2&gt;
+
+&lt;p&gt;As an alternative a client can be configured by directly specifying the MongoDB host(s):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+hosts = host1:27017, host2     
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this case, the client options must be specified using additional properties, which a are different for synchronous and
+asynchronous clients. See the &lt;a href=&#34;#synchronous-client-options&#34;&gt;Synchronous client options&lt;/a&gt; and &lt;a href=&#34;#asynchronous-client-options&#34;&gt;Asynchronous client options&lt;/a&gt;
+sections below for more information.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;When no port is specified, whether in the URI or in the hosts property, the default MongoDB port is used (27017).&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When configuring the connection with explicit hosts, connection credentials can be specified as the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...    
+credentials = db1:user1:password1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will authenticate with the username &lt;code&gt;user1&lt;/code&gt; and the password &lt;code&gt;password1&lt;/code&gt;. The user will be lookup up in the &lt;code&gt;db1&lt;/code&gt;
+database. The authentication mechanism will be automatically selected. To force an authentication mechanism use the
+following syntax:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...    
+credentials = mechanism/db1:user1:password1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The available authentication mechanisms are &lt;code&gt;PLAIN&lt;/code&gt;, &lt;code&gt;MONGODB_CR&lt;/code&gt;, &lt;code&gt;SCRAM_SHA_1&lt;/code&gt;, &lt;code&gt;MONGODB_X509&lt;/code&gt; and &lt;code&gt;GSSAPI&lt;/code&gt;. You can
+specify multiple credentials like the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...    
+credentials = mechanism/db1:user1:password1, mechanism/db2:user2:password2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;It is recommended to avoid specifying the authentication mechanism as it will be automatically selected. Also note that
+often, only one credential is enough.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;databases&#34;&gt;Databases&lt;/h2&gt;
+
+&lt;p&gt;You can choose to inject and use the &lt;code&gt;MongoClient&lt;/code&gt; object(s) directly and access the database(s) programatically. As a
+convenience, Seed also allows to inject the &lt;code&gt;MongoDatabase&lt;/code&gt; object(s) with the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...
+databases = db1, db2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Each declared database can then be injected accordingly. See the &lt;a href=&#34;#usage&#34;&gt;usage&lt;/a&gt; section below for more information.&lt;br /&gt;
+Database names must be unique across the application so you can encounter a situation when multiple configured clients
+may need to access databases with the same name. In that case, you can use the alias feature. Consider the following clients:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...    
+databases = db1, db2
+
+[org.seedstack.mongodb.client.client2]
+...    
+databases = db2, db3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can note that a database named &lt;code&gt;db2&lt;/code&gt; exists in MongoDB instances accessed by both &lt;code&gt;client1&lt;/code&gt; and &lt;code&gt;client2&lt;/code&gt;. To resolve
+this ambiguity, one of the &lt;code&gt;db2&lt;/code&gt; databases must be aliased in the application:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client2]
+...    
+databases = db2, db3
+alias.db2 = db2bis
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this example, the &lt;code&gt;db2&lt;/code&gt; database present on the MongoDB instance accessed by &lt;code&gt;client2&lt;/code&gt; will be referred in the
+application by the &lt;code&gt;db2bis&lt;/code&gt; name. Note that you can use this feature even when there are no name collision.&lt;/p&gt;
+
+&lt;h2 id=&#34;synchronous-client-options&#34;&gt;Synchronous client options&lt;/h2&gt;
+
+&lt;p&gt;Additional options can be specified on synchronous clients with the &lt;code&gt;option&lt;/code&gt; prefix:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...
+option.optionName1 = value1
+option.optionName2 = value2
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All the options from the &lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/MongoClientOptions.Builder.html&#34;&gt;MongoClientOptions.Builder&lt;/a&gt;
+class are available. Each method of the builder translates to an option of the same name. Consider the following example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...
+option.connectionsPerHost = 75
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will invoke the &lt;code&gt;connectionsPerHost()&lt;/code&gt; method on the option builder with the value &lt;code&gt;75&lt;/code&gt; converted to an integer.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If you use a URI configuration, you can combine the URI options with the &lt;code&gt;option.*&lt;/code&gt; syntax. The specified option(s)
+will complement their URI counterpart and override them if present in both.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;asynchronous-client-options&#34;&gt;Asynchronous client options&lt;/h2&gt;
+
+&lt;p&gt;Additional options can be specified on asynchronous clients with the &lt;code&gt;setting&lt;/code&gt; prefix:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...
+setting.settingNamespace1.settingName1 = value1
+setting.settingNamespace1.settingName2 = value2
+setting.settingNamespace2.settingName3 = value3
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All the settings from the &lt;code&gt;MongoClientSettings.Builder&lt;/code&gt; builder and its sub-builders are available. Each sub-builder translates
+to a setting namespace and each of the builders method translates to a particular setting. The list of the builders and
+their corresponding namespace is:&lt;/p&gt;
+
+&lt;table class=&#34;table table-striped&#34;&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+    &lt;th&gt;Namespace&lt;/th&gt;
+    &lt;th&gt;Builder&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;cluster&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/connection/ClusterSettings.Builder.html&#34;&gt;ClusterSettings.Builder&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;connectionPool&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/connection/ConnectionPoolSettings.Builder.html&#34;&gt;ConnectionPoolSettings.Builder&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;socket&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/connection/SocketSettings.Builder.html&#34;&gt;SocketSettings.Builder&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;heartbeatSocket&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/connection/SocketSettings.Builder.html&#34;&gt;SocketSettings.Builder&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;server&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/connection/ServerSettings.Builder.html&#34;&gt;ServerSettings.Builder&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;ssl&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/connection/SslSettings.Builder.html&#34;&gt;SslSettings.Builder&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Consider the following example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;setting.connectionPool.maxSize = 75
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will invoke the &lt;code&gt;maxSize()&lt;/code&gt; method on a &lt;code&gt;ConnectionPoolSettings.Builder&lt;/code&gt; instance with the value &lt;code&gt;75&lt;/code&gt; converted to
+an integer. This builder instance will in turn be be set on a &lt;code&gt;MongoClientSettings.Builder&lt;/code&gt; instance via the &lt;code&gt;connectionPoolSettings()&lt;/code&gt;
+method.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;ul&gt;
+&lt;li&gt;The global settings directly available on &lt;code&gt;MongoClientSettings.Builder&lt;/code&gt; can be specified without namespace. More information
+on the global builder &lt;a href=&#34;http://api.mongodb.org/java/current/com/mongodb/async/client/MongoClientSettings.Builder.html&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;cluster.hosts&lt;/code&gt; and &lt;code&gt;credentialList&lt;/code&gt; settings are ignored since they are already mapped from the &lt;code&gt;hosts&lt;/code&gt; and the
+&lt;code&gt;credentials&lt;/code&gt; properties.&lt;/li&gt;
+&lt;/ul&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;usage&#34;&gt;Usage&lt;/h1&gt;
+
+&lt;p&gt;As MongoDB doesn&amp;rsquo;t support transactions, usage simply consists in injecting a &lt;code&gt;MongoClient&lt;/code&gt; or a &lt;code&gt;MongoDatabase&lt;/code&gt; object
+and using it accordingly to the MongoDB documentation. As an example you can inject the client as the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+@Named(&amp;quot;client1&amp;quot;)
+MongoClient client1;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will inject the configured MongoDB client named &lt;code&gt;client1&lt;/code&gt;. You can also inject a database directly as the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+@Named(&amp;quot;db1&amp;quot;)
+MongoDatabase db1;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will inject the configured MongoDB database named &lt;code&gt;db1&lt;/code&gt;. Note that you must use the aliased name instead of the
+real database name if you aliased it in the configuration (see the &lt;a href=&#34;#databases&#34;&gt;databases&lt;/a&gt; section for information
+about aliases).&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If your client or database is configured as synchronous (the default) you must use the &lt;code&gt;com.mongodb.MongoClient&lt;/code&gt; and
+&lt;code&gt;com.mongodb.client.MongoDatabase&lt;/code&gt; classes. If your client or database is configured as asynchronous, you must use the
+&lt;code&gt;com.mongodb.async.client.MongoClient&lt;/code&gt; and &lt;code&gt;com.mongodb.async.client.MongoDatabase&lt;/code&gt; classes instead.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;You can inject a client or a database without any &lt;code&gt;@Named&lt;/code&gt; qualifier as long as there is only one client or only one database
+of the injected type configured.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;morphia&#34;&gt;Morphia&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/mongodb/morphia&#34;&gt;Morphia&lt;/a&gt; is an Object document mapper Api. it Provides Annotation-based Java objects
+mapping, and fluent query/update API&amp;rsquo;s.&lt;/p&gt;
+
+&lt;p&gt;SeedStack Morphia add-on enables your application to connect and interact with MongoDB instances only by injecting and
+using a Morphia &lt;code&gt;Datastore&lt;/code&gt;.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-mongodb-mongodb-morphia-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-mongodb-mongodb-morphia-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-mongodb-mongodb-morphia-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.mongodb&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mongodb-morphia&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-mongodb-mongodb-morphia-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;1.1.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-mongodb-mongodb-morphia-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-mongodb-mongodb-morphia-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-mongodb-mongodb-morphia-version, #org-seedstack-addons-mongodb-mongodb-morphia-warn&#39;).show(); $(&#39;#org-seedstack-addons-mongodb-mongodb-morphia-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-mongodb-mongodb-morphia-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.mongodb:mongodb-morphia:1.1.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;configuration-1&#34;&gt;Configuration&lt;/h2&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;&lt;strong&gt;Requirements:&lt;/strong&gt;
+Morphia Datastores need synchronous mongodb databases, please refer to mongodb &lt;a href=&#34;#asynchronous-client-options&#34;&gt;synchronous client&lt;/a&gt;
+and &lt;a href=&#34;#Databases&#34;&gt;database&lt;/a&gt; configuration before starting with morphia.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Seed has the ability to create a new Morphia &lt;code&gt;Datastore&lt;/code&gt; linked to single Morphia mapped objects or java packages.
+Two &lt;code&gt;morphia&lt;/code&gt; properties &lt;code&gt;clientName&lt;/code&gt; and &lt;code&gt;dbName&lt;/code&gt; are available and can be set using Seed object props configuration
+as followed:&lt;/p&gt;
+
+&lt;p&gt;Required Mongodb configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb]
+clients = client1
+
+[org.seedstack.mongodb.client.client1]
+hosts = localhost
+option.connectionsPerHost = 50
+databases = db1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Datastore linked to a single Morphia mapped object:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.mycompany.myapp.domain.user.*]
+morphia.clientName = client1
+morphia.dbName = db1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Datastore linked to Morphia mapped objects in a package&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.mycompany.myapp.domain.user.User]
+morphia.clientName = client1
+morphia.dbName = db1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;usage-1&#34;&gt;Usage&lt;/h2&gt;
+
+&lt;p&gt;Configuration for affecting a package to a &lt;code&gt;Datastore&lt;/code&gt; linked to the database &lt;code&gt;db1&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb]
+clients = client1
+
+[org.seedstack.mongodb.client.client1]
+hosts = localhost
+option.connectionsPerHost = 50
+databases = db1
+
+[org.mycompany.myapp.domain.user.*]
+morphia.clientName = client1
+morphia.dbName = db1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Morphia only support synchronous client, as so the Mongodb database must be synchronous.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Mapping Object under the package defined above:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Entity
+public class User implements AggregateRoot&amp;lt;Long&amp;gt;{
+	@Id
+	private long id;
+	private String name;
+	private String lastname;
+    @Embedded    
+    private Address address;
+    
+	// ...
+}
+@Embedded
+public class Address implements ValueObject{
+	private String country;
+	private String zipcode;
+	private String city;
+	private String street;
+	private Integer number;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A Morphia &lt;code&gt;Datastore&lt;/code&gt; can be injected simply by specifying the associated &lt;code&gt;morphia.clientName&lt;/code&gt; and &lt;code&gt;morphia.dbName&lt;/code&gt; with
+the appropriate binding annotation &lt;code&gt;@MorphiaDatastore&lt;/code&gt; as followed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MorphiaIT extends AbstractSeedIT{
+	@Inject
+	@MorphiaDatastore(clientName = &amp;quot;client1&amp;quot;,dbName=&amp;quot;db1&amp;quot;)
+	private Datastore datastore; 
+	
+	@Test
+	public void datastore_test(){
+		User user = new User(...);
+		Key&amp;lt;User&amp;gt; keyUser = datastore.save(user);
+		Assertions.assertThat(keyUser).isNotNull();
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;repositories&#34;&gt;Repositories&lt;/h2&gt;
+
+&lt;p&gt;The Morphia addon also provides repositories which can be use with the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/business/&#34;&gt;Business Framework&lt;/a&gt;.
+Default repositories can be used by injecting the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;business.&amp;amp;#8203;domain.&amp;amp;#8203;Repository&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/business/domain/Repository.html&#39;&gt;Repository&lt;/a&gt;&lt;/code&gt; interface with
+both the &lt;code&gt;@Inject&lt;/code&gt; and &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;mongodb.&amp;amp;#8203;morphia.&amp;amp;#8203;Morphia&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/mongodb/morphia/Morphia.html&#39;&gt;@Morphia&lt;/a&gt;&lt;/code&gt; annotations as followed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MongodbRepositoryIT extends AbstractSeedIT {
+
+	@Inject
+	@Morphia
+	private Repository&amp;lt;User, Long&amp;gt; userRepository;
+	
+	@Inject
+	Factory&amp;lt;User&amp;gt; myUserFactory; 
+	
+	@Test
+	public void mongodb_repository_test() {
+		userRepository.delete(myUserFactory.create(...));
+		User loadedUser = userRepository.load(user1.getEntityId());
+		Assertions.assertThat(user).isEqualTo(null);
+	}
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Custom repositories can be added simply by extending the class &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;mongodb.&amp;amp;#8203;morphia.&amp;amp;#8203;BaseMongodbRepository&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/mongodb/morphia/BaseMongodbRepository.html&#39;&gt;BaseMongodbRepository&lt;/a&gt;&lt;/code&gt; as followed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public interface UserRepository extends Repository&amp;lt;Activation,String&amp;gt; {}
+public class UserMongodbRepository extends BaseMongodbRepository&amp;lt;User, Long&amp;gt; {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The repository can be injected as followed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+private UserRepository userRepository;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;To use a &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;mongodb.&amp;amp;#8203;morphia.&amp;amp;#8203;Datastore&#39;&gt;Datastore&lt;/span&gt;&lt;/code&gt; inside the repository simply call the method &lt;code&gt;this.getDatastore()&lt;/code&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/neo4j/</link>
+      <pubDate>Tue, 09 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/neo4j/</guid>
+      <description>&lt;p&gt;Coming soon&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/redis/</link>
+      <pubDate>Tue, 09 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/redis/</guid>
+      <description>&lt;p&gt;Coming soon&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/solr/</link>
+      <pubDate>Tue, 09 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/solr/</guid>
+      <description>&lt;p&gt;Coming soon&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/w20-material/</link>
+      <pubDate>Mon, 08 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/w20-material/</guid>
+      <description>
+
+&lt;p&gt;The W20 Material addon provides the &lt;a href=&#34;https://material.angularjs.org/latest/&#34;&gt;Angular Material&lt;/a&gt; framework.&lt;/p&gt;
+
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;bower install w20-material
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+
+&lt;p&gt;To include the addon, declare it in the application manifest:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;bower_components/w20-material/w20-material.w20.json&amp;quot;: {}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/i18n/</link>
+      <pubDate>Thu, 21 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/i18n/</guid>
+      <description>
+
+&lt;p&gt;The i18n addon provides backend services and a Web UI to manage your application&amp;rsquo;s locales and translations.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/keys.png&#34; alt=&#34;locale view&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;integration&#34;&gt;Integration&lt;/h1&gt;
+
+&lt;p&gt;To add the i18n addon to your project, start by adding the following dependency. Then configure the persistence
+and the security.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-i18n-i18n-web-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-i18n-i18n-web-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-i18n-i18n-web-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.i18n&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;i18n-web&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-i18n-i18n-web-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.2.2&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-i18n-i18n-web-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-i18n-i18n-web-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-i18n-i18n-web-version, #org-seedstack-addons-i18n-i18n-web-warn&#39;).show(); $(&#39;#org-seedstack-addons-i18n-i18n-web-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-i18n-i18n-web-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.i18n:i18n-web:2.2.2&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;persistence&#34;&gt;Persistence&lt;/h2&gt;
+
+&lt;p&gt;The i18n addon uses JPA to store its data. No &lt;code&gt;persistence.xml&lt;/code&gt; file is provided, as it expects your
+application to be configured with &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/jpa/&#34;&gt;automatically generated persistence information&lt;/a&gt;.
+You just need add the JPA unit (&lt;code&gt;seed-i18n-domain&lt;/code&gt;) to the global list of JPA units and specify its datasource:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack]
+jpa.units = seed-i18n-domain, ...
+
+[org.seedstack.jpa.unit.seed-i18n-domain]
+datasource = my-datasource
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;security&#34;&gt;Security&lt;/h2&gt;
+
+&lt;p&gt;All the REST APIs are secured with permissions. These permissions are bound to two
+default roles:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;seed-i18n.reader&lt;/code&gt; for read access&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;seed-i18n.translator&lt;/code&gt; for read/write/delete access&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Bind the i18n roles to yours&lt;/strong&gt;, for instance:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.security.users]
+john = password, MYPROJECT.DEVELOPER
+admin = password, MYPROJECT.TRANSLATOR
+
+[org.seedstack.seed.security.roles]
+# Read access
+seed-i18n.reader = MYPROJECT.DEVELOPER
+# Read/Write/Delete access
+seed-i18n.translator = MYPROJECT.TRANSLATOR
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;It is possible to create more fine grained security roles using the provided permissions. Here is the list of available
+permissions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;seed:i18n:locale:read
+seed:i18n:locale:write
+seed:i18n:locale:delete
+
+seed:i18n:key:read
+seed:i18n:key:write
+seed:i18n:key:delete
+
+seed:i18n:translation:read
+seed:i18n:translation:write
+seed:i18n:translation:delete
+&lt;/code&gt;&lt;/pre&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;cache-optional&#34;&gt;Cache (Optional)&lt;/h2&gt;
+
+&lt;p&gt;The addon uses cache to improve i18n performances. By default, this cache does not need configuration,
+but it is possible to change the configuration as follow:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;# Default configuration used by the i18n addon
+[org.seedstack.seed.i18n.cache]
+max-size=8192
+concurrency=32
+initial-size=2048
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;backup-restore&#34;&gt;Backup/Restore&lt;/h1&gt;
+
+&lt;h2 id=&#34;csv&#34;&gt;CSV&lt;/h2&gt;
+
+&lt;p&gt;The &amp;laquo;Manage Keys&amp;raquo; interface provides CSV import/export functionality.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The exported CSV file is in UTF-8 in order to support all the possible languages.
+This encoding is not used by default in Microsoft Excel.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;all-data&#34;&gt;All data&lt;/h2&gt;
+
+&lt;p&gt;In order to backup/restore all data with their metadata (e.g. default locale or outdated indicator) the addon provides
+&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/operations/#shell&#34;&gt;shell&lt;/a&gt; commands. To use it, enable the Shell support. Then, use the &lt;code&gt;core:export&lt;/code&gt; or &lt;code&gt;core:import&lt;/code&gt;
+commands (cf. &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/more/#data-import-export&#34;&gt;Core data documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;java-api-usage&#34;&gt;Java API usage&lt;/h1&gt;
+
+&lt;h2 id=&#34;locales&#34;&gt;Locales&lt;/h2&gt;
+
+&lt;p&gt;The i18n addon stores application available locales and default locale. Available locales are the locales in which
+the application is translated, i.e. available to users. The default locale is the &amp;laquo;native language&amp;raquo; of the application.
+This locale will be used as starting locale for translations.&lt;/p&gt;
+
+&lt;p&gt;Locales can be managed with i18n administration interface or programatically with the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;i18n.&amp;amp;#8203;LocaleService&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/i18n/LocaleService.html&#39;&gt;LocaleService&lt;/a&gt;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+private LocaleService localeService;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;localization&#34;&gt;Localization&lt;/h2&gt;
+
+&lt;p&gt;Localization is provided by the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;i18n.&amp;amp;#8203;LocalizationService&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/i18n/LocalizationService.html&#39;&gt;LocalizationService&lt;/a&gt;&lt;/code&gt; which allows to localize date, number, string and currency.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+private LocalizationService localizationService;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;i18n.&amp;amp;#8203;LocalizationService&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/i18n/LocalizationService.html&#39;&gt;LocalizationService&lt;/a&gt;&lt;/code&gt; allows to translate i18n keys in different locales using the &lt;code&gt;localize(String, String)&lt;/code&gt; method.
+This method will fallback on the parent locale if the required locale is not present.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;// Case 1: fr-BE translation is present
+localizationService.localize(&amp;quot;fr-BE&amp;quot;, &amp;quot;key1&amp;quot;); // -&amp;gt; &amp;quot;translation fr-BE&amp;quot;
+
+// Case 2: fr-BE translation is NOT present, but fr translation is present
+localizationService.localize(&amp;quot;fr-BE&amp;quot;, &amp;quot;key1&amp;quot;); // -&amp;gt; &amp;quot;translation fr&amp;quot;
+
+// Case 2: no translation present
+localizationService.localize(&amp;quot;fr-BE&amp;quot;, &amp;quot;key1&amp;quot;); // -&amp;gt; &amp;quot;[key]&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/jdbc/</link>
+      <pubDate>Thu, 21 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/jdbc/</guid>
+      <description>
+
+&lt;p&gt;Seed JDBC persistence add-on enables your application to interface with any relational database through the JDBC API.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-jdbc-jdbc-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-jdbc-jdbc-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-jdbc-jdbc-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.jdbc&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;jdbc&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-jdbc-jdbc-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.1.3&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-jdbc-jdbc-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-jdbc-jdbc-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-jdbc-jdbc-version, #org-seedstack-addons-jdbc-jdbc-warn&#39;).show(); $(&#39;#org-seedstack-addons-jdbc-jdbc-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-jdbc-jdbc-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.jdbc:jdbc:2.1.3&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;You can configure the add-on in one or more of your *.props files. Declare you list of data source names you will be
+configuring later:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.seedstack.jdbc.datasources = datasource1, datasource2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Configure each data source separately. Notice the use of the keyword &lt;em&gt;property&lt;/em&gt; to specify any property that will be
+used by the datasource as specific configuration.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jdbc.datasource.datasource1]
+provider = HikariDataSourceProvider
+driver = org.hsqldb.jdbcDriver
+url = jdbc:hsqldb:mem:testdb1
+user = sa
+password =
+property.specific.jdbc.prop = value
+property.prop.for.datasource = value
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Alternatively, if you want to lookup the data source through JNDI you can use this configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jdbc.datasource.datasource1]
+jndi-name = java:comp/env/jdbc/my-datasource
+context = ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;context&lt;/code&gt; property is optional and can be used to specify a particular context name configured in
+&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/more/#jndi&#34;&gt;core support&lt;/a&gt; to make the lookup. Otherwise the default context (named &lt;code&gt;default&lt;/code&gt;) will be used.&lt;/p&gt;
+
+&lt;h1 id=&#34;usage&#34;&gt;Usage&lt;/h1&gt;
+
+&lt;p&gt;The following examples show how to get a JDBC connection.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyRepository {
+
+    @Inject
+    private Connection connection;
+
+    @Transactional
+    @Jdbc(&amp;quot;datasource1&amp;quot;)
+    public void updateStuff(int id, String bar){
+        try{
+            String sql = &amp;quot;INSERT INTO FOO VALUES(?, ?)&amp;quot;;
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            statement.setString(2, bar);
+            statement.executeUpdate();
+        } catch(SqlException e){
+            throw new SomeRuntimeException(e, &amp;quot;message&amp;quot;);
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;As seen in the example above, any interaction with this connection have to be done inside a &lt;strong&gt;transaction&lt;/strong&gt;. Refer to the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/transactions/&#34;&gt;transaction support documentation&lt;/a&gt; for more detail.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;data-source-providers&#34;&gt;Data source providers&lt;/h1&gt;
+
+&lt;h2 id=&#34;built-in-providers&#34;&gt;Built-in providers&lt;/h2&gt;
+
+&lt;p&gt;When using a non JNDI data source, we recommend the use of pooled datasource through a DataSourceProvider defined in the
+configuration. Four data source providers can be specified in the &lt;code&gt;provider&lt;/code&gt; property:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://brettwooldridge.github.io/HikariCP/&#34;&gt;HikariCP&lt;/a&gt; with &lt;code&gt;HikariDataSourceProvider&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://commons.apache.org/proper/commons-dbcp/&#34;&gt;Commons DBCP&lt;/a&gt; with &lt;code&gt;DbcpDataSourceProvider&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.mchange.com/projects/c3p0/&#34;&gt;C3P0&lt;/a&gt; with &lt;code&gt;C3p0DataSourceProvider&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A test-only plain data source provider with &lt;code&gt;PlainDataSourceProvider&lt;/code&gt;. &lt;strong&gt;Do not use in production&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;custom-providers&#34;&gt;Custom providers&lt;/h2&gt;
+
+&lt;p&gt;In the case you want to use another data source provider, you can create your own &lt;code&gt;DataSourceProvider&lt;/code&gt; by implementing the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;jdbc.&amp;amp;#8203;spi.&amp;amp;#8203;DataSourceProvider&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/jdbc/spi/DataSourceProvider.html&#39;&gt;DataSourceProvider&lt;/a&gt;&lt;/code&gt; interface:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class SomeDataSourceProvider implements DataSourceProvider {
+
+    @Override
+    public DataSource provideDataSource(String driverClass, String
+            url, String user, String password, Properties jdbcProperties) {
+        SomeDataSource sds = new SomeDataSource();
+        sds.setDriverClass(driverClass);
+        sds.setJdbcUrl(url);
+        sds.setUser(url);
+        sds.setPassword(user);
+        sds.setProperties(jdbcProperties);
+        return sds;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You will be able to declare it in your configuration as &lt;code&gt;SomeDataSourceProvider&lt;/code&gt; (the simple name of your class). Note
+that if you want to use one of the three datasource providers described above, you will have to add the corresponding
+dependency to your project.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/jms/</link>
+      <pubDate>Thu, 21 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/jms/</guid>
+      <description>&lt;p&gt;Java Message Service (JMS) is a Java API that allows applications to create, send, receive, and read messages.
+This add-on provides a JMS 1.1 integration (a.k.a. JSR 914). It automatically manages connection factories,
+connections, sessions and message consumers/listeners while retaining the standard JMS API. Moreover connection
+and session try to reconnect automatically after a JMS connection failure.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;JMS provider implementation is not provided by this add-on and must be configured depending on your messaging solution.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-jms-jms-core-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-jms-jms-core-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-jms-jms-core-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.jms&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;jms-core&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-jms-jms-core-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.1.2&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-jms-jms-core-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-jms-jms-core-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-jms-jms-core-version, #org-seedstack-addons-jms-jms-core-warn&#39;).show(); $(&#39;#org-seedstack-addons-jms-jms-core-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-jms-jms-core-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.jms:jms-core:2.1.2&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;The JMS specification jar dependency is required as well since Seed JMS support doesn&amp;rsquo;t transitively provide this
+dependency:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;javax.jms&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;jms-api&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;1.1-rev-1&amp;lt;/version&amp;gt;
+    &amp;lt;scope&amp;gt;provided&amp;lt;/scope&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/jpa/</link>
+      <pubDate>Thu, 21 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/jpa/</guid>
+      <description>
+
+&lt;p&gt;Seed JPA persistence add-on enables your application to interface with any relational database through a JPA-compliant
+ORM. Note that:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;This version doesn&amp;rsquo;t enforce a specific JPA version. It is currently tested with JPA 1.0, JPA 2.0 and JPA 2.1.&lt;/li&gt;
+&lt;li&gt;This add-on is compatible with any ORM implementation.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-jpa-jpa-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-jpa-jpa-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-jpa-jpa-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.jpa&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;jpa&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-jpa-jpa-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.1.3&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-jpa-jpa-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-jpa-jpa-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-jpa-jpa-version, #org-seedstack-addons-jpa-jpa-warn&#39;).show(); $(&#39;#org-seedstack-addons-jpa-jpa-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-jpa-jpa-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.jpa:jpa:2.1.3&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If you want to use the popular &lt;a href=&#34;http://hibernate.org/orm/&#34;&gt;Hibernate ORM&lt;/a&gt;, use the following Maven dependency:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.hibernate&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;hibernate-core&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;...&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.hibernate&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;hibernate-entitymanager&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;...&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Only add the JPA specification to declare entity classes in any module that does not have the hibernate dependency:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.hibernate.javax.persistence&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;hibernate-jpa-2.1-api&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;1.0.0.Final&amp;lt;/version&amp;gt;
+    &amp;lt;scope&amp;gt;provided&amp;lt;/scope&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;The JPA add-on doesn&amp;rsquo;t need any &lt;code&gt;persistence.xml&lt;/code&gt; file in its default mode of operation as it will automatically generate
+persistence unit information. First, declare the list of your persistence units in the configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.jpa]
+units = my-jpa-unit, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The you must reference a JDBC datasource for each JPA unit. To do so, please refer to the &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/jdbc/&#34;&gt;JDBC add-on configuration&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.jpa.unit.my-jpa-unit]
+datasource = my-datasource
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that Seed has no way of knowing to which persistence unit belong each entity class, so you must indicate this with
+the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.myorganization.myapp.domain.*]
+jpa-unit = my-jpa-unit
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will put all the entities scanned in the &lt;code&gt;org.myorganization.myapp.domain&lt;/code&gt; package and its subpackages into the
+&lt;code&gt;my-jpa-unit&lt;/code&gt; persistence unit.&lt;/p&gt;
+
+&lt;h2 id=&#34;options&#34;&gt;Options&lt;/h2&gt;
+
+&lt;p&gt;You can specify the type of transactions by using the following configuration
+(&lt;a href=&#34;http://docs.oracle.com/javaee/6/api/javax/persistence/spi/PersistenceUnitInfo.html#getTransactionType%28%29&#34;&gt;more info&lt;/a&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.jpa.unit.my-jpa-unit]
+transaction-type = JTA | RESOURCE_LOCAL
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you prefer to use XML JPA mapping files instead of annotations you can specify them with the following configuration
+(&lt;a href=&#34;http://docs.oracle.com/javaee/6/api/javax/persistence/spi/PersistenceUnitInfo.html#getMappingFileNames%28%29&#34;&gt;more info&lt;/a&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.jpa.unit.my-jpa-unit]
+mapping-files = path/to/mapping/file1.xml, path/to/mapping/file2.xml, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can specify the validation mode with the following configuration
+(&lt;a href=&#34;http://docs.oracle.com/javaee/6/api/javax/persistence/spi/PersistenceUnitInfo.html#getValidationMode%28%29&#34;&gt;more info&lt;/a&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.jpa.unit.my-jpa-unit]
+validation-mode = path/to/mapping/file1.xml, path/to/mapping/file2.xml, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can specify the shared cache mode with the following configuration
+(&lt;a href=&#34;http://docs.oracle.com/javaee/6/api/javax/persistence/spi/PersistenceUnitInfo.html#getSharedCacheMode%28%29&#34;&gt;more info&lt;/a&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.jpa.unit.my-jpa-unit]
+shared-cache-mode = ALL | NONE | ENABLE_SELECTIVE | DISABLE_SELECTIVE | UNSPECIFIED
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;properties&#34;&gt;Properties&lt;/h2&gt;
+
+&lt;p&gt;If you need to pass any property to the persistence unit, you can do so with the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.jpa.unit.my-jpa-unit]
+property.name.of.the.property1 = value-of-the-property1
+property.name.of.the.property2 = value-of-the-property2
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;using-the-entity-manager&#34;&gt;Using the Entity Manager&lt;/h1&gt;
+
+&lt;p&gt;To use the Entity Manager in your code, simply inject it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MyRepository {
+
+    @Inject
+    private EntityManager entityManager;
+
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All JPA interactions have to be realized inside a transaction. Refer to the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/transactions/&#34;&gt;transaction support
+documentation&lt;/a&gt; for more detail. Below is an example using the annotation-based transaction
+demarcation (notice the &lt;code&gt;persistence.xml&lt;/code&gt; unit name in &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;jpa.&amp;amp;#8203;JpaUnit&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/jpa/JpaUnit.html&#39;&gt;@JpaUnit&lt;/a&gt;&lt;/code&gt; annotation)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MyService {
+
+    @Inject
+    private MyRepository myRepository;
+
+    @Transactional
+    @JpaUnit(&amp;quot;my-jpa-unit&amp;quot;)
+    public void doSomethingWithMyJpaUnit() {
+
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;jpa.&amp;amp;#8203;JpaUnit&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/jpa/JpaUnit.html&#39;&gt;@JpaUnit&lt;/a&gt;&lt;/code&gt; annotation is NOT optional as the JPA add-on includes the JDBC add-on as a dependency, so the
+conditions that you must have only one type of transactional resources in your application cannot be fulfilled. You can omit the
+name of the unit if you only have one unit in your application, although we recommend you to always specify it explicitly.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/validation/</link>
+      <pubDate>Thu, 21 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/validation/</guid>
+      <description>&lt;p&gt;SeedStack validation add-on allows developers to use Bean Validation 1.0 and 1.1:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Bean Validation 1.0 brings static validation (aka JSR 303).&lt;/li&gt;
+&lt;li&gt;Bean Validation API 1.1 brings dynamic validation (aka JSR 349).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Data validation is a very common concern at each and every layer of an application. As such, it has been standardized
+through Bean Validation using JSR 303 and JSR 349. Implementation uses &lt;strong&gt;Hibernate Validator&lt;/strong&gt; that you need to add
+explicitly in your project:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use Hibernate Validator version 4.x to support Bean Validation 1.0 only (like in strict JEE6 environments)&lt;/li&gt;
+&lt;li&gt;Use Hibernate Validator version 5.x to support Bean Validation 1.1.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To use this add-on add the following dependency:&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-validation-validation-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-validation-validation-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-validation-validation-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.validation&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;validation&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-validation-validation-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-validation-validation-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-validation-validation-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-validation-validation-version, #org-seedstack-addons-validation-validation-warn&#39;).show(); $(&#39;#org-seedstack-addons-validation-validation-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-validation-validation-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.validation:validation:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/w20-bootstrap-2/</link>
+      <pubDate>Wed, 20 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/w20-bootstrap-2/</guid>
+      <description>
+
+&lt;p&gt;The W20 Bootstrap 2 addon provides the Twitter Bootstrap framework in its &lt;code&gt;2.3.2&lt;/code&gt; version, the last version of the 2.0 branch.
+It also provides a compatible &lt;code&gt;angular-bootstrap&lt;/code&gt; library and a compatible &lt;code&gt;font-awesome&lt;/code&gt; set of icons.&lt;/p&gt;
+
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;bower install w20-bootstrap-2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+
+&lt;p&gt;To include the addon, declare it in the application manifest:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;bower_components/w20-bootstrap-2/w20-bootstrap-2.w20.json&amp;quot;: {}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

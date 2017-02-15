@@ -1,0 +1,2244 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/lifecycle/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/lifecycle/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Aggregates</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/manual/aggregates/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/manual/aggregates/</guid>
+      <description>&lt;p&gt;Domain objects have a lifecycle: they are created, go through various states and eventually die (either being archived
+or deleted). Many of these objects are simple, transient objects which are simply created with a call to their constructor
+and thrown away after use. There is no need to complicate such objects. But some objects are more rich, with a complex
+lifecycle and numerous relationships with other objects.&lt;/p&gt;
+
+&lt;p&gt;The challenges of managing these objects can also be addressed with several patterns. The first one is the &lt;strong&gt;aggregate pattern,
+which define clear ownership and boundaries between domain objects&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;what-is-an-aggregate&#34;&gt;What is an aggregate ?&lt;/h1&gt;
+
+&lt;p&gt;Most business domains have very interconnected entities, sometimes up to the point where there is always a path going from
+any Entity to any other. We can try to minimize the number of associations in our design, and this is a good practice
+but it can lead to a translation loss between business and software. In a typical object model, it is difficult to clearly
+see the boundaries of a change. This is particularly acute in systems with concurrent access such as Web applications.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;It is also difficult to guarantee the consistency of changes to objects in a model with complex associations and no clear
+boundaries between objects. Considering every object as independent from each other is not a valid approach, but on the
+other side, refreshing every object because of a change is not practical. &lt;strong&gt;A balanced solution must be found&lt;/strong&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&#34;../img/aggregate-typologies.png&#34; alt=&#34;Aggregate typologies&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;With the &lt;strong&gt;aggregate pattern&lt;/strong&gt;, we want to be as close as possible to the center pattern in the figure above. The aggregate
+is a cluster of associated objects that are considered as a unit for the purpose of data changes. Each Aggregate has root
+and a boundary which determines what is inside the Aggregate.&lt;/p&gt;
+
+&lt;p&gt;The Aggregate root is a specific Entity contained in the Aggregate. It is the only entry-point of the Aggregate, meaning
+that it is the only Aggregate Entity that client objects can hold references to. Other objects of the Aggregate are only
+accessible through the context of the Aggregate root.&lt;/p&gt;
+
+&lt;h1 id=&#34;characteristics&#34;&gt;Characteristics&lt;/h1&gt;
+
+&lt;p&gt;The following rules apply to Aggregates:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The Aggregate root has a global identity and is responsible for checking invariants within the Aggregate.&lt;/li&gt;
+&lt;li&gt;Non-root Entities inside the Aggregate have a local identity that is only unique within the Aggregate.&lt;/li&gt;
+&lt;li&gt;Code outside the Aggregate can only hold references to the Aggregate root. The root can hand references to internal
+entities but they must only use them transiently and not hold to the reference. Value Objects can be handed without
+any concern because they are immutable and side-effect free.&lt;/li&gt;
+&lt;li&gt;Only Aggregate roots can be loaded directly from the persistence. All other objects must be found by traversal of
+associations.&lt;/li&gt;
+&lt;li&gt;Any change within the Aggregate boundary must satisfy all the Aggregate invariants.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;declaration&#34;&gt;Declaration&lt;/h1&gt;
+
+&lt;p&gt;Creating an Aggregate with the Business Framework, consists in:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Creating a package with the Aggregate name,&lt;/li&gt;
+&lt;li&gt;Create all the domain objects belonging to the Aggregate in this package,&lt;/li&gt;
+&lt;li&gt;From all those domain objects, one Entity should be created as the &lt;strong&gt;Aggregate root&lt;/strong&gt;. This step is the focus of this
+section.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To create an Aggregate root using the Business framework you have three choices:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Extend the &lt;code&gt;BaseAggregateRoot&lt;/code&gt; class. This class directly extends &lt;code&gt;BaseEntity&lt;/code&gt; and as such the &lt;code&gt;equals()&lt;/code&gt;, &lt;code&gt;hashCode()&lt;/code&gt;
+and &lt;code&gt;compareTo()&lt;/code&gt; methods will be provided out-of-the-box.&lt;/li&gt;
+&lt;li&gt;Implement the &lt;code&gt;AggregateRoot&lt;/code&gt; interface. You must implement the &lt;code&gt;equals()&lt;/code&gt;, &lt;code&gt;hashCode()&lt;/code&gt; and &lt;code&gt;compareTo()&lt;/code&gt; methods in
+this case.&lt;/li&gt;
+&lt;li&gt;Simply annotate any class with the &lt;code&gt;@DomainAggregateRoot&lt;/code&gt; annotation. In this case, you won&amp;rsquo;t be able to use helpers and
+tools from the framework.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With the two first options (base class and interface), you have to provide a generic parameter with the type of the
+Aggregate root identifier.&lt;/p&gt;
+
+&lt;h1 id=&#34;example&#34;&gt;Example&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Order extends BaseAggregateRoot&amp;lt;Long&amp;gt; {
+    private Long orderId;
+    private Date checkoutDate;
+    private double price;
+    private List&amp;lt;OrderItem&amp;gt; items;
+
+    Order() {
+    }
+
+    @Override
+    public Long getEntityId() {
+        return orderId;
+    }
+
+    public void addOrderItem(int quantity, long productId, double price) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setQuantity(quantity);
+        orderItem.setProductId(productId);
+        orderItem.setPrice(price);
+        items.add(orderItem);
+    }
+
+    public void clearOrderItems() {
+        items.clear();
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Factories</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/manual/factories/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/manual/factories/</guid>
+      <description>&lt;p&gt;A factory is a pattern used to &lt;strong&gt;create domain objects&lt;/strong&gt;, checking that provided data is complete and consistent.&lt;/p&gt;
+
+&lt;p&gt;To be created by a factory the domain object must also implements &lt;code&gt;Producible&lt;/code&gt;. This is necessary because all
+the domain objects are not producible by a factory. For instance an entity is only be producible by an aggregate
+root.&lt;/p&gt;
+
+&lt;p&gt;The types implementing &lt;code&gt;DomainObject&lt;/code&gt; and &lt;code&gt;Producible&lt;/code&gt; are the followings:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;AggregateRoot,&lt;/li&gt;
+&lt;li&gt;DomainPolicy,&lt;/li&gt;
+&lt;li&gt;ValueObject,&lt;/li&gt;
+&lt;li&gt;DomainEvent,&lt;/li&gt;
+&lt;li&gt;DomainService.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;default-factory&#34;&gt;Default factory&lt;/h1&gt;
+
+&lt;p&gt;The default factory has a single method &lt;code&gt;create&lt;/code&gt; with varargs that will match via reflection the constructor corresponding
+to the passed arguments. The created domain object should implement the desired constructors:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Customer extends BaseAggregate&amp;lt;Long&amp;gt; {
+    private Long id;
+
+    Customer() {
+        ...
+    }
+
+    Customer(String firstName, String lastName) { // This constructor will be called
+        ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The default factory can then be injected and used by invoking its &lt;code&gt;create()&lt;/code&gt; method with arguments unambiguously corresponding
+to only one constructor:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+Factory&amp;lt;Customer&amp;gt; factory;
+
+Customer customer = factory.create(&amp;quot;John&amp;quot;, &amp;quot;Doe&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;One benefit over the plain constructor approach is that default factories will invoke identity generation (see &lt;a href=&#34;#identity-generation&#34;&gt;below&lt;/a&gt;)
+and/or validation automatically after object instantiation. The&lt;/p&gt;
+
+&lt;p&gt;As other factories this method will provide validation on the created object. But it won&amp;rsquo;t survive to refactoring, so be careful using the method (ie. unit test it!).&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;This factory can only be used to create domain objects that implement the &lt;code&gt;Producible&lt;/code&gt; and &lt;code&gt;DomainObject&lt;/code&gt; interfaces. Classes
+extending Business framework base classes will already implement those interfaces but annotated POJO, such as policies or
+services, must implement them explicitly. As an alternative, you implement the &lt;code&gt;GenericDomainPolicy&lt;/code&gt; and &lt;code&gt;GenericDomainService&lt;/code&gt;
+interfaces instead.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;custom-factory&#34;&gt;Custom factory&lt;/h1&gt;
+
+&lt;p&gt;A custom factory is composed of an interface, which is located in the package of the aggregate it constructs, and an
+implementation which can be located either:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;In the aggregate package too,&lt;/li&gt;
+&lt;li&gt;Or in an infrastructure package if it is dependent upon a specific technology.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The factory interface has to extend the &lt;code&gt;GenericFactory&lt;/code&gt; interface:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.mycompany.myapp.domain.model.order;
+
+import org.javatuples.Triplet;
+import org.seedstack.business.domain.GenericFactory;
+
+public interface OrderFactory extends GenericFactory&amp;lt;Order&amp;gt; {
+
+    Order createOrder(String customerId, Date checkoutDate, Double price,
+            List&amp;lt;Triplet&amp;lt;Integer, Double, Long&amp;gt;&amp;gt; orderItemTriplets);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Order&lt;/code&gt; is the type which is the expected to be returned by all the create methods.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;createOrder&lt;/code&gt; method creates an &lt;code&gt;Order&lt;/code&gt; aggregate with the required parameters. Some parameters can be grouped with a tuple like
+&lt;code&gt;oderItemTriplets&lt;/code&gt; which represents a list &lt;code&gt;OrderItem&lt;/code&gt; entities belonging to the &lt;code&gt;Order&lt;/code&gt; aggregate (see
+&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/business/manual/#tuples&#34;&gt;tuples&lt;/a&gt; for more information on tuple pattern).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The factory implementation must extend the &lt;code&gt;BaseFactory&lt;/code&gt; abstract class and implement its own interface.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.mycompany.myapp.domain.model.order;
+
+import org.javatuples.Triplet;
+import org.seedstack.business.domain.BaseFactory;
+import org.mycompany.myapp.domain.customer.CustomerId;
+
+public class OrderFactoryImpl extends BaseFactory&amp;lt;Order&amp;gt; implements OrderFactory {
+
+    @Override
+    public Order createOrder(String customerId) {
+        Order o = new Order();
+
+        o.setCustomerId(new CustomerId(customerId));
+        o.setCheckoutDate(new Date());
+
+        return o;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here, the factory encapsulates the logic of creating a minimal but valid &lt;code&gt;Order&lt;/code&gt; aggregate. This order can be further
+populated by an assembler or by custom logic.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;When the implementation and its interface share the same package, the &lt;strong&gt;implementation should be in package visibility&lt;/strong&gt;.
+It prevents any direct use of the implementation.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;identity-generation&#34;&gt;Identity generation&lt;/h1&gt;
+
+&lt;p&gt;Factories provide methods to create entities with a well defined identity. But sometimes, you want to delegate the identity
+creation, for instance to an Oracle sequence. For this use case Seed provides an &lt;strong&gt;identity generation strategies&lt;/strong&gt;.
+A generation strategy makes sure a unique identity is provided to any new Entity before it is even persisted.&lt;/p&gt;
+
+&lt;h2 id=&#34;declaration&#34;&gt;Declaration&lt;/h2&gt;
+
+&lt;p&gt;Below is an aggregate using the identity strategy:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.mycompany.myapp.domain.model.myaggregate;
+
+public class MyAggregate extends BaseAggregateRoot&amp;lt;UUID&amp;gt; {
+
+    @Identity(handler = UUIDHandler.class)
+    private UUID id;
+
+    private String name;
+    private MyEntity mySubEntity;
+    private Set&amp;lt;MyEntity&amp;gt; mySubEntities;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Below is an Entity using the identity strategy:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.mycompany.myapp.domain.model.myaggregate;
+
+public class MyEntity extends BaseEntity&amp;lt;Long&amp;gt; {
+
+    @Identity(handler = SequenceHandler.class)
+    private Long id;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;@Identity&lt;/code&gt; annotation is applied on attribute holding the object identity. This annotation takes two arguments:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;handler&lt;/code&gt;: strategy implementation&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;source&lt;/code&gt;: a String that can be used in a custom handler. For instance, it could provide a SEQUENCE name for DB.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Only specifying the identity strategy is not enough to effectively generate an identity. An implementation of the strategy
+must be configured:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.mycompany.myapp.domain.model.myaggregate.MyAggregate]
+identity.handler-qualifier = simple-UUID
+
+[org.mycompany.myapp.domain.model.myaggregate.MyEntity]
+identity.handler-qualifier = oracle-sequence
+identity.sequence-name = SEQ_TEST
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this case we can see that the &lt;code&gt;simple-UUID&lt;/code&gt; implementation will be used for &lt;code&gt;MyAggregate&lt;/code&gt;. Similarly, the &lt;code&gt;oracle-sequence&lt;/code&gt;
+implementation will be used for &lt;code&gt;MyEntity&lt;/code&gt; but is further configured with a sequence name.&lt;/p&gt;
+
+&lt;h2 id=&#34;usage&#34;&gt;Usage&lt;/h2&gt;
+
+&lt;p&gt;The chosen identity strategy is applied:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Automatically, on methods annotated with the &lt;code&gt;@Create&lt;/code&gt; annotation. They are intercepted to apply the identity strategy
+on their return value.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyAggregateFactoryDefault extends BaseFactory&amp;lt;MyAggregate&amp;gt;
+        implements MyAggregateFactory {
+
+    @Create
+    @Override
+    public MyAggregate createMyAggregate(String name) {
+        MyAggregate myAggregate = new MyAggregate();
+        myAggregate.setName(name);
+
+        MyEntity myEntity = createMyEntity();
+        myAggregate.setMyEntity(myEntity);
+
+        return myAggregate;
+    }
+
+    @Create
+    MyEntity createMyEntity() {
+        return new MyEntity();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Manually, by injecting the &lt;code&gt;IdentityService&lt;/code&gt; service and invoking its &lt;code&gt;identify()&lt;/code&gt; method with the entity to generate
+an identity for as argument.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyAggregateFactoryDefault extends BaseFactory&amp;lt;MyAggregate&amp;gt;
+        implements MyAggregateFactory {
+
+    @Inject
+    IdentityService identityService;
+
+    @Override
+    public MyAggregate createMyAggregate(String name) {
+        MyAggregate myAggregate = new MyAggregate();
+        identityService.identify(myAggregate);
+        myAggregate.setName(name);
+
+        MyEntity myEntity = new MyEntity();
+        identityService.identify(myEntity);
+        myAggregate.setMyEntity(myEntity);
+
+        return myAggregate;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that identity generation doesn&amp;rsquo;t walk the object graph to generate identities for eventual sub-entities. You must
+trigger identity generation (automatically or manually) separately on each entity.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If all methods of a factory delegate identity generation to Seed, a &lt;code&gt;@Create&lt;/code&gt; annotation can be applied directly at the
+class or interface level.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;custom-identity-handler&#34;&gt;Custom identity handler&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/manage-entity-spi.svg&#34; alt=&#34;identity-seed&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Two different options are available to define custom identity handlers:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/manage-entity-usage.png&#34; alt=&#34;identity-seed&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Below is an example of a basic Timestamp id generation strategy:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.mycompany.myapp.infrastructure.domain;
+
+import org.seedstack.business.domain.BaseEntity;
+import org.seedstack.business.domain.identity.IdentityHandler;
+
+@Named(&amp;quot;timestamp-id&amp;quot;)
+public class TimestampIdentityHandler implements IdentityHandler&amp;lt;BaseEntity&amp;lt;Long&amp;gt;, Long&amp;gt; {
+
+    @Override
+    public Long handle(BaseEntity&amp;lt;Long&amp;gt; entity, Map&amp;lt;String, String&amp;gt; entityConfig) {
+        return new Date().getTime();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;provided-identity-strategies&#34;&gt;Provided identity strategies&lt;/h2&gt;
+
+&lt;h3 id=&#34;sequencehandler&#34;&gt;SequenceHandler&lt;/h3&gt;
+
+&lt;p&gt;Handles sequence generated ID. Two implementations are provided:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;OracleSequenceHandler&lt;/code&gt;: Get next oracle sequence value for new entity id. The following properties.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.mycompany.myapp...YourEntity]
+identity.handler-qualifier = oracle-sequence
+identity.sequence-name = your_sequence_name
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;InMemorySequenceHandler&lt;/code&gt;: To be used &lt;strong&gt;ONLY&lt;/strong&gt; for testing (preserves behaviour without a database). The following
+properties.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.mycompany.myapp...YourEntity]
+identity.handler-qualifier = inmemory-sequence
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;uuidhandler&#34;&gt;UUIDHandler&lt;/h3&gt;
+
+&lt;p&gt;Use for handling UUID generated ID. One implementation is provided:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;SimpleUUIDHandler&lt;/code&gt;: Get new random UUID from java.util.UUID.randomUUID(). Need one property using entity props
+configuration:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.mycompany.myapp...YourEntity]
+identity.handler-qualifier = simple-UUID
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Java framework</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/</guid>
+      <description>&lt;p&gt;SeedStack Java framework, also simply known as &amp;laquo;Seed&amp;raquo;, is a comprehensive solution enabling you to build Java applications
+or cloud services easily and efficiently.&lt;/p&gt;
+
+&lt;h1 id=&#34;opinionated&#34;&gt;Opinionated&amp;hellip;&lt;/h1&gt;
+
+&lt;p&gt;Whatever you aim to build, from a small command-line tool to the next successful cloud-based service, Seed provides you
+with the right set of concepts and technologies from the start. More importantly, it does so without getting in your way
+and yet scales well when applied on full-blown enterprise projects.&lt;/p&gt;
+
+&lt;h1 id=&#34;yet-modular&#34;&gt;&amp;hellip;yet modular&lt;/h1&gt;
+
+&lt;p&gt;Built on an extensible plugin system, Seed is highly modular and allows you to choose the technologies you really
+need while leaving out the unnecessary bits. Besides, you can extend the core framework abilities by cherry-picking modules
+from the &lt;a href=&#34;http://seedstack.org/archives/16.7/addons&#34;&gt;add-ons library&lt;/a&gt; or by rolling-out your own.&lt;/p&gt;
+
+&lt;p&gt;The framework is composed of several separate modules, each one providing a particular technology. The &lt;code&gt;seed-core&lt;/code&gt; module
+implements basic framework functionality like application lifecycle, configuration or dependency injection. Its presence
+is required in any running application along its companion module &lt;code&gt;seed-specs&lt;/code&gt;, containing the corresponding API classes.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Modules are automatically detected and activated when present in the classpath. As such, simply adding a module JAR to
+your project will enable it and all its features.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;jar-organisation&#34;&gt;JAR organisation&lt;/h2&gt;
+
+&lt;p&gt;When relevant, modules provide their API in a separate sub-module suffixed with &lt;code&gt;-specs&lt;/code&gt; in which case the corresponding
+module implementation is suffixed &lt;code&gt;-core&lt;/code&gt;. This allows to implement classes using the API without activation. This is
+useful when designing reusable components. Besides, to provide a better separation of concerns, some modules are further
+split into optional sub-modules:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;seed-[module]-specs&lt;/code&gt; for the API and/or the SPI,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;seed-[module]-core&lt;/code&gt; for the main implementation,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;seed-[module]-[option]&lt;/code&gt; for an optional implementation module.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;package-organisation&#34;&gt;Package organisation&lt;/h2&gt;
+
+&lt;p&gt;The code of each module lives in several Java packages, all prefixed by org.seedstack.seed.???, where ??? is the name
+of the module:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;org.seedstack.seed.[module]&lt;/code&gt; which contains classes destined to be used by client code,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;org.seedstack.seed.[module].spi&lt;/code&gt; which contains the classes needed to extend the module features,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;org.seedstack.seed.[module].internal&lt;/code&gt; which contains the module internal classes,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;org.seedstack.seed.[module].test&lt;/code&gt; which contains testing tools for the module.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-danger&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that application code should &lt;strong&gt;never&lt;/strong&gt; rely on any class from the internal package. It is implementation-specific
+and subject to change between versions without notice.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;class-organisation&#34;&gt;Class organisation&lt;/h2&gt;
+
+&lt;p&gt;Seed follows &lt;a href=&#34;https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)&#34;&gt;SOLID principles&lt;/a&gt; and each class tend to only
+have one responsibility, allowing to easily understand what it does. It also does help to keep you implementation simple
+and testable.&lt;/p&gt;
+
+&lt;h1 id=&#34;lifecycle&#34;&gt;Lifecycle&lt;/h1&gt;
+
+&lt;p&gt;At the heart of Seed lies the kernel which is started by different means, depending on the runtime context (web
+application, standalone java app, test runner, &amp;hellip;). The responsibility of the kernel is to orchestrate all the plugins
+in order to setup a fully working application. In turn, each plugin has its own responsibility such as providing
+application configuration, integrating a specific technology or augment the application code with a particular behavior.&lt;/p&gt;
+
+&lt;h2 id=&#34;classpath-scanning&#34;&gt;Classpath scanning&lt;/h2&gt;
+
+&lt;p&gt;At the start of kernel, all plugins have the opportunity to request information about classes and resources. Using this
+mechanism, they can detect predefined code patterns such as:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Classes annotated or meta-annotated with a specific annotation,&lt;/li&gt;
+&lt;li&gt;Classes implementing an interface or extending a base class,&lt;/li&gt;
+&lt;li&gt;Classes matching a complex predefined specification,&lt;/li&gt;
+&lt;li&gt;Resources matching a specific regex,&lt;/li&gt;
+&lt;li&gt;etc&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Code pattern detection is heavily used throughout SeedStack, for instance to dynamically define injection bindings, to
+automatically register classes or to enable particular features. Combined with the convention-over-configuration principle
+and sensible default values, it greatly simplifies SeedStack usage.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;phases&#34;&gt;Phases&lt;/h2&gt;
+
+&lt;p&gt;The kernel orchestrates the application lifecycle through the following phases:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;In the bootstrapping phase, the runtime starts the kernel which uses the Java service loader mechanism to detect all
+the plugins present in the classpath. These plugins register their classpath information requests to the kernel and express
+their requirements on other plugins.&lt;/li&gt;
+&lt;li&gt;In the initialization phase, the kernel resolve all the classpath requests in only one full classpath scan and invoke
+the initialization logic of all plugins in the correct order.&lt;/li&gt;
+&lt;li&gt;In the starting phase, the kernel collects the injection bindings dynamically defined by each plugin from the results of the
+initialization phase and builds the application main injector. Then the kernel invokes the starting logic of all plugins
+in the correct order. At this point, the application is fully operational.&lt;/li&gt;
+&lt;li&gt;In the stopping phase, the runtime stops the kernel which invokes the stopping logic of all plugins in the correct
+order. A this point, the application is stopped.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The kernel is a part of &lt;a href=&#34;https://github.com/nuun-io&#34;&gt;Nuun IO&lt;/a&gt; and is independent of SeedStack. For more information
+about it, please check &lt;a href=&#34;https://github.com/nuun-io/kernel/wiki&#34;&gt;its own documentation&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;pull-right margin-top-20&#39;&gt;
+    &lt;a href=&#39;manual&#39; class=&#34;btn btn-u&#34;&gt;Next: start reading the manual...&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&#34;clearfix&#34;&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Java framework basics</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/manual/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/manual/</guid>
+      <description>&lt;p&gt;SeedStack Java framework (or simply Seed) is a solution for building Java applications, no matter how simple or advanced,
+without pain. It does so by providing a simple yet highly modular architecture and by taking charge of various technical
+aspects frequently encountered in enterprise applications. It accommodates any kind of Java 1.6+ runtime and offers the
+same level of features from command-line standalone JVMs to full-fledged Web application servers.&lt;/p&gt;
+
+&lt;h1 id=&#34;dependencies&#34;&gt;Dependencies&lt;/h1&gt;
+
+&lt;p&gt;A minimal Seed-based project only requires the &lt;code&gt;seed-core&lt;/code&gt; module and its dependencies in the classpath. This module
+provides basic Seed functionality to your application like lifecycle management, configuration, dependency injection,
+logging or error diagnostics. To include &lt;code&gt;seed-core&lt;/code&gt; in your application you have two main options:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Using a dependency manager like &lt;a href=&#34;http://maven.apache.org&#34;&gt;Maven&lt;/a&gt; or &lt;a href=&#34;http://gradle.io&#34;&gt;Gradle&lt;/a&gt;. &lt;strong&gt;This is the recommended
+solution.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Add &lt;code&gt;seed.jar&lt;/code&gt; manually to your application. This JAR contains all Seed code and the required dependencies in a single,
+convenient yet big, library.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-core-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-core-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-seed-seed-core-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;seed-core&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-seed-seed-core-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-seed-seed-core-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-seed-seed-core-show&#34; onclick=&#34;$(&#39;#org-seedstack-seed-seed-core-version, #org-seedstack-seed-seed-core-warn&#39;).show(); $(&#39;#org-seedstack-seed-seed-core-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-seed-seed-core-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.seed:seed-core:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If you&amp;rsquo;re using Maven, SeedStack provides comprehensive dependency management in its distribution, whether by inheriting
+from its parent or by importing its BOM. We recommend doing so to ensure that versions of Seed dependencies are consistent
+across the project. Additionally you won&amp;rsquo;t have to specify the version tag of any Seed dependency. Check the
+&lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution/&#34;&gt;distribution documentation page&lt;/a&gt; for more information.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;startup-and-shutdown&#34;&gt;Startup and shutdown&lt;/h1&gt;
+
+&lt;p&gt;Starting a Seed application consists in creating a Kernel instance and invoking its startup logic. Later, the
+application can be cleanly stopped by invoking the kernel stopping logic. All these steps are already encapsulated by Seed
+for two main runtime environments:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The command line,&lt;/li&gt;
+&lt;li&gt;The external servlet-based Web application server.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;command-line&#34;&gt;Command line&lt;/h2&gt;
+
+&lt;h3 id=&#34;launch-from-command-line&#34;&gt;Launch from command line&lt;/h3&gt;
+
+&lt;p&gt;This is the simplest way to launch a Seed application. You do so by executing the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;core.&amp;amp;#8203;SeedMain&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/core/SeedMain.html&#39;&gt;SeedMain&lt;/a&gt;&lt;/code&gt; class with
+the JVM:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;java [jvm-args] -cp ... org.seedstack.core.SeedMain [app-args]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;SeedMain&lt;/code&gt; class will search the classpath for an implementation of the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;core.&amp;amp;#8203;spi.&amp;amp;#8203;SeedLauncher&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/core/spi/SeedLauncher.html&#39;&gt;SeedLauncher&lt;/a&gt;&lt;/code&gt; interface
+and execute its &lt;code&gt;launch()&lt;/code&gt; method with the application arguments. Exactly one launcher must be present in the classpath or
+an exception will be thrown.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Launchers live in various Seed modules such as the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/project-templates/cli/&#34;&gt;CLI module&lt;/a&gt;, handling command-line-interface (CLI) applications
+or the &lt;code&gt;seed-web-undertow&lt;/code&gt; module, providing an &lt;a href=&#34;http://undertow.io/&#34;&gt;Undertow&lt;/a&gt; embedded Web server. Without such module
+containing a launcher in classpath an exception will be thrown. If you have more than one launcher in the classpath an
+exception will also be thrown.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;One difficulty of running a Java application from the command line is to properly set its classpath. As such, launching
+a Seed application from the command line is often used in combination with über-JAR packaging where a unique JAR contains
+all the necessary classes and dependencies to run the application. With this kind of packaging, launching the application
+becomes as simple as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;java [jvm-args] -jar app.jar [app-args]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Check the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/maven-plugin/&#34;&gt;SeedStack Maven plugin&lt;/a&gt; for more information about how to easily package such a JAR.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;shutdown-from-command-line&#34;&gt;Shutdown from command line&lt;/h3&gt;
+
+&lt;p&gt;To shutdown a Seed application from the command line, you simply have to gracefully stop the JVM. You can do this on any
+operating system this by hitting &lt;code&gt;CTRL+C&lt;/code&gt; if the JVM is a foreground process. You can also do this under UNIX systems if
+the JVM is a background process by issuing a &lt;code&gt;SIGINT&lt;/code&gt; signal to the JVM process:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kill -2 pid
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In any case, the shutdown logic of the Seed application will be invoked.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Warning! If you abruptly terminate or kill the JVM process, the application will NOT gracefully shutdown.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;launch-in-web-application-server&#34;&gt;Launch in Web application server&lt;/h2&gt;
+
+&lt;p&gt;A servlet-based Web application server directly manages the lifecycle of an application. If your server is at least at
+the Servlet 3.0 level of Servlet API, the &lt;code&gt;seed-web-core&lt;/code&gt; module already contains the necessary classes to trigger Seed
+startup and shutdown in response to server events.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If your Servlet API level is lower than 3.0, please check &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/web/&#34;&gt;this page&lt;/a&gt; for the required configuration of your application.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;logging&#34;&gt;Logging&lt;/h1&gt;
+
+&lt;p&gt;Logging is a necessity in almost any application. Seed is built upon the popular &lt;a href=&#34;http://www.slf4j.org&#34;&gt;SLF4J logging facade&lt;/a&gt;
+and provides its Java Commons Logging bridge and Java Util Logging bridge out-of-the-box. The choice of the SLF4J
+implementation is left to you but we recommend &lt;a href=&#34;http://logback.qos.ch/&#34;&gt;Logback&lt;/a&gt;. Seed provides sensible defaults for
+Logback in the &lt;code&gt;org/seedstack/seed/core/logging/logback-defaults.xml&lt;/code&gt; resource which can be imported in any Logback
+configuration file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;include resource=&amp;quot;org/seedstack/seed/core/logging/logback-defaults.xml&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;These defaults include two &lt;code&gt;stdout&lt;/code&gt; console appenders called &lt;code&gt;STDOUT&lt;/code&gt; for a monochrome output or &lt;code&gt;STDOUT-COLOR&lt;/code&gt; for a
+colorized output. You can use these appenders in any of your configured loggers at your discretion.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You can inject a logger in any class by annotating an SLF4J logger field with &lt;code&gt;@Logging&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Logging
+private Logger logger;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will automatically inject a logger for the enclosing class. This also works on static fields although if you need
+your logger fields to be final, you must use the traditional SLF4J syntax instead.&lt;/p&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;Seed provides an unified configuration mechanism that is simple to use, thanks to its strict key/value paradigm, but also
+very powerful.&lt;/p&gt;
+
+&lt;p&gt;Classpath scanning is used to discover all application configuration files present in the &lt;code&gt;META-INF/configuration&lt;/code&gt;
+locations of the classpath, which are aggregated in a global configuration available from anywhere in the application. Seed
+supports two configuration file formats:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The recommended &lt;strong&gt;Props format&lt;/strong&gt; which is a superset of the classic Java Properties format providing a more concise and
+expressive configuration language. Props files must have the &lt;code&gt;props&lt;/code&gt; extension.&lt;/li&gt;
+&lt;li&gt;The legacy &lt;strong&gt;Properties format&lt;/strong&gt; which is described &lt;a href=&#34;http://docs.oracle.com/javase/6/docs/api/java/util/Properties.html#load(java.io.Reader.md&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All files must be located under the &lt;code&gt;META-INF/configuration&lt;/code&gt; directory:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;META-INF/configuration
+    |
+    |- my-app.props
+    |- security.props
+    |- legacy.properties
+    |- ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Lots of configuration features, such as profiles, sections, appending, etc. are only supported with the Props format.
+Try to avoid the legacy Properties format if possible.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;bootstrap-configuration&#34;&gt;Bootstrap configuration&lt;/h2&gt;
+
+&lt;p&gt;A few configuration values must be configured in a special configuration file that &lt;strong&gt;must&lt;/strong&gt; be named &lt;code&gt;seed.props&lt;/code&gt; (or
+&lt;code&gt;seed.properties&lt;/code&gt;). This file must also be put in the &lt;code&gt;META-INF/configuration&lt;/code&gt; folder. The most frequent usage of this
+file is to define the base package(s) that Seed must scan. You can do so with the following :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed]
+base-packages = org.my.package, com.my.other.package, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;It is important to set the &lt;code&gt;org.seedstack.seed.base-packages&lt;/code&gt; property of bootstrap configuration for Seed to scan your classes. If you omit to do so, Seed will only scan &lt;code&gt;org.seedstack&lt;/code&gt; and its sub-packages by default.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that the bootstrap configuration contents will also be available as normal application configuration. As such, you can choose to put all your configuration (bootstrap or not) in this file.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;props-format&#34;&gt;Props format&lt;/h2&gt;
+
+&lt;h3 id=&#34;base-characteristics&#34;&gt;Base characteristics&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;By default, props files are UTF-8 encoded, but can be encoded in any encoding.&lt;/li&gt;
+&lt;li&gt;Leading and trailing spaces will be trimmed from section names, property names.&lt;/li&gt;
+&lt;li&gt;Either equal sign (=) or colon (:) are used to assign property values.&lt;/li&gt;
+&lt;li&gt;Comments begin with either a semicolon (;), or a sharp sign (#) and extend to the end of line. It doesn&amp;rsquo;t have to be
+the first character.&lt;/li&gt;
+&lt;li&gt;A backslash (&lt;code&gt;\&lt;/code&gt;) escapes the next character (e.g., &lt;code&gt;\#&lt;/code&gt; is a literal &lt;code&gt;#&lt;/code&gt;, &lt;code&gt;\\&lt;/code&gt; is a literal &lt;code&gt;\&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;\uXXXX is encoded as character. Also &lt;code&gt;\t&lt;/code&gt;, &lt;code&gt;\r&lt;/code&gt; and &lt;code&gt;\f&lt;/code&gt; are encoded as characters.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;sections&#34;&gt;Sections&lt;/h3&gt;
+
+&lt;p&gt;Sections looks very much like Windows INI file sections. In props files, a section simply represents a key prefix for
+following keys, until the section end or end of file.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Section names are enclosed between &lt;code&gt;[&lt;/code&gt; and &lt;code&gt;]&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Properties following a section header belong to that section.&lt;/li&gt;
+&lt;li&gt;Section name is added as a prefix to section properties.&lt;/li&gt;
+&lt;li&gt;Section ends with empty section definition &lt;code&gt;[]&lt;/code&gt; or with new section start or end of file.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[users.data]
+weight = 49.5
+height = 87.7
+age = 63
+
+[]
+comment=this is base property
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;is equivalent to this one:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;users.data.weight = 49.5
+users.data.height = 87.7
+users.data.age = 63
+comment=this is base property
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;profiles&#34;&gt;Profiles&lt;/h3&gt;
+
+&lt;p&gt;Seed provides a configuration profile concept which is activated via the &lt;code&gt;org.seedstack.seed.profiles&lt;/code&gt; system property.
+Profiles are determined at application initialization and cannot be changed afterwards. You can activate several profiles
+simultaneously by using &lt;strong&gt;a comma separated list&lt;/strong&gt;. For example, following JVM argument activates both &lt;code&gt;dev&lt;/code&gt; and &lt;code&gt;debug&lt;/code&gt;
+profiles:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-Dorg.seedstack.seed.profiles=dev,debug
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Profile names are enclosed between &lt;code&gt;&amp;lt;&lt;/code&gt; and &lt;code&gt;&amp;gt;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;They can be used as a part of a property key.&lt;/li&gt;
+&lt;li&gt;One key can contain one or more profile name.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;A good practice&lt;/strong&gt; consists in keeping them at the end but they could be used anywhere in a key.&lt;/li&gt;
+&lt;li&gt;Properties without a profile are base properties and are available without providing any profile.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For example :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;db.port=3086
+
+db.url&amp;lt;dev&amp;gt;=localhost
+db.username&amp;lt;dev&amp;gt;=root
+
+db.url&amp;lt;prod&amp;gt;=productionmachine.myorganization.org
+db.username&amp;lt;prod&amp;gt;=securedaccount
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In above example, &lt;code&gt;db.port&lt;/code&gt; key provides a base property that will always be available whereas other keys are dependant
+on a profile name (&lt;code&gt;dev&lt;/code&gt; or &lt;code&gt;prod&lt;/code&gt;). Therefore, these values would be available only if the corresponding profiles
+(environments here) are requested through JVM &lt;code&gt;org.seedstack.seed.profiles&lt;/code&gt; argument.&lt;/p&gt;
+
+&lt;p&gt;Since profiles can be anywhere in the key name, section names can contain profile definitions as well. The above example
+can also be written as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;db.port=3086
+
+[db&amp;lt;dev&amp;gt;]
+url=localhost
+username=root
+
+[db&amp;lt;prod&amp;gt;]
+url=productionmachine.myorganization.org
+username=securedaccount
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There are cases where two ore more profiles share most of their configuration and only few properties are
+different or specific to one profile. To avoid repeating shared properties for each profile, it is possible to define
+different/specific properties assigned to inner profiles only. Props will first lookup keys in inner profiles, then go
+up to the base level. For example :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;key1&amp;lt;one&amp;gt;=Hi!
+key2&amp;lt;one&amp;gt;=...
+....
+key100&amp;lt;one&amp;gt;=...
+
+key1&amp;lt;one.two&amp;gt;=Hola!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This example defines two profiles. First one is named &amp;lsquo;one&amp;rsquo; and contains 100 properties. Second profile is an inner
+property named &amp;lsquo;one.two&amp;rsquo;. It contains only 1 property (key1) - but all properties from its parent profile are available.&lt;/p&gt;
+
+&lt;h3 id=&#34;macros&#34;&gt;Macros&lt;/h3&gt;
+
+&lt;p&gt;A macro is a reference to some keys&amp;rsquo; value inside the value of another key. Macros are enclosed between &lt;code&gt;${&lt;/code&gt; and &lt;code&gt;}&lt;/code&gt;. Here is a
+simple example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;key1=Something ${foo}
+...
+foo=nice
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Value of key1 is &amp;lsquo;Something nice&amp;rsquo;. Macros can refer to any existing property key, no matter where it is defined. Therefore,
+nested macros are also supported as in following example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;key1=**${key${key3}}**
+key3=2
+key2=foo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Value of key1 is &amp;lsquo;&lt;strong&gt;foo&lt;/strong&gt;&amp;rsquo;.&lt;/p&gt;
+
+&lt;h3 id=&#34;multi-line-values&#34;&gt;Multi-line values&lt;/h3&gt;
+
+&lt;p&gt;Multi-lines values are defined with triple-quotes. Everything in-between is considered as a value. For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;email.body=&#39;&#39;&#39;
+    Hello $n,
+
+    welcome!
+&#39;&#39;&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that multi-line values are NOT trimmed. Therefore, the value from the example will consist of 5 lines. There is no
+need to escape new lines in multi-line values.&lt;/p&gt;
+
+&lt;h3 id=&#34;value-appending&#34;&gt;Value appending&lt;/h3&gt;
+
+&lt;p&gt;Values with the same key name are automatically appended to each other with a comma (&lt;code&gt;,&lt;/code&gt;) separator. With the following
+configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.myorganization.myproject.toto = val1
+org.myorganization.myproject.toto = val2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;org.myorganization.myproject.toto&lt;/code&gt; value evaluates to &lt;code&gt;val1,val2&lt;/code&gt;. You can then retrieve this kind of value as a
+normal string or as a string array.&lt;/p&gt;
+
+&lt;h3 id=&#34;copy-operator&#34;&gt;Copy operator&lt;/h3&gt;
+
+&lt;p&gt;The copy operator can be used to share a set of properties in different sections by copying them. Consider the following
+example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.myorganization.myproject1.action1=value1
+org.myorganization.myproject1.action2=value2
+...
+org.myorganization.myproject2.action1=value1
+org.myorganization.myproject2.action2=value2
+...
+org.myorganization.myproject3.... # etc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Props allows you to use copy operator: &lt;code&gt;&amp;lt;=&lt;/code&gt; in order to minimize and clarify the declarations required. Above props can
+be written as follows instead:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[actions]
+action1=value1
+action2=value2
+...
+
+[]
+org.myorganization.myproject1 &amp;lt;= actions
+
+[org]
+myorganization.prd2 &amp;lt;= actions
+
+[org.myorganization.myproject3]
+&amp;lt;= actions
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above example shows 3 different but equivalent ways to use copy operator:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;without sections&lt;/li&gt;
+&lt;li&gt;with partial section&lt;/li&gt;
+&lt;li&gt;with full section&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Note that copied values are set as macros, so all above copied properties are identical to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.myorganization.myproject1.action1=${actions.action1}
+org.myorganization.myproject1.action2=${actions.action2}
+org.myorganization.myproject2.action1=${actions.action1}
+....
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All rules for resolving macros apply.&lt;/p&gt;
+
+&lt;h2 id=&#34;environment-variables&#34;&gt;Environment variables&lt;/h2&gt;
+
+&lt;p&gt;System environment variables are provided through configuration, using a macro prefixed by &lt;code&gt;env:&lt;/code&gt;. For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[db]
+url = jdbc:mysql://${env:MYSQL_SERVER}/test
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note that the environment variable lookup is case-sensitive&lt;/strong&gt;, contrary to the &lt;code&gt;System.getenv(variableName)&lt;/code&gt; java
+method. Its behavior is equivalent to &lt;code&gt;System.getenv().get(variableName)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;system-properties&#34;&gt;System properties&lt;/h2&gt;
+
+&lt;p&gt;JVM system properties are provided through configuration, using a macro prefixed by &lt;code&gt;sys:&lt;/code&gt;. For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[indexer]
+path = ${sys:java.io.tmpdir}${sys:file.separator}my-index
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The system property lookup is case-sensitive, just as &lt;code&gt;System.getProperty(propertyName)&lt;/code&gt; java method.&lt;/p&gt;
+
+&lt;h2 id=&#34;constant-values&#34;&gt;Constant values&lt;/h2&gt;
+
+&lt;p&gt;Class constant values (i.e. &lt;code&gt;static final&lt;/code&gt; fields) are available in props configuration with &lt;code&gt;const:&lt;/code&gt; prefix.
+For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[action1]
+key = ${const:java.awt.event.KeyEvent.VK_CANCEL}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The value of &lt;code&gt;action1.key&lt;/code&gt; is the value of &lt;code&gt;VK_CANCEL&lt;/code&gt; constant retrieved from &lt;code&gt;java.awt.event.KeyEvent&lt;/code&gt; class.&lt;/p&gt;
+
+&lt;h2 id=&#34;override&#34;&gt;Override&lt;/h2&gt;
+
+&lt;p&gt;Nominal configuration can be overridden explicitly using resources names ending with &lt;code&gt;*.override.properties&lt;/code&gt; and
+&lt;code&gt;*.override.props&lt;/code&gt;. Nominal and override configuration are loaded completely separately and cannot interact with each
+other except in the following ways:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If a key is present both in nominal and override configuration, the override value completely replaces the nominal one.&lt;/li&gt;
+&lt;li&gt;If a key is present in override configuration but not in nominal configuration, it is added to the nominal configuration.&lt;/li&gt;
+&lt;li&gt;If a key is present both in nominal and override configuration but prefixed by a dash (&lt;code&gt;-&lt;/code&gt;) in override configuration it
+is removed from nominal configuration.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As an example, with this nominal configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;overriddenValue = I&#39;m overridden
+removedValue = I&#39;m removed
+emptiedValue = I&#39;m emptied
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And this override configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;overriddenValue = I&#39;m overriding
+-removedValue =
+emptiedValue =
+-removedNonExistentValue =
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You end with the following:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;overriddenValue&lt;/code&gt; evaluates to &lt;code&gt;&#39;I&#39;m overriding&#39;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;emptiedValue&lt;/code&gt; evaluates to an empty string.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;removedValue&lt;/code&gt; evaluates to &lt;code&gt;null&lt;/code&gt; as if it was never declared in the first place.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Please note that as the nominal and the override configurations are completely separate, no macro resolution can take
+place between the two. Also note that the whole property name is used for the dash prefix check, so you can&amp;rsquo;t add the
+dash character in a categorized property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[category]
+-property1 =
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will NOT be removed since the full property name will be &lt;code&gt;category.-property1&lt;/code&gt;. Instead use the following form (outside
+any category block):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-category.property1 =
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can use this particularity to remove several keys from the same category:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[-category]
+property1 =
+property2 =
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will remove &lt;code&gt;category.property1&lt;/code&gt; and &lt;code&gt;category.property2&lt;/code&gt; from the nominal configuration.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;dependency-injection&#34;&gt;Dependency injection&lt;/h1&gt;
+
+&lt;p&gt;In a Seed application, the dependency injection is provided by a Guice injector, created by the kernel in its
+starting phase. The injector is configured in explicit mode, meaning that all the application injection points
+are checked during application startup and must be resolvable. This mode ensures that injection errors are detected as
+soon as possible in the development process.&lt;/p&gt;
+
+&lt;p&gt;Although Guice is operating behind the scenes, it is invisible for the application which only needs to rely on JSR 330
+annotations for defining injection points.&lt;/p&gt;
+
+&lt;h2 id=&#34;injection-points&#34;&gt;Injection points&lt;/h2&gt;
+
+&lt;p&gt;When applying the dependency injection pattern, the dependencies are passed in instead of being requested directly or
+by calling factories. The process of setting dependencies into an object is called injection. In SeedStack the injections
+are explicit and almost always marked with the &lt;code&gt;@Inject&lt;/code&gt; annotation. The element marked with the &lt;code&gt;@Inject&lt;/code&gt; annotation
+is called the &lt;strong&gt;injection point&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;There are multiple injection styles, described below, and they all can be used simultaneously.&lt;/p&gt;
+
+&lt;h3 id=&#34;constructor-injection&#34;&gt;Constructor injection&lt;/h3&gt;
+
+&lt;p&gt;Constructor injection combines instantiation with injection. To use it, annotate the constructor with the &lt;code&gt;@Inject&lt;/code&gt;
+annotation. This constructor should accept class dependencies as parameters. It is then recommended to assign the
+parameters to final fields in the constructor.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyServiceImpl implements MyService {
+    private final OtherService otherService;
+
+    @Inject
+    public MyServiceImpl(OtherService otherService) {
+        this.otherService = otherService;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If your class has no &lt;code&gt;@Inject&lt;/code&gt;-annotated constructor, a public, no-arguments constructor will be used if it exists,
+otherwise an exception will be thrown upon application startup.&lt;/p&gt;
+
+&lt;p&gt;The constructor injection style has two main benefits:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The ability to construct injected immutable instances,&lt;/li&gt;
+&lt;li&gt;The explicit constructor arguments will make unit testing easier: when you construct a test instance manually, you
+are still required by compiler to provide all the dependencies.&lt;br /&gt;
+
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;field-injection&#34;&gt;Field injection&lt;/h3&gt;
+
+&lt;p&gt;Fields injection points are fields annotated with &lt;code&gt;@Inject&lt;/code&gt; and are injected just after instance creation.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyServiceImpl implements MyService {
+    @Inject 
+    private OtherService otherService;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Avoid using field injection with final fields, which are not guaranteed to succeed in some contexts.&lt;/p&gt;
+
+&lt;h3 id=&#34;method-injection&#34;&gt;Method injection&lt;/h3&gt;
+
+&lt;p&gt;Method injection points are methods annotated with &lt;code&gt;@Inject&lt;/code&gt; are called just after field injections. Dependencies take
+the form of parameters, which the injector resolves before invoking the method. Injected methods may have any number of
+parameters, and the method name does not impact injection.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyServiceImpl implements MyService {
+    private OtherService otherService;
+
+    @Inject
+    public void doInjection(OtherService otherService) {
+        this.otherService = otherService;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;injection-scopes&#34;&gt;Injection scopes&lt;/h2&gt;
+
+&lt;p&gt;By default, the injector returns a new instance each time it supplies a value. This behavior can be altered by applying
+a scope to the implementation class. Scopes allow to reuse instances like the &lt;code&gt;@Singleton&lt;/code&gt; scope which will make the
+injector always return the same instance for the lifetime of the application. Annotations are used to identify scopes.
+Specify the scope for a type by applying the scope annotation to the implementation class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Singleton
+public class MyServiceStatefulImpl implements MyService {
+    /* everything here should be thread safe! */
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;By default in SeedStack, almost every class managed by the injector has no scope associated, which means that a new
+instance is created for each injection. This is a desirable behavior because it minimizes the mutability of your code and, as
+such, minimizes the need to use concurrency protection (synchronized, ThreadLocal, &amp;hellip;). In the end, all the bugs associated
+with such techniques are avoided.&lt;/p&gt;
+
+&lt;p&gt;In some cases, you&amp;rsquo;ll need to specify a scope though:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If an object is inherently stateful (like a counter or a cache),&lt;/li&gt;
+&lt;li&gt;If an object is expensive to create,&lt;/li&gt;
+&lt;li&gt;If an object is tied up to external resource.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Note that since the technical aspects that are often the motivation to implement a singleton are already handled by
+the framework, it is unlikely that you will need to apply this scope yourself. Remember that by keeping your &lt;strong&gt;application
+code as stateless and immutable as possible&lt;/strong&gt; you will:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Reduce the probability of bugs,&lt;/li&gt;
+&lt;li&gt;Improve its scalability,&lt;/li&gt;
+&lt;li&gt;Improve its testability.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;static-injections&#34;&gt;Static injections&lt;/h2&gt;
+
+&lt;p&gt;Injection on static fields is a specific case of injection that requires an explicit binding that is very rarely used
+in SeedStack internal code and never in application code. It means that, by default, injection on static fields of your
+classes won&amp;rsquo;t be enabled. This is a good thing because static injections are difficult to test, make dependencies opaque
+and rely on global state.&lt;/p&gt;
+
+&lt;h2 id=&#34;custom-injections&#34;&gt;Custom injections&lt;/h2&gt;
+
+&lt;p&gt;Custom injections can be used for advanced injection behavior that is not possible to achieve through the standard
+&lt;code&gt;@Inject&lt;/code&gt; injection points. They rely instead on specific annotations to trigger the injection. The &lt;code&gt;@Logging&lt;/code&gt; annotation
+described &lt;a href=&#34;#logging&#34;&gt;here&lt;/a&gt; is an example of custom injection. SeedStack doesn&amp;rsquo;t rely heavily on custom injection, using
+standard injection when possible.&lt;/p&gt;
+
+&lt;h2 id=&#34;method-interception&#34;&gt;Method interception&lt;/h2&gt;
+
+&lt;p&gt;To complement dependency injection, method interception is sometimes used in SeedStack. It allows to execute code each
+time a &lt;em&gt;matching&lt;/em&gt; method is invoked. It is suitable for cross cutting concerns (&amp;laquo;aspects&amp;raquo;) and is notably used, among
+other things, for transaction and security.&lt;/p&gt;
+
+&lt;p&gt;Method interception is transparent for the application code but its implementation (which works by dynamically sub-classing
+and overriding matching methods) impose some limitations that you should know:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Classes must be public or package-private,&lt;/li&gt;
+&lt;li&gt;Classes must be non-final,&lt;/li&gt;
+&lt;li&gt;Methods must be public, package-private or protected,&lt;/li&gt;
+&lt;li&gt;Methods must be non-final,&lt;/li&gt;
+&lt;li&gt;Instances must be created by the injector. It is not possible to use method interception on instances that aren&amp;rsquo;t
+constructed by the injector.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;more-information&#34;&gt;More information&lt;/h2&gt;
+
+&lt;p&gt;For more information about the injector used in the Java framework, you can look at the
+&lt;a href=&#34;https://github.com/google/guice/wiki&#34;&gt;Guice documentation wiki&lt;/a&gt;. Please note that some Guice features described
+in this documentation are not available in SeedStack or implemented differently. A knowledge of Guice is &lt;strong&gt;NOT&lt;/strong&gt;
+necessary to develop a Seed-based application.&lt;/p&gt;
+
+&lt;h1 id=&#34;error-diagnostic&#34;&gt;Error diagnostic&lt;/h1&gt;
+
+&lt;p&gt;Seed can dump diagnostic information when an exception is catched at key application locations. Core support dumps
+diagnostic information when an uncaught exception occurs in a thread but other supports can trigger dumps in various
+conditions.&lt;/p&gt;
+
+&lt;p&gt;Diagnostic information is an aggregation of values gathered from various diagnostic collectors in a single map. This map
+is then handled by the diagnostic reporter.&lt;/p&gt;
+
+&lt;h2 id=&#34;diagnostic-collectors&#34;&gt;Diagnostic collectors&lt;/h2&gt;
+
+&lt;p&gt;A diagnostic collector is a class implementing the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;core.&amp;amp;#8203;spi.&amp;amp;#8203;diagnostic.&amp;amp;#8203;DiagnosticInfoCollector&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/core/spi/diagnostic/DiagnosticInfoCollector.html&#39;&gt;DiagnosticInfoCollector&lt;/a&gt;&lt;/code&gt;
+interface and annotated with &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;core.&amp;amp;#8203;spi.&amp;amp;#8203;diagnostic.&amp;amp;#8203;DiagnosticDomain&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/core/spi/diagnostic/DiagnosticDomain.html&#39;&gt;@DiagnosticDomain&lt;/a&gt;&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@DiagnosticDomain(&amp;quot;org.my-organization.my-project.my-diagnostic-domain&amp;quot;)
+public class MyDiagnosticCollector implements DiagnosticInfoCollector {
+
+    @Override
+    public Map&amp;lt;String, Object&amp;gt; collect() {
+        ...
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All diagnostic collectors are automatically detected by Seed and will be used in diagnostic information gathering. The
+diagnostic domain uniquely identifies the information of the collector.&lt;/p&gt;
+
+&lt;h2 id=&#34;diagnostic-reporter&#34;&gt;Diagnostic reporter&lt;/h2&gt;
+
+&lt;p&gt;The default diagnostic reporter dumps the map as a YAML document in the system temporary directory. The diagnostic
+reporter can be changed by setting the &lt;code&gt;org.seedstack.seed.diagnostic.reporter&lt;/code&gt; system property to a class
+implementing &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;core.&amp;amp;#8203;spi.&amp;amp;#8203;diagnostic.&amp;amp;#8203;DiagnosticReporter&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/core/spi/diagnostic/DiagnosticReporter.html&#39;&gt;DiagnosticReporter&lt;/a&gt;&lt;/code&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Repositories</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/manual/repositories/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/manual/repositories/</guid>
+      <description>&lt;p&gt;A repository is a pattern used to store and retrieve Aggregates from persistence with a &lt;strong&gt;simple and global interface&lt;/strong&gt;,
+providing the illusion of an in-memory collection. A repository manipulates a whole aggregate through its aggregate
+root and ensures that it is persisted and retrieved in a coherent manner.&lt;/p&gt;
+
+&lt;h1 id=&#34;default-repository&#34;&gt;Default repository&lt;/h1&gt;
+
+&lt;p&gt;The Business Framework provides a default repository that can perform CRUD actions on an aggregate.
+It can be injected with the &lt;code&gt;Repository&lt;/code&gt; interface and a qualifier.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject @Jpa
+private Repository&amp;lt;Customer, String&amp;gt; customerRepo;
+
+...
+Customer customer = customerRepo.load(customerId);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;By default, you have to explicitly specify the qualifier.
+But if you have only one persistence and one default repository, you can configure the one to use.
+The default repository can be configured for all the application:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.example.*]
+default-repository=org.seedstack.jpa.Jpa
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can also override it for a specific aggregate root:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.example.domain.customer.Customer]
+default-repository=another-qualifier
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;default.repository.qualifier&lt;/code&gt; property expects a qualifier annotation class or a string when the qualifier use &lt;code&gt;@Named(&amp;quot;another-qualifer&amp;quot;)&lt;/code&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;custom-repository&#34;&gt;Custom repository&lt;/h1&gt;
+
+&lt;p&gt;The default CRUD repository is interesting to start quickly and might be enough for some use cases. But it is possible to
+add your own repositories, in order to extend the CRUD behavior with your domain
+requirements.&lt;/p&gt;
+
+&lt;p&gt;First create a repository interface extending &lt;code&gt;GenericRepository&lt;/code&gt;. This interface is usually located in the aggregate package.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import org.seedstack.business.domain.Repository;
+
+public interface OrderRepository extends GenericRepository&amp;lt;Order, Long&amp;gt; {
+
+     Order findOrderByCategory(String categoryId)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;It is possible not to use the &lt;code&gt;GenericRepository&lt;/code&gt; interface and instead annotate the class with the &lt;code&gt;@DomainRepository&lt;/code&gt; annotation.
+But you won&amp;rsquo;t be able to use the framework&amp;rsquo;s helpers like the assembler DSL &lt;code&gt;fromRepository()&lt;/code&gt; method.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Then add an implementation in the infrastructure layer.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class OrderJpaRepository extends BaseJpaRepository&amp;lt;Order, Long&amp;gt; implements OrderRepository {
+
+    @Override
+    public Order findOrderByCategory(String categoryId){ ... }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;usage&#34;&gt;Usage&lt;/h1&gt;
+
+&lt;p&gt;An explicit repository can be injected like a default one (with the &lt;code&gt;Repository&lt;/code&gt; interface):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private Repository&amp;lt;Order, Long&amp;gt; repository;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or with its own interface:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private OrderRepository repository;
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Web framework basics</title>
+      <link>http://seedstack.org/archives/16.7/docs/w20/manual/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/w20/manual/</guid>
+      <description>&lt;p&gt;W20 is an integration framework for the AngularJS-based Single Page Applications (SPA). It offers a modular programming
+model based on fragments and high-level services to accelerate your Web development.&lt;/p&gt;
+
+&lt;h1 id=&#34;fragments-and-configuration&#34;&gt;Fragments and configuration&lt;/h1&gt;
+
+&lt;p&gt;W20 and its applications are organized around the idea of &lt;strong&gt;fragments&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;what-is-a-fragment&#34;&gt;What is a fragment ?&lt;/h2&gt;
+
+&lt;p&gt;A W20 application is made of several fragments that brings different concerns to the application.
+A fragment is a collection of web resources (JavaScript &lt;a href=&#34;http://en.wikipedia.org/wiki/Asynchronous_module_definition&#34;&gt;AMD modules&lt;/a&gt;, stylesheets, HTML templates&amp;hellip;)
+that often but not necessarily depends on each other. The dependency between modules inside a fragment is orchestrated by the use of
+the &lt;a href=&#34;http://requirejs.org/&#34;&gt;RequireJS&lt;/a&gt; library.&lt;/p&gt;
+
+&lt;p&gt;Think of a fragment as a coherent set of resources linked together for the purpose of &lt;strong&gt;organization&lt;/strong&gt; and &lt;strong&gt;reusability&lt;/strong&gt;.
+By including and configuring a fragment you can bring the corresponding aspect and/or asset to your web application without having to worry about
+the intrinsic details of the fragment itself. Inside a fragment, the module dependency system guarantees that the dependencies of a module will be loaded before the module
+itself. This is especially important for large applications that often require an important number of JavaScript modules.&lt;/p&gt;
+
+&lt;h2 id=&#34;fragments-vs-modules&#34;&gt;Fragments vs modules&lt;/h2&gt;
+
+&lt;p&gt;When we talk about a module, we refer to a JavaScript AMD module, as used in the RequireJS library. That is, to say thing shortly, a .js file
+whose content is wrapped in a &lt;code&gt;define&lt;/code&gt; call (AMD modules are explained in greater detail further down). A fragment on the other hand is a collection of modules.
+It is described by a manifest which exposes configuration properties. When you include and configure a fragment in your application you can generally choose
+which modules to activate inside of it.&lt;/p&gt;
+
+&lt;h2 id=&#34;fragment-manifest&#34;&gt;Fragment manifest&lt;/h2&gt;
+
+&lt;p&gt;Each fragment contains a JSON manifest that serves as a descriptor for the fragment configuration possibilities. The fragment manifest has two main goals:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;To expose the available modules of the fragment and their available configuration options. It is important to understand that the fragment manifest does
+not configure the fragment. It exposes what configuration will be possible according to a configuration schema. In the next section we will see how to
+actually configure the fragment when you declare it inside your application manifest.&lt;/li&gt;
+&lt;li&gt;To allow the declaration of additional RequireJS configuration. On application start, each RequireJS configuration of each fragments, if present, are merged
+together.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The properties of a fragment manifest are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;id&lt;/code&gt;: a mandatory string with no space which identifies the fragment. No fragment with the same id can be included at the same time in an application.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;name&lt;/code&gt;: an optional name for the fragment.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;description&lt;/code&gt;: an optional description of the fragment.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;requireConfig&lt;/code&gt;: an optional object with the properties of a RequireJS configuration object. In the example below we add a simple RequireJS configuration
+for module mapping (this allow to &amp;laquo;map&amp;raquo; a module to a name, which can be used for creating aliases or for module substitution). For an exhaustive list and
+description of the RequireJS configuration options, please have a look  at its &lt;a href=&#34;http://requirejs.org/docs/api.html&#34;&gt;API&lt;/a&gt;.
+Remember that this configuration will be merged with all the other declared fragment configuration on application start.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;id&amp;quot;: &amp;quot;demo-fragment&amp;quot;,
+    &amp;quot;requireConfig&amp;quot;: {
+        &amp;quot;map&amp;quot;: {
+           &amp;quot;*&amp;quot;: {
+             &amp;quot;mappedModule&amp;quot;: &amp;quot;path/to/module/to/map&amp;quot;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;modules&lt;/code&gt;: an optional object whose keys are the name of the exposed modules of the fragment. The value of those keys is an object with
+the module path and the configuration schema. The configuration schema contains the name of the configuration properties available for the module.
+In the example below we expose a module &amp;laquo;demoModule&amp;raquo; inside a fragment with id &amp;laquo;demo-fragment&amp;raquo; and a configuration property named &amp;laquo;demoConfig&amp;raquo;
+of type string for the module demoModule.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;id&amp;quot;: &amp;quot;demo-fragment&amp;quot;,
+    &amp;quot;modules&amp;quot;: {
+        &amp;quot;demoModule&amp;quot;: {
+             &amp;quot;path&amp;quot;: &amp;quot;{demo-fragment}/modules/demoModule&amp;quot;,
+             &amp;quot;autoload&amp;quot; : true,
+             &amp;quot;configSchema&amp;quot;: {
+                 &amp;quot;title&amp;quot;: &amp;quot;Demo module configuration&amp;quot;,
+                 &amp;quot;type&amp;quot;: &amp;quot;object&amp;quot;,
+                 &amp;quot;additionalProperties&amp;quot;: false,
+                 &amp;quot;properties&amp;quot;: {
+                     &amp;quot;demoConfig&amp;quot;: {
+                         &amp;quot;description&amp;quot;: &amp;quot;A description of the demoConfig property&amp;quot;,
+                         &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;
+                     }
+                 }
+             }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is a few additional things to note in this last example:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;In the &lt;code&gt;path&lt;/code&gt; property we used the fragment id enclosed in curly braces (&lt;code&gt;{demo-fragment}&lt;/code&gt;). This alias is automatically registered based
+on the fragment id and points to the location of the fragment manifest (it is a RequireJS mapping). You can (and should for reusability consideration)
+use this alias in all other fragments
+and in the application to refer to the fragment location.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;autoload&lt;/code&gt; attribute specify if the module should be loaded automatically or only if required by another module. By &amp;laquo;required by another module&amp;raquo;, we refer
+to the AMD definition and the dependency management between modules as used in RequireJS (through the use of a &lt;code&gt;define&lt;/code&gt; or &lt;code&gt;require&lt;/code&gt; call). If not specified, the
+module will not be autoloaded.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;type&lt;/code&gt; property of the &amp;laquo;demoConfig&amp;raquo; option has been specified as a string. This means that when the property will be given its value in the application
+manifest, passing a type other than a string will raise an error. The other type available are object, array, boolean and number.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;additionalProperties&lt;/code&gt; property of the configuration schema specify if additional properties can be given when configuring this module in the application
+manifest. In this example, trying to configure any other property than a &amp;laquo;demoConfig&amp;raquo; one for this module in the application manifest will raise an error.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The configuration schema is optional. You can simply declare the module along with its path and eventually ask for it to be autoloaded (false if not specified). This
+is often the case when you simply want to include a module that has no particular configuration in your business fragment.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;W20 is packaged and distributed as multiple fragments. Your application will then be composed of those fragments and your own business fragments.
+Now that we have a better understanding of the notion of fragment, we can proceed to the configuration step in which we actually include and configure those fragments
+in our application.&lt;/p&gt;
+
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+
+&lt;p&gt;Application configuration happens in an application manifest. This manifest must be named &lt;strong&gt;w20.app.json&lt;/strong&gt; because, in the absence of
+a remote manifest, the framework will fall back to looking for a JSON file with this name at the application root.&lt;/p&gt;
+
+&lt;p&gt;The role of the application manifest is to reference fragments through their manifest URL and configure them specifically for the application.&lt;/p&gt;
+
+&lt;h3 id=&#34;fragment-declaration&#34;&gt;Fragment declaration&lt;/h3&gt;
+
+&lt;p&gt;To include a fragment in your application, specify the path of the fragment manifest as a key.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;bower_components/w20/w20-core.w20.json&amp;quot;: {}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;w20-core&lt;/code&gt; fragment will be loaded with all its modules whose &lt;code&gt;autoload&lt;/code&gt; property is set to true. An alias &lt;code&gt;{w20-core}&lt;/code&gt; is now
+pointing to &lt;code&gt;bower_components/w20&lt;/code&gt;, the location of the fragment manifest.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;&lt;code&gt;bower_components&lt;/code&gt; is the default name of the folder in which &lt;a href=&#34;http://bower.io/&#34;&gt;Bower&lt;/a&gt; installs the web dependencies. Bower is one of the most popular
+package manager for web application. It should be installed to ease application development and/or use the w20 application generator. W20 fragments are available
+in the &lt;a href=&#34;http://bower.io/search/?q=w20&#34;&gt;Bower registry&lt;/a&gt; and will be installed to the bower_components folder if you choose this way of installation.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;fragment-configuration&#34;&gt;Fragment configuration&lt;/h3&gt;
+
+&lt;p&gt;Declaring a fragment like above can sometimes be enough. Autoloaded modules will be available and that may be sufficient.
+However, most of the time, you will configure the fragment&amp;rsquo;s modules according to your need or because an explicit configuration value is required.
+To configure the modules of the fragment add a &lt;code&gt;modules&lt;/code&gt; section:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;bower_components/w20/w20-core.w20.json&amp;quot; : {
+        &amp;quot;modules&amp;quot;: {
+            &amp;quot;application&amp;quot;: {
+                &amp;quot;id&amp;quot;: &amp;quot;my-app&amp;quot;
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the above configuration, the &lt;code&gt;application&lt;/code&gt; module of &lt;code&gt;w20-core&lt;/code&gt; will be configured with the corresponding object (defining
+the unique identifier of the application in this case). This module is normally defined as automatically loaded so this
+definition will only serve to configure it. To load a module that is not automatically loaded without configuration, just
+specify it with an empty object:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;bower_components/w20/w20-core.w20.json&amp;quot;: {
+        &amp;quot;modules&amp;quot;: {
+            &amp;quot;application&amp;quot;: {
+                &amp;quot;id&amp;quot;: &amp;quot;my-app&amp;quot;
+            }
+        }
+    },
+
+    &amp;quot;bower_components/other-fragment/other-fragment.w20.json&amp;quot;: {
+        &amp;quot;modules&amp;quot;: {
+            &amp;quot;my-module&amp;quot;: {}
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the example above &amp;laquo;my-module&amp;raquo; will be loaded without any configuration. If it was not declared and the module was not set to be autoloaded, &amp;laquo;my-module&amp;raquo;
+would not be loaded on application start even if it belongs to the &amp;laquo;other-fragment&amp;raquo; fragment.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If a configuration JSON schema is provided for a specific module in the fragment manifest, the configuration specified
+here will be validated against it. Also, if a default configuration is provided for a specific module in the fragment manifest, the configuration specified here
+will be merged with it, overriding it. If no default configuration is provided, the configuration is provided as-is to the module.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;summary&#34;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/fragments.png&#34; alt=&#34;fragments-overview&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;masterpage&#34;&gt;Masterpage&lt;/h1&gt;
+
+&lt;p&gt;W20 uses &lt;a href=&#34;https://angularjs.org/&#34;&gt;AngularJS&lt;/a&gt; as a core framework for application development.
+Thus, its applications are &lt;a href=&#34;https://en.wikipedia.org/wiki/Single-page_application&#34;&gt;Single Page Application (SPA)&lt;/a&gt;.
+Only one HTML page is served with an outermost html doctype and a root tag &lt;code&gt;&amp;lt;html&amp;gt;&amp;lt;/html&amp;gt;&lt;/code&gt;. This page is called the &lt;strong&gt;masterpage&lt;/strong&gt;.
+The masterpage serves two roles:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Instruct the browser to load the RequireJS library with the w20 loader as the main module. The w20 loader is a module of the core fragment and
+referenced in the &lt;code&gt;main&lt;/code&gt; attribute of the script which loads RequireJS and who will take care of bootstrapping the application. A &lt;code&gt;w20-app&lt;/code&gt; attribute is mandatory on the root
+element of the masterpage. Application loading is explained in further details
+in the following section.&lt;/li&gt;
+&lt;li&gt;Declare the unique &lt;code&gt;ng-view&lt;/code&gt; element of the application which will include view templates. View change is handled through client-side
+routing which associates an URL to a template. This template is rendered in the &lt;code&gt;ng-view&lt;/code&gt; tag.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!doctype html&amp;gt;
+&amp;lt;!-- Sample masterpage for a W20 app --&amp;gt;
+&amp;lt;html data-w20-app&amp;gt;
+&amp;lt;head&amp;gt;
+    &amp;lt;title&amp;gt;Application title&amp;lt;/title&amp;gt;
+    &amp;lt;script type=&amp;quot;text/javascript&amp;quot; 
+            data-main=&amp;quot;bower_components/w20/modules/w20&amp;quot; 
+            src=&amp;quot;bower_components/requirejs/require.js&amp;quot;&amp;gt;
+    &amp;lt;/script&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+    &amp;lt;div data-ng-view&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;You can notice that HTML attributes that are not part of the HTML specification (such as &lt;code&gt;w20-app&lt;/code&gt; or &lt;code&gt;ng-view&lt;/code&gt;) are prefixed with
+&amp;laquo;data-&amp;raquo;. This allow to keep templates valid against HTML validator by defining those attributes as &lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/data-*&#34;&gt;custom attributes&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that the w20 module is referenced without the .js extension. It is a common mistake to include the .js extension while referring to module but this
+is not accepted by RequireJS. The module file name is &amp;laquo;w20.js&amp;raquo; but it must be referenced by &amp;laquo;w20&amp;raquo; only.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;Additional configuration can be provided:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;The &lt;code&gt;w20-app&lt;/code&gt; attribute can be provided with the URL of the application manifest as the value:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;html data-w20-app=&amp;quot;/resources/configuration&amp;quot;&amp;gt; ... &amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In that case, a request is made for retrieving the remote configuration. Without any value provided, the w20 loader will look
+for a &lt;code&gt;w20.app.json&lt;/code&gt; at the same level as the masterpage.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The &lt;code&gt;w20-app-version&lt;/code&gt; attribute, when provided a value, will append this value as an extra query string to URLs of resources.
+This is useful for cache busting.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;html data-w20-app data-w20-app-version=&amp;quot;1.0.0&amp;quot;&amp;gt; ... &amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The &lt;code&gt;w20-timeout&lt;/code&gt; attribute specify the number of seconds to wait before giving up on loading a script.
+Setting it to 0 disables the timeout. The default if not specified is 7 seconds.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;html data-w20-app data-w20-timeout=&amp;quot;3&amp;quot;&amp;gt; ... &amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The &lt;code&gt;w20-cors-with-credentials&lt;/code&gt; attribute accept a boolean that specify if whether or not cross-site Access-Control requests should be made using credentials
+such as cookies or authorization headers. By default the value is false.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;html data-w20-app data-w20-cors-with-credentials=&amp;quot;true&amp;quot;&amp;gt; ... &amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;core-fragment&#34;&gt;Core fragment&lt;/h1&gt;
+
+&lt;p&gt;The core fragment of W20 is the most important fragment of the framework and the only one that is mandatory.
+It provides the fundamental aspect of the framework, mainly:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;An &lt;a href=&#34;http://en.wikipedia.org/wiki/Asynchronous_module_definition&#34;&gt;AMD&lt;/a&gt; infrastructure through &lt;a href=&#34;http://requirejs.org/&#34;&gt;RequireJS&lt;/a&gt;,&lt;/li&gt;
+&lt;li&gt;An MVC runtime through &lt;a href=&#34;https://angularjs.org/&#34;&gt;AngularJS&lt;/a&gt;,&lt;/li&gt;
+&lt;li&gt;Application loading and initialization through the &lt;code&gt;w20&lt;/code&gt; module referenced in the masterpage,&lt;/li&gt;
+&lt;li&gt;A permission model which enables to reflect backend security,&lt;/li&gt;
+&lt;li&gt;Extensive culture support.&lt;/li&gt;
+&lt;li&gt;Support for HATEOAS&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;No CSS framework is provided in the core fragment to let you free of this choice. However, you can simply add
+an appropriate fragment of W20 to bring frameworks such as &lt;a href=&#34;http://getbootstrap.com/&#34;&gt;Twitter Bootstrap&lt;/a&gt; (w20-bootstrap-3)
+or &lt;a href=&#34;https://material.angularjs.org/latest/&#34;&gt;Angular Material&lt;/a&gt; (w20-material). For additional information,
+please consult the &lt;a href=&#34;http://seedstack.org/docs/w20/manual/ui/&#34;&gt;UI&lt;/a&gt; section.&lt;/p&gt;
+
+&lt;p&gt;The rest of this manual will focus mainly on the core fragment. Additional fragments documentation can be found in the corresponding
+section of the documentation.&lt;/p&gt;
+
+&lt;p&gt;The core fragment provides the &lt;code&gt;w20&lt;/code&gt; module which is responsible for application initialization. Let&amp;rsquo;s look at how a W20 application load
+itself.&lt;/p&gt;
+
+&lt;h1 id=&#34;application-loading&#34;&gt;Application loading&lt;/h1&gt;
+
+&lt;p&gt;Once RequireJS is loaded, the &lt;code&gt;w20&lt;/code&gt; module becomes the entry point of a W20 application as the main module.
+Think of it as a &amp;laquo;fragment loader&amp;raquo;. Its initialization sequence is as follow:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Loading and parsing of the application configuration (&lt;code&gt;w20.app.json&lt;/code&gt; or remote configuration).&lt;/li&gt;
+&lt;li&gt;Loading and parsing of all the declared fragment manifests.&lt;/li&gt;
+&lt;li&gt;Computing of a global RequireJS configuration along with the list of all modules to load.&lt;/li&gt;
+&lt;li&gt;Loading of all modules needed at startup time at once.&lt;/li&gt;
+&lt;li&gt;Initialization of each loaded modules through their lifecycle callbacks (pre -&amp;gt; run -&amp;gt; post).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The last phase should be a little bit unclear at this point because we did not introduce modules lifecycle yet.
+We included it here to give you the full initialization sequence for future reference. Modules are documented in the next section.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://seedstack.org/archives/16.7/puml/w20/w20-loading.png&#34; alt=&#34;w20loading&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;modules&#34;&gt;Modules&lt;/h1&gt;
+
+&lt;h2 id=&#34;amd&#34;&gt;AMD&lt;/h2&gt;
+
+&lt;p&gt;JavaScript logic in W20 are defined in AMD modules. An AMD module is defined using the global function &lt;code&gt;define&lt;/code&gt; exposed by RequireJS.
+AMD module can be named but it is strongly recommended that you use anonymous AMD modules, each one living in its own JavaScript file.
+They have the following form:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;define([
+        // (1) list of the dependencies of this module
+], function(/* (2) list of injected dependencies (in the same order as (1)) */) {
+    
+    // (3) module factory function body (private scope of the module)
+
+    return {
+        // (4) public signature of the module that can be injected 
+        // when requested as a dependency of another module
+    };
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let us expand a little bit on each part of this module definition:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;(1) The list of dependencies is composed of path to dependencies of this module, which are often themselves AMD modules.
+The path can be an absolute path or a map key if a RequireJS mapping has been defined. Remember that fragments manifest location are
+automatically aliased by their fragment id enclosed in curly braces. This means that you can reference a W20 fragment or your own one as
+a dependency like this:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;define([
+&#39;{w20-core}/modules/application&#39;, 
+&#39;{your-fragment}/modules/your-module&#39;
+], ... );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Please note that modules are referenced without their .js extension.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Third party libraries location are also aliased. For instance AngularJS distribution location is aliased by &lt;code&gt;{angular}&lt;/code&gt;.
+This means that you can reference a dependency to angular.js with &lt;code&gt;{angular}/angular&lt;/code&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;(2) The last parameter to the &lt;code&gt;define&lt;/code&gt; function is the factory function. Its parameters are the public value returned by the dependencies defined in (1) in
+the same order. That is, if we take the example above, the public value of the &amp;laquo;application&amp;raquo; module as first argument and the public value of &amp;laquo;your-module&amp;raquo; as
+second argument.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;(3) The body of the factory function constitute the private part of the module. This part is not available to other modules.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;(4) The return value of a module is the public part it exposes to the world. The value of this return will be what will be injected
+in other modules factory function if that module is a dependency of them.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;define([
+&#39;{w20-core}/modules/application&#39;,
+&#39;{yourFragment}/modules/yourModule&#39;
+], function (applicationPublic, yourModulePublic) {
+ 
+ var privateValue = &#39;I am a private string&#39;;
+ 
+ return {
+    publicValue: &#39;I am a public string&#39;
+ }
+
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now, if we suppose the module above to be named &amp;laquo;demo.js&amp;raquo; inside a fragment with id &amp;laquo;example&amp;raquo;, if this module is defined as a dependency of another,
+the last one can access the publicValue property of the object.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;define([
+    &#39;{example}/modules/demo&#39;,
+], function (demo) {
+
+    console.info(demo.publicValue); // &amp;quot;I am a public string&amp;quot;
+
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;module-configuration&#34;&gt;Module configuration&lt;/h2&gt;
+
+&lt;p&gt;To access the configuration of a module it needs to depend on the &lt;code&gt;module&lt;/code&gt; module. This special module is used to retrieve the module id, its location
+and the value of its configuration options (those declared in the application manifest).
+If we suppose a module &amp;laquo;sample&amp;raquo; with the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;some-fragment/path/some-fragment.w20.json&amp;quot;: {
+    &amp;quot;modules&amp;quot;: {
+        &amp;quot;sample&amp;quot;: {
+            &amp;quot;prop&amp;quot;: &amp;quot;Value of property one&amp;quot;
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The configuration is retrieved inside the &amp;laquo;sample&amp;raquo; module like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;define([
+    &#39;module&#39;,
+], function (module) {
+
+    var config = module &amp;amp;&amp;amp; module.config() || {};
+    
+    console.log(config.prop); // &amp;quot;Value of property&amp;quot;
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The statement &lt;code&gt;module &amp;amp;&amp;amp; module.config() || {}&lt;/code&gt; is the idiomatic way of safely retrieving the module configuration.&lt;/p&gt;
+
+&lt;h2 id=&#34;lifecycle-callbacks&#34;&gt;Lifecycle callbacks&lt;/h2&gt;
+
+&lt;p&gt;In the &amp;laquo;Application loading&amp;raquo; section we have seen that the initialization sequence ended with each loaded modules going
+through their &amp;laquo;lifecycle callbacks&amp;raquo;. Actually this is only the case for modules that declares lifecycle callbacks. If a module does
+not declare any lifecycle callback then it is simply loaded.&lt;/p&gt;
+
+&lt;p&gt;Lifecycle callbacks happens when all fragments have been collected and the RequireJS
+configuration has been merged. There are 3 lifecycle callbacks which runs in the order: &lt;code&gt;pre&lt;/code&gt;, &lt;code&gt;run&lt;/code&gt; and &lt;code&gt;post&lt;/code&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;All of them are optional.&lt;/li&gt;
+&lt;li&gt;It is guaranteed that every modules will run their &lt;code&gt;pre&lt;/code&gt; callback before any other modules run their &lt;code&gt;run&lt;/code&gt; callback.&lt;/li&gt;
+&lt;li&gt;It is guaranteed that every modules will run their &lt;code&gt;run&lt;/code&gt; callback before any other modules run their &lt;code&gt;post&lt;/code&gt; callback.&lt;/li&gt;
+&lt;li&gt;A module dependency will have its callback called before the module requiring it.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To integrate a module into the lifecycle management of the application, you must add the following code to the public
+signature of the module (i.e the return value of the factory function):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;return {
+    ...
+
+    lifecycle: {
+        pre: function (modules, fragments, callback) {},
+        run: function (modules, fragments, callback) {},
+        post: function (modules, fragments, callback) {}
+    }
+
+    ...
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can omit the unsupported callbacks (for instance, just leaving the &lt;code&gt;pre&lt;/code&gt; one). If the loader recognize one or more
+lifecycle callbacks, they will be invoked during W20 initialization with the following arguments:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;modules&lt;/code&gt; is an array of all public modules definitions,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;fragments&lt;/code&gt; an array of all loaded fragment manifests,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;callback&lt;/code&gt; is a function that &lt;strong&gt;MUST&lt;/strong&gt; be called to notify the loader that any processing in this phase is done for
+this module (including asynchronous processing). If a module do not call its callback, the whole initialization process
+is blocked for a specified amount of time. After that, it is cancelled and a timeout error message is displayed.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Lifecycle callbacks are useful hooks for application initialization. The &lt;code&gt;pre&lt;/code&gt; callback for instance will run before AngularJS
+initialization, the subject of the next section.&lt;/p&gt;
+
+&lt;h1 id=&#34;angularjs-initialization&#34;&gt;AngularJS initialization&lt;/h1&gt;
+
+&lt;p&gt;Before AngularJS initialization, it is guaranteed that:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;All AMD modules needed at startup are loaded,&lt;/li&gt;
+&lt;li&gt;Their factory functions have been run in the correct order,&lt;/li&gt;
+&lt;li&gt;Their &lt;code&gt;pre&lt;/code&gt; lifecycle callbacks have been run and all modules have notified the loader that they have finished loading
+their asynchronous resources if any.
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;AngularJS initialization is done explicitly with the &lt;code&gt;angular.bootstrap()&lt;/code&gt; function on the document element. It occurs
+in the &lt;code&gt;run&lt;/code&gt; lifecycle callback of the &lt;code&gt;application&lt;/code&gt; module. From this moment AngularJS initialize normally; you can read more
+about the initialization process &lt;a href=&#34;https://docs.angularjs.org/guide/bootstrap&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;angularjs-modules&#34;&gt;AngularJS modules&lt;/h1&gt;
+
+&lt;h2 id=&#34;amd-vs-angularjs-modules&#34;&gt;AMD vs AngularJS modules&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://docs.angularjs.org/guide/module&#34;&gt;AngularJS modules&lt;/a&gt; are not to be confused with AMD modules. We said at the
+begining of this guide that when we refer to a &amp;laquo;module&amp;raquo;, it is an AMD module. We will continue to do so and use the term &amp;laquo;AngularJS module&amp;raquo;
+to refer to the notion of module in AngularJS.&lt;/p&gt;
+
+&lt;p&gt;From the AMD point of view, AngularJS modules have no meaning. However, AngularJS modules are fundamental for
+structuring an application correctly.&lt;/p&gt;
+
+&lt;h2 id=&#34;what-is-an-angularjs-module&#34;&gt;What is an AngularJS module ?&lt;/h2&gt;
+
+&lt;p&gt;AngularJS modules allow to register services, factories, controllers, directives, providers and other concepts
+such as configuration or run block. AngularJS modules are also fundamental for unit testing. Each AngularJS module can only be loaded once per injector.
+Usually an AngularJS app has only one injector and AngularJS modules are only loaded once. Each test has its own injector and AngularJS modules are loaded multiple times.&lt;/p&gt;
+
+&lt;h2 id=&#34;angularjs-module-dependencies&#34;&gt;AngularJS module dependencies&lt;/h2&gt;
+
+&lt;p&gt;Wait a minute. Did we not already talk about dependencies between modules ? Yes, we did. We talked of dependencies between AMD modules.
+But AngularJs modules can also list other AngularJS modules as their dependencies. Depending on an AngularJS module implies that the required AngularJS module
+needs to be loaded before the requiring AngularJS module is loaded.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// firstModule.js
+define([&#39;{angular}/angular&#39;], function (angular) {
+  var firstAngularModule = angular.module(&#39;first&#39;, []);
+});
+
+// secondModule.js
+define([&#39;{angular}/angular&#39;, &#39;firstModule&#39;], function(angular) {
+  var secondAngularModule = angular.module(&#39;second&#39;, [&#39;first&#39;]);
+});
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the example above the dependency between AngularJS modules is declared as an array in the second argument to the &lt;code&gt;angular.module&lt;/code&gt; function. AngularJS maintains an injector
+with a list of names and corresponding objects. An entry is added to the injector when a component is created and the object is returned whenever it is referenced using the registered name.&lt;/p&gt;
+
+&lt;p&gt;How does that fit with the dependency system between AMD modules ?  It is important to remember that the purpose of AMD modules and AngularJS modules is totally different.
+The dependency injection system built into AngularJS deals with the objects needed in a component while dependency management in RequireJS deals with JavaScript files. In other word,
+if an AngularJS modules depends on another AngularJS modules, this means that they must be loaded in the correct order. The &lt;code&gt;secondModule&lt;/code&gt; depend on the &lt;code&gt;firstModule&lt;/code&gt; to be loaded first.&lt;/p&gt;
+
+&lt;h2 id=&#34;angularjs-modules-and-w20&#34;&gt;AngularJS modules and W20&lt;/h2&gt;
+
+&lt;p&gt;To correctly initialize AngularJS, the &lt;code&gt;application&lt;/code&gt; module must know all the top-level declared
+AngularJS modules. To expose them properly, you must add the following code to the public signature of modules that
+declare AngularJS modules:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;return {
+    ...
+
+    angularModules: [ &#39;angularModule1&#39;, &#39;angularModule2&#39;, ... ]
+
+    ...
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All &lt;code&gt;angularModules&lt;/code&gt; arrays of AMD public signature modules are concatenated and the resulting array is passed to
+the &lt;code&gt;angular.bootstrap()&lt;/code&gt; function.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that you don&amp;rsquo;t need to add the transitive AngularJS modules.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;integration-with-seedstack-backend&#34;&gt;Integration with SeedStack backend&lt;/h1&gt;
+
+&lt;p&gt;While the web framework is compatible with any backend technology using the REST architecture, integration with a SeedStack backend
+provide additional benefits such as:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Masterpage templating and generation.&lt;/li&gt;
+&lt;li&gt;Configuration variable.&lt;/li&gt;
+&lt;li&gt;Default manifest configuration.&lt;/li&gt;
+&lt;li&gt;Configuration options available from Props/Properties format.&lt;/li&gt;
+&lt;li&gt;Automatic activation of fragments bundled in JAR.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This bridge between SeedStack front and back end is provided by the &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/w20-bridge/&#34;&gt;W20-bridge addon&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

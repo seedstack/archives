@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/sections/gettingstartedprojecttemplates/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/sections/gettingstartedprojecttemplates/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Batch application</title>
+      <link>http://seedstack.org/archives/16.7/getting-started/project-templates/batch/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/getting-started/project-templates/batch/</guid>
+      <description>&lt;p&gt;A batch application project is an executable JAR module. It is intended to contain Spring batch jobs and their associated
+Java classes.&lt;/p&gt;
+
+&lt;h1 id=&#34;creation&#34;&gt;Creation&lt;/h1&gt;
+
+&lt;p&gt;You need to have &lt;a href=&#34;https://maven.apache.org/&#34;&gt;Apache Maven 3.1+&lt;/a&gt; installed.
+To create a batch application project from scratch, run the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;mvn org.seedstack:seedstack-maven-plugin:generate -Dtype=batch
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;This will invoke the generate goal of the SeedStack maven plugin &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/maven-plugin/generate/&#34;&gt;generate goal&lt;/a&gt; which will:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Discover the latest version of the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution/&#34;&gt;SeedStack reference distribution&lt;/a&gt;,&lt;/li&gt;
+&lt;li&gt;Use its &lt;a href=&#34;http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.seedstack%22%20a%3A%22batch-archetype%22&#34;&gt;batch archetype&lt;/a&gt; to generate the project.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The process is interactive and will ask you a few questions about the project to be created.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;result&#34;&gt;Result&lt;/h1&gt;
+
+&lt;p&gt;After execution, a single module project is created:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;- myjob
+    |- src
+        |- main
+        |   |- java
+        |   |   |- org.myorg.myjob
+        |   |       |- [application]    &amp;lt;-- application logic
+        |   |       |- batch            &amp;lt;-- batch jobs and tasks
+        |   |       |- [domain]
+        |   |       |   |- [model]      &amp;lt;-- domain model
+        |   |       |   |- [services]   &amp;lt;-- domain services
+        |   |       |- [infrastructure] &amp;lt;-- technical infrastructure
+        |   |- resources
+        |       |- META-INF
+        |           |- configuration    &amp;lt;-- main configuration
+        |- test
+            |- java
+            |- resources
+                |- META-INF
+                    |- configuration    &amp;lt;-- test configuration
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that the directory in brackets are not created by the archetype. They are the recommended locations if you need
+to add any business domain to your project. You can also choose to put the domain in a separate &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/project-templates/domain/&#34;&gt;domain module&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;more-resources&#34;&gt;More resources&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/addons/spring-bridge/batch/&#34;&gt;Batch add-on documentation&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/seedstack/samples/tree/master/batch&#34;&gt;Simple batch job example&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>CLI application</title>
+      <link>http://seedstack.org/archives/16.7/getting-started/project-templates/cli/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/getting-started/project-templates/cli/</guid>
+      <description>&lt;p&gt;A command-line (CLI) application project is a executable JAR module. It is intended to contain only backend Java classes
+to provide command-line commands.&lt;/p&gt;
+
+&lt;h1 id=&#34;creation&#34;&gt;Creation&lt;/h1&gt;
+
+&lt;p&gt;You need to have &lt;a href=&#34;https://maven.apache.org/&#34;&gt;Apache Maven 3.1+&lt;/a&gt; installed.
+To create a command-line application project from scratch, run the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;mvn org.seedstack:seedstack-maven-plugin:generate -Dtype=cli
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;This will invoke the generate goal of the SeedStack maven plugin &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/maven-plugin/generate/&#34;&gt;generate goal&lt;/a&gt; which will:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Discover the latest version of the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution/&#34;&gt;SeedStack reference distribution&lt;/a&gt;,&lt;/li&gt;
+&lt;li&gt;Use its &lt;a href=&#34;http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.seedstack%22%20a%3A%22cli-archetype%22&#34;&gt;batch archetype&lt;/a&gt; to generate the project.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The process is interactive and will ask you a few questions about the project to be created.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;result&#34;&gt;Result&lt;/h1&gt;
+
+&lt;p&gt;After execution, a single module project is created:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;- mycli
+    |- src
+        |- main
+        |   |- java
+        |   |   |- org.myorg.mycli
+        |   |       |- [application]    &amp;lt;-- application logic
+        |   |       |- cli              &amp;lt;-- command-line handlers
+        |   |       |- [domain]
+        |   |       |   |- [model]      &amp;lt;-- domain model
+        |   |       |   |- [services]   &amp;lt;-- domain services
+        |   |       |- [infrastructure] &amp;lt;-- technical infrastructure
+        |   |- resources
+        |       |- META-INF
+        |           |- configuration    &amp;lt;-- main configuration
+        |- test
+            |- java
+            |- resources
+                |- META-INF
+                    |- configuration    &amp;lt;-- test configuration
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that the directory in brackets are not created by the archetype. They are the recommended locations if you need
+to add any business domain to your project. You can also choose to put the domain in a separate &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/project-templates/domain/&#34;&gt;domain module&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;more-resources&#34;&gt;More resources&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/cli/&#34;&gt;CLI documentation&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/seedstack/samples/tree/master/cli&#34;&gt;Simple CLI example&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Domain module (reusable)</title>
+      <link>http://seedstack.org/archives/16.7/getting-started/project-templates/domain/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/getting-started/project-templates/domain/</guid>
+      <description>&lt;p&gt;If you are using the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/business/&#34;&gt;business framework&lt;/a&gt; you can choose to write your domain in its own module for
+reuse and modularity purposes. In that case, each domain (e.g. each business context) should go in its own module.&lt;/p&gt;
+
+&lt;h1 id=&#34;creation&#34;&gt;Creation&lt;/h1&gt;
+
+&lt;p&gt;You need to have &lt;a href=&#34;https://maven.apache.org/&#34;&gt;Apache Maven 3.1+&lt;/a&gt; installed.
+To create a reusable domain project from scratch, execute the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;mvn org.seedstack:seedstack-maven-plugin:generate -Dtype=domain
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;This will invoke the generate goal of the SeedStack maven plugin &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/maven-plugin/generate/&#34;&gt;generate goal&lt;/a&gt; which will:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Discover the latest version of the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution/&#34;&gt;SeedStack reference distribution&lt;/a&gt;,&lt;/li&gt;
+&lt;li&gt;Use its &lt;a href=&#34;http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.seedstack%22%20a%3A%22domain-archetype%22&#34;&gt;batch archetype&lt;/a&gt; to generate the project.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The process is interactive and will ask you a few questions about the project to be created.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;result&#34;&gt;Result&lt;/h1&gt;
+
+&lt;p&gt;After execution, a single module project is created which contains only the domain layer. This module is intended to be
+included in other modules such as a &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/project-templates/web/&#34;&gt;Web application&lt;/a&gt;,
+a &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/project-templates/rest/&#34;&gt;REST service&lt;/a&gt; or a &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/project-templates/batch/&#34;&gt;Batch job&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You should see a structure similar to the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;- mydomain
+    |- src
+        |- main
+        |   |- java
+        |   |   |- org.myorg.mydomain
+        |   |       |- model            &amp;lt;-- domain model
+        |   |       |- services         &amp;lt;-- domain services
+        |   |- resources
+        |       |- META-INF
+        |           |- configuration    &amp;lt;-- main configuration
+        |- test
+            |- java
+            |- resources
+                |- META-INF
+                    |- configuration    &amp;lt;-- test configuration
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;more-resources&#34;&gt;More resources&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/business/&#34;&gt;Business framework documentation&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/seedstack/samples/tree/master/business&#34;&gt;Simple business example&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Project types</title>
+      <link>http://seedstack.org/archives/16.7/getting-started/project-templates/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/getting-started/project-templates/</guid>
+      <description>&lt;p&gt;SeedStack-based projects can be created from scratch but we propose a number of predefined project templates in the SeedStack
+reference distribution that can be generated from &lt;a href=&#34;https://maven.apache.org/guides/introduction/introduction-to-archetypes.html&#34;&gt;Maven archetypes&lt;/a&gt;
+or &lt;a href=&#34;http://yeoman.io/&#34;&gt;Yeoman generators&lt;/a&gt;. We recommend that you use these project templates, especially if you are
+new to SeedStack as they provide several benefits:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;They are immediately executable and deployable after generation,&lt;/li&gt;
+&lt;li&gt;They follow best practices, providing clean code organization and good modularity,&lt;/li&gt;
+&lt;li&gt;They are easy to use and provide fast onboarding.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;reference-project-templates&#34;&gt;Reference project templates&lt;/h1&gt;
+
+&lt;p&gt;The following project templates are available from the reference distribution:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/project-templates/web/&#34;&gt;Web application&lt;/a&gt; template (backend + frontend),&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/project-templates/rest/&#34;&gt;RESTful micro-service&lt;/a&gt; template (backend only),&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/project-templates/cli/&#34;&gt;Command-line application&lt;/a&gt; template (backend only),&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/project-templates/batch/&#34;&gt;Batch job&lt;/a&gt; template (backend only),&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/project-templates/domain/&#34;&gt;Reusable business domain&lt;/a&gt; template (reusable backend component),&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/project-templates/w20/&#34;&gt;W20 Single Page Application&lt;/a&gt; template (frontend only).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;project-structure&#34;&gt;Project structure&lt;/h1&gt;
+
+&lt;p&gt;Each project template has its own layout, adapted to the&lt;/p&gt;
+
+&lt;h2 id=&#34;java-modules&#34;&gt;Java modules&lt;/h2&gt;
+
+&lt;p&gt;When creating a project from a reference template, the
+The following directory structure is recommended for all Java modules:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;- src
+
+  - main
+    - java
+      - org.myorganization... 
+    - resources
+      - META-INF
+        - configuration  &amp;lt;-- location of the module configuration files if any
+          - ...
+          
+  - test  &amp;lt;-- for unit (*Test) and integration (*IT) tests
+    - java
+    - resources
+    
+- pom.xml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;inner-structure-of-web-fragments&#34;&gt;Inner structure of Web fragments&lt;/h1&gt;
+
+&lt;p&gt;Browser-only Web application are based upon the notion of &amp;laquo;W20 fragments&amp;raquo; which regroups various resources needed to provide
+one or more feature(s). The following structure is recommended for all W20 fragments:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;- i18n                  &amp;lt;-- Localization files if any
+- modules               &amp;lt;-- JS modules
+- templates             &amp;lt;-- HTML templates
+                        
+- specs                 &amp;lt;-- Tests
+- mocks                 &amp;lt;-- Mocks for tests
+
+- my-fragment.w20.json  &amp;lt;-- fragment manifest 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;You can learn more about fragments &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/w20/manual/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>REST micro-service</title>
+      <link>http://seedstack.org/archives/16.7/getting-started/project-templates/rest/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/getting-started/project-templates/rest/</guid>
+      <description>&lt;p&gt;A REST micro-service project is an executable JAR module embedding the Undertow Web server. It is intended to only contain
+backend Java classes to provide a REST API. It is the ideal template for lightweight REST micro-services.&lt;/p&gt;
+
+&lt;h1 id=&#34;creation&#34;&gt;Creation&lt;/h1&gt;
+
+&lt;p&gt;You need to have &lt;a href=&#34;https://maven.apache.org/&#34;&gt;Apache Maven 3.1+&lt;/a&gt; installed.
+To create a REST micro-service project from scratch, run the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;mvn org.seedstack:seedstack-maven-plugin:generate -Dtype=rest
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;This will invoke the generate goal of the SeedStack maven plugin &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/maven-plugin/generate/&#34;&gt;generate goal&lt;/a&gt; which will:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Discover the latest version of the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution/&#34;&gt;SeedStack reference distribution&lt;/a&gt;,&lt;/li&gt;
+&lt;li&gt;Use its &lt;a href=&#34;http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.seedstack%22%20a%3A%22rest-archetype%22&#34;&gt;batch archetype&lt;/a&gt; to generate the project.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The process is interactive and will ask you a few questions about the project to be created.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;result&#34;&gt;Result&lt;/h1&gt;
+
+&lt;p&gt;After execution, a single module project is created:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;- myapp
+    |- src
+        |- main
+        |   |- java
+        |   |   |- org.myorg.myapp
+        |   |       |- [application]    &amp;lt;-- application logic
+        |   |       |- [domain]
+        |   |       |   |- [model]      &amp;lt;-- domain model
+        |   |       |   |- [services]   &amp;lt;-- domain services
+        |   |       |- [infrastructure] &amp;lt;-- technical infrastructure
+        |   |       |- rest             &amp;lt;-- REST resources and representations
+        |   |- resources
+        |       |- META-INF
+        |           |- configuration    &amp;lt;-- main configuration
+        |- test
+            |- java
+            |- resources
+                |- META-INF
+                    |- configuration    &amp;lt;-- test configuration
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that the directory in brackets are not created by the archetype. They are the recommended locations if you need
+to add any business domain to your project. You can also choose to put the domain in a separate &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/project-templates/domain/&#34;&gt;domain module&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;conversion-to-war&#34;&gt;Conversion to WAR&lt;/h1&gt;
+
+&lt;p&gt;The resulting project can be easily converted to a traditional WAR:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Add a &lt;code&gt;src/main/webapp&lt;/code&gt; folder to hold the document root,&lt;/li&gt;
+&lt;li&gt;Add a &lt;code&gt;&amp;lt;packaging&amp;gt;WAR&amp;lt;/packaging&amp;gt;&lt;/code&gt; tag to the &lt;code&gt;pom.xml&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;Configure the &lt;code&gt;maven-war-plugin&lt;/code&gt; to ignore the absence of the &lt;code&gt;web.xml&lt;/code&gt; file.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;For the last step you can use the following POM snippet:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;build&amp;gt;
+    &amp;lt;pluginManagement&amp;gt;
+        &amp;lt;plugins&amp;gt;
+            &amp;lt;plugin&amp;gt;
+                &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;
+                &amp;lt;artifactId&amp;gt;maven-war-plugin&amp;lt;/artifactId&amp;gt;
+                &amp;lt;configuration&amp;gt;
+                    &amp;lt;failOnMissingWebXml&amp;gt;false&amp;lt;/failOnMissingWebXml&amp;gt;
+                &amp;lt;/configuration&amp;gt;
+            &amp;lt;/plugin&amp;gt;
+        &amp;lt;/plugins&amp;gt;
+    &amp;lt;/pluginManagement&amp;gt;
+&amp;lt;/build&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;more-resources&#34;&gt;More resources&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/rest/&#34;&gt;REST documentation&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/seedstack/catalog-microservice-sample&#34;&gt;Simple REST micro-service example&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>W20 application (browser-only)</title>
+      <link>http://seedstack.org/archives/16.7/getting-started/project-templates/w20/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/getting-started/project-templates/w20/</guid>
+      <description>&lt;p&gt;When you need to create a browser-only Single Page Application, you can use the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/w20/&#34;&gt;Web framework&lt;/a&gt; independently from
+other SeedStack components. This type of application can invoke backend(s) written with any technology through REST
+APIs.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;This type of application is composed of static files only which are best served by specialized infrastructure, like
+an optimized Web server or even a Content Delivery Network (CDN). They can also be served as a part of a backend application.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;creation&#34;&gt;Creation&lt;/h1&gt;
+
+&lt;p&gt;You need to have &lt;a href=&#34;https://nodejs.org&#34;&gt;NodeJS&lt;/a&gt; installed.
+To create a browser-only W20 application, run the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;npm install -g yo bower grunt-cli gulp generator-w20
+ yo w20
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;This will install the &lt;code&gt;yo&lt;/code&gt;, &lt;code&gt;bower&lt;/code&gt;, &lt;code&gt;grunt-cli&lt;/code&gt;, &lt;code&gt;gulp&lt;/code&gt; and &lt;code&gt;generator-w20&lt;/code&gt; NPM packages globally. You may prefer to
+install some locally (in the project directory) by removing the &lt;code&gt;-g&lt;/code&gt; option. The generator is based on &lt;a href=&#34;http://yeoman.io/&#34;&gt;Yeoman&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;result&#34;&gt;Result&lt;/h1&gt;
+
+&lt;p&gt;If the process is successful, you should see a structure similar to the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;- bower_components       &amp;lt;-- dependencies
+      
+- fragments              &amp;lt;-- application fragments (one per directory)
+    - ...
+    
+- bower.json
+- index.html             &amp;lt;-- application master page
+- w20.app.json           &amp;lt;-- application configuration
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;more-resources&#34;&gt;More resources&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/w20/&#34;&gt;W20 documentation&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/seedstack/generator-w20&#34;&gt;Yeoman W20 generator&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Web application</title>
+      <link>http://seedstack.org/archives/16.7/getting-started/project-templates/web/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/getting-started/project-templates/web/</guid>
+      <description>&lt;p&gt;A Java Web application project is a JAR module embedding the Undertow Web server. It is intended to contain backend
+Java classes as well as frontend W20 static resources. It also includes the &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/w20-bridge/&#34;&gt;W20 bridge add-on&lt;/a&gt; which
+automatically manages the W20 frontend.&lt;/p&gt;
+
+&lt;h1 id=&#34;creation&#34;&gt;Creation&lt;/h1&gt;
+
+&lt;p&gt;You need to have &lt;a href=&#34;https://maven.apache.org/&#34;&gt;Apache Maven 3.1+&lt;/a&gt; installed.
+To create a Java Web application project from scratch, execute the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;mvn org.seedstack:seedstack-maven-plugin:generate -Dtype=web
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;This will invoke the generate goal of the SeedStack maven plugin &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/maven-plugin/generate/&#34;&gt;generate goal&lt;/a&gt; which will:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Discover the latest version of the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution/&#34;&gt;SeedStack reference distribution&lt;/a&gt;,&lt;/li&gt;
+&lt;li&gt;Use its &lt;a href=&#34;http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.seedstack%22%20a%3A%22web-archetype%22&#34;&gt;web archetype&lt;/a&gt; to generate the project.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The process is interactive and will ask you a few questions about the project to be created.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;result&#34;&gt;Result&lt;/h1&gt;
+
+&lt;p&gt;After execution, a single module project is created:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;- myservice
+    |- src
+        |- main
+        |   |- java
+        |   |   |- org.myorg.myservice
+        |   |       |- [application]    &amp;lt;-- application logic
+        |   |       |- [domain]
+        |   |       |   |- [model]      &amp;lt;-- domain model
+        |   |       |   |- [services]   &amp;lt;-- domain services
+        |   |       |- [infrastructure] &amp;lt;-- technical infrastructure
+        |   |       |- rest             &amp;lt;-- REST resources and representations
+        |   |- resources
+        |       |- META-INF
+        |           |- configuration    &amp;lt;-- main configuration
+        |           |- [resources]      &amp;lt;-- frontend static resources
+        |- test
+            |- java
+            |- resources
+                |- META-INF
+                    |- configuration    &amp;lt;-- test configuration
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that the directory in brackets are not created by the archetype. They are the recommended locations if you need
+to add any business domain or static resources to your project. You can also choose to put the domain in a separate &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/project-templates/domain/&#34;&gt;domain module&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;conversion-to-war&#34;&gt;Conversion to WAR&lt;/h1&gt;
+
+&lt;p&gt;The resulting project can be easily converted to a traditional WAR:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Add a &lt;code&gt;src/main/webapp&lt;/code&gt; folder to hold the document root,&lt;/li&gt;
+&lt;li&gt;Add a &lt;code&gt;&amp;lt;packaging&amp;gt;WAR&amp;lt;/packaging&amp;gt;&lt;/code&gt; tag to the &lt;code&gt;pom.xml&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;Remove the &lt;code&gt;build-capsule&lt;/code&gt; plugin execution (&lt;code&gt;package&lt;/code&gt; goal of &lt;code&gt;seedstack-maven-plugin&lt;/code&gt;) as this only works with standalone JAR files,&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Configure the &lt;code&gt;maven-war-plugin&lt;/code&gt; to ignore the absence of the &lt;code&gt;web.xml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;build&amp;gt;
+     &amp;lt;pluginManagement&amp;gt;
+         &amp;lt;plugins&amp;gt;
+             &amp;lt;plugin&amp;gt;
+                 &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;
+                 &amp;lt;artifactId&amp;gt;maven-war-plugin&amp;lt;/artifactId&amp;gt;
+                 &amp;lt;configuration&amp;gt;
+                     &amp;lt;failOnMissingWebXml&amp;gt;false&amp;lt;/failOnMissingWebXml&amp;gt;
+                 &amp;lt;/configuration&amp;gt;
+             &amp;lt;/plugin&amp;gt;
+         &amp;lt;/plugins&amp;gt;
+     &amp;lt;/pluginManagement&amp;gt;
+ &amp;lt;/build&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Exclude the embedded Web server from the Web composite:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;web-composite&amp;lt;/artifactId&amp;gt;
+    &amp;lt;exclusions&amp;gt;
+        &amp;lt;exclusion&amp;gt;
+            &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;seed-web-undertow&amp;lt;/artifactId&amp;gt;
+        &amp;lt;/exclusion&amp;gt;
+    &amp;lt;/exclusions&amp;gt;
+&amp;lt;dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;more-resources&#34;&gt;More resources&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/w20/&#34;&gt;W20 documentation&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/web/&#34;&gt;Web documentation&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/addons/w20-bridge/&#34;&gt;W20 bridge add-on documentation&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/seedstack/store-webapp-sample&#34;&gt;Simple Web application example&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

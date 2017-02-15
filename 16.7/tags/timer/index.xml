@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/timer/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/timer/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/scheduling/</link>
+      <pubDate>Sun, 15 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/scheduling/</guid>
+      <description>
+
+&lt;p&gt;Scheduling add-on provides a simple API to schedule task in Seed.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-scheduling-scheduling-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-scheduling-scheduling-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-scheduling-scheduling-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.scheduling&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;scheduling&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-scheduling-scheduling-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.1.1&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-scheduling-scheduling-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-scheduling-scheduling-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-scheduling-scheduling-version, #org-seedstack-addons-scheduling-scheduling-warn&#39;).show(); $(&#39;#org-seedstack-addons-scheduling-scheduling-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-scheduling-scheduling-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.scheduling:scheduling:2.1.1&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h1 id=&#34;declarative-api&#34;&gt;Declarative API&lt;/h1&gt;
+
+&lt;p&gt;Create a &lt;code&gt;Class&lt;/code&gt; implementing &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;scheduler.&amp;amp;#8203;Task&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/scheduler/Task.html&#39;&gt;Task&lt;/a&gt;&lt;/code&gt; and add a
+&lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;scheduler.&amp;amp;#8203;Scheduled&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/scheduler/Scheduled.html&#39;&gt;@Scheduled&lt;/a&gt;&lt;/code&gt; annotation with a cron expression.&lt;br&gt;
+Your task will be detected and scheduled according to the annotation content at Seed startup:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Scheduled(&amp;quot;0/2 * * * * ?&amp;quot;)
+public class MyTask implements Task {
+
+    @Override
+    public void execute() throws Exception {
+        return calculateSomething();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As shown in above snippet, the default &amp;laquo;value&amp;raquo; attribute of &lt;code&gt;@Scheduled&lt;/code&gt; is used for cron expression. &lt;br&gt;
+If any other attribute is required, the annotation becomes for instance :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Scheduled(value = &amp;quot;0/2 * * * * ?&amp;quot;, taskName = &amp;quot;TASK1&amp;quot;, exceptionPolicy = UNSCHEDULE_ALL_TRIGGERS)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;exceptionPolicy&lt;/code&gt; defines the behaviour on &lt;code&gt;Task&lt;/code&gt;&amp;rsquo;s exception. Refer to &lt;code&gt;@Scheduled&lt;/code&gt; JavaDoc for all its attributes.
+Refer to &lt;a href=&#34;http://quartz-scheduler.org/generated/2.2.1/html/qs-all/#page/Quartz_Scheduler_Documentation_Set%2Fco-trg_crontriggers.html%23&#34;&gt;Quartz Documentation&lt;/a&gt; for cron expression details.&lt;/p&gt;
+
+&lt;h1 id=&#34;programmatic-api&#34;&gt;Programmatic API&lt;/h1&gt;
+
+&lt;p&gt;Inject the &lt;code&gt;ScheduledTasks&lt;/code&gt; interface and programmatically define a scheduled task (not necessarily at application
+startup) with the following DSL:&lt;/p&gt;
+
+&lt;h2 id=&#34;cron-expression&#34;&gt;Cron expression&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private ScheduledTasks scheduledTasks;
+
+...
+
+scheduledTasks.scheduledTask(MyTask.class)
+    .withTaskName(&amp;quot;usefulTask&amp;quot;)
+    .withCronExpression(&amp;quot;0/2 * * * * ?&amp;quot;)
+    .schedule();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The above cron expression implicitly defines a &lt;code&gt;Trigger&lt;/code&gt; that will fire accordingly.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;with-a-trigger&#34;&gt;With a Trigger&lt;/h2&gt;
+
+&lt;p&gt;When a cron expression is not enough to define the expected triggering conditions, a Quartz &lt;code&gt;Trigger&lt;/code&gt; can be defined:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private ScheduledTasks scheduledTasks;
+
+...
+
+Trigger trigger = TriggerBuilder.newTrigger()
+    .withIdentity(TriggerKey.triggerKey(&amp;quot;myTrigger&amp;quot;, &amp;quot;myTriggerGroup&amp;quot;))
+    .withSchedule(SimpleScheduleBuilder.simpleSchedule()
+        .withIntervalInSeconds(1)
+        .repeatForever())
+    .startAt(DateBuilder.futureDate(2,DateBuilder.IntervalUnit.SECOND))
+    .build();
+
+scheduledTasks.scheduledTask(MyTask.class)
+        .withTrigger(trigger)
+        .withPriority(10)
+        .schedule();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;listeners&#34;&gt;Listeners&lt;/h1&gt;
+
+&lt;p&gt;Create a &lt;code&gt;Class&lt;/code&gt; implementing &lt;code&gt;TaskListener&lt;/code&gt; in order to listen to the &lt;code&gt;Task&lt;/code&gt; execution. The &lt;code&gt;Task&lt;/code&gt; is bound to the
+&lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;scheduler.&amp;amp;#8203;TaskListener&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/scheduler/TaskListener.html&#39;&gt;TaskListener&lt;/a&gt;&lt;/code&gt; by declaring the &lt;code&gt;Task&lt;/code&gt; as the &lt;code&gt;Type&lt;/code&gt; parameter:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyTaskListener implements TaskListener&amp;lt;MyTask&amp;gt; {
+    @Logging
+    private Logger logger;
+
+    @Inject
+    private ScheduledTasks scheduledTasks;
+
+    @Override
+    public void before(SchedulingContext schedulingContext) {
+        logger.info(&amp;quot;Before MyTask&amp;quot;);
+    }
+
+    @Override
+    public void after(SchedulingContext schedulingContext) {
+        logger.info(&amp;quot;After MyTask&amp;quot;);
+    }
+
+    @Override
+    public void onException(SchedulingContext schedulingContext, Exception e) {
+        logger.info(&amp;quot;Something has gone wrong, unscheduling&amp;quot;, e);
+        scheduledTasks
+            .scheduledTask(MyTask.class)
+            .unschedule(schedulingContext.getTriggerName());
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;&lt;strong&gt;Keep Code In Listeners Concise And Efficient.&lt;/strong&gt; Performing large amounts of work is discouraged, as the thread that
+would be executing the job (or completing the trigger and moving on to firing another job, etc.) will be tied up
+within the listener.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;&lt;strong&gt;Handle Exceptions.&lt;/strong&gt; Every listener method should contain a try-catch block that handles all possible exceptions. If
+a listener throws an exception, it may cause other listeners not to be notified and/or prevent the execution of
+the job, etc.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;exception-handling&#34;&gt;Exception handling&lt;/h1&gt;
+
+&lt;p&gt;When exception occurs during the task execution, you can choose to unschedule the Task or refire it immediately. You just
+have add an ExceptionPolicy to the Scheduled annotation.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Scheduled(value = &amp;quot;0/2 * * * * ?&amp;quot;, exceptionPolicy = UNSCHEDULE_ALL_TRIGGERS)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ExceptionPolicy can take the following values:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;REFIRE_IMMEDIATELY&lt;/code&gt;: Immediately re-execute the task. This option &lt;strong&gt;SHOULD BE USED VERY CAREFULLY&lt;/strong&gt; as the &lt;code&gt;Task&lt;/code&gt;
+will be fired indefinitely until successful or the application crashes.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;UNSCHEDULE_FIRING_TRIGGER&lt;/code&gt;: Unschedule the &lt;code&gt;Trigger&lt;/code&gt; firing the &lt;code&gt;Task&lt;/code&gt;. This option is convenient when a &lt;code&gt;Task&lt;/code&gt;
+fails due to a specific trigger.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;UNSCHEDULE_ALL_TRIGGERS&lt;/code&gt;: Unschedule all triggers associated to the &lt;code&gt;Task&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;NONE&lt;/code&gt;: Do nothing. Default value.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You can also choose to handle exception by yourself with a TaskListener. It will be possible to use the
+&lt;code&gt;UNSCHEDULE_ALL_TRIGGERS&lt;/code&gt; option and then reschedule the Task&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MyTaskListener implements TaskListener&amp;lt;MyTask&amp;gt; {
+
+    @Inject
+    private ScheduledTasks scheduledTasks;
+
+    @Override
+    public void onException(SchedulingContext schedulingContext, Exception e) {
+        logger.info(&amp;quot;Something has gone wrong&amp;quot;);
+        try {
+            // Fix the problem
+
+            // Reschedule
+            scheduledTasks
+                .scheduledTask(TimedTask.class)
+                .withTriggerName(schedulingContext.getTriggerName());
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;&lt;code&gt;Exception&lt;/code&gt; handling in a &lt;code&gt;TaskListener&lt;/code&gt; is called asynchronously in order to be sure to apply the &lt;code&gt;Task&lt;/code&gt;&amp;rsquo;s
+exception policy. Be careful in your implementation as it is impossible to know whether the &lt;code&gt;Task&lt;/code&gt;&amp;rsquo;s &lt;code&gt;exceptionPolicy&lt;/code&gt;
+or &lt;code&gt;TaskListener&lt;/code&gt;&amp;rsquo;s &lt;code&gt;onException()&lt;/code&gt; method is called first.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

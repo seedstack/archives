@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/example/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/example/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Publishing</title>
+      <link>http://seedstack.org/archives/16.7/addons/web-services/publish_hello_webservice/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/web-services/publish_hello_webservice/</guid>
+      <description>
+
+&lt;p&gt;The goal of this page is to detail the creation of an Hello World soap based Web Service.&lt;/p&gt;
+
+&lt;h1 id=&#34;wsdl&#34;&gt;WSDL&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;wsdl:definitions
+        xmlns=&amp;quot;http://schemas.xmlsoap.org/wsdl/&amp;quot;
+        xmlns:xsd=&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot;
+        xmlns:soap=&amp;quot;http://schemas.xmlsoap.org/wsdl/soap/&amp;quot;
+        xmlns:wsdl=&amp;quot;http://schemas.xmlsoap.org/wsdl/&amp;quot;
+        targetNamespace=&amp;quot;http://myproject.myorganization.org/wsdl/seed/hello/&amp;quot;
+        xmlns:tns=&amp;quot;http://myproject.myorganization.org/wsdl/seed/hello/&amp;quot;
+        name=&amp;quot;HelloService&amp;quot;&amp;gt;
+
+    &amp;lt;wsdl:types&amp;gt;&amp;lt;/wsdl:types&amp;gt;
+
+    &amp;lt;wsdl:message name=&amp;quot;sayHello&amp;quot;&amp;gt;
+        &amp;lt;wsdl:part name=&amp;quot;firstName&amp;quot; type=&amp;quot;xsd:string&amp;quot;/&amp;gt;
+    &amp;lt;/wsdl:message&amp;gt;
+    &amp;lt;wsdl:message name=&amp;quot;sayHelloResponse&amp;quot;&amp;gt;
+        &amp;lt;wsdl:part name=&amp;quot;return&amp;quot; type=&amp;quot;xsd:string&amp;quot;/&amp;gt;
+    &amp;lt;/wsdl:message&amp;gt;
+
+    &amp;lt;wsdl:portType name=&amp;quot;Hello&amp;quot;&amp;gt;
+        &amp;lt;wsdl:operation name=&amp;quot;sayHello&amp;quot;&amp;gt;
+            &amp;lt;wsdl:input message=&amp;quot;tns:sayHello&amp;quot;/&amp;gt;
+            &amp;lt;wsdl:output message=&amp;quot;tns:sayHelloResponse&amp;quot;/&amp;gt;
+        &amp;lt;/wsdl:operation&amp;gt;
+    &amp;lt;/wsdl:portType&amp;gt;
+
+    &amp;lt;wsdl:binding name=&amp;quot;HelloServicePortBinding&amp;quot; type=&amp;quot;tns:Hello&amp;quot;&amp;gt;
+        &amp;lt;soap:binding style=&amp;quot;rpc&amp;quot;   transport=&amp;quot;http://schemas.xmlsoap.org/soap/http&amp;quot;/&amp;gt;
+        &amp;lt;wsdl:operation name=&amp;quot;sayHello&amp;quot;&amp;gt;
+            &amp;lt;soap:operation soapAction=&amp;quot;&amp;quot;/&amp;gt;
+            &amp;lt;wsdl:input&amp;gt;
+                &amp;lt;soap:body
+                        namespace=&amp;quot;http://myproject.myorganization.org/wsdl/seed/hello/&amp;quot;
+                        use=&amp;quot;literal&amp;quot;/&amp;gt;
+            &amp;lt;/wsdl:input&amp;gt;
+            &amp;lt;wsdl:output&amp;gt;
+                &amp;lt;soap:body
+                        namespace=&amp;quot;http://myproject.myorganization.org/wsdl/seed/hello/&amp;quot;
+                        use=&amp;quot;literal&amp;quot;/&amp;gt;
+            &amp;lt;/wsdl:output&amp;gt;
+        &amp;lt;/wsdl:operation&amp;gt;
+    &amp;lt;/wsdl:binding&amp;gt;
+    &amp;lt;wsdl:service name=&amp;quot;HelloService&amp;quot;&amp;gt;
+
+        &amp;lt;wsdl:port name=&amp;quot;HelloServicePort&amp;quot; binding=&amp;quot;tns:HelloServicePortBinding&amp;quot;&amp;gt;
+            &amp;lt;wsdl:documentation&amp;gt;Hello World&amp;lt;/wsdl:documentation&amp;gt;
+            &amp;lt;soap:address location=&amp;quot;http://localhost:8080/ws/hello&amp;quot;&amp;gt;&amp;lt;/soap:address&amp;gt;
+        &amp;lt;/wsdl:port&amp;gt;
+    &amp;lt;/wsdl:service&amp;gt;
+&amp;lt;/wsdl:definitions&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;java-code&#34;&gt;Java code&lt;/h1&gt;
+
+&lt;p&gt;Configure the &lt;code&gt;jaxws-maven-plugin&lt;/code&gt; and use the &lt;code&gt;wsimport&lt;/code&gt; goal to generate web service java interface.&lt;/p&gt;
+
+&lt;p&gt;Then create a class which implement the generated interface by ws-import.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@WebService(
+    endpointInterface = &amp;quot;org.myorganization.myproject.wsdl.seed.hello.HelloService&amp;quot;,
+    targetNamespace = &amp;quot;http://myproject.myorganization.org/wsdl/seed/hello/&amp;quot;,
+    serviceName = &amp;quot;HelloService&amp;quot;,
+    portName = &amp;quot;HelloServicePort&amp;quot;
+)
+public class HelloServiceTest implements HelloService {
+    public String sayHello(String param) {
+        return &amp;quot;Hello &amp;quot; + param;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;To configure your endpoint, just add the following properties to your configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.ws]
+endpoints = HelloService
+
+endpoint.HelloService.implementation = fully.qualified.package.name.HelloServiceTest
+endpoint.HelloService.wsdl = Hello.wsdl
+endpoint.HelloService.url = /ws/hello
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that the WSDL location is relative to &lt;code&gt;META-INF/ws&lt;/code&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

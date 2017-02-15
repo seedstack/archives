@@ -1,0 +1,1078 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/sections/gettingstartedtutorial/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/sections/gettingstartedtutorial/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Create your first SeedStack project</title>
+      <link>http://seedstack.org/archives/16.7/getting-started/tutorial/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/getting-started/tutorial/</guid>
+      <description>&lt;p&gt;Welcome to the SeedStack tutorial! It is intended to walk you through the most interesting features of SeedStack, by
+making you build a simple Web application from scratch.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;SeedStack can be used for any type of project and provides templates for several &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/project-templates/&#34;&gt;predefined project types&lt;/a&gt;.
+This tutorial is focused on a &lt;strong&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/project-templates/web/&#34;&gt;Web application project&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;project-generation&#34;&gt;Project generation&lt;/h1&gt;
+
+&lt;p&gt;The first step is to create the Web application using the latest project template:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;mvn org.seedstack:seedstack-maven-plugin:generate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The generator will ask you a few questions, below are the recommended answers:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Project type: &lt;code&gt;web&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;Project group id: &lt;code&gt;org.myorg.myapp&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;Project artifact id: &lt;code&gt;my-app&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This will create the project in the &lt;code&gt;my-app&lt;/code&gt; subdirectory of the current directory.&lt;/p&gt;
+
+&lt;h1 id=&#34;first-build&#34;&gt;First build&lt;/h1&gt;
+
+&lt;p&gt;The project is immediately buildable. Go into the project directory and run the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;mvn clean install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The build process will create a &lt;a href=&#34;http://capsule.io&#34;&gt;Capsule&lt;/a&gt; of the project. A capsule is a standalone JAR containing
+all the files and dependencies of the project. The capsule can be launched with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;java -jar target/my-app-1.0.0-SNAPSHOT-capsule.jar
+&lt;/code&gt;&lt;/pre&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;first-run&#34;&gt;First run&lt;/h1&gt;
+
+&lt;p&gt;In development you can run the application without building the capsule:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;mvn seedstack:run
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When the application has started, you can display the Web UI by pointing your Browser of choice at
+&lt;a href=&#34;http://localhost:8080&#34;&gt;http://localhost:8080&lt;/a&gt;. You can now import the project in your IDE if desired.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;div class=&#39;pull-right margin-top-20&#39;&gt;
+    &lt;a href=&#39;http://seedstack.org/archives/16.7/archives/16.7/getting-started/tutorial/domain/&#39; class=&#34;btn btn-u&#34;&gt;Next: Step 1 - The domain&lt;/a&gt;
+&lt;/div&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;div class=&#34;clearfix&#34;&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Step 1 - The domain</title>
+      <link>http://seedstack.org/archives/16.7/getting-started/tutorial/domain/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/getting-started/tutorial/domain/</guid>
+      <description>&lt;p&gt;Now it is time to write the domain of the application. To do so, we will use the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/business/&#34;&gt;business framework&lt;/a&gt; which
+is implementing Domain-Driven Design principles and patterns.&lt;/p&gt;
+
+&lt;h1 id=&#34;the-domain-model&#34;&gt;The domain model&lt;/h1&gt;
+
+&lt;p&gt;The domain model goes in the &lt;code&gt;org.myorg.myapp.domain.model&lt;/code&gt; package with a subpackage for each aggregate.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;./model.png&#34; alt=&#34;UML diagram of the domain model&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;the-order-aggregate&#34;&gt;The Order aggregate&lt;/h2&gt;
+
+&lt;p&gt;The order aggregate represents a commercial order of products, in the subpackage &lt;code&gt;order&lt;/code&gt;. It is composed of the &lt;code&gt;OrderItem&lt;/code&gt;
+value object:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class OrderItem extends BaseValueObject {
+    private long productId;
+    private int quantity;
+    private double unitaryPrice;
+
+    public OrderItem(long productId, int quantity, double unitaryPrice) {
+        this.productId = productId;
+        this.quantity = quantity;
+        this.unitaryPrice = unitaryPrice;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public long getProductId() {
+        return productId;
+    }
+
+    public double getUnitaryPrice() {
+        return unitaryPrice;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And the &lt;code&gt;Order&lt;/code&gt; entity which acts as the aggregate root, ensuring integrity of the whole aggregate:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Order extends BaseAggregateRoot&amp;lt;Long&amp;gt; {
+    private Long orderId;
+    private Long customerId;
+    private Date checkoutDate;
+    private Map&amp;lt;Long, OrderItem&amp;gt; items = new HashMap&amp;lt;&amp;gt;();
+    private double total = 0d;
+
+    public Order(Long orderId, Long customerId) {
+        this.orderId = orderId;
+        this.customerId = customerId;
+    }
+
+    @Override
+    public Long getEntityId() {
+        return orderId;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public Date getCheckoutDate() {
+        return checkoutDate;
+    }
+
+    public void checkout() {
+        checkoutDate = new Date();
+    }
+
+    public boolean isCompleted() {
+        return checkoutDate != null;
+    }
+
+    public void addItem(OrderItem orderItem) {
+        if (isCompleted()) {
+            throw new IllegalStateException(&amp;quot;Cannot add items to a completed order&amp;quot;);
+        }
+
+        long productId = orderItem.getProductId();
+        if (items.containsKey(productId)) {
+            throw new IllegalStateException(&amp;quot;An order item for product &amp;quot; + productId + &amp;quot; already exists&amp;quot;);
+        }
+
+        items.put(productId, orderItem);
+        total += orderItem.getQuantity() * orderItem.getUnitaryPrice();
+    }
+
+    public OrderItem removeItem(OrderItem orderItem) {
+        if (isCompleted()) {
+            throw new IllegalStateException(&amp;quot;Cannot remove items from a completed order&amp;quot;);
+        }
+
+        OrderItem removedItem = items.remove(orderItem.getProductId());
+        if (removedItem == null) {
+            throw new IllegalStateException(&amp;quot;Item for product &amp;quot; + orderItem.getProductId() + &amp;quot;doesn&#39;t exists&amp;quot;);
+        }
+
+        total -= orderItem.getQuantity() * orderItem.getUnitaryPrice();
+        return orderItem;
+    }
+
+    public Collection&amp;lt;OrderItem&amp;gt; getItems() {
+        return Collections.unmodifiableCollection(items.values());
+    }
+
+    public double getTotal() {
+        return total;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;the-product-aggregate&#34;&gt;The Product aggregate&lt;/h2&gt;
+
+&lt;p&gt;The product aggregate represents a commercial product that can be sold, in the &lt;code&gt;product&lt;/code&gt; subpackage. It is solely composed
+of the &lt;code&gt;Product&lt;/code&gt; entity, acting as the aggregate root:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Product extends BaseAggregateRoot&amp;lt;Long&amp;gt; {
+    private Long productId;
+    private String description;
+    private double price;
+
+    public Product(long productId, String description, double price) {
+        this.productId = productId;
+        this.description = description;
+        this.price = price;
+    }
+
+    @Override
+    public Long getEntityId() {
+        return productId;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;the-seller-aggregate&#34;&gt;The Seller aggregate&lt;/h2&gt;
+
+&lt;p&gt;The seller aggregate will represent someone that has the ability to sell products through placing orders, in the &lt;code&gt;seller&lt;/code&gt;
+subpackage. As we have multiple strategies to compute seller bonuses, we will create a policy:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@DomainPolicy
+public interface BonusPolicy {
+    String PER_ITEM = &amp;quot;item&amp;quot;;
+    String TOTAL_PERCENTAGE = &amp;quot;percentage&amp;quot;;
+
+    double computeBonus(Order order);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The policy interface is annotated with &lt;code&gt;@DomainPolicy&lt;/code&gt; to be recognized by the business framework. The first implementation
+is a bonus which is a function of the number of items sold:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Named(BonusPolicy.PER_ITEM)
+class ItemBonusPolicy implements BonusPolicy {
+    private static final int ITEM_BONUS = 10;
+
+    @Override
+    public double computeBonus(Order order) {
+        return order.getItems().stream().mapToInt(OrderItem::getQuantity).sum() * ITEM_BONUS;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;@Named&lt;/code&gt; annotation is qualifying the implementation with a particular name. The second implementation is a bonus
+which is a function of the total price of the order:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Named(BonusPolicy.TOTAL_PERCENTAGE)
+class TotalBonusPolicy implements BonusPolicy {
+    private static final double BONUS_RATE = 0.02;
+
+    @Override
+    public double computeBonus(Order order) {
+        return order.getTotal() * BONUS_RATE;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Again the &lt;code&gt;@Named&lt;/code&gt; annotation is qualifying the implementation. Finally the Seller entity, will act as the aggregate
+root:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Seller extends BaseAggregateRoot&amp;lt;Long&amp;gt; {
+    public static final int SENIORITY_THRESHOLD = 90;
+    public static final long MILLISECONDS_IN_A_DAY = 1000 * 60 * 60 * 24;
+
+    private Long sellerId;
+    private Date hireDate;
+    private String bonusPolicy = BonusPolicy.PER_ITEM;
+    private double monthlyBonus = 0;
+
+    public Seller(long sellerId, Date hireDate) {
+        this.sellerId = sellerId;
+        this.hireDate = hireDate;
+    }
+
+    @Override
+    public Long getEntityId() {
+        return sellerId;
+    }
+
+    public void enablePercentageBonusPolicy() {
+        if (new Date().getTime() - hireDate.getTime() &amp;lt; SENIORITY_THRESHOLD * MILLISECONDS_IN_A_DAY) {
+            throw new IllegalStateException(&amp;quot;Percentage bonus policy requires at least 3 years of seniority&amp;quot;);
+        }
+        bonusPolicy = BonusPolicy.TOTAL_PERCENTAGE;
+    }
+
+    public void revertBonusPolicy() {
+        bonusPolicy = BonusPolicy.PER_ITEM;
+    }
+
+    public String getBonusPolicy() {
+        return bonusPolicy;
+    }
+
+    public void addToMonthlyBonus(double newBonus) {
+        this.monthlyBonus += newBonus;
+    }
+
+    public void resetMonthlyBonus() {
+        this.monthlyBonus = 0;
+    }
+
+    public Date getHireDate() {
+        return hireDate;
+    }
+
+    public double getMonthlyBonus() {
+        return monthlyBonus;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The Seller aggregate will manage which bonus policy can be applied based on the seniority of the seller.&lt;/p&gt;
+
+&lt;h1 id=&#34;domain-services&#34;&gt;Domain services&lt;/h1&gt;
+
+&lt;p&gt;Domain services go in the &lt;code&gt;org.myorg.myapp.domain.services&lt;/code&gt; package. Adding products to an order is not
+a complex task in itself but some business logic is still necessary. As the logic involves two aggregates, it would be
+cumbersome to place it in one of them. It is better located in a separate domain service:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Service
+public interface OrderingService {
+    void addProductToOrder(Order order, Product product, int quantity);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The service interface is annotated with &lt;code&gt;@Service&lt;/code&gt; to be recognized by the business framework. As it is a pure domain
+service, its implementation can be placed along in the same package:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class OrderingServiceImpl implements OrderingService {
+    @Override
+    public void addProductToOrder(Order order, Product product, int quantity) {
+        // Find items with the same product identifier if any
+        List&amp;lt;OrderItem&amp;gt; itemsToRemove = order.getItems().stream()
+                .filter(orderItem -&amp;gt; orderItem.getProductId() == product.getProductId())
+                .collect(Collectors.toList());
+
+        // Remove the items from the order and update the quantity
+        quantity += itemsToRemove.stream().map(order::removeItem).mapToInt(OrderItem::getQuantity).sum();
+
+        // Add a new item with the total quantity
+        order.addItem(new OrderItem(
+                product.getProductId(),
+                quantity,
+                product.getPrice() * quantity)
+        );
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We will also add a &lt;code&gt;BonusService&lt;/code&gt; to compute the bonus of a &lt;code&gt;Seller&lt;/code&gt; for a specific &lt;code&gt;Order&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Service
+public interface BonusService {
+    void updateSellerBonus(Seller seller, Order order);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With the following implementation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class BonusServiceImpl implements BonusService {
+    private final DomainRegistry domainRegistry;
+
+    @Inject
+    public BonusServiceImpl(DomainRegistry domainRegistry) {
+        this.domainRegistry = domainRegistry;
+    }
+
+    public void updateSellerBonus(Seller seller, Order order) {
+        BonusPolicy bonusPolicy = domainRegistry.getPolicy(BonusPolicy.class, seller.getBonusPolicy());
+        double orderBonus = bonusPolicy.computeBonus(order);
+        seller.addToMonthlyBonus(orderBonus);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that this service injects and uses the business framework &lt;code&gt;DomainRegistry&lt;/code&gt; which can be used to retrieve domain
+elements dynamically, such as the policy in this case (which depends upon the seller instance).&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+    &lt;div class=&#39;pull-left margin-top-20&#39;&gt;
+        &lt;a href=&#39;http://seedstack.org/archives/16.7/archives/16.7/getting-started/tutorial/&#39; class=&#34;btn btn-default&#34;&gt;Previous: Create your first SeedStack project&lt;/a&gt;
+    &lt;/div&gt;
+
+
+
+
+
+
+
+
+&lt;div class=&#39;pull-right margin-top-20&#39;&gt;
+    &lt;a href=&#39;http://seedstack.org/archives/16.7/archives/16.7/getting-started/tutorial/persistence/&#39; class=&#34;btn btn-u&#34;&gt;Next: Step 2 - The persistence&lt;/a&gt;
+&lt;/div&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;div class=&#34;clearfix&#34;&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Step 2 - The persistence</title>
+      <link>http://seedstack.org/archives/16.7/getting-started/tutorial/persistence/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/getting-started/tutorial/persistence/</guid>
+      <description>&lt;p&gt;We are going to add MongoDB persistence to our domain model by using the &lt;a href=&#34;http://seedstack.org/addons/mongodb&#34;&gt;SeedStack MongoDB add-on&lt;/a&gt;
+with the Morphia object-document mapping. Add the following Maven dependency to the &lt;code&gt;pom.xml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.mongodb&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mongodb-morphia&amp;lt;/artifactId&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The version of the dependency is managed by the SeedStack BOM.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;One way of installing MongoDB locally is to use &lt;a href=&#34;https://www.docker.com/&#34;&gt;Docker&lt;/a&gt;. Install it for your operating system,
+and then run the official &lt;a href=&#34;https://hub.docker.com/_/mongo/&#34;&gt;MongoDB docker image&lt;/a&gt; on your instance:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;docker run --name some-mongo -p 27017:27017 -d mongo
+&lt;/code&gt;&lt;/pre&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We need to configure a MongoDB client in the &lt;code&gt;seed.props&lt;/code&gt; file, located in &lt;code&gt;META-INF/configuration&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack]
+mongodb.clients = main
+
+[org.seedstack.mongodb.client.main]
+hosts = localhost
+databases = ddd
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A little bit of configuration is also required to link our domain model to the MongoDB client and database we just declared:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.myorg.myapp.domain.model.*]
+morphia.clientName = main
+morphia.dbName = ddd
+default-repository = org.seedstack.mongodb.morphia.Morphia
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This tells the business framework to consider that every Morphia default repository for aggregate roots in the &lt;code&gt;org.myorg.myapp.domain.model&lt;/code&gt;
+package and its subpackages is bound to the &lt;code&gt;ddd&lt;/code&gt; database through the &lt;code&gt;main&lt;/code&gt; client. It also tell that, when injecting the
+default repositories of those aggregates, the Morphia implementation should be used by default.&lt;/p&gt;
+
+&lt;p&gt;From there, we can simply add Morphia annotations on the domain model and add a private default constructor required by
+Morphia. The &lt;code&gt;Order&lt;/code&gt; entity becomes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Entity
+public class Order extends BaseAggregateRoot&amp;lt;Long&amp;gt; {
+    @Id
+    private Long orderId;
+    private Long customerId;
+    private Date checkoutDate;
+    private Map&amp;lt;Long, OrderItem&amp;gt; items = new HashMap&amp;lt;&amp;gt;();
+    private double total = 0d;
+
+    public Order(Long orderId, Long customerId) {
+        this.orderId = orderId;
+        this.customerId = customerId;
+    }
+
+    private Order() {
+        // required by Morphia
+    }
+
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;OrderItem&lt;/code&gt; value object becomes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Embedded
+public class OrderItem extends BaseValueObject {
+    private long productId;
+    private int quantity;
+    private double unitaryPrice;
+
+    public OrderItem(long productId, int quantity, double unitaryPrice) {
+        this.productId = productId;
+        this.quantity = quantity;
+        this.unitaryPrice = unitaryPrice;
+    }
+
+    private OrderItem() {
+        // require by Morphia
+    }
+
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;Product&lt;/code&gt; entity becomes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Entity
+public class Product extends BaseAggregateRoot&amp;lt;Long&amp;gt; {
+    @Id
+    private Long productId;
+    private String description;
+    private double price;
+
+    public Product(long productId, String description, double price) {
+        this.productId = productId;
+        this.description = description;
+        this.price = price;
+    }
+
+    private Product() {
+        // required by Morphia
+    }
+
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;Seller&lt;/code&gt; entity becomes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Entity
+public class Seller extends BaseAggregateRoot&amp;lt;Long&amp;gt; {
+    public static final int SENIORITY_THRESHOLD = 90;
+    public static final long MILLISECONDS_IN_A_DAY = 1000 * 60 * 60 * 24;
+
+    @Id
+    private Long sellerId;
+    private Date hireDate;
+    private String bonusPolicy = BonusPolicy.PER_ITEM;
+    private double monthlyBonus = 0;
+
+    public Seller(long sellerId, Date hireDate) {
+        this.sellerId = sellerId;
+        this.hireDate = hireDate;
+    }
+
+    private Seller() {
+        // required by Morphia
+    }
+
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    &lt;div class=&#39;pull-left margin-top-20&#39;&gt;
+        &lt;a href=&#39;http://seedstack.org/archives/16.7/archives/16.7/getting-started/tutorial/domain/&#39; class=&#34;btn btn-default&#34;&gt;Previous: Step 1 - The domain&lt;/a&gt;
+    &lt;/div&gt;
+
+
+
+
+
+
+
+
+&lt;div class=&#39;pull-right margin-top-20&#39;&gt;
+    &lt;a href=&#39;http://seedstack.org/archives/16.7/archives/16.7/getting-started/tutorial/application/&#39; class=&#34;btn btn-u&#34;&gt;Next: Step 3 - The application&lt;/a&gt;
+&lt;/div&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+&lt;div class=&#34;clearfix&#34;&gt;&lt;/div&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Step 3 - The application</title>
+      <link>http://seedstack.org/archives/16.7/getting-started/tutorial/application/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/getting-started/tutorial/application/</guid>
+      <description>&lt;p&gt;The application layer is located in the &lt;code&gt;org.myorg.myapp.application&lt;/code&gt; package. It is responsible for
+driving the application workflow, executing the use cases of the system. We will define an application service, responsible
+for completing the checkout of an order by a seller:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Service
+public interface CheckoutService {
+    void checkout(Order order) throws CheckoutException;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A checkout exception is needed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class CheckoutException extends Exception {
+    public CheckoutException(String message) {
+        super(message);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Its implementation will fake a lookup of the currently authenticated seller and use it to complete the checkout, updating
+its bonus in the process:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class CheckoutServiceImpl implements CheckoutService {
+    @Inject
+    @Morphia
+    Repository&amp;lt;Seller, Long&amp;gt; sellerRepository;
+    @Inject
+    @Morphia
+    Repository&amp;lt;Order, Long&amp;gt; orderRepository;
+    @Inject
+    BonusService bonusService;
+
+    @Override
+    public void checkout(Order order) throws CheckoutException {
+        Optional&amp;lt;Seller&amp;gt; authenticatedSeller = getAuthenticatedSeller();
+        if (authenticatedSeller.isPresent()) {
+            // Do the checkout
+            order.checkout();
+            orderRepository.save(order);
+
+            // Update seller info
+            Seller seller = authenticatedSeller.get();
+            bonusService.updateSellerBonus(seller, order);
+            sellerRepository.save(seller);
+        } else {
+            throw new CheckoutException(&amp;quot;No user authenticated or current user is not a seller&amp;quot;);
+        }
+    }
+
+    public Optional&amp;lt;Seller&amp;gt; getAuthenticatedSeller() {
+        return Optional.of(sellerRepository.load(1L));
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This implementation uses JSR-330 injection:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Two default Morphia repositories are injected, one for the seller and one for the order. Default repositories are automatically
+created by the business framework without additional coding. They support basic CRUD operations and can be injected with
+the &lt;code&gt;Repository&lt;/code&gt; generic interface.&lt;/li&gt;
+&lt;li&gt;The domain service &lt;code&gt;BonusService&lt;/code&gt; is injected.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It is time now to add some mock data to our system, avoiding the need for us to code all nuts and bolts. We will do so
+with a &lt;code&gt;LifecycleListener&lt;/code&gt;, located in the &lt;code&gt;org.myorg.myapp.infrastructure&lt;/code&gt; package, which will be
+executed after the startup and before the shutdown of the application:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MockLifecycleListener implements LifecycleListener {
+    @Inject
+    @Morphia
+    private Repository&amp;lt;Order, Long&amp;gt; orderRepository;
+    @Inject
+    @Morphia
+    private Repository&amp;lt;Product, Long&amp;gt; productRepository;
+    @Inject
+    @Morphia
+    private Repository&amp;lt;Seller, Long&amp;gt; sellerRepository;
+    @Inject
+    private OrderingService orderingService;
+
+    @Override
+    public void started() {
+        clearData();
+
+        // Sellers
+        sellerRepository.persist(new Seller(1, new Date()));
+
+        // Products
+        productRepository.persist(new Product(1, &amp;quot;Product 1&amp;quot;, 350));
+        productRepository.persist(new Product(2, &amp;quot;Product 2&amp;quot;, 420));
+        productRepository.persist(new Product(3, &amp;quot;Product 3&amp;quot;, 320));
+        productRepository.persist(new Product(4, &amp;quot;Product 4&amp;quot;, 100));
+        productRepository.persist(new Product(5, &amp;quot;Product 5&amp;quot;, 76));
+
+        // Customer 1 orders
+        orderRepository.persist(buildOrder(1, 1, 2));
+        orderRepository.persist(buildOrder(2, 1, 5));
+        orderRepository.persist(buildOrder(3, 1, 3));
+
+        // Customer 2 orders
+        orderRepository.persist(buildOrder(4, 2, 8));
+    }
+
+    @Override
+    public void stopping() {
+        clearData();
+    }
+
+    private Order buildOrder(long id, long customerId, int itemCount) {
+        Order order = new Order(id, customerId);
+
+        Random random = new Random();
+        long productCount = productRepository.count();
+        for (int i = 0; i &amp;lt; itemCount; i++) {
+            Product product = productRepository.load((Math.abs(random.nextLong()) % productCount) + 1);
+            orderingService.addProductToOrder(order, product, random.nextInt(5) + 1);
+        }
+
+        order.checkout();
+
+        return order;
+    }
+
+    private void clearData() {
+        orderRepository.clear();
+        productRepository.clear();
+        sellerRepository.clear();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This &lt;code&gt;LifecycleListener&lt;/code&gt; will add one seller, several products and orders to clean database collections.&lt;/p&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    &lt;div class=&#39;pull-left margin-top-20&#39;&gt;
+        &lt;a href=&#39;http://seedstack.org/archives/16.7/archives/16.7/getting-started/tutorial/persistence/&#39; class=&#34;btn btn-default&#34;&gt;Previous: Step 2 - The persistence&lt;/a&gt;
+    &lt;/div&gt;
+
+
+
+
+
+
+
+
+&lt;div class=&#39;pull-right margin-top-20&#39;&gt;
+    &lt;a href=&#39;http://seedstack.org/archives/16.7/archives/16.7/getting-started/tutorial/rest/&#39; class=&#34;btn btn-u&#34;&gt;Next: Step 4 - The REST API&lt;/a&gt;
+&lt;/div&gt;
+
+
+
+
+
+
+
+
+&lt;div class=&#34;clearfix&#34;&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Step 4 - The REST API</title>
+      <link>http://seedstack.org/archives/16.7/getting-started/tutorial/rest/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/getting-started/tutorial/rest/</guid>
+      <description>&lt;p&gt;For our domain and its client application to be useful to others, we need to create an interface with the outside world.
+In this example, we choose to build a simply REST API. SeedStack provides full JAX-RS 2 support through Jersey 2.&lt;/p&gt;
+
+&lt;p&gt;We start by adding a simplified REST representation of an order to the &lt;code&gt;org.myorg.myapp.rest.order&lt;/code&gt; package:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@DtoOf(Order.class)
+public class OrderRepresentation {
+    private Long orderId;
+    private Long customerId;
+    private Date checkoutDate;
+    private double total;
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
+    }
+
+    public Date getCheckoutDate() {
+        return checkoutDate;
+    }
+
+    public void setCheckoutDate(Date checkoutDate) {
+        this.checkoutDate = checkoutDate;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;@DtoOf&lt;/code&gt; annotation indicates the business framework that &lt;code&gt;OrderRepresentation&lt;/code&gt; is a DTO of the &lt;code&gt;Order&lt;/code&gt; aggregate. This
+will be required by the DTO assembling facade we will use below.&lt;/p&gt;
+
+&lt;p&gt;The default repositories don&amp;rsquo;t provide methods to load and manipulate collections. We will write a &lt;code&gt;Finder&lt;/code&gt; which will
+be responsible for efficient retrieval of data specific to our REST interface (i.e. &lt;code&gt;OrderRepresentation&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Finder
+public interface OrderFinder {
+    List&amp;lt;OrderRepresentation&amp;gt; findAllOrders();
+
+    List&amp;lt;OrderRepresentation&amp;gt; findCustomerOrders(long customerId);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As it is dependent on Morphia, its implementation will go in the &lt;code&gt;org.myorg.myapp.infrastructure.morphia&lt;/code&gt;
+package:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MorphiaOrderFinder implements OrderFinder {
+    @Inject
+    @MorphiaDatastore(clientName = &amp;quot;main&amp;quot;, dbName = &amp;quot;ddd&amp;quot;)
+    private Datastore datastore;
+    @Inject
+    private FluentAssembler fluentAssembler;
+
+    @Override
+    public List&amp;lt;OrderRepresentation&amp;gt; findAllOrders() {
+        Query&amp;lt;Order&amp;gt; query = datastore.find(Order.class);
+        query.field(&amp;quot;checkoutDate&amp;quot;).notEqual(null);
+        return fluentAssembler
+                .assemble(query.asList())
+                .with(ModelMapper.class)
+                .to(OrderRepresentation.class);
+    }
+
+    @Override
+    public List&amp;lt;OrderRepresentation&amp;gt; findCustomerOrders(long customerId) {
+        Query&amp;lt;Order&amp;gt; query = datastore.find(Order.class);
+        query.field(&amp;quot;checkoutDate&amp;quot;).notEqual(null);
+        query.field(&amp;quot;customerId&amp;quot;).equal(customerId);
+        return fluentAssembler
+                .assemble(query.asList())
+                .with(ModelMapper.class)
+                .to(OrderRepresentation.class);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally, we write the JAX-RS resource, making use of both the &lt;code&gt;OrderFinder&lt;/code&gt; and the default repository of &lt;code&gt;Order&lt;/code&gt; aggregate:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Path(&amp;quot;/orders&amp;quot;)
+public class OrderResource {
+    @Inject
+    private OrderFinder orderFinder;
+    @Inject
+    private Repository&amp;lt;Order, Long&amp;gt; orderRepository;
+    @Inject
+    private FluentAssembler fluentAssembler;
+
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public List&amp;lt;OrderRepresentation&amp;gt; listOrders(@QueryParam(&amp;quot;customerId&amp;quot;) Long customerId) {
+        if (customerId == null) {
+            return orderFinder.findAllOrders();
+        } else {
+            return orderFinder.findCustomerOrders(customerId);
+        }
+    }
+
+    @GET
+    @Path(&amp;quot;/{orderId}&amp;quot;)
+    @Produces({MediaType.APPLICATION_JSON})
+    public OrderRepresentation getOrderDetails(@PathParam(&amp;quot;orderId&amp;quot;) Long orderId) {
+        Order order = orderRepository.load(orderId);
+        if (order == null) {
+            throw new NotFoundException(&amp;quot;Order &amp;quot; + orderId + &amp;quot; not found&amp;quot;);
+        }
+        return fluentAssembler.assemble(order).with(ModelMapper.class).to(OrderRepresentation.class);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can now request the mock orders we created earlier with one of the following REST endpoints:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/api/orders&lt;/code&gt; which is the list of all orders. This URL accepts a &lt;code&gt;customerId&lt;/code&gt; query param to only return the orders of a specific
+customer.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/api/orders/{orderId}&lt;/code&gt; which is the detail of a specific order (like &lt;code&gt;/orders/1&lt;/code&gt;). For simplicity, we just return the same
+representation as in the list but we can build another, more detailed, representation of an &lt;code&gt;Order&lt;/code&gt; for this sub-resource.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    &lt;div class=&#39;pull-left margin-top-20&#39;&gt;
+        &lt;a href=&#39;http://seedstack.org/archives/16.7/archives/16.7/getting-started/tutorial/application/&#39; class=&#34;btn btn-default&#34;&gt;Previous: Step 3 - The application&lt;/a&gt;
+    &lt;/div&gt;
+
+
+
+
+
+
+
+
+
+&lt;div class=&#34;clearfix&#34;&gt;&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

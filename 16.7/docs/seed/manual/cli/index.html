@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+<head>
+
+    
+
+<title>
+    Command-line
+</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="robots" content="noindex,nofollow">
+
+
+
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,700,300,400" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Bitter:700" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/css/style.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/plugins/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/css/style.css">
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "SoftwareApplication",
+  "name" : "SeedStack",
+  "image" : "http://www.seedstack.org/img/logos/seedstack-logo-round.svg",
+  "publisher" : {
+    "@type" : "Organization",
+    "name" : "Open-Source Software"
+  },
+  "applicationCategory" : "development stack"
+}
+</script>
+
+
+
+<meta property="og:title" content="Command-line" />
+<meta property="og:description" content="Writing advanced command-line applications is simple with the Java framework command-line interface (CLI) module. Seed
+provides support for multiple commands, each with their own options and argument combinations. To enable CLI support
+to your project, add the seed-cli module to your classpath." />
+<meta property="og:url" content="http://seedstack.org/archives/16.7/docs/seed/manual/cli/" />
+<meta property="og:site_name" content="SeedStack" />
+<meta property="og:image" content="http://seedstack.org/archives/16.7/img/opengraph-default.png" />
+
+
+
+<link rel="search" type="application/opensearchdescription+xml" href="http://seedstack.org/archives/16.7/opensearch.xml" title="SeedStack" />
+
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="http://seedstack.org/archives/16.7/img/favicons/manifest.json">
+<meta name="apple-mobile-web-app-title" content="SeedStack">
+<meta name="application-name" content="SeedStack">
+<meta name="msapplication-TileColor" content="#00a300">
+<meta name="msapplication-TileImage" content="/img/favicons/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<script type="text/javascript">
+    window.seedstack = {
+        baseUrl: "http:\/\/seedstack.org\/archives\/16.7\/",
+        state: {}
+    };
+</script>
+
+
+</head>
+<body class="homepage">
+    
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5R5FP9"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5R5FP9');</script>
+
+
+    <div id="header">
+        <div class="header">
+    <div class="container">
+        <a class="logo" href="http://seedstack.org/archives/16.7/">SeedStack</a>
+        <div class="topbar hidden-xs hidden-sm">
+            <ul class="loginbar pull-right">
+                <li><i class="fa fa-stack-overflow"></i> <a style="color: orange;" target="_blank" href="http://stackoverflow.com/questions/ask?tags=seedstack">Ask a question</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-comments"></i> <a target="_blank" href="https://kiwiirc.com/client/irc.freenode.net#seedstack">Discuss on IRC</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-github"></i> <a target="_blank" href="https://github.com/seedstack">GitHub</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-keyboard-o"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openHelp();">Shortcuts</a></li>
+            </ul>
+        </div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="fa fa-bars"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse navbar-responsive-collapse" data-role="navigation" style="pointer-events: none;">
+        <div class="container">
+            <ul class="nav navbar-nav" style="pointer-events: auto;">
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/getting-started">Getting started</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        Documentation
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://seedstack.org/archives/16.7/docs/seed">Java framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/w20">Web framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/business">Business framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/guides">Guides</a></li>
+                        <li><a target="_blank" href="https://github.com/seedstack/samples">Samples</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/addons">Add-ons</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/themes">Themes</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/posts">Blog</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        More
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="http://seedstack.org/archives/16.7/project/community">Community</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/roadmap">Roadmap</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/faq">FAQ</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/glossary">Glossary</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/tags">Tags</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <i class="search fa fa-search search-btn"></i>
+                    <div class="search-open">
+                        <form method="GET" action="/search">
+                            <div class="input-group animated fadeInDown">
+                                <input id="search-field" type="text" class="form-control" placeholder="Search" name="q">
+                                <span class="input-group-btn">
+                                    <button class="btn-u" type="submit">Go</button>
+                                </span>
+                            </div>
+                        </form>
+                        
+                            
+                        
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+        
+<div class="title-header small">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-12">
+                <h2>Java framework</h2>
+                <p class="hidden-xs">Also known as Seed, the Java framework provides support for a large range of technologies and standards from the Java world.</p>
+            </div>
+            <div class="col-md-3 hidden-sm hidden-xs">
+                <div class="header-image-wrapper">
+                    <img class="header-image" src="http://seedstack.org/archives/16.7/img/logos/seed-logo.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="title-subheader">
+    <div class="container">
+        <ul>
+            <li><h3 class=''><i class="fa fa-play-circle"></i> <a href="http://seedstack.org/archives/16.7/docs/seed">Introduction</a></h3></li>
+            <li><h3 class='active'><i class="fa fa-book"></i> <a href="http://seedstack.org/archives/16.7/docs/seed/manual">Manual</a></h3></li>
+            <li><h3 class=''><i class="fa fa-server"></i> <a href="http://seedstack.org/archives/16.7/docs/seed/runtime">Runtime</a></h3></li>
+            <li><h3 class=''><i class="fa fa-cogs"></i> <a href="http://seedstack.org/archives/16.7/docs/seed/maven-plugin">Maven plugin</a></h3></li>
+            <li><h3><i class="fa fa-info-circle"></i> <a href="http://seedstack.org/archives/16.7/javadoc" target="_blank">Javadoc</a></h3></li>
+            <li><h3><i class="fa fa-tag"></i> <a href="https://github.com/seedstack/seed/releases" target="_blank">Releases</a></h3></li>
+            <li><h3><i class="fa fa-github"></i> <a href="https://github.com/seedstack/seed" target="_blank">Source</a></h3></li>
+        </ul>
+    </div>
+</div>
+
+    </div>
+    <div id="content" class="container">
+        <div class="row">
+    <div class="col-md-9">
+        <div class="content-wrapper">
+            <div class="doc-content">
+                <p>Writing advanced command-line applications is simple with the Java framework command-line interface (CLI) module. Seed
+provides support for multiple commands, each with their own options and argument combinations. To enable CLI support
+to your project, add the <code>seed-cli</code> module to your classpath.</p>
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+<div class="tab-v2">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab-org-seedstack-seed-seed-cli-maven" data-toggle="tab" aria-expanded="true">Maven</a></li>
+        <li class=""><a href="#tab-org-seedstack-seed-seed-cli-gradle" data-toggle="tab" aria-expanded="true">Gradle</a></li>
+    </ul>
+    <span class="tabs-icon fa-2x fa fa-cubes pull-right"></span>
+    <div class="clear-both"></div>
+    <div class="tab-content">
+        <div class="tab-pane in active" id="tab-org-seedstack-seed-seed-cli-maven">
+            <pre style="margin-top: 0;"><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.seedstack.seed&lt;/groupId&gt;
+    &lt;artifactId&gt;seed-cli&lt;/artifactId&gt;<span id="org-seedstack-seed-seed-cli-version" style="display: none;">
+    &lt;version&gt;2.3.0&lt;/version&gt;</span>
+&lt;/dependency&gt;</code></pre>
+            <small class="pull-right" style="color: #aaa; margin-top: -20px; margin-right: 5px;">
+                <span id="org-seedstack-seed-seed-cli-warn" style="display: none;"><i class="fa fa-warning" style="color: orange;"></i> Specifying versions manually is error-prone, use the <a href="http://seedstack.org/archives/16.7/getting-started/distribution">distribution</a> instead.</span>
+                <a style="cursor: pointer;" id="org-seedstack-seed-seed-cli-show" onclick="$('#org-seedstack-seed-seed-cli-version, #org-seedstack-seed-seed-cli-warn').show(); $('#org-seedstack-seed-seed-cli-show').hide();">Show version</a>
+            </small>
+        </div>
+        <div class="tab-pane in" id="tab-org-seedstack-seed-seed-cli-gradle">
+            <pre style="margin-bottom: 0;"><code class="java">dependencies {
+    compile("org.seedstack.seed:seed-cli:2.3.0")
+}</code></pre>
+        </div>
+    </div>
+</div>
+
+
+<h1 id="defining-commands">Defining commands</h1>
+
+<p>To define a CLI command, simply declare a class implementing the <code><a data-toggle="tooltip" data-html="true" title='org.&amp;#8203;seedstack.&amp;#8203;seed.&amp;#8203;cli.&amp;#8203;CommandLineHandler' href='http://seedstack.org/javadoc/org/seedstack/seed/cli/CommandLineHandler.html'>CommandLineHandler</a></code>
+interface and annotated with <code><a data-toggle="tooltip" data-html="true" title='org.&amp;#8203;seedstack.&amp;#8203;seed.&amp;#8203;cli.&amp;#8203;CliCommand' href='http://seedstack.org/javadoc/org/seedstack/seed/cli/CliCommand.html'>@CliCommand</a></code>:</p>
+
+<pre><code>@CliCommand(&quot;my-command&quot;)
+public class MyCommandLineHandler implements CommandLineHandler {
+
+    @Override
+    public Integer call() throws Exception {
+        return 0;
+    }
+
+}
+</code></pre>
+
+<p>This will register the command named <code>my-command</code> without any option or argument. When this command is invoked
+from the command-line, the <code>call</code> method is invoked. You must return an integer code from this method which will be
+returned to the operating system.</p>
+
+<h1 id="running-commands">Running commands</h1>
+
+<p>When the <code>seed-cli</code> module is present on the classpath, you can launch any command by invoking the <code><a data-toggle="tooltip" data-html="true" title='org.&amp;#8203;seedstack.&amp;#8203;seed.&amp;#8203;core.&amp;#8203;SeedMain' href='http://seedstack.org/javadoc/org/seedstack/seed/core/SeedMain.html'>SeedMain</a></code>
+main class from the command-line:</p>
+
+<pre><code>java [jvm-args] -cp ... org.seedstack.core.SeedMain my-command
+</code></pre>
+
+<p>This will execute the <code>call()</code> method of the <code>MyCommandLineHandler</code> class defined above.</p>
+
+<div class="callout callout-warning">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+            
+                <i class="fa fa-exclamation-triangle icon-2x"></i>
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>The <code><a data-toggle="tooltip" data-html="true" title='org.&amp;#8203;seedstack.&amp;#8203;seed.&amp;#8203;core.&amp;#8203;SeedMain' href='http://seedstack.org/javadoc/org/seedstack/seed/core/SeedMain.html'>SeedMain</a></code> class will search for a <em>unique</em> implementation of the <code><a data-toggle="tooltip" data-html="true" title='org.&amp;#8203;seedstack.&amp;#8203;seed.&amp;#8203;spi.&amp;#8203;SeedLauncher' href='http://seedstack.org/javadoc/org/seedstack/seed/spi/SeedLauncher.html'>SeedLauncher</a></code>
+interface in the classpath and execute it. The <code>seed-cli</code> module provides an implementation for command-line execution
+but the <code>seed-web-undertow</code> module provides one for embedded Web server execution. If both are in
+the classpath at the same time, an exception will occur. <strong>To avoid this situation, be sure use separate modules for
+command-line applications and web applications.</strong></p>
+
+        </div>
+    </div>
+</div>
+
+<div class="callout callout-tips">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+                <i class="fa fa-lightbulb-o icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>One difficulty of running a Java application from the command line is to properly set its classpath. As such, launching
+a Seed application from the command line is often used in combination with über-JAR packaging where a unique JAR contains
+all the necessary classes and dependencies to run the application. With this kind of packaging, launching the application
+becomes as simple as:</p>
+
+<pre><code>java [jvm-args] -jar app.jar [app-args]
+</code></pre>
+
+<p>Check the <a href="http://seedstack.org/archives/16.7/docs/seed/maven-plugin/">SeedStack Maven plugin</a> for more information about how to easily package such a JAR.</p>
+
+        </div>
+    </div>
+</div>
+
+<h1 id="arguments-and-options">Arguments and options</h1>
+
+<p>More often than not, commands must accept various options and arguments to alter their behaviors. This is well supported
+by the Java framework through annotations:</p>
+
+<ul>
+<li>The <code><a data-toggle="tooltip" data-html="true" title='org.&amp;#8203;seedstack.&amp;#8203;seed.&amp;#8203;cli.&amp;#8203;CliOption' href='http://seedstack.org/javadoc/org/seedstack/seed/cli/CliOption.html'>@CliOption</a></code> annotation can be applied to <code><a data-toggle="tooltip" data-html="true" title='org.&amp;#8203;seedstack.&amp;#8203;seed.&amp;#8203;cli.&amp;#8203;CommandLineHandler' href='http://seedstack.org/javadoc/org/seedstack/seed/cli/CommandLineHandler.html'>CommandLineHandler</a></code>s
+fields to inject an option.</li>
+<li>The <code><a data-toggle="tooltip" data-html="true" title='org.&amp;#8203;seedstack.&amp;#8203;seed.&amp;#8203;cli.&amp;#8203;CliArgs' href='http://seedstack.org/javadoc/org/seedstack/seed/cli/CliArgs.html'>@CliArgs</a></code> annotation can be applied to <code><a data-toggle="tooltip" data-html="true" title='org.&amp;#8203;seedstack.&amp;#8203;seed.&amp;#8203;cli.&amp;#8203;CommandLineHandler' href='http://seedstack.org/javadoc/org/seedstack/seed/cli/CommandLineHandler.html'>CommandLineHandler</a></code>s
+fields to inject command arguments.</li>
+</ul>
+
+<p>Consider the following example:</p>
+
+<pre><code>@CliCommand(&quot;test&quot;)
+public class SampleCommandLineHandler implements CommandLineHandler {
+    @CliOption(name = &quot;o1&quot;, longName = &quot;option1&quot;)
+    private Boolean hasOption1;
+
+    @CliOption(name = &quot;o2&quot;, longName = &quot;option2&quot; valueCount = 1, mandatory = true)
+    private String option2;
+
+    @CliOption(name = &quot;o3&quot;, valueCount = 2, mandatoryValue = true, defaultValues = {&quot;1&quot;, &quot;2&quot;})
+    private String[] option3;
+
+    @CliOption(name = &quot;o4&quot;, valueCount = -1, valueSeparator = '=')
+    private Map&lt;String, String&gt; option4;
+
+    @CliArgs(mandatoryCount = 2)
+    private String[] args;
+
+    @Override
+    public Integer call() throws Exception {
+        return 0;
+    }
+}
+</code></pre>
+
+<p>The annotations above define:</p>
+
+<ul>
+<li>An option named <code>o1</code> or <code>option1</code> which acts as a flag, present or not. Its presence is injected in the <code>hasOption1</code>
+boolean field. <em>This can be specified with <code>-o1</code> or <code>--option1</code> on the command-line.</em></li>
+<li>An option named <code>o2</code> or <code>option2</code> which takes a unique value. Its value is injected in the <code>option2</code> string field.
+This option is mandatory. <em>This can be specified with the <code>-o2 value</code> or <code>--option2 value</code> on the command-line.</em></li>
+<li>An option named <code>o3</code> which takes 2 comma-separated values (the default separator). The values for this option are
+mandatory and default to <code>1</code> and <code>2</code>. They are injected in the <code>option3</code> string array field. <em>This can be specified with
+<code>-o3 5,6</code> on the command-line</em>.</li>
+<li>An option named <code>o4</code> which takes and unlimited number of values separated by <code>=</code>. The odd/even value pairs are injected
+as key/value pairs in the map. <em>This can be specified as <code>-o4 key1=value1 -o4 key2=value2</code> on the command-line</em>.</li>
+<li>Any number of arguments with at-least two which are mandatory. <em>This can be specified as <code>arg1 arg2</code> on the command-line</em>.</li>
+</ul>
+
+<div class="callout callout-tips">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+                <i class="fa fa-lightbulb-o icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>You can find more information about the various parameters and combinations in the <a href="http://seedstack.org/javadoc/org/seedstack/seed/cli/package-summary.html">Javadoc</a>.</p>
+
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        
+<div class="side-menu">
+    
+        
+        <div class="list-group">
+            <ul class="nav">
+                
+                
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/" class="list-group-item ">
+                            Java framework basics
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/testing/" class="list-group-item ">
+                            Testing
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/cli/" class="list-group-item  active ">
+                            Command-line
+                        </a>
+                        
+                        
+                            <nav id="TableOfContents">
+<ul>
+<li><a href="#defining-commands">Defining commands</a></li>
+<li><a href="#running-commands">Running commands</a></li>
+<li><a href="#arguments-and-options">Arguments and options</a></li>
+</ul>
+</nav>
+                            <script>
+                                seedstack.state.previousPage = '\/archives\/16.7\/docs\/seed\/manual\/testing\/';
+                            </script>
+                            
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/web/" class="list-group-item ">
+                            Web
+                        </a>
+                        
+                            <script>
+                                seedstack.state.nextPage = '\/archives\/16.7\/docs\/seed\/manual\/web\/';
+                            </script>
+                            
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/security/" class="list-group-item ">
+                            Security
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/rest/" class="list-group-item ">
+                            REST
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/transactions/" class="list-group-item ">
+                            Transactions
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/operations/" class="list-group-item ">
+                            Operations
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/crypto/" class="list-group-item ">
+                            Cryptography
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/more/" class="list-group-item ">
+                            More
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+            </ul>
+        </div>
+        
+    
+    
+    <div class="list-group">
+        <ul class="nav">
+            <li class="list-group-item"><div style="margin-bottom: 10px;"><i class="fa fa-tag"></i> Tags</div>
+                <div class="tags">
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/cli">Cli</a>
+                    
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="list-group">
+        <ul class="nav">
+            
+                <li><a class="list-group-item" href="https://github.com/seedstack/website/edit/master/content/docs/seed/manual/cli.md" target="_blank"><i class="fa fa-edit"></i> Contribute to this page</a></li>
+            
+        </ul>
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+    <div id="footer">
+        <div class="footer-v3">
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="headline"><h2>About</h2></div>
+                    <p class="margin-bottom-25 md-margin-bottom-40">SeedStack is an Open-Source enterprise-class development stack for building modern and robust applications.</p>
+                </div>
+
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="posts">
+                        <div class="headline"><h2>License</h2></div>
+                        <p>
+                            Code licensed under the <a href="https://www.mozilla.org/MPL/2.0" target="_blank">Mozilla Public License 2.0</a>.
+                            <br/>
+                            Documentation licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 map-img">
+                    <div class="headline"><h2>Contact us</h2></div>
+                    <address>
+                        <p>
+                            IRC channel <a href="irc://chat.freenode.net/seedstack">#seedstack on Freenode community</a>
+                            <br/>
+                            Google group <a href="https://groups.google.com/forum/#!forum/seedstack">seedstack@googlegroups.com</a>
+                        </p>
+                    </address>
+
+                    <div class="headline"><h2>Stay in touch</h2></div>
+                    <div style="margin-bottom: 20px;">
+                        <a class="twitter-follow-button"
+                           href="https://twitter.com/seedstack"
+                           data-show-count="false"
+                           data-lang="en">
+                            Follow @seedstack
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+    <div id="hotkeys-modal" class="modal">
+    <div class="modal-dialog" style="min-width: 960px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Keyboard shortcuts <a id="show-all-shortcuts" style="cursor: pointer;" onclick="seedstack.ui.showAllShortcuts();">(Show all)</a></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Global shortcuts</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>?</kbd>
+                                </td>
+                                <td>Show this help dialog</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>/</kbd>
+                                </td>
+                                <td>Focus the search field</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↑</kbd>
+                                </td>
+                                <td>Go to previous menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↓</kbd>
+                                </td>
+                                <td>Go to next menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>S</kbd>
+                                </td>
+                                <td>Go to Seed framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>W</kbd>
+                                </td>
+                                <td>Go to W20 framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>B</kbd>
+                                </td>
+                                <td>Go to Business framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>A</kbd>
+                                </td>
+                                <td>Go to add-ons</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>G</kbd>
+                                </td>
+                                <td>Go to guides</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Seed framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>t</kbd>
+                                </td>
+                                <td>Go to testing</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to cryptography</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>w</kbd>
+                                </td>
+                                <td>Go to Web</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>r</kbd>
+                                </td>
+                                <td>Go to REST</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>o</kbd>
+                                </td>
+                                <td>Go to operations</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>T</kbd>
+                                </td>
+                                <td>Go to transactions</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Business framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>m</kbd>
+                                </td>
+                                <td>Go to model</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>l</kbd>
+                                </td>
+                                <td>Go to lifecycle</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>e</kbd>
+                                </td>
+                                <td>Go to events</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>p</kbd>
+                                </td>
+                                <td>Go to policies</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>a</kbd>
+                                </td>
+                                <td>Go to assemblers</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>f</kbd>
+                                </td>
+                                <td>Go to finders</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>P</kbd>
+                                </td>
+                                <td>Go to pagination</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>W20 framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to culture</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>h</kbd>
+                                </td>
+                                <td>Go to hypermedia</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>u</kbd>
+                                </td>
+                                <td>Go to UI</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="versions-modal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 id="versions-title" class="modal-title">Fetching components...</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="versions-table" class="table table-striped table-hover table-bordered">
+                            <tr>
+                                <th>Component</th>
+                                <th>Version</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/github.min.css">
+
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mousetrap/1.4.6/mousetrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lunr.js/0.5.9/lunr.min.js"></script>
+<script src="/assets/unify/plugins/smoothScroll.js"></script>
+<script src="/js/xml2json.js"></script>
+<script src="/js/jquery.highlight.js"></script>
+<script src="/js/seedstack.js"></script>
+<script>
+    $(document).ready(function () {
+        var $search = $('.search-btn');
+
+        $('.search').click(function () {
+            if ($search.hasClass('fa-search')) {
+                seedstack.ui.openSearch();
+            } else {
+                seedstack.ui.closeSearch();
+            }
+        });
+
+        $('pre code').each(function (i, block) {
+            hljs.highlightBlock(block);
+        });
+
+        $('.side-menu').affix({
+            offset: {
+                top: $('#header').height() + 20,
+                bottom: $('#footer').height() + 40
+            }
+        });
+
+        Mousetrap.bind('/', function () {
+            seedstack.ui.openSearch();
+            return false;
+        });
+
+        Mousetrap.bind('alt+up', function () {
+            if (seedstack.state.previousPage) {
+                window.location = seedstack.state.previousPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('alt+down', function () {
+            if (seedstack.state.nextPage) {
+                window.location = seedstack.state.nextPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('?', function () {
+            seedstack.ui.openHelp();
+            return false;
+        });
+
+        Mousetrap.bind('esc', function () {
+            seedstack.ui.closeHelp();
+            seedstack.ui.closeSearch();
+            return false;
+        });
+
+        var originalCallback = Mousetrap.stopCallback;
+        Mousetrap.stopCallback = function (e, element, combo) {
+            if (combo === 'esc') {
+                return false;
+            }
+
+            return originalCallback(e, element, combo);
+        };
+
+        function bindShortcuts(value) {
+            $.each(value, function (sequence, item) {
+                if (typeof item === 'string') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item;
+                        return false;
+                    });
+                } else if (typeof item === 'object') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item.path;
+                        return false;
+                    });
+                    if (item.shortcuts && location.pathname.indexOf(item.path) === 0) {
+                        bindShortcuts(item.shortcuts);
+                    }
+                }
+            });
+        }
+
+        function resolveVersions() {
+            var $versionsTitle = $('#versions-title');
+            if (!seedstack.versions) {
+                $.ajax({
+                    dataType: 'text',
+                    url: '/distribution.pom.xml'
+                }).done(function (data) {
+                    var pom = new X2JS().xml_str2json(data);
+
+                    if (pom.project && pom.project.properties && pom.project.version) {
+                        var $versions = $('#versions-table');
+                        var blackList = ['seedstack-maven-plugin', 'java-compiler', 'maven-failsafe-plugin', 'logback'];
+                        var versions = {};
+
+                        $versionsTitle.text("SeedStack " + pom.project.version);
+
+                        $.each(pom.project.properties, function (name, value) {
+                            if (/\.version$/.test(name)) {
+                                var shortName = name.substr(0, name.indexOf('.version'));
+                                if ($.inArray(shortName, blackList) === -1) {
+                                    versions[shortName] = value;
+                                    $versions.append(
+                                            '<tr>' +
+                                            '<td>' +
+                                            shortName.substr(0, 1).toUpperCase() + shortName.substr(1, shortName.length - 1).replace(/-/g, ' ') +
+                                            '</td>' +
+                                            '<td>' + value + '</td>' +
+                                            '</tr>');
+                                }
+                            }
+                        });
+
+                        $('.loginbar').prepend(
+                                '<li class="hidden-xs hidden-sm"><i class="fa fa-tag"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openVersions();">Latest version: ' + pom.project.version + '</a></li>' +
+                                '<li class="topbar-devider"></li>'
+                        );
+
+                        seedstack.versions = versions;
+                    }
+                }).error(function () {
+                    console.error("SeedStack version could not be resolved");
+                });
+            }
+        }
+
+        bindShortcuts(seedstack.ui.shortcuts);
+
+        resolveVersions();
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $('#hotkeys-modal, #versions-modal').bind('hidden.bs.modal', function () {
+            $("html").css("margin-right", "0px");
+        }).bind('show.bs.modal', function () {
+            $("html").css("margin-right", "-15px");
+        });
+
+        var query = seedstack.strings.parseQueryString(location);
+        if (query.h && query.h.length > 0) {
+            $('.doc-content').highlight(query.h);
+            if (query.scroll) {
+                $('html, body').animate({
+                    scrollTop: $('span[class=highlight]:first').offset().top - 20
+                }, 250);
+            }
+        }
+    });
+</script>
+<script>window.twttr = (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+    if (d.getElementById(id))return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    t._e = [];
+    t.ready = function (f) {
+        t._e.push(f);
+    };
+    return t;
+}(document, "script", "twitter-wjs"));</script>
+
+</body>
+</html>

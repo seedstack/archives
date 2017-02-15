@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/running/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/running/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Run goal</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/run/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/run/</guid>
+      <description>&lt;p&gt;The &lt;code&gt;run&lt;/code&gt; goal runs any self-executable SeedStack application directly from the command line.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Self-executable SeedStack application are applications that contains one and only one implementation of the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;spi.&amp;amp;#8203;SeedLauncher&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/spi/SeedLauncher.html&#39;&gt;SeedLauncher&lt;/a&gt;&lt;/code&gt;
+interface in their classpath, like the one provided by the &lt;code&gt;seed-cli&lt;/code&gt; module (for command-line application) or the &lt;code&gt;seed-web-undertow&lt;/code&gt;
+module (for embedded Web applications).&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;parameters&#34;&gt;Parameters&lt;/h1&gt;
+
+&lt;p&gt;Parameters should be given as system properties (&lt;code&gt;-DparameterName=parameterValue&lt;/code&gt;):&lt;/p&gt;
+
+&lt;table class=&#34;table table-striped table-bordered table-condensed&#34;&gt;
+    &lt;thead&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Type&lt;/th&gt;
+        &lt;th&gt;Mandatory&lt;/th&gt;
+        &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td&gt;args&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;The string of all arguments used to run the Seed application. &lt;strong&gt;Required.&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&#34;examples&#34;&gt;Examples&lt;/h1&gt;
+
+&lt;h2 id=&#34;web-application&#34;&gt;Web application&lt;/h2&gt;
+
+&lt;p&gt;By running the following command on a SeedStack application containing the &lt;code&gt;seed-web-undertow&lt;/code&gt; dependency (like the
+&lt;a href=&#34;https://github.com/seedstack/catalog-microservice-sample&#34;&gt;catalog micro-service sample&lt;/a&gt;), you will startup the application
+with its embedded &lt;a href=&#34;http://undertow.io/&#34;&gt;Undertow Web server&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mvn org.seedstack:seedstack-maven-plugin:run
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;cli-application&#34;&gt;CLI application&lt;/h2&gt;
+
+&lt;p&gt;By running the following command on a SeedStack application containing the &lt;code&gt;seed-cli&lt;/code&gt; dependency (like the
+&lt;a href=&#34;https://github.com/seedstack/samples/tree/master/batch&#34;&gt;batch sample&lt;/a&gt;), you will startup the application with the
+corresponding arguments:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mvn seedstack:run -Dargs=&amp;quot;run-job --job helloWorldJob&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that a SeedStack CLI application needs at least one &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;cli.&amp;amp;#8203;CommandLineHandler&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/cli/CommandLineHandler.html&#39;&gt;CommandLineHandler&lt;/a&gt;&lt;/code&gt; in the
+classpath which name must be specified as an argument. In this example we assume that the &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/spring-bridge/batch/&#34;&gt;SeedStack Spring bridge add-on&lt;/a&gt;
+&lt;code&gt;run-job&lt;/code&gt; command-line handler is also present in the classpath.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

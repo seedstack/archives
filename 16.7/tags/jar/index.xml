@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/jar/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/jar/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Java framework</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/</guid>
+      <description>&lt;p&gt;SeedStack Java framework, also simply known as &amp;laquo;Seed&amp;raquo;, is a comprehensive solution enabling you to build Java applications
+or cloud services easily and efficiently.&lt;/p&gt;
+
+&lt;h1 id=&#34;opinionated&#34;&gt;Opinionated&amp;hellip;&lt;/h1&gt;
+
+&lt;p&gt;Whatever you aim to build, from a small command-line tool to the next successful cloud-based service, Seed provides you
+with the right set of concepts and technologies from the start. More importantly, it does so without getting in your way
+and yet scales well when applied on full-blown enterprise projects.&lt;/p&gt;
+
+&lt;h1 id=&#34;yet-modular&#34;&gt;&amp;hellip;yet modular&lt;/h1&gt;
+
+&lt;p&gt;Built on an extensible plugin system, Seed is highly modular and allows you to choose the technologies you really
+need while leaving out the unnecessary bits. Besides, you can extend the core framework abilities by cherry-picking modules
+from the &lt;a href=&#34;http://seedstack.org/archives/16.7/addons&#34;&gt;add-ons library&lt;/a&gt; or by rolling-out your own.&lt;/p&gt;
+
+&lt;p&gt;The framework is composed of several separate modules, each one providing a particular technology. The &lt;code&gt;seed-core&lt;/code&gt; module
+implements basic framework functionality like application lifecycle, configuration or dependency injection. Its presence
+is required in any running application along its companion module &lt;code&gt;seed-specs&lt;/code&gt;, containing the corresponding API classes.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Modules are automatically detected and activated when present in the classpath. As such, simply adding a module JAR to
+your project will enable it and all its features.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;jar-organisation&#34;&gt;JAR organisation&lt;/h2&gt;
+
+&lt;p&gt;When relevant, modules provide their API in a separate sub-module suffixed with &lt;code&gt;-specs&lt;/code&gt; in which case the corresponding
+module implementation is suffixed &lt;code&gt;-core&lt;/code&gt;. This allows to implement classes using the API without activation. This is
+useful when designing reusable components. Besides, to provide a better separation of concerns, some modules are further
+split into optional sub-modules:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;seed-[module]-specs&lt;/code&gt; for the API and/or the SPI,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;seed-[module]-core&lt;/code&gt; for the main implementation,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;seed-[module]-[option]&lt;/code&gt; for an optional implementation module.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;package-organisation&#34;&gt;Package organisation&lt;/h2&gt;
+
+&lt;p&gt;The code of each module lives in several Java packages, all prefixed by org.seedstack.seed.???, where ??? is the name
+of the module:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;org.seedstack.seed.[module]&lt;/code&gt; which contains classes destined to be used by client code,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;org.seedstack.seed.[module].spi&lt;/code&gt; which contains the classes needed to extend the module features,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;org.seedstack.seed.[module].internal&lt;/code&gt; which contains the module internal classes,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;org.seedstack.seed.[module].test&lt;/code&gt; which contains testing tools for the module.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-danger&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that application code should &lt;strong&gt;never&lt;/strong&gt; rely on any class from the internal package. It is implementation-specific
+and subject to change between versions without notice.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;class-organisation&#34;&gt;Class organisation&lt;/h2&gt;
+
+&lt;p&gt;Seed follows &lt;a href=&#34;https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)&#34;&gt;SOLID principles&lt;/a&gt; and each class tend to only
+have one responsibility, allowing to easily understand what it does. It also does help to keep you implementation simple
+and testable.&lt;/p&gt;
+
+&lt;h1 id=&#34;lifecycle&#34;&gt;Lifecycle&lt;/h1&gt;
+
+&lt;p&gt;At the heart of Seed lies the kernel which is started by different means, depending on the runtime context (web
+application, standalone java app, test runner, &amp;hellip;). The responsibility of the kernel is to orchestrate all the plugins
+in order to setup a fully working application. In turn, each plugin has its own responsibility such as providing
+application configuration, integrating a specific technology or augment the application code with a particular behavior.&lt;/p&gt;
+
+&lt;h2 id=&#34;classpath-scanning&#34;&gt;Classpath scanning&lt;/h2&gt;
+
+&lt;p&gt;At the start of kernel, all plugins have the opportunity to request information about classes and resources. Using this
+mechanism, they can detect predefined code patterns such as:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Classes annotated or meta-annotated with a specific annotation,&lt;/li&gt;
+&lt;li&gt;Classes implementing an interface or extending a base class,&lt;/li&gt;
+&lt;li&gt;Classes matching a complex predefined specification,&lt;/li&gt;
+&lt;li&gt;Resources matching a specific regex,&lt;/li&gt;
+&lt;li&gt;etc&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Code pattern detection is heavily used throughout SeedStack, for instance to dynamically define injection bindings, to
+automatically register classes or to enable particular features. Combined with the convention-over-configuration principle
+and sensible default values, it greatly simplifies SeedStack usage.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;phases&#34;&gt;Phases&lt;/h2&gt;
+
+&lt;p&gt;The kernel orchestrates the application lifecycle through the following phases:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;In the bootstrapping phase, the runtime starts the kernel which uses the Java service loader mechanism to detect all
+the plugins present in the classpath. These plugins register their classpath information requests to the kernel and express
+their requirements on other plugins.&lt;/li&gt;
+&lt;li&gt;In the initialization phase, the kernel resolve all the classpath requests in only one full classpath scan and invoke
+the initialization logic of all plugins in the correct order.&lt;/li&gt;
+&lt;li&gt;In the starting phase, the kernel collects the injection bindings dynamically defined by each plugin from the results of the
+initialization phase and builds the application main injector. Then the kernel invokes the starting logic of all plugins
+in the correct order. At this point, the application is fully operational.&lt;/li&gt;
+&lt;li&gt;In the stopping phase, the runtime stops the kernel which invokes the stopping logic of all plugins in the correct
+order. A this point, the application is stopped.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The kernel is a part of &lt;a href=&#34;https://github.com/nuun-io&#34;&gt;Nuun IO&lt;/a&gt; and is independent of SeedStack. For more information
+about it, please check &lt;a href=&#34;https://github.com/nuun-io/kernel/wiki&#34;&gt;its own documentation&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#39;pull-right margin-top-20&#39;&gt;
+    &lt;a href=&#39;manual&#39; class=&#34;btn btn-u&#34;&gt;Next: start reading the manual...&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&#34;clearfix&#34;&gt;&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Package goal</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/package/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/package/</guid>
+      <description>&lt;p&gt;The &lt;code&gt;package&lt;/code&gt; goal packages any self-executable SeedStack application in a &lt;a href=&#34;http://www.capsule.io/&#34;&gt;Capsule&lt;/a&gt;.
+A Capsule is a way of packaging and running any application with all its dependencies from a unique plain executable JAR.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Self-executable SeedStack application are applications that contains one and only one implementation of the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;spi.&amp;amp;#8203;SeedLauncher&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/spi/SeedLauncher.html&#39;&gt;SeedLauncher&lt;/a&gt;&lt;/code&gt;
+interface in their classpath, like the one provided by the &lt;code&gt;seed-cli&lt;/code&gt; module (for command-line application) or the &lt;code&gt;seed-web-undertow&lt;/code&gt;
+module (for embedded Web applications).&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;parameters&#34;&gt;Parameters&lt;/h1&gt;
+
+&lt;p&gt;Parameters can be given as system properties (&lt;code&gt;-DparameterName=parameterValue&lt;/code&gt;) or specified in the &lt;code&gt;pom.xml&lt;/code&gt; plugin declaration:&lt;/p&gt;
+
+&lt;table class=&#34;table table-striped table-bordered table-condensed&#34;&gt;
+    &lt;thead&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Type&lt;/th&gt;
+        &lt;th&gt;Mandatory&lt;/th&gt;
+        &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td&gt;capsuleVersion&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;The capsule version to be used. If not given, the latest version discoverable is automatically used.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;classpathEntries&lt;/td&gt;
+        &lt;td&gt;List of strings&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;The classpath entries to add to the application classpath. Relative paths are resolved to the location of the capsule JAR. The current user home path (~) can be used.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;systemProperties&lt;/td&gt;
+        &lt;td&gt;List of strings&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;The system properties to set when launching the application.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;environmentVariables&lt;/td&gt;
+        &lt;td&gt;List of strings&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;The environment variables to set when launching the application.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;jvmArgs&lt;/td&gt;
+        &lt;td&gt;List of strings&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;The JVM arguments to apply when launching the application.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;allowSnapshots&lt;/td&gt;
+        &lt;td&gt;-&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;If specified, the Capsule will allow SNAPSHOT dependencies to be used.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&#34;examples&#34;&gt;Examples&lt;/h1&gt;
+
+&lt;h2 id=&#34;standalone-capsule&#34;&gt;Standalone Capsule&lt;/h2&gt;
+
+&lt;p&gt;A standalone Capsule packs all its dependencies and is completely self-contained. It is the default mode of operation. To
+build such a Capsule, use the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mvn org.seedstack:seedstack-maven-plugin:package
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;running-a-capsule&#34;&gt;Running a capsule&lt;/h1&gt;
+
+&lt;p&gt;To run a capsule, you simply execute it as a plain executable JAR:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;java [jvm-args] -jar my-capsule.jar [args...]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In addition to any argument already specified in the capsule manifest (with the plugin parameters described above), you can specify any argument to the JVM or to the program as usual.&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;A lot of options can be specified to alter the default behavior of the Capsule itself. Please refer to the &lt;a href=&#34;http://www.capsule.io/user-guide/&#34;&gt;Capsule user-guide&lt;/a&gt;
+for more information.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

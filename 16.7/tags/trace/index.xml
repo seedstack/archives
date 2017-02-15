@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/trace/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/trace/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/audit/</link>
+      <pubDate>Tue, 17 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/audit/</guid>
+      <description>
+
+&lt;p&gt;The Audit add-on provides the ability to trace who does what in your application.&lt;/p&gt;
+
+&lt;h1 id=&#34;maven-dependencies&#34;&gt;Maven dependencies&lt;/h1&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-audit-audit-core-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-audit-audit-core-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-audit-audit-core-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.audit&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;audit-core&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-audit-audit-core-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.1.1&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-audit-audit-core-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-audit-audit-core-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-audit-audit-core-version, #org-seedstack-addons-audit-audit-core-warn&#39;).show(); $(&#39;#org-seedstack-addons-audit-audit-core-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-audit-audit-core-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.audit:audit-core:2.1.1&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;If you want to use the audit writer based on Logback, replace the dependency by the following
+(see the section on LogbackTrailWriter):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.audit&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;audit-logback&amp;lt;/artifactId&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;concepts&#34;&gt;Concepts&lt;/h1&gt;
+
+&lt;p&gt;The Audit allows you to trace somewhere (log file for example) each time a user executes a portion of code. You can
+record a message and get access to information like the date,  the connected user or the application concerned.
+&lt;/br&gt;Following is the model of what is given to the object in charge of writing the audit:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://seedstack.org/archives/16.7/puml/business/business-api-domain-audit.png&#34; alt=&#34;audit model&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;AuditEvent: Main object passed to the trail writer. It contains the date of the audit and the accompanying message.
+It also has the trail&lt;/li&gt;
+&lt;li&gt;Trail: A trail represents several events occurring in the same execution. All events of a trail have the same
+Initiator and are requested on the same Host.&lt;/li&gt;
+&lt;li&gt;Initiator: Represents the user triggering the audit. It contains his id and his name as well has his Address.&lt;/li&gt;
+&lt;li&gt;Host: represents the application on which the audit is made. It contains the name and id of the application as
+well as its address.&lt;/li&gt;
+&lt;li&gt;Address: Contains Network information if available: ip address and dns name.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;api&#34;&gt;API&lt;/h1&gt;
+
+&lt;h2 id=&#34;the-audited-annotation&#34;&gt;The @Audited Annotation&lt;/h2&gt;
+
+&lt;p&gt;You can mark a method with the annotation &lt;em&gt;@Audited&lt;/em&gt; so the framework will automatically audit this the execution of
+the method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Audited(
+    messageBefore = &amp;quot;Doing critical work with parameter ${args[0]}...&amp;quot;,
+    messageAfter = &amp;quot;Done critical work with result: ${result}&amp;quot;,
+    messageOnException = &amp;quot;Error doing critical work !&amp;quot;)
+public String doCriticalWork(String someString) {
+    return &amp;quot;result: &amp;quot; + someString;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There are 3 attributes you can define, the first being mandatory :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;messageAfter&lt;/strong&gt;: the message to trace when the method has been executed. Can be an EL expression with properties
+&amp;laquo;args&amp;raquo; for the method arguments and &amp;laquo;result&amp;raquo; for the return. For example:
+&lt;code&gt;messageAfter = &amp;quot;the argument is \${args[0].someMethod()} and the result says \${result.say()}&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;messageBefore&lt;/strong&gt;: optionally, you can define a message to be traced just before executing the method.
+Can be an EL expression but only arguments are available.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;messageOnException&lt;/strong&gt;: define a generic message when an unhandled exception occurs in the execution of the method.
+If a handler handles the exception, this message is ignored. Can be an EL expression, the exception is available via
+property &amp;laquo;exception&amp;raquo;. For instance: &lt;code&gt;messageOnException = &amp;quot;kaboom : \${exception.getMessage()}&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;auditservice&#34;&gt;AuditService&lt;/h2&gt;
+
+&lt;p&gt;You can programmatically write a trail by injecting the AuditService. First create a new Trail that you can reuse later.
+It will be initialized automatically with the current Host and Initiator. Then trail as many messages as required with
+the given Trail.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+AuditService auditService
+...
+
+Trail trail = auditService.createTrail();
+String message = &amp;quot;dummy&amp;quot;
+auditService.trail(message, trail);
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;trailwriter&#34;&gt;TrailWriter&lt;/h2&gt;
+
+&lt;p&gt;A trail writer effectively writes each message and its trail (an AuditEvent). The framework brings a writer based on
+Logback that can write on a file, in the console&amp;hellip; named LogbackTrailWriter&lt;/p&gt;
+
+&lt;p&gt;You can implement your own TrailWriter. For example :
+    public class SysoutTrailWriter implements TrailWriter{&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public void writeEvent(AuditEvent auditEvent) {
+    System.out.println(auditEvent.getDate() + &amp;quot; &amp;quot; + auditEvent.getMessage()
+        + &amp;quot; [&amp;quot; + auditEvent.getTrail().getInitiator().getId + &amp;quot;]&amp;quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;trailexceptionhandler&#34;&gt;TrailExceptionHandler&lt;/h2&gt;
+
+&lt;p&gt;A TrailExceptionHandler is used in conjunction with the @Audited annotation. When the annotated method throws an exception,
+if a handler is able to handle the exception, it will create a String describing it, being the message that will be trailed.
+The framework brings an exception handler for AuthorizationException.
+You can implement your own handler&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class BusinessTrailExceptionHandler implements
+        TrailExceptionHandler&amp;lt;MyBusinessException&amp;gt; {
+
+    public String describeException(MyBusinessException e){
+        return &amp;quot;My business description to trail&amp;quot;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;Several things can be configured via the props file&lt;/p&gt;
+
+&lt;h2 id=&#34;the-trailwriters&#34;&gt;The TrailWriters&lt;/h2&gt;
+
+&lt;p&gt;You can choose which TrailWriter(s) to use : fill in the property &lt;em&gt;org.seedstack.audit.writers&lt;/em&gt; with the name
+or simple name of the class of the TrailWriters to use.
+This property is optional: if empty, no writer will be used.&lt;/p&gt;
+
+&lt;h2 id=&#34;the-trailexceptionhandlers&#34;&gt;The TrailExceptionHandlers&lt;/h2&gt;
+
+&lt;p&gt;You can choose which TrailExceptionHandler(s) to use : fill in the property &lt;code&gt;org.seedstack.audit.exceptionHandlers&lt;/code&gt;
+with the name or simple name of the class of the TrailExceptionHandler to use.
+This property is optional: if empty, every TrailExceptionHandler found on the classpath will be used.&lt;/p&gt;
+
+&lt;h2 id=&#34;the-logbacktrailwriter&#34;&gt;The LogbackTrailWriter&lt;/h2&gt;
+
+&lt;p&gt;If you choose to use the LogbackTrailWriter, you must fill the property &lt;code&gt;org.seedstack.audit.logPattern&lt;/code&gt;.
+It is the pattern that will be used when writing each message. It can be an EL expression, with the following properties available&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;event : the AuditEvent&lt;/li&gt;
+&lt;li&gt;trail : the trail. Could also be accessed via &lt;code&gt;event.getTrail()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;initiator : the initiator. Could also be accessed via &lt;code&gt;event.getTrail().getInitiator()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;host : the application host. Could also be accessed via &lt;code&gt;event.getTrail().getHost()&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here is an example of pattern you could use:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.audit]
+logPattern = At ${event.getFormattedDate(&amp;quot;yyyy/MM/dd HH:mm:ss.SSS&amp;quot;)}\
+ user ${initiator.getName()} - ${initiator.getId()}\
+ requested application ${host.getName()} : ${event.getMessage()}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You must also configure logback to add the appender and logger in the file &lt;em&gt;logback.xml&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot;?&amp;gt;
+&amp;lt;configuration&amp;gt;
+  ...
+  &amp;lt;appender name=&amp;quot;AUDIT_APPENDER&amp;quot; class=&amp;quot;ch.qos.logback.core.ConsoleAppender&amp;quot;&amp;gt;
+      &amp;lt;encoder class=&amp;quot;ch.qos.logback.core.encoder.LayoutWrappingEncoder&amp;quot;&amp;gt;
+        &amp;lt;layout class=&amp;quot;org.seedstack.audit.logback.AuditLogbackLayout&amp;quot; /&amp;gt;
+      &amp;lt;/encoder&amp;gt;
+    &amp;lt;/appender&amp;gt;
+
+  &amp;lt;logger name=&amp;quot;AUDIT_LOGGER&amp;quot; additivity=&amp;quot;false&amp;quot;&amp;gt;
+    &amp;lt;appender-ref ref=&amp;quot;AUDIT_APPENDER&amp;quot; /&amp;gt;
+  &amp;lt;/logger&amp;gt;
+  ...
+&amp;lt;/configuration&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that you can choose any appender that holds an encoder (ConsoleAppender, FileAppender&amp;hellip;) as long as you define
+the right layout class.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

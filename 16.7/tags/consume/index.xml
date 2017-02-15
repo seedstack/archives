@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/consume/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/consume/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Consuming</title>
+      <link>http://seedstack.org/archives/16.7/addons/web-services/consume_hello_webservice/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/web-services/consume_hello_webservice/</guid>
+      <description>&lt;p&gt;The goal of this page is to detail the consumption of an Hello World SOAP based Web Service. Configure the &lt;code&gt;jaxws-maven-plugin&lt;/code&gt;
+and use &lt;code&gt;wsimport&lt;/code&gt; to generate web service client java from &lt;code&gt;wsdl&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can then use the &lt;code&gt;wsimport&lt;/code&gt; generated class in your application code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;HelloService helloService = new HelloService();
+Hello helloServicePort = helloService.getHelloServicePort();
+((BindingProvider) helloServicePort).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, &amp;quot;http://localhost:&amp;quot; + wsPort + &amp;quot;/ws/hello&amp;quot;);
+helloServicePort.sayHello(&amp;quot;World&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

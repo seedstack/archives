@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/mongodb/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/mongodb/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/mongodb/</link>
+      <pubDate>Tue, 09 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/mongodb/</guid>
+      <description>
+
+&lt;p&gt;SeedStack MongoDB add-on enables your application to connect with MongoDB instances.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-mongodb-mongodb-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-mongodb-mongodb-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-mongodb-mongodb-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.mongodb&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mongodb&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-mongodb-mongodb-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;1.1.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-mongodb-mongodb-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-mongodb-mongodb-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-mongodb-mongodb-version, #org-seedstack-addons-mongodb-mongodb-warn&#39;).show(); $(&#39;#org-seedstack-addons-mongodb-mongodb-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-mongodb-mongodb-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.mongodb:mongodb:1.1.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;You also need to add the MongoDB Java client:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.mongodb&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mongo-java-driver&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;...&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can choose to use the MongoDB asynchronous client instead (or in addition as you can mix asynchronous and synchronous
+clients in the same application):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.mongodb&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mongodb-driver-async&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;...&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;MongoDB clients are used to access databases and are declared with the following configuration property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb]
+clients = client1, client2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Each client must then be configured separately with the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+# configuration of client1 
+
+[org.seedstack.mongodb.client.client2]
+# configuration of client2
+ 
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;As MongoDB has a different Java driver for synchronous and asynchronous clients, the type of a client will determine how
+it can be configured and used. Clients use the &lt;a href=&#34;http://mongodb.github.io/mongo-java-driver/3.0/driver/&#34;&gt;synchronous driver&lt;/a&gt;
+by default, to switch to the &lt;a href=&#34;http://mongodb.github.io/mongo-java-driver/3.0/driver-async/&#34;&gt;asynchronous driver&lt;/a&gt;, specify
+the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+async = true
+&lt;/code&gt;&lt;/pre&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;uri-connection-string&#34;&gt;URI connection string&lt;/h2&gt;
+
+&lt;p&gt;A client can be configured with an URI:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+uri = mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]      
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;URI allows to directly specify a set of options common to synchronous and asynchronous clients. More information about
+the URI and its options can be found &lt;a href=&#34;http://docs.mongodb.org/manual/reference/connection-string/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;explicit-hosts&#34;&gt;Explicit hosts&lt;/h2&gt;
+
+&lt;p&gt;As an alternative a client can be configured by directly specifying the MongoDB host(s):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+hosts = host1:27017, host2     
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this case, the client options must be specified using additional properties, which a are different for synchronous and
+asynchronous clients. See the &lt;a href=&#34;#synchronous-client-options&#34;&gt;Synchronous client options&lt;/a&gt; and &lt;a href=&#34;#asynchronous-client-options&#34;&gt;Asynchronous client options&lt;/a&gt;
+sections below for more information.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;When no port is specified, whether in the URI or in the hosts property, the default MongoDB port is used (27017).&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When configuring the connection with explicit hosts, connection credentials can be specified as the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...    
+credentials = db1:user1:password1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will authenticate with the username &lt;code&gt;user1&lt;/code&gt; and the password &lt;code&gt;password1&lt;/code&gt;. The user will be lookup up in the &lt;code&gt;db1&lt;/code&gt;
+database. The authentication mechanism will be automatically selected. To force an authentication mechanism use the
+following syntax:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...    
+credentials = mechanism/db1:user1:password1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The available authentication mechanisms are &lt;code&gt;PLAIN&lt;/code&gt;, &lt;code&gt;MONGODB_CR&lt;/code&gt;, &lt;code&gt;SCRAM_SHA_1&lt;/code&gt;, &lt;code&gt;MONGODB_X509&lt;/code&gt; and &lt;code&gt;GSSAPI&lt;/code&gt;. You can
+specify multiple credentials like the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...    
+credentials = mechanism/db1:user1:password1, mechanism/db2:user2:password2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;It is recommended to avoid specifying the authentication mechanism as it will be automatically selected. Also note that
+often, only one credential is enough.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;databases&#34;&gt;Databases&lt;/h2&gt;
+
+&lt;p&gt;You can choose to inject and use the &lt;code&gt;MongoClient&lt;/code&gt; object(s) directly and access the database(s) programatically. As a
+convenience, Seed also allows to inject the &lt;code&gt;MongoDatabase&lt;/code&gt; object(s) with the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...
+databases = db1, db2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Each declared database can then be injected accordingly. See the &lt;a href=&#34;#usage&#34;&gt;usage&lt;/a&gt; section below for more information.&lt;br /&gt;
+Database names must be unique across the application so you can encounter a situation when multiple configured clients
+may need to access databases with the same name. In that case, you can use the alias feature. Consider the following clients:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...    
+databases = db1, db2
+
+[org.seedstack.mongodb.client.client2]
+...    
+databases = db2, db3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can note that a database named &lt;code&gt;db2&lt;/code&gt; exists in MongoDB instances accessed by both &lt;code&gt;client1&lt;/code&gt; and &lt;code&gt;client2&lt;/code&gt;. To resolve
+this ambiguity, one of the &lt;code&gt;db2&lt;/code&gt; databases must be aliased in the application:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client2]
+...    
+databases = db2, db3
+alias.db2 = db2bis
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this example, the &lt;code&gt;db2&lt;/code&gt; database present on the MongoDB instance accessed by &lt;code&gt;client2&lt;/code&gt; will be referred in the
+application by the &lt;code&gt;db2bis&lt;/code&gt; name. Note that you can use this feature even when there are no name collision.&lt;/p&gt;
+
+&lt;h2 id=&#34;synchronous-client-options&#34;&gt;Synchronous client options&lt;/h2&gt;
+
+&lt;p&gt;Additional options can be specified on synchronous clients with the &lt;code&gt;option&lt;/code&gt; prefix:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...
+option.optionName1 = value1
+option.optionName2 = value2
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All the options from the &lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/MongoClientOptions.Builder.html&#34;&gt;MongoClientOptions.Builder&lt;/a&gt;
+class are available. Each method of the builder translates to an option of the same name. Consider the following example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...
+option.connectionsPerHost = 75
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will invoke the &lt;code&gt;connectionsPerHost()&lt;/code&gt; method on the option builder with the value &lt;code&gt;75&lt;/code&gt; converted to an integer.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If you use a URI configuration, you can combine the URI options with the &lt;code&gt;option.*&lt;/code&gt; syntax. The specified option(s)
+will complement their URI counterpart and override them if present in both.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;asynchronous-client-options&#34;&gt;Asynchronous client options&lt;/h2&gt;
+
+&lt;p&gt;Additional options can be specified on asynchronous clients with the &lt;code&gt;setting&lt;/code&gt; prefix:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...
+setting.settingNamespace1.settingName1 = value1
+setting.settingNamespace1.settingName2 = value2
+setting.settingNamespace2.settingName3 = value3
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All the settings from the &lt;code&gt;MongoClientSettings.Builder&lt;/code&gt; builder and its sub-builders are available. Each sub-builder translates
+to a setting namespace and each of the builders method translates to a particular setting. The list of the builders and
+their corresponding namespace is:&lt;/p&gt;
+
+&lt;table class=&#34;table table-striped&#34;&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+    &lt;th&gt;Namespace&lt;/th&gt;
+    &lt;th&gt;Builder&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;cluster&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/connection/ClusterSettings.Builder.html&#34;&gt;ClusterSettings.Builder&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;connectionPool&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/connection/ConnectionPoolSettings.Builder.html&#34;&gt;ConnectionPoolSettings.Builder&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;socket&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/connection/SocketSettings.Builder.html&#34;&gt;SocketSettings.Builder&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;heartbeatSocket&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/connection/SocketSettings.Builder.html&#34;&gt;SocketSettings.Builder&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;server&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/connection/ServerSettings.Builder.html&#34;&gt;ServerSettings.Builder&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;ssl&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/connection/SslSettings.Builder.html&#34;&gt;SslSettings.Builder&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Consider the following example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;setting.connectionPool.maxSize = 75
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will invoke the &lt;code&gt;maxSize()&lt;/code&gt; method on a &lt;code&gt;ConnectionPoolSettings.Builder&lt;/code&gt; instance with the value &lt;code&gt;75&lt;/code&gt; converted to
+an integer. This builder instance will in turn be be set on a &lt;code&gt;MongoClientSettings.Builder&lt;/code&gt; instance via the &lt;code&gt;connectionPoolSettings()&lt;/code&gt;
+method.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;ul&gt;
+&lt;li&gt;The global settings directly available on &lt;code&gt;MongoClientSettings.Builder&lt;/code&gt; can be specified without namespace. More information
+on the global builder &lt;a href=&#34;http://api.mongodb.org/java/current/com/mongodb/async/client/MongoClientSettings.Builder.html&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;cluster.hosts&lt;/code&gt; and &lt;code&gt;credentialList&lt;/code&gt; settings are ignored since they are already mapped from the &lt;code&gt;hosts&lt;/code&gt; and the
+&lt;code&gt;credentials&lt;/code&gt; properties.&lt;/li&gt;
+&lt;/ul&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;usage&#34;&gt;Usage&lt;/h1&gt;
+
+&lt;p&gt;As MongoDB doesn&amp;rsquo;t support transactions, usage simply consists in injecting a &lt;code&gt;MongoClient&lt;/code&gt; or a &lt;code&gt;MongoDatabase&lt;/code&gt; object
+and using it accordingly to the MongoDB documentation. As an example you can inject the client as the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+@Named(&amp;quot;client1&amp;quot;)
+MongoClient client1;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will inject the configured MongoDB client named &lt;code&gt;client1&lt;/code&gt;. You can also inject a database directly as the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+@Named(&amp;quot;db1&amp;quot;)
+MongoDatabase db1;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will inject the configured MongoDB database named &lt;code&gt;db1&lt;/code&gt;. Note that you must use the aliased name instead of the
+real database name if you aliased it in the configuration (see the &lt;a href=&#34;#databases&#34;&gt;databases&lt;/a&gt; section for information
+about aliases).&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If your client or database is configured as synchronous (the default) you must use the &lt;code&gt;com.mongodb.MongoClient&lt;/code&gt; and
+&lt;code&gt;com.mongodb.client.MongoDatabase&lt;/code&gt; classes. If your client or database is configured as asynchronous, you must use the
+&lt;code&gt;com.mongodb.async.client.MongoClient&lt;/code&gt; and &lt;code&gt;com.mongodb.async.client.MongoDatabase&lt;/code&gt; classes instead.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;You can inject a client or a database without any &lt;code&gt;@Named&lt;/code&gt; qualifier as long as there is only one client or only one database
+of the injected type configured.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;morphia&#34;&gt;Morphia&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/mongodb/morphia&#34;&gt;Morphia&lt;/a&gt; is an Object document mapper Api. it Provides Annotation-based Java objects
+mapping, and fluent query/update API&amp;rsquo;s.&lt;/p&gt;
+
+&lt;p&gt;SeedStack Morphia add-on enables your application to connect and interact with MongoDB instances only by injecting and
+using a Morphia &lt;code&gt;Datastore&lt;/code&gt;.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-mongodb-mongodb-morphia-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-mongodb-mongodb-morphia-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-mongodb-mongodb-morphia-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.mongodb&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mongodb-morphia&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-mongodb-mongodb-morphia-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;1.1.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-mongodb-mongodb-morphia-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-mongodb-mongodb-morphia-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-mongodb-mongodb-morphia-version, #org-seedstack-addons-mongodb-mongodb-morphia-warn&#39;).show(); $(&#39;#org-seedstack-addons-mongodb-mongodb-morphia-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-mongodb-mongodb-morphia-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.mongodb:mongodb-morphia:1.1.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;configuration-1&#34;&gt;Configuration&lt;/h2&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;&lt;strong&gt;Requirements:&lt;/strong&gt;
+Morphia Datastores need synchronous mongodb databases, please refer to mongodb &lt;a href=&#34;#asynchronous-client-options&#34;&gt;synchronous client&lt;/a&gt;
+and &lt;a href=&#34;#Databases&#34;&gt;database&lt;/a&gt; configuration before starting with morphia.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Seed has the ability to create a new Morphia &lt;code&gt;Datastore&lt;/code&gt; linked to single Morphia mapped objects or java packages.
+Two &lt;code&gt;morphia&lt;/code&gt; properties &lt;code&gt;clientName&lt;/code&gt; and &lt;code&gt;dbName&lt;/code&gt; are available and can be set using Seed object props configuration
+as followed:&lt;/p&gt;
+
+&lt;p&gt;Required Mongodb configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb]
+clients = client1
+
+[org.seedstack.mongodb.client.client1]
+hosts = localhost
+option.connectionsPerHost = 50
+databases = db1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Datastore linked to a single Morphia mapped object:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.mycompany.myapp.domain.user.*]
+morphia.clientName = client1
+morphia.dbName = db1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Datastore linked to Morphia mapped objects in a package&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.mycompany.myapp.domain.user.User]
+morphia.clientName = client1
+morphia.dbName = db1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;usage-1&#34;&gt;Usage&lt;/h2&gt;
+
+&lt;p&gt;Configuration for affecting a package to a &lt;code&gt;Datastore&lt;/code&gt; linked to the database &lt;code&gt;db1&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb]
+clients = client1
+
+[org.seedstack.mongodb.client.client1]
+hosts = localhost
+option.connectionsPerHost = 50
+databases = db1
+
+[org.mycompany.myapp.domain.user.*]
+morphia.clientName = client1
+morphia.dbName = db1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Morphia only support synchronous client, as so the Mongodb database must be synchronous.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Mapping Object under the package defined above:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Entity
+public class User implements AggregateRoot&amp;lt;Long&amp;gt;{
+	@Id
+	private long id;
+	private String name;
+	private String lastname;
+    @Embedded    
+    private Address address;
+    
+	// ...
+}
+@Embedded
+public class Address implements ValueObject{
+	private String country;
+	private String zipcode;
+	private String city;
+	private String street;
+	private Integer number;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A Morphia &lt;code&gt;Datastore&lt;/code&gt; can be injected simply by specifying the associated &lt;code&gt;morphia.clientName&lt;/code&gt; and &lt;code&gt;morphia.dbName&lt;/code&gt; with
+the appropriate binding annotation &lt;code&gt;@MorphiaDatastore&lt;/code&gt; as followed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MorphiaIT extends AbstractSeedIT{
+	@Inject
+	@MorphiaDatastore(clientName = &amp;quot;client1&amp;quot;,dbName=&amp;quot;db1&amp;quot;)
+	private Datastore datastore; 
+	
+	@Test
+	public void datastore_test(){
+		User user = new User(...);
+		Key&amp;lt;User&amp;gt; keyUser = datastore.save(user);
+		Assertions.assertThat(keyUser).isNotNull();
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;repositories&#34;&gt;Repositories&lt;/h2&gt;
+
+&lt;p&gt;The Morphia addon also provides repositories which can be use with the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/business/&#34;&gt;Business Framework&lt;/a&gt;.
+Default repositories can be used by injecting the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;business.&amp;amp;#8203;domain.&amp;amp;#8203;Repository&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/business/domain/Repository.html&#39;&gt;Repository&lt;/a&gt;&lt;/code&gt; interface with
+both the &lt;code&gt;@Inject&lt;/code&gt; and &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;mongodb.&amp;amp;#8203;morphia.&amp;amp;#8203;Morphia&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/mongodb/morphia/Morphia.html&#39;&gt;@Morphia&lt;/a&gt;&lt;/code&gt; annotations as followed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MongodbRepositoryIT extends AbstractSeedIT {
+
+	@Inject
+	@Morphia
+	private Repository&amp;lt;User, Long&amp;gt; userRepository;
+	
+	@Inject
+	Factory&amp;lt;User&amp;gt; myUserFactory; 
+	
+	@Test
+	public void mongodb_repository_test() {
+		userRepository.delete(myUserFactory.create(...));
+		User loadedUser = userRepository.load(user1.getEntityId());
+		Assertions.assertThat(user).isEqualTo(null);
+	}
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Custom repositories can be added simply by extending the class &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;mongodb.&amp;amp;#8203;morphia.&amp;amp;#8203;BaseMongodbRepository&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/mongodb/morphia/BaseMongodbRepository.html&#39;&gt;BaseMongodbRepository&lt;/a&gt;&lt;/code&gt; as followed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public interface UserRepository extends Repository&amp;lt;Activation,String&amp;gt; {}
+public class UserMongodbRepository extends BaseMongodbRepository&amp;lt;User, Long&amp;gt; {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The repository can be injected as followed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+private UserRepository userRepository;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;To use a &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;mongodb.&amp;amp;#8203;morphia.&amp;amp;#8203;Datastore&#39;&gt;Datastore&lt;/span&gt;&lt;/code&gt; inside the repository simply call the method &lt;code&gt;this.getDatastore()&lt;/code&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

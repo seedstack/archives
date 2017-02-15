@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/mqtt/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/mqtt/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Configuration</title>
+      <link>http://seedstack.org/archives/16.7/addons/mqtt/configuration/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/mqtt/configuration/</guid>
+      <description>
+
+&lt;p&gt;Configuring your MQTT solution is mandatory in order to be able to use Seed MQTT add-on.&lt;/p&gt;
+
+&lt;h1 id=&#34;clients&#34;&gt;Clients&lt;/h1&gt;
+
+&lt;p&gt;Multiple clients can be created and managed by Seed. All clients must be listed in the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.mqtt]
+clients = client-1, client-2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Each client can then be configured as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.mqtt.client.client-1]
+server-uri = uri to connect to the broker
+client-id = client id on the broker
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;automatic-reconnection&#34;&gt;Automatic reconnection&lt;/h1&gt;
+
+&lt;p&gt;Seed-managed MQTT connections can automatically reconnect after they go down. This behavior is enabled by default but
+can be disabled by the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.mqtt.client.client-1]
+reconnection.mode = NONE # Default option is ALWAYS
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The delay before automatic reconnection is 2 seconds but it can be changed with the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.mqtt.client.client-1]
+reconnection.interval = 10 # in seconds
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that the delay is specified in seconds.&lt;/p&gt;
+
+&lt;p&gt;Another option is to have a custom reconnection. In this case, Seed call your own class (listener or subscriber) for the behavior. This can be do with the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.mqtt.client.client-1]
+reconnection.mode = CUSTOM
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;mqtt-options&#34;&gt;MQTT options&lt;/h1&gt;
+
+&lt;p&gt;MQTT options can also be added to the client. All properties for an MQTT option can be added with the property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.mqtt.client.client-1]
+mqtt-options.property.cleanSession = false
+mqtt-options.property.xxxx = value
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;connection-pool&#34;&gt;Connection pool&lt;/h1&gt;
+
+&lt;p&gt;A listener connection pool is enabled by default for each client. Default values are:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.mqtt.client.client-1]
+pool.enabled = true 
+pool.core = 1 
+pool.max = 1 
+pool.queue = 500 
+pool.keep-alive = 60 # in seconds
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Publish handler</title>
+      <link>http://seedstack.org/archives/16.7/addons/mqtt/publish-handler/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/mqtt/publish-handler/</guid>
+      <description>&lt;p&gt;To handle a MQTT publisher, create a handler class which implements the &lt;code&gt;org.eclipse.paho.client.mqttv3.MqttCallback&lt;/code&gt; interface and is
+annotated with &lt;code&gt;@MqttPublishHandler&lt;/code&gt;. This annotation takes the following parameter:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;clients&lt;/code&gt; parameter specifying the client that will publish the messages.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With this class, the default reconnection behavior can be overridden.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Publishing messages</title>
+      <link>http://seedstack.org/archives/16.7/addons/mqtt/publisher/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/mqtt/publisher/</guid>
+      <description>&lt;p&gt;In a Java class, just inject your own client:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+@Named(&amp;quot;client-1&amp;quot;)
+IMqttClient mqttClient;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And then in a method, just do:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mqttClient.publish(&amp;quot;topicName&amp;quot;,&amp;quot;message&amp;quot;.getBytes(Charset.forName(&amp;quot;UTF-8&amp;quot;)), 1, false);
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Receiving messages</title>
+      <link>http://seedstack.org/archives/16.7/addons/mqtt/listener/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/mqtt/listener/</guid>
+      <description>&lt;p&gt;To receive MQTT messages, create a listener class which implements the &lt;code&gt;org.eclipse.paho.client.mqttv3.MqttCallback&lt;/code&gt; interface and is
+annotated with &lt;code&gt;@MqttListener&lt;/code&gt;. This annotation takes the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;clients&lt;/code&gt; parameter specifying the client that will be used to receive the messages.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;topics&lt;/code&gt; parameter specifying which topic it will listen to.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;qos&lt;/code&gt; parameter specifying which topic it will listen to (for the topicFilter defined).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The 2 lists &lt;code&gt;topics&lt;/code&gt; and &lt;code&gt;qos&lt;/code&gt; should have the same size. They are linked together.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/identifier/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/identifier/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Domain model</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/manual/model/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/manual/model/</guid>
+      <description>&lt;p&gt;The domain model is expressed through three patterns:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Entity&lt;/strong&gt; which is an object defined primarily by its identity.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Value Object&lt;/strong&gt; which is an object with no conceptual identity and solely defined by is attributes.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Service&lt;/strong&gt; which hold domain logic that doesn&amp;rsquo;t clearly belong to an entity nor a value object.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;entities&#34;&gt;Entities&lt;/h1&gt;
+
+&lt;p&gt;Entities are used to represent a domain concept which has an identity.&lt;/p&gt;
+
+&lt;p&gt;Often DDD beginners have a tendency to focus more on data than on the software. This often leads in all the concepts of
+the &amp;laquo;domain&amp;raquo; being coded as entities. Specially, in anemic entities using only getters and setters. Using them is not
+wrong but it&amp;rsquo;s not enough to hold the insights of a domain. That&amp;rsquo;s why designing entities should be taken very carefully.&lt;/p&gt;
+
+&lt;p&gt;The entity concept should be used for an element of your domain when you take care of its identity. An identity must be
+unique and immutable. Even it an object can change during its lifetime, its identity must stay untouched. If this is not
+true for your element, you should consider using a &lt;a href=&#34;#value-objects&#34;&gt;value object&lt;/a&gt; instead.&lt;/p&gt;
+
+&lt;p&gt;When designing an entity, the critical part is to determine what is the identity and how to create it. An identity can be
+hold by a set of properties. In this case, a value object can be well fitted to guaranty the identity consistency and immutability.&lt;/p&gt;
+
+&lt;p&gt;There are different kind of creation strategies for identities:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The client can pass values handling himself the uniqueness.&lt;/li&gt;
+&lt;li&gt;The application can generate the identity using an algorithm.&lt;/li&gt;
+&lt;li&gt;The application can rely on an external identity generator, like a database sequence.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The first case is easily handled using factories. The other cases, can be usually more complicated, but the Business
+framework provides an API for them (see &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/business/manual/factories/#identity-generation&#34;&gt;identity generation&lt;/a&gt;).&lt;/p&gt;
+
+&lt;h2 id=&#34;declaration&#34;&gt;Declaration&lt;/h2&gt;
+
+&lt;p&gt;To create an Entity using the Business framework you have three choices:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Extend the &lt;code&gt;BaseEntity&lt;/code&gt; class. The &lt;code&gt;equals()&lt;/code&gt; and &lt;code&gt;hashCode()&lt;/code&gt; methods will be provided out-of-the-box as well as a basic  &lt;code&gt;toString()&lt;/code&gt; method. You must implement the &lt;code&gt;getEntityId()&lt;/code&gt; method.&lt;/li&gt;
+&lt;li&gt;Implement the &lt;code&gt;Entity&lt;/code&gt; interface. You must implement the &lt;code&gt;equals()&lt;/code&gt;, &lt;code&gt;hashCode()&lt;/code&gt; and &lt;code&gt;getEntityId()&lt;/code&gt;
+methods in this case.&lt;/li&gt;
+&lt;li&gt;Simply annotate any class with the &lt;code&gt;@DomainEntity&lt;/code&gt; annotation. In this case, you won&amp;rsquo;t be able to use helpers and
+tools from the framework.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With the two first options (base class and interface), you have to provide a generic parameter with the type of the
+Entity identifier.&lt;/p&gt;
+
+&lt;h2 id=&#34;example&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;Consider the following example in which a &lt;code&gt;Customer&lt;/code&gt; Entity is identified by an e-mail of String type.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Customer extends BaseEntity&amp;lt;String&amp;gt; {
+    private String email;
+    private Address address;
+
+    public Customer (String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String getEntityId() {
+        return this.email;
+    }
+
+    /* Meaningful methods */
+    public void changeAddress(Address newAddress) { ... }
+
+    /* Getters */
+    public Address getAddress() { ... }
+    public String getEmail() { ... }
+    public List&amp;lt;Order&amp;gt; getOrders() { ... }
+    
+    /* Try to avoid setters as they allow to alter the internal state of the entity */
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;value-objects&#34;&gt;Value-Objects&lt;/h1&gt;
+
+&lt;p&gt;An object that don&amp;rsquo;t have a conceptual identity but is just describing some characteristics of a thing is called a
+Value Object. Because the most visible objects in a model are usually Entities, there is a natural tendency to assign
+an identity to every domain object. But this tendency should be refrained. Here are the main characteristics of a
+Value Object:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It measures, quantifies or describes a thing in the domain.&lt;/li&gt;
+&lt;li&gt;It is immutable, meaning that its state cannot be changed after creation.&lt;/li&gt;
+&lt;li&gt;It describes a conceptual whole. Its attributes are related to each other and are all participating to the description.
+This means that all the required values should be assigned upon creation (i.e. in the constructor).&lt;/li&gt;
+&lt;li&gt;It is comparable to others using value equality.&lt;/li&gt;
+&lt;li&gt;Its behavior is side-effect free.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;declaration-1&#34;&gt;Declaration&lt;/h2&gt;
+
+&lt;p&gt;To create a Value Object using the Business framework you have three choices:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Extend the &lt;code&gt;BaseValueObject&lt;/code&gt; class. In this case, the &lt;code&gt;equals()&lt;/code&gt;, &lt;code&gt;hashCode()&lt;/code&gt; methods will be
+provided out-of-the-box as well as a basic &lt;code&gt;toString()&lt;/code&gt; method.&lt;/li&gt;
+&lt;li&gt;Implement the &lt;code&gt;ValueObject&lt;/code&gt; interface. You must implement the &lt;code&gt;equals()&lt;/code&gt; and &lt;code&gt;hashCode()&lt;/code&gt; in this case.&lt;/li&gt;
+&lt;li&gt;Simply annotate any class with the &lt;code&gt;@DomainValueObject&lt;/code&gt; annotation. In this case, you won&amp;rsquo;t be able to use helpers and
+tools from the framework.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example-1&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;Cars are identified by a &amp;laquo;Vehicle Identification Number&amp;raquo; (VIN). See this &lt;a href=&#34;http://en.wikipedia.org/wiki/Vehicle_Identification_Number#Components_of_the_VIN&#34;&gt;wikipedia article&lt;/a&gt;
+for the conceptual definition. To simplify our example, we will just consider the VIN as composed respectively of 3 parts:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;3 DIGITS : World Manufacturer Identifier&lt;/li&gt;
+&lt;li&gt;6 DIGITS : Vehicle descriptor section&lt;/li&gt;
+&lt;li&gt;8 DIGITS : Vehicle identifier section&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here is a possible implementation of the VIN class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.mycompany.myapp.shared.domain.after.sales.vehicle;
+
+import org.seedstack.business.domain.BaseValueObject;
+
+public class VIN extends BaseValueObject {
+    private final String worldManufacturerIdentifier;
+    private final String vehicleDescriptorSection;
+    private final String vehicleIdentifierSection;
+
+    public vehicleIdentificationNumber(
+            String worldManufacturerIdentifier,
+            String vehicleDescriptorSection,
+            String vehicleIdentifierSection) {
+        this.worldManufacturerIdentifier = worldManufacturerIdentifier;
+        this.vehicleDescriptorSection = vehicleDescriptorSection;
+        this.vehicleIdentifierSection = vehicleIdentifierSection;
+    }
+
+    public vehicleIdentificationNumber(String vin) {
+        this.worldManufacturerIdentifier = vin.substring(0,3);
+        this.vehicleDescriptorSection = vin.substring(3,9);
+        this.vehicleIdentifierSection = vin.substring(9,17);
+    }
+
+    /* Getters */
+    public String getWorldManufacturerIdentifier() { ... }
+    public String getVehicleDescriptorSection() { ... }
+    public String getVehicleIdentifierSection() { ... }
+
+    @Override
+    public String toString(){
+        return worldManufacturerIdentifier + vehicleDescriptorSection
+                + vehicleIdentifierSection;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;usage-as-identifiers&#34;&gt;Usage as identifiers&lt;/h2&gt;
+
+&lt;p&gt;Value Object can also be used to represent complex identifiers for entities. For instance, you can use the VIN class defined
+in the example above to identity a &lt;code&gt;Vehicle&lt;/code&gt; class. You can also add meaning and behavior to a simple value by embedding
+it into a Value Object:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.mycompany.myapp.domain.customer;
+
+import javax.persistence.Embeddable;
+import org.seedstack.business.domain.BaseValueObject;
+
+public class CustomerId extends BaseValueObject {
+    private String value;
+
+    public CustomerId(String customerId) {
+        this.value = customerId;
+    }
+    public String getValue() {
+        return value;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this example, the &lt;code&gt;CustomerId&lt;/code&gt; Value Object add meaning to the plain string. You won&amp;rsquo;t manipulate a String anymore
+in your code but a CustomerId, with its own type. This type can evolve later to provide additional behavior or to
+be adapt its internal structure.&lt;/p&gt;
+
+&lt;h1 id=&#34;services&#34;&gt;Services&lt;/h1&gt;
+
+&lt;p&gt;Services are stateless objects that implement logic which doesn&amp;rsquo;t fit in the aggregates.&lt;/p&gt;
+
+&lt;p&gt;Services can be found in various locations:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The domain, where services contain pure business logic. Naming should come from the &lt;a href=&#39;http://seedstack.org/archives/16.7/glossary#ubiquitous-language&#39;&gt;ubiquitous language&lt;/a&gt; or
+be introduced into it if necessary. Parameters and return values should be domain objects. Example: a bank account transfer service.&lt;/li&gt;
+&lt;li&gt;The infrastructure, where services deal with specific technological aspects. Example: a notification sending service.&lt;/li&gt;
+&lt;li&gt;The application, where services contain coordination logic between other services and are more tied to a specific use-case.
+These services are often the ideal place to begin and end a transaction.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;A good service is always stateless. That doesn&amp;rsquo;t mean that a service cannot change the global state of the application
+(that is, it may have side effects), but it should never hold a state of its own that could affect its behavior.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;declaration-2&#34;&gt;Declaration&lt;/h2&gt;
+
+&lt;p&gt;Creating a Service with the Business Framework, consists in:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Creating a service interface, annotated with the &lt;code&gt;@Service&lt;/code&gt; annotation. Business Framework Services are POJOs, there is no mandated super interface.&lt;/li&gt;
+&lt;li&gt;Creating a service implementation.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example-2&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;rsquo;s consider a bank account transfer, which is a service belonging to the domain.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;From the domain of a &lt;em&gt;bank account management&lt;/em&gt; perspective, the transfer consists of an amount debited on an
+account which is credited on another account.&lt;/li&gt;
+&lt;li&gt;The inherent logic of the transfer does not belong to any of the accounts but to a service of the Domain.
+It&amp;rsquo;s implementation can be rather simple or complex depending on the rules applying to the process (currency exchange
+rate, transfer authorisation between countries, amount on originating account, etc&amp;hellip;).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;@Service
+public interface AccountTransferService {
+
+    public AccountTransferReport transferMoney(Account toBeDebited, Account toBeCredited,
+            Amount transferAmount);
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Avoid services named like &amp;laquo;AccountManagement&amp;raquo; as they tend to become the place to handle all behaviour for a (sub)domain
+instead of clearly specifying the intent and responsibility.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

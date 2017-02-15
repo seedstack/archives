@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/jdbc/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/jdbc/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/jdbc/</link>
+      <pubDate>Thu, 21 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/jdbc/</guid>
+      <description>
+
+&lt;p&gt;Seed JDBC persistence add-on enables your application to interface with any relational database through the JDBC API.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-jdbc-jdbc-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-jdbc-jdbc-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-jdbc-jdbc-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.jdbc&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;jdbc&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-jdbc-jdbc-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.1.3&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-jdbc-jdbc-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-jdbc-jdbc-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-jdbc-jdbc-version, #org-seedstack-addons-jdbc-jdbc-warn&#39;).show(); $(&#39;#org-seedstack-addons-jdbc-jdbc-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-jdbc-jdbc-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.jdbc:jdbc:2.1.3&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;You can configure the add-on in one or more of your *.props files. Declare you list of data source names you will be
+configuring later:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.seedstack.jdbc.datasources = datasource1, datasource2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Configure each data source separately. Notice the use of the keyword &lt;em&gt;property&lt;/em&gt; to specify any property that will be
+used by the datasource as specific configuration.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jdbc.datasource.datasource1]
+provider = HikariDataSourceProvider
+driver = org.hsqldb.jdbcDriver
+url = jdbc:hsqldb:mem:testdb1
+user = sa
+password =
+property.specific.jdbc.prop = value
+property.prop.for.datasource = value
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Alternatively, if you want to lookup the data source through JNDI you can use this configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jdbc.datasource.datasource1]
+jndi-name = java:comp/env/jdbc/my-datasource
+context = ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;context&lt;/code&gt; property is optional and can be used to specify a particular context name configured in
+&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/more/#jndi&#34;&gt;core support&lt;/a&gt; to make the lookup. Otherwise the default context (named &lt;code&gt;default&lt;/code&gt;) will be used.&lt;/p&gt;
+
+&lt;h1 id=&#34;usage&#34;&gt;Usage&lt;/h1&gt;
+
+&lt;p&gt;The following examples show how to get a JDBC connection.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyRepository {
+
+    @Inject
+    private Connection connection;
+
+    @Transactional
+    @Jdbc(&amp;quot;datasource1&amp;quot;)
+    public void updateStuff(int id, String bar){
+        try{
+            String sql = &amp;quot;INSERT INTO FOO VALUES(?, ?)&amp;quot;;
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            statement.setString(2, bar);
+            statement.executeUpdate();
+        } catch(SqlException e){
+            throw new SomeRuntimeException(e, &amp;quot;message&amp;quot;);
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;As seen in the example above, any interaction with this connection have to be done inside a &lt;strong&gt;transaction&lt;/strong&gt;. Refer to the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/transactions/&#34;&gt;transaction support documentation&lt;/a&gt; for more detail.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;data-source-providers&#34;&gt;Data source providers&lt;/h1&gt;
+
+&lt;h2 id=&#34;built-in-providers&#34;&gt;Built-in providers&lt;/h2&gt;
+
+&lt;p&gt;When using a non JNDI data source, we recommend the use of pooled datasource through a DataSourceProvider defined in the
+configuration. Four data source providers can be specified in the &lt;code&gt;provider&lt;/code&gt; property:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://brettwooldridge.github.io/HikariCP/&#34;&gt;HikariCP&lt;/a&gt; with &lt;code&gt;HikariDataSourceProvider&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://commons.apache.org/proper/commons-dbcp/&#34;&gt;Commons DBCP&lt;/a&gt; with &lt;code&gt;DbcpDataSourceProvider&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.mchange.com/projects/c3p0/&#34;&gt;C3P0&lt;/a&gt; with &lt;code&gt;C3p0DataSourceProvider&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A test-only plain data source provider with &lt;code&gt;PlainDataSourceProvider&lt;/code&gt;. &lt;strong&gt;Do not use in production&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;custom-providers&#34;&gt;Custom providers&lt;/h2&gt;
+
+&lt;p&gt;In the case you want to use another data source provider, you can create your own &lt;code&gt;DataSourceProvider&lt;/code&gt; by implementing the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;jdbc.&amp;amp;#8203;spi.&amp;amp;#8203;DataSourceProvider&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/jdbc/spi/DataSourceProvider.html&#39;&gt;DataSourceProvider&lt;/a&gt;&lt;/code&gt; interface:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class SomeDataSourceProvider implements DataSourceProvider {
+
+    @Override
+    public DataSource provideDataSource(String driverClass, String
+            url, String user, String password, Properties jdbcProperties) {
+        SomeDataSource sds = new SomeDataSource();
+        sds.setDriverClass(driverClass);
+        sds.setJdbcUrl(url);
+        sds.setUser(url);
+        sds.setPassword(user);
+        sds.setProperties(jdbcProperties);
+        return sds;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You will be able to declare it in your configuration as &lt;code&gt;SomeDataSourceProvider&lt;/code&gt; (the simple name of your class). Note
+that if you want to use one of the three datasource providers described above, you will have to add the corresponding
+dependency to your project.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

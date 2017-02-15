@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/shell/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/shell/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Operations</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/manual/operations/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/manual/operations/</guid>
+      <description>&lt;p&gt;Seed provides the necessary tools to closely monitor the performance and the availability of your application or service,
+and even to take action if necessary. It does so by capturing metrics on key application components and checking their
+health status. Custom metrics and health-checks can be defined. If you need to take action, you can execute predefined
+or custom management commands through SSH.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-metrics-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-metrics-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-seed-seed-metrics-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;seed-metrics&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-seed-seed-metrics-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-seed-seed-metrics-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-seed-seed-metrics-show&#34; onclick=&#34;$(&#39;#org-seedstack-seed-seed-metrics-version, #org-seedstack-seed-seed-metrics-warn&#39;).show(); $(&#39;#org-seedstack-seed-seed-metrics-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-seed-seed-metrics-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.seed:seed-metrics:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h1 id=&#34;metrics&#34;&gt;Metrics&lt;/h1&gt;
+
+&lt;p&gt;When enabled, this module will automatically capture key metrics throughout the framework. Additionally it provides the
+ability for you to define 5 types of custom metrics:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Gauge&lt;/strong&gt;, which simply collects a value.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Counter&lt;/strong&gt;, which is an incrementing or decrementing value.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Histogram&lt;/strong&gt;, which measures the distribution of values in a stream of data.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Meter&lt;/strong&gt;, which measure the rate at which a set of events occur.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Timer&lt;/strong&gt;, which combines an histogram of an event duration and a meter of the rate of its occurrence.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Seed metrics module implementation is based on the &lt;a href=&#34;http://metrics.dropwizard.io/&#34;&gt;Metrics&lt;/a&gt; library. Please check its
+documentation for more information.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;annotations&#34;&gt;Annotations&lt;/h2&gt;
+
+&lt;p&gt;Metrics can automatically be registered through annotations. To register a Gauge, use the &amp;lt;&lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;com.&amp;amp;#8203;codahale.&amp;amp;#8203;metrics.&amp;amp;#8203;annotation.&amp;amp;#8203;Gauge&#39;&gt;@Gauge&lt;/span&gt;&lt;/code&gt;
+annotation on any method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Gauge(name = &amp;quot;queueSize&amp;quot;)
+public int getQueueSize() {
+    return queue.size;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can also use its &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;com.&amp;amp;#8203;codahale.&amp;amp;#8203;metrics.&amp;amp;#8203;annotation.&amp;amp;#8203;CachedGauge&#39;&gt;@CachedGauge&lt;/span&gt;&lt;/code&gt; counterpart which allows for a more efficient
+reporting of value which are expensive to calculate:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@CachedGauge(name = &amp;quot;queueSize&amp;quot;, timeout = 30, timeoutUnit = TimeUnit.SECONDS)
+public int getQueueSize() {
+    return queue.getSize();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;com.&amp;amp;#8203;codahale.&amp;amp;#8203;metrics.&amp;amp;#8203;annotation.&amp;amp;#8203;Counted&#39;&gt;@Counted&lt;/span&gt;&lt;/code&gt; annotation will create a counter of the invocations of the
+method it is applied to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Counted(name = &amp;quot;fancyName&amp;quot;)
+public String fancyName(String name) {
+    return &amp;quot;Sir Captain &amp;quot; + name;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that if the &lt;code&gt;monotonic&lt;/code&gt; parameter is set to false, the counter is increment upon method entry and decremented upon
+method exit. If set to true, the counter only increments, effectively counting the number of method invocations.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;com.&amp;amp;#8203;codahale.&amp;amp;#8203;metrics.&amp;amp;#8203;annotation.&amp;amp;#8203;Metered&#39;&gt;@Metered&lt;/span&gt;&lt;/code&gt; annotation will create a meter which will measure the
+rate of invocation of the method it is applied to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Metered(name = &amp;quot;fancyName&amp;quot;)
+public String fancyName(String name) {
+    return &amp;quot;Sir Captain &amp;quot; + name;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Its counter-part, the &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;com.&amp;amp;#8203;codahale.&amp;amp;#8203;metrics.&amp;amp;#8203;annotation.&amp;amp;#8203;ExceptionMetered&#39;&gt;@ExceptionMetered&lt;/span&gt;&lt;/code&gt; annotation will create a meter
+which will measure the rate of exception throwing of the method it is applied to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@ExceptionMetered
+public String fancyName(String name) {
+    return &amp;quot;Sir Captain &amp;quot; + name;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The more generic &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;com.&amp;amp;#8203;codahale.&amp;amp;#8203;metrics.&amp;amp;#8203;annotation.&amp;amp;#8203;Metric&#39;&gt;@Metric&lt;/span&gt;&lt;/code&gt; annotation permits two different uses. When
+applied on an empty Metric field, the corresponding metric will be created and injected:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Metric
+public Meter meter;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When applied on a non-empty Metric field, the metric will be registered:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Metric
+public Histogram uniformHistogram = new Histogram(new UniformReservoir());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In both cases, it is up to the client code to interact with the metric.&lt;/p&gt;
+
+&lt;h2 id=&#34;registry&#34;&gt;Registry&lt;/h2&gt;
+
+&lt;p&gt;If you need more control over the metrics registration process, you can inject the &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;com.&amp;amp;#8203;codahale.&amp;amp;#8203;metrics.&amp;amp;#8203;MetricRegistry&#39;&gt;MetricRegistry&lt;/span&gt;&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+MetricRegistry metricRegistry;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This also allows you to interact programatically with any registered metrics.&lt;/p&gt;
+
+&lt;h1 id=&#34;health-checks&#34;&gt;Health-checks&lt;/h1&gt;
+
+&lt;p&gt;An health check is a class that will check a specific state of the application and report it. To create an health check,
+you must extend the &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;com.&amp;amp;#8203;codahale.&amp;amp;#8203;metrics.&amp;amp;#8203;health.&amp;amp;#8203;HealthCheck&#39;&gt;HealthCheck&lt;/span&gt;&lt;/code&gt; class and annotate it with the
+&lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;metrics.&amp;amp;#8203;HealthChecked&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/metrics/HealthChecked.html&#39;&gt;@HealthChecked&lt;/a&gt;&lt;/code&gt; annotation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@HealthChecked
+public class GoodHealthCheck extends HealthCheck {
+    @Inject
+    MyService myService;
+
+    @Override
+    protected Result check() throws Exception {
+        if (myService.isOk()) {
+            return Result.healthy(&amp;quot;I&#39;m fine !&amp;quot;);
+        } else {
+            return Result.unhealthy(&amp;quot;Boo&amp;quot;);
+        }
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that you have access to any injectable instance in your health check.&lt;/p&gt;
+
+&lt;h1 id=&#34;shell&#34;&gt;Shell&lt;/h1&gt;
+
+&lt;p&gt;Seed shell provides administrative access to application commands through SSH protocol in two different modes:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Interactive mode consists in providing of a simple line-based shell with auto-completion, history and the ability to display
+command results as a string. In this mode, commands have no access to low-level input, output and error streams. They
+take and produce discrete objects that are displayed as strings.&lt;/li&gt;
+&lt;li&gt;Direct mode consists of a single command executed through an ssh remote invocation. In this mode, commands have
+access to low-level input, output and error streams and thus can be combined with other commands on the client system.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-shell-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-shell-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-seed-seed-shell-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;seed-shell&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-seed-seed-shell-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-seed-seed-shell-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-seed-seed-shell-show&#34; onclick=&#34;$(&#39;#org-seedstack-seed-seed-shell-version, #org-seedstack-seed-seed-shell-warn&#39;).show(); $(&#39;#org-seedstack-seed-seed-shell-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-seed-seed-shell-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.seed:seed-shell:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+
+&lt;p&gt;The configuration properties defining the shell support behavior are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;org.seedstack.seed.shell.enabled&lt;/code&gt; which determines if shell access is enabled or not.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;org.seedstack.seed.shell.port&lt;/code&gt; defines the port the SSH server will listen to. Defaults to 2222.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;org.seedstack.seed.shell.key.type&lt;/code&gt; defines what type of cryptographic key to use:
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;generated&lt;/code&gt; is the simplest and default mode. It generates a key in the application storage directory which is used
+in subsequent authentication challenges. &lt;strong&gt;Please note that this key type is NOT secured from a SSH perspective.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;file&lt;/code&gt; mode specifies the cryptographic key location on the filesystem via the &lt;code&gt;org.seedstack.seed.shell.key.location&lt;/code&gt;
+configuration property. The key must be provided in a JCE serialized format.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;resource&lt;/code&gt; mode specifies the cryptographic key location on the classpath via the &lt;code&gt;org.seedstack.seed.shell.key.location&lt;/code&gt;
+configuration property. The key must be provided in a JCE serialized format.
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;For security reasons, shell access is disabled by default even when the dependency is in the classpath. If shell access,
+is required, set the &lt;code&gt;org.seedstack.seed.shell.enabled&lt;/code&gt; configuration property to &lt;code&gt;true&lt;/code&gt;. &lt;strong&gt;In that case, it is strongly
+recommended to configure a real SSH key.&lt;/strong&gt;&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;commands&#34;&gt;Commands&lt;/h2&gt;
+
+&lt;p&gt;All commands registered in the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;CommandRegistry&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/CommandRegistry.html&#39;&gt;CommandRegistry&lt;/a&gt;&lt;/code&gt; can be invoked from both interactive
+and direct modes. You can specify command name, arguments and options using a GNU-like syntax:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[scope:]cmdname -s -sval --long-option --long-option-with-arg=argval arg0 arg1 arg2�
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The command scope must be specified as a prefix of the command name, delimited by a colon character.&lt;/li&gt;
+&lt;li&gt;Short options are specified using the dash character (-) immediately followed by the option name and a value if needed.&lt;/li&gt;
+&lt;li&gt;Long options are specified with two dash characters (&amp;ndash;) immediately followed by the option name and, if required, an equal sign with a value.&lt;/li&gt;
+&lt;li&gt;Arguments are specified respecting the command arguments order.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/keystore/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/keystore/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Cryptography</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/manual/crypto/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/manual/crypto/</guid>
+      <description>&lt;p&gt;Seed provides helpers for Java cryptography: private key encryption, secure hashing, KeyStore configuration and SSL
+configuration. To use these helpers add the &lt;code&gt;seed-crypto&lt;/code&gt; module to your classpath.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-crypto-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-crypto-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-seed-seed-crypto-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;seed-crypto&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-seed-seed-crypto-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-seed-seed-crypto-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-seed-seed-crypto-show&#34; onclick=&#34;$(&#39;#org-seedstack-seed-seed-crypto-version, #org-seedstack-seed-seed-crypto-warn&#39;).show(); $(&#39;#org-seedstack-seed-seed-crypto-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-seed-seed-crypto-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.seed:seed-crypto:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h1 id=&#34;encryption&#34;&gt;Encryption&lt;/h1&gt;
+
+&lt;p&gt;Seed provides an &lt;code&gt;EncryptionService&lt;/code&gt; which allows you to securely store or exchange data. It is based on a Public Key Infrastructure (PKI),
+i.e. it encrypt data using a public key and then decrypt it with a private key. To use it you will have to declare the key pair to use.
+In java keys are stored using a &lt;code&gt;KeyStore&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;keystores&#34;&gt;KeyStores&lt;/h2&gt;
+
+&lt;p&gt;Key stores are created using the &lt;code&gt;keytool&lt;/code&gt; command-line tool (see &lt;a href=&#34;http://docs.oracle.com/javase/8/docs/technotes/tools/windows/keytool.html&#34;&gt;keytool documentation&lt;/a&gt;).
+Here is an example creating a keystore with a key pair:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;keytool -genkeypair -dname &amp;quot;cn=Mark Jones, ou=Java, o=Oracle, c=US&amp;quot;
+    -alias database -keypass &amp;lt;new password for private key&amp;gt;
+    -keystore ./src/main/resources/app.keystore
+    -storepass &amp;lt;new password for keystore&amp;gt; -validity 180
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then, it is possible to declare the key store in your configuration as follows. Notice that multiple key stores can be registered.
+The key store configuration is prefixed by &lt;code&gt;org.seedstack.seed.crypto.keystore.&amp;lt;keystore name&amp;gt;&lt;/code&gt;. The prefix ends with a
+logical key store name.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.seed.crypto.keystores=keystoreName, keystoreName2
+
+[org.seedstack.seed.crypto.keystore.keystoreName]
+path=src/main/resources/app.keystore
+password=&amp;lt;new password for keystore&amp;gt;
+
+# Optional configuration
+type=&amp;lt;keystore type&amp;gt;
+provider=&amp;lt;keystore provider&amp;gt;
+
+[org.seedstack.seed.crypto.keystore.keystoreName2]
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Two keytstore names are registered by default: &lt;code&gt;master&lt;/code&gt; and &lt;code&gt;default&lt;/code&gt;. The usage of the master keystore is described later
+in this &lt;a href=&#34;#configuration-files-protection&#34;&gt;documentation&lt;/a&gt;. The default is only a shortcut when you don&amp;rsquo;t need to have multiple
+keystores. So you don&amp;rsquo;t have to specify:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.seed.crypto.keystores=default, master
+&lt;/code&gt;&lt;/pre&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;key-pairs&#34;&gt;Key pairs&lt;/h2&gt;
+
+&lt;p&gt;Java key stores protect keys using passwords and associate public/private key pairs to aliases. For instance, if you want
+to register the previously key pair, do it as follows.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.crypto.keystore.keystoreName.alias]
+database.password=21B06221FC9EC83BAAD
+ssl.password=70E65711ACFEF03F59A
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;It is recommended for security to store certificates in a key store. But if you can&amp;rsquo;t, it is still possible to use an external certificate as follows.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.crypto.cert]
+client1.resource=client.cer
+client2.file=src/main/resources/seed.crt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this example &lt;code&gt;client1&lt;/code&gt; and &lt;code&gt;client2&lt;/code&gt; correspond to keystore aliases. The first alias is loaded from a resource and
+the second from a file. A current limitation with external certificates is that the aliases have to be present in one of the configured keystores.&lt;/p&gt;
+
+&lt;h2 id=&#34;encryptionservice&#34;&gt;EncryptionService&lt;/h2&gt;
+
+&lt;p&gt;When a key store is configured, it is then possible to inject an &lt;code&gt;EncryptionService&lt;/code&gt; for a specific alias.
+The alias password has to be configured for accessing the private key. Otherwise the &lt;code&gt;EncryptionService&lt;/code&gt;
+will still be bound, but it won&amp;rsquo;t be able to decrypt data. Only the encryption will be possible.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+@Named(&amp;quot;database&amp;quot;) // named with the key pair alias
+private EncryptionService encryptionService;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And use it to crypt or decrypt data as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;final String stringToCrypt = &amp;quot;secret in plain text&amp;quot;;
+
+byte[] encryptedString = encryptionService.encrypt(chaine.getBytes());
+byte[] decryptedString = encryptionService.decrypt(encrypt);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;secure-hashing&#34;&gt;Secure hashing&lt;/h1&gt;
+
+&lt;p&gt;Seed crypto also comes with an &lt;code&gt;HashService&lt;/code&gt; which provides the current best default hashing algorithms.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+private HashingService hashingService;
+...
+Hash hash = hashingService.createHash(&amp;quot;string to hash&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It also provides a &lt;strong&gt;secure password validation&lt;/strong&gt;. It takes a password, hashes it and checks
+it against the previously hashed password.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Hash hash = hashingService.validatePassword(passwordToCheck, verifiedHash);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;configuration-files-protection&#34;&gt;Configuration files protection&lt;/h1&gt;
+
+&lt;p&gt;Sometimes, you need to have &lt;strong&gt;sensitive data in your configuration files&lt;/strong&gt;. Using Seed cryto, it is possible to
+encrypt values in your props files. This values are decrypted at runtime. For instance, you can encrypt a password
+and specify it in the props file with the &lt;code&gt;${password:XXX}&lt;/code&gt; syntax.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.crypto.keystore.keystoreName.alias]
+client.password=${password:70E65711ACFEF03F59AFCED...F96563A19B18954B49DD59}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The password decrypting is done using an &lt;code&gt;EncryptionService&lt;/code&gt;. This service expect a key store named &lt;code&gt;master&lt;/code&gt; with a
+key alias named &lt;code&gt;seed&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.crypto.keystore.master]
+path=src/main/resources/masterkeystore.jck
+password=${env:KS_PASSWD}
+alias.seed.password=${env:KEY_PASSWD}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

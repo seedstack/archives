@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/parser/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/parser/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Custom parsers</title>
+      <link>http://seedstack.org/archives/16.7/addons/io/custom-parsers/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/io/custom-parsers/</guid>
+      <description>
+
+&lt;p&gt;If available parsers don&amp;rsquo;t fit your needs, the IO add-on provide an SPI for custom parsers. There are three options to
+provide your own parser: static template, dynamic template or without template.&lt;/p&gt;
+
+&lt;h1 id=&#34;static-template&#34;&gt;Static template&lt;/h1&gt;
+
+&lt;p&gt;In this case, templates are loaded from files within the &lt;code&gt;META-INF/templates&lt;/code&gt; directory. You need to extend three classes:
+&lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;io.&amp;amp;#8203;spi.&amp;amp;#8203;AbstractBaseStaticTemplateLoader&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/io/spi/AbstractBaseStaticTemplateLoader.html&#39;&gt;AbstractBaseStaticTemplateLoader&lt;/a&gt;&lt;/code&gt;, &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;io.&amp;amp;#8203;spi.&amp;amp;#8203;AbstractBaseTemplate&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/io/spi/AbstractBaseTemplate.html&#39;&gt;AbstractBaseTemplate&lt;/a&gt;&lt;/code&gt; and
+&lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;io.&amp;amp;#8203;spi.&amp;amp;#8203;AbstractTemplateParser&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/io/spi/AbstractTemplateParser.html&#39;&gt;AbstractTemplateParser&lt;/a&gt;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The template loader loads the template from the corresponding resource in &lt;code&gt;META-INF/templates&lt;/code&gt; directory.&lt;/li&gt;
+&lt;li&gt;The template have all information necessary to parse a file.&lt;/li&gt;
+&lt;li&gt;The parser is able to parse an InputStream and produce a model, using the template information.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;dynamic-template&#34;&gt;Dynamic template&lt;/h1&gt;
+
+&lt;p&gt;In the case of a dynamic template, your loader will completely handle the loading logic. Implement the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;io.&amp;amp;#8203;spi.&amp;amp;#8203;TemplateLoader&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/io/spi/TemplateLoader.html&#39;&gt;TemplateLoader&lt;/a&gt;&lt;/code&gt;
+interface:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyDynamicTemplateLoader implements TemplateLoader&amp;lt;MyTemplate&amp;gt; {
+
+    @Override
+    public MyTemplate load(String name) throws Exception {
+        // Gets your template from anywhere
+        return myTemplate
+    }
+
+    @Override
+    Set&amp;lt;String&amp;gt; names() {
+        // Returns all the templates you know
+        return names;
+    }
+
+    @Override
+    boolean contains(String name) {
+        // Checks if you know this template
+        return bool;
+    }
+
+    @Override
+    public String templateRenderer() {
+        // Returns the name of the associated renderer if exists, null otherwise
+        return &amp;quot;MyTemplateRenderer&amp;quot;;
+    }
+
+    @Override
+    public String templateParser() {
+        // Returns the name of the associated parser
+        return &amp;quot;MyTemplateParser&amp;quot;;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;without-template&#34;&gt;Without template&lt;/h1&gt;
+
+&lt;p&gt;A parser without template doesn&amp;rsquo;t need any information to parse the model. It is often the case of specific parsers
+that are not meant to be reusable. Extend &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;io.&amp;amp;#8203;spi.&amp;amp;#8203;AbstractBaseParser&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/io/spi/AbstractBaseParser.html&#39;&gt;AbstractBaseParser&lt;/a&gt;&lt;/code&gt; and annotate it
+with &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;javax.&amp;amp;#8203;inject.&amp;amp;#8203;Named&#39;&gt;@Named&lt;/span&gt;&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Named(&amp;quot;custom&amp;quot;)
+public class CustomParser&amp;lt;PARSED_OBJECT&amp;gt; extends AbstractBaseParser&amp;lt;PARSED_OBJECT&amp;gt; {
+
+    public CustomParser() {
+    }
+
+    @Override
+    public List&amp;lt;PARSED_OBJECT&amp;gt; parse(InputStream inputStream, Class&amp;lt;PARSED_OBJECT&amp;gt; clazz) {
+        List&amp;lt;PARSED_OBJECT&amp;gt; beans = new ArrayList&amp;lt;PARSED_OBJECT&amp;gt;();
+        return beans;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can inject it as usual:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Parse(&amp;quot;custom&amp;quot;)
+Parser parser;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

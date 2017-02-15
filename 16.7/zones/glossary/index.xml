@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/zones/glossary/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/zones/glossary/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Glossary</title>
+      <link>http://seedstack.org/archives/16.7/glossary/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/glossary/</guid>
+      <description>
+
+&lt;h1 id=&#34;anemic-domain-model&#34;&gt;Anemic domain model&lt;/h1&gt;
+
+&lt;p&gt;An anti-pattern where the domain objects have hardly any behavior. Frequently they are just data holders with
+getter/setter access and the logic completely lives in services on top of the domain objects. This is contrary to the
+essence of object-oriented design which is to combine data and behavior together.&lt;/p&gt;
+
+&lt;p&gt;This anti-pattern is really a procedural design in disguise. It has the cost of a good domain model but none of the benefits.
+Read more about it &lt;a href=&#34;http://martinfowler.com/bliki/AnemicDomainModel.html&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;bounded-context&#34;&gt;Bounded context&lt;/h1&gt;
+
+&lt;p&gt;A bounded context is a pattern of the &lt;a href=&#39;http://seedstack.org/archives/16.7/glossary#strategic-design&#39;&gt;strategic design&lt;/a&gt; aspect of the DDD which is about dealing with large
+models and teams. Large models are divided into different bounded contexts and are being explicit about their
+interrelationships.&lt;/p&gt;
+
+&lt;h1 id=&#34;cqrs&#34;&gt;CQRS&lt;/h1&gt;
+
+&lt;p&gt;The Command Query Responsibility Segregation (CQRS) pattern is a notion that a different model can be used to update
+information (command model) than the model used for reading information (query model).&lt;/p&gt;
+
+&lt;h1 id=&#34;domain&#34;&gt;Domain&lt;/h1&gt;
+
+&lt;p&gt;A sphere of knowledge, influence or activity. The subject area to which the user applies a program is the
+domain of the software. The domain is completely agnostic of the application logic.&lt;/p&gt;
+
+&lt;h1 id=&#34;domain-driven-design&#34;&gt;Domain-Driven Design&lt;/h1&gt;
+
+&lt;p&gt;An approach to the development of complex software adding on OOP to allow designers to concentrate on Business concerns rather than infrastructure ones.&lt;/p&gt;
+
+&lt;h1 id=&#34;model&#34;&gt;Model&lt;/h1&gt;
+
+&lt;p&gt;An abstraction (eg. class diagram, mind map, plain text) that describes a domain and can be used to solve
+problems related to that domain.&lt;/p&gt;
+
+&lt;h1 id=&#34;principal&#34;&gt;Principal&lt;/h1&gt;
+
+&lt;p&gt;In a security context, a &lt;em&gt;principal&lt;/em&gt; is a defining characteristic of a subject that can be uniquely identified, like an
+identifier, a name, a social-security number, a language, etc&amp;hellip;&lt;/p&gt;
+
+&lt;h1 id=&#34;spi&#34;&gt;SPI&lt;/h1&gt;
+
+&lt;p&gt;Service Provider Interface (SPI) is an API intended to be implemented or extended by a third party. It can be used to
+enable framework extension and replaceable components. SeedStack provides numerous SPI, allowing the developer to extend
+its capabilities and behaviors when needed. In SeedStack, all SPI live in a specific subpackage named &lt;code&gt;*.spi&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;strategic-design&#34;&gt;Strategic design&lt;/h1&gt;
+
+&lt;p&gt;Strategic Design is a set of principles for maintaining model integrity, distillation of the Domain Model and working
+with multiple models.&lt;/p&gt;
+
+&lt;h1 id=&#34;ubiquitous-language&#34;&gt;Ubiquitous Language&lt;/h1&gt;
+
+&lt;p&gt;Common, rigorous language build up between developers and domain experts. This language should be based on the Domain
+Model used in the software. It should evolve as the team&amp;rsquo;s understanding of the domain grows.&lt;/p&gt;
+
+&lt;h1 id=&#34;value-object&#34;&gt;Value object&lt;/h1&gt;
+
+&lt;p&gt;Objects holding related values and defined by them. They have no identity, meaning that two value objects holding the same
+values are equals. They should be immutable.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

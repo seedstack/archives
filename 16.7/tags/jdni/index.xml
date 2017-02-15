@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/jdni/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/jdni/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>More</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/manual/more/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/manual/more/</guid>
+      <description>
+
+&lt;h1 id=&#34;jndi&#34;&gt;JNDI&lt;/h1&gt;
+
+&lt;p&gt;Seed provides the ability to inject external JNDI resources through the &lt;code&gt;@Resource&lt;/code&gt; annotation. Multiple JNDI contexts can
+be used in an application by using the &lt;code&gt;@FromContext&lt;/code&gt; annotation.&lt;/p&gt;
+
+&lt;h2 id=&#34;declaring-jndi-contexts&#34;&gt;Declaring JNDI contexts&lt;/h2&gt;
+
+&lt;p&gt;The default JNDI context is automatically configured by Seed if you provide a &lt;code&gt;jndi.properties&lt;/code&gt; file in &lt;code&gt;META-INF/configuration&lt;/code&gt; classpath-included folder.
+This JNDI context is named &lt;code&gt;default&lt;/code&gt; by Seed.&lt;/p&gt;
+
+&lt;p&gt;Additional JNDI contexts can be specified using the following configuration properties:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;additional-jndi-contexts = additional1, additional2
+additional-jndi-context.additional1 = /jndi-ctx-1.properties
+additional-jndi-context.additional2 = /jndi-ctx-2.properties
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above code defines two additional JNDI contexts, named &lt;code&gt;additional1&lt;/code&gt; and &lt;code&gt;additional2&lt;/code&gt;. The specified properties
+files are &lt;code&gt;jndi.properties&lt;/code&gt;-like files.&lt;/p&gt;
+
+&lt;h2 id=&#34;using-jndi-context&#34;&gt;Using JNDI context&lt;/h2&gt;
+
+&lt;h3 id=&#34;declarative-api&#34;&gt;Declarative API&lt;/h3&gt;
+
+&lt;p&gt;You can inject JNDI resource using the &lt;code&gt;@Resource&lt;/code&gt; annotation from JSR-245:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Holder{
+    @Resource(name = &amp;quot;THE_JNDI_NAME&amp;quot;)
+    private DataSource datasource;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above lookup for &lt;code&gt;THE_JNDI_NAME&lt;/code&gt; in &lt;code&gt;default&lt;/code&gt; JNDI context is injected into &lt;code&gt;datasource&lt;/code&gt; attribute.&lt;/p&gt;
+
+&lt;p&gt;In case you have several JNDI contexts in your application, you can specify the context name as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Holder{
+    @Resource(name = &amp;quot;THE_JNDI_NAME&amp;quot;)
+    @FromContext(&amp;quot;additional1&amp;quot;)
+    private DataSource datasource;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;programmatic-api&#34;&gt;Programmatic API&lt;/h3&gt;
+
+&lt;p&gt;You can retrieve any context by injecting it into your code. Then you can use the JNDI programmatic API to lookup
+for resources in that context.&lt;/p&gt;
+
+&lt;p&gt;You can inject the &lt;code&gt;default&lt;/code&gt; context as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Holder{
+    @Inject
+    private Context defaultCtx;
+
+    public void m(){
+       MyJNDIResource test = defaultCtx.lookup(&amp;quot;THE_JNDI_NAME&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you need to precise another context, you can specify the context as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Holder{
+    @Inject
+    @Named(&amp;quot;additional1&amp;quot;)
+    private Context additional1;
+
+    public void m(){
+       MyJNDIResource test = additional1.lookup(&amp;quot;THE_JNDI_NAME&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;data-import-export&#34;&gt;Data import/export&lt;/h1&gt;
+
+&lt;p&gt;Seed provides features to backup and restore data. This could be done through &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/operations/#shell&#34;&gt;Seed Shell&lt;/a&gt;
+or data could be loaded at the application startup. Data can be backed up and restored independently from the type of
+persistence since JSON is used as the pivotal format. Consequently, no SQL script or conversion script is needed. Data
+import can also be used to initialize data for integration tests.&lt;/p&gt;
+
+&lt;h2 id=&#34;data-export&#34;&gt;Data Export&lt;/h2&gt;
+
+&lt;p&gt;Your export class has to implement &lt;code&gt;DataExporter&amp;lt;ClassToExport&amp;gt;&lt;/code&gt;. This interface provides an &lt;code&gt;exportData&lt;/code&gt; method
+returning the data to export. The class implementing &lt;code&gt;DataExporter&lt;/code&gt; should be annotated with &lt;code&gt;@DataSet&lt;/code&gt; which provides
+a functional ID to the data. As below described, &lt;code&gt;@DataSet&lt;/code&gt; takes a &lt;code&gt;group&lt;/code&gt; (eg. application ID) and a &lt;code&gt;name&lt;/code&gt; (eg. the
+type of objects being exported).&lt;/p&gt;
+
+&lt;p&gt;Implementation example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@JpaUnit(&amp;quot;seed-i18n-domain&amp;quot;)
+@Transactional
+@DataSet(group=&amp;quot;seed-i18n&amp;quot;, name=&amp;quot;key&amp;quot;)
+public class KeyDataExporter implements DataExporter&amp;lt;KeyDTO&amp;gt; {
+
+    @Inject
+    private KeyRepository keyRepository;
+
+    @Inject
+    private FluentAssembler fluentAssembler;
+
+    @Override
+    public Iterator&amp;lt;KeyDTO&amp;gt; exportData() {
+        List&amp;lt;Key&amp;gt; keys = keyRepository.loadAll();
+        return fluentAssembler.assemble(keys).to(KeyDTO.class).iterator();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;import-data&#34;&gt;Import data&lt;/h2&gt;
+
+&lt;p&gt;Your export class has to implement &lt;code&gt;DataImporter&amp;lt;ClassToImport&amp;gt;&lt;/code&gt;. This interface provides:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;an &lt;code&gt;isInitialized&lt;/code&gt; method to check before importing data (can be disabled with a property)&lt;/li&gt;
+&lt;li&gt;an &lt;code&gt;importData&lt;/code&gt;  method consuming the data to import (eg. feed a staging collection).&lt;/li&gt;
+&lt;li&gt;a &lt;code&gt;commit&lt;/code&gt; method to commit data after &lt;code&gt;importData&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;a &lt;code&gt;rollback&lt;/code&gt; method to roll back data upon error in prior steps&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The class implementing &lt;code&gt;DataImporter&lt;/code&gt; should be annotated with &lt;code&gt;@DataSet&lt;/code&gt;. As for Export, this annotation provides
+a functional ID to the imported data. As below described, &lt;code&gt;@DataSet&lt;/code&gt; takes a &lt;code&gt;group&lt;/code&gt; (eg. application ID) and a &lt;code&gt;name&lt;/code&gt;
+(eg. the type of objects being imported).&lt;/p&gt;
+
+&lt;p&gt;Implementation example from &lt;strong&gt;seed-i18n-function&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Transactional
+@DataSet(group=&amp;quot;seed-i18n&amp;quot;, name=&amp;quot;key&amp;quot;)
+public class KeyDataImporter implements DataImporter&amp;lt;KeyDTO&amp;gt; {
+
+    @Inject
+    private KeyRepository keyRepository;
+
+    private Set&amp;lt;KeyDTO&amp;gt; staging = new HashSet&amp;lt;KeyDTO&amp;gt;();
+
+    @Inject
+    private Assemblers assemblers;
+
+    @Override
+    public boolean isInitialized() {
+        // check if data are already initialized
+        ...
+        return initialized;
+    }
+
+    @Override
+    public void importData(KeyDTO data) {
+        staging.add(data);
+    }
+
+    @Override
+    public void commit(boolean clear) {
+        if (clear) {
+            // delete data before adding new one
+            ...
+        }
+        for (KeyDTO keyDTO : staging) {
+            // persist data
+            ...
+        }
+        staging.clear();
+    }
+
+    @Override
+    public void rollback() {
+        staging.clear();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;shell-command&#34;&gt;Shell command&lt;/h2&gt;
+
+&lt;p&gt;Seed also provides commands to import and export data. You can invoke this kind of commands through
+&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/operations/#shell&#34;&gt;Seed Shell&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;core:export
+  -g --group : filter on group
+  -s --set   : filter on name
+
+core:import
+  -c --clear : Clear existing data if import is succeeding
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Usage:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ssh -t admin@localhost -p 2222 &amp;quot;core:export&amp;quot; &amp;gt; data.json
+
+ssh -t admin@localhost -p 2222 &amp;quot;core:import&amp;quot; &amp;lt; data.json
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;datamanager&#34;&gt;DataManager&lt;/h2&gt;
+
+&lt;p&gt;If you want to handle import or export from your code, you can do it by injecting the &lt;code&gt;DataManager&lt;/code&gt; class.&lt;/p&gt;
+
+&lt;h2 id=&#34;auto-initialization&#34;&gt;Auto initialization&lt;/h2&gt;
+
+&lt;p&gt;Data can be automatically loaded at the application startup by adding the exported JSON file(s) in
+&lt;code&gt;META-INF/data/{group}/{name}.json&lt;/code&gt;. These data files will be loaded unless the application is already initialized
+(according to your &lt;code&gt;isInitialized()&lt;/code&gt; method implementation). Initialization can be forced each time this application
+is started by adding this property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.seed.core]
+data-initialization = force
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Data loading can also be disabled by setting the property to &lt;code&gt;none&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.seed.core]
+data-initialization = none
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

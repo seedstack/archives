@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+<head>
+
+    
+
+<title>
+    REST
+</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="robots" content="noindex,nofollow">
+
+
+
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,700,300,400" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Bitter:700" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/css/style.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/plugins/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/css/style.css">
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "SoftwareApplication",
+  "name" : "SeedStack",
+  "image" : "http://www.seedstack.org/img/logos/seedstack-logo-round.svg",
+  "publisher" : {
+    "@type" : "Organization",
+    "name" : "Open-Source Software"
+  },
+  "applicationCategory" : "development stack"
+}
+</script>
+
+
+
+<meta property="og:title" content="REST" />
+<meta property="og:description" content="Seed provides support for Representational State Transfer (REST) architectural style through the JAX-RS
+specification. Implementation rely on Jersey. To enable REST support in your project, add
+the seed-rest-jersey2 module." />
+<meta property="og:url" content="http://seedstack.org/archives/16.7/docs/seed/manual/rest/" />
+<meta property="og:site_name" content="SeedStack" />
+<meta property="og:image" content="http://seedstack.org/archives/16.7/img/opengraph-default.png" />
+
+
+
+<link rel="search" type="application/opensearchdescription+xml" href="http://seedstack.org/archives/16.7/opensearch.xml" title="SeedStack" />
+
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="http://seedstack.org/archives/16.7/img/favicons/manifest.json">
+<meta name="apple-mobile-web-app-title" content="SeedStack">
+<meta name="application-name" content="SeedStack">
+<meta name="msapplication-TileColor" content="#00a300">
+<meta name="msapplication-TileImage" content="/img/favicons/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<script type="text/javascript">
+    window.seedstack = {
+        baseUrl: "http:\/\/seedstack.org\/archives\/16.7\/",
+        state: {}
+    };
+</script>
+
+
+</head>
+<body class="homepage">
+    
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5R5FP9"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5R5FP9');</script>
+
+
+    <div id="header">
+        <div class="header">
+    <div class="container">
+        <a class="logo" href="http://seedstack.org/archives/16.7/">SeedStack</a>
+        <div class="topbar hidden-xs hidden-sm">
+            <ul class="loginbar pull-right">
+                <li><i class="fa fa-stack-overflow"></i> <a style="color: orange;" target="_blank" href="http://stackoverflow.com/questions/ask?tags=seedstack">Ask a question</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-comments"></i> <a target="_blank" href="https://kiwiirc.com/client/irc.freenode.net#seedstack">Discuss on IRC</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-github"></i> <a target="_blank" href="https://github.com/seedstack">GitHub</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-keyboard-o"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openHelp();">Shortcuts</a></li>
+            </ul>
+        </div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="fa fa-bars"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse navbar-responsive-collapse" data-role="navigation" style="pointer-events: none;">
+        <div class="container">
+            <ul class="nav navbar-nav" style="pointer-events: auto;">
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/getting-started">Getting started</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        Documentation
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://seedstack.org/archives/16.7/docs/seed">Java framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/w20">Web framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/business">Business framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/guides">Guides</a></li>
+                        <li><a target="_blank" href="https://github.com/seedstack/samples">Samples</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/addons">Add-ons</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/themes">Themes</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/posts">Blog</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        More
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="http://seedstack.org/archives/16.7/project/community">Community</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/roadmap">Roadmap</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/faq">FAQ</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/glossary">Glossary</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/tags">Tags</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <i class="search fa fa-search search-btn"></i>
+                    <div class="search-open">
+                        <form method="GET" action="/search">
+                            <div class="input-group animated fadeInDown">
+                                <input id="search-field" type="text" class="form-control" placeholder="Search" name="q">
+                                <span class="input-group-btn">
+                                    <button class="btn-u" type="submit">Go</button>
+                                </span>
+                            </div>
+                        </form>
+                        
+                            
+                        
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+        
+<div class="title-header small">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-12">
+                <h2>Java framework</h2>
+                <p class="hidden-xs">Also known as Seed, the Java framework provides support for a large range of technologies and standards from the Java world.</p>
+            </div>
+            <div class="col-md-3 hidden-sm hidden-xs">
+                <div class="header-image-wrapper">
+                    <img class="header-image" src="http://seedstack.org/archives/16.7/img/logos/seed-logo.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="title-subheader">
+    <div class="container">
+        <ul>
+            <li><h3 class=''><i class="fa fa-play-circle"></i> <a href="http://seedstack.org/archives/16.7/docs/seed">Introduction</a></h3></li>
+            <li><h3 class='active'><i class="fa fa-book"></i> <a href="http://seedstack.org/archives/16.7/docs/seed/manual">Manual</a></h3></li>
+            <li><h3 class=''><i class="fa fa-server"></i> <a href="http://seedstack.org/archives/16.7/docs/seed/runtime">Runtime</a></h3></li>
+            <li><h3 class=''><i class="fa fa-cogs"></i> <a href="http://seedstack.org/archives/16.7/docs/seed/maven-plugin">Maven plugin</a></h3></li>
+            <li><h3><i class="fa fa-info-circle"></i> <a href="http://seedstack.org/archives/16.7/javadoc" target="_blank">Javadoc</a></h3></li>
+            <li><h3><i class="fa fa-tag"></i> <a href="https://github.com/seedstack/seed/releases" target="_blank">Releases</a></h3></li>
+            <li><h3><i class="fa fa-github"></i> <a href="https://github.com/seedstack/seed" target="_blank">Source</a></h3></li>
+        </ul>
+    </div>
+</div>
+
+    </div>
+    <div id="content" class="container">
+        <div class="row">
+    <div class="col-md-9">
+        <div class="content-wrapper">
+            <div class="doc-content">
+                <p>Seed provides support for <a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">Representational State Transfer</a> (REST) architectural style through the <strong>JAX-RS</strong>
+specification. Implementation rely on <a href="https://jersey.java.net/">Jersey</a>. To enable REST support in your project, add
+the <code>seed-rest-jersey2</code> module.</p>
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+<div class="tab-v2">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab-org-seedstack-seed-seed-rest-jersey2-maven" data-toggle="tab" aria-expanded="true">Maven</a></li>
+        <li class=""><a href="#tab-org-seedstack-seed-seed-rest-jersey2-gradle" data-toggle="tab" aria-expanded="true">Gradle</a></li>
+    </ul>
+    <span class="tabs-icon fa-2x fa fa-cubes pull-right"></span>
+    <div class="clear-both"></div>
+    <div class="tab-content">
+        <div class="tab-pane in active" id="tab-org-seedstack-seed-seed-rest-jersey2-maven">
+            <pre style="margin-top: 0;"><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.seedstack.seed&lt;/groupId&gt;
+    &lt;artifactId&gt;seed-rest-jersey2&lt;/artifactId&gt;<span id="org-seedstack-seed-seed-rest-jersey2-version" style="display: none;">
+    &lt;version&gt;2.3.0&lt;/version&gt;</span>
+&lt;/dependency&gt;</code></pre>
+            <small class="pull-right" style="color: #aaa; margin-top: -20px; margin-right: 5px;">
+                <span id="org-seedstack-seed-seed-rest-jersey2-warn" style="display: none;"><i class="fa fa-warning" style="color: orange;"></i> Specifying versions manually is error-prone, use the <a href="http://seedstack.org/archives/16.7/getting-started/distribution">distribution</a> instead.</span>
+                <a style="cursor: pointer;" id="org-seedstack-seed-seed-rest-jersey2-show" onclick="$('#org-seedstack-seed-seed-rest-jersey2-version, #org-seedstack-seed-seed-rest-jersey2-warn').show(); $('#org-seedstack-seed-seed-rest-jersey2-show').hide();">Show version</a>
+            </small>
+        </div>
+        <div class="tab-pane in" id="tab-org-seedstack-seed-seed-rest-jersey2-gradle">
+            <pre style="margin-bottom: 0;"><code class="java">dependencies {
+    compile("org.seedstack.seed:seed-rest-jersey2:2.3.0")
+}</code></pre>
+        </div>
+    </div>
+</div>
+
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>A <code>seed-rest-jersey1</code> module is also provided when JAX-RS 2.0 cannot be used in your environment.</p>
+
+        </div>
+    </div>
+</div>
+
+<h1 id="base-prefix">Base prefix</h1>
+
+<p>REST resources are exposed on <code>/</code> by default and have precedence when their path conflict with a static resource. You can choose to change the default prefix by specifying the following configuration property:</p>
+
+<pre><code class="language-ini">org.seedstack.seed.rest.path = /api
+</code></pre>
+
+<p>This would place the REST API on its own path, avoiding any conflict with other application resources.</p>
+
+<h1 id="jax-rs-basics">JAX-RS basics</h1>
+
+<p>Within JAX-RS context, resources are classes annotated with <code>@Path</code>. All these classes are automatically detected and registered
+by Seed. This means that you can inject any other classes managed by Seed in your resources. A new instance of the resource
+class is created for each request.</p>
+
+<p>Below is an example of a simple &laquo;Hello World&raquo; REST resource:</p>
+
+<pre><code>@Path(&quot;/hello&quot;)
+public class HelloResource {
+
+    @GET
+    @Produces(&quot;text/plain&quot;)
+    @Path(&quot;/{msg}&quot;)
+    public String sayHello(@PathParam(&quot;msg&quot;) String message) {
+        return Response.ok(&quot;Hello &quot; + message).build();
+    }
+
+}
+</code></pre>
+
+<p>This resource is exposed by default on <code>/hello</code>. You can request the resource with:</p>
+
+<pre><code>curl 'http://localhost:8080/hello/world'
+</code></pre>
+
+<p>The returned response body will be:</p>
+
+<pre><code class="language-plain">Hello world
+</code></pre>
+
+<h2 id="requests">Requests</h2>
+
+<p>An HTTP request is mapped to resource method according to its: path, verb and content-type. If no resource method matches
+an HTTP request, the HTTP status 405 (Method not allowed) is returned.</p>
+
+<h3 id="path">Path</h3>
+
+<p>The path is determined by the annotation <code>@Path</code>. This annotation is <strong>mandatory</strong> on the class and can be also added
+on the method to express the notion of sub-resources. The annotation <a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">value</a> is the relative URI path but can also
+contain a URI template or a regex expression.</p>
+
+<h3 id="verb">Verb</h3>
+
+<p>HTTP verb is determined by a corresponding annotation. Each verb has its own annotation: <code>@GET</code>, <code>@POST</code>, <code>@PUT</code>, etc.</p>
+
+<h3 id="content-type">Content-type</h3>
+
+<p>The content type is determined with <code>@Produces(MediaType.APPLICATION_JSON)</code> and <code>@Consumes(MediaType.APPLICATION_JSON)</code></p>
+
+<h2 id="responses">Responses</h2>
+
+<p>JAX-RS allows to return a detailed response, with the resource representation and an HTTP status code. For instance the
+following resource will return HTTP status code 201 (Created) with the URI of the created resource.</p>
+
+<pre><code>@POST
+public Response createPerson(PersonRepresentation pr, @Context UriInfo uriInfo) {
+    PersonRepresentation createdPerson = accountService.register(pr);
+
+    URI newUri = new URI(
+        uriInfo.getRequestUri().toString() + 
+        &quot;/&quot; +  
+        createdPerson.getId()
+    );
+
+    return Response.created(newUri).entity(createdPerson).build();
+}
+</code></pre>
+
+<h2 id="exception-handling">Exception handling</h2>
+
+<p>Exception handling is an important part of any API design. Carefully designed error handling will allow you to provide
+meaningful status codes and messages to the client instead of dumping raw stacktraces in your HTTP response.</p>
+
+<h3 id="web-application-exceptions">Web application exceptions</h3>
+
+<p>One way to implement clean exception handling in your REST API is to extend the <code><span data-toggle="tooltip" data-html="true" title='javax.&amp;#8203;ws.&amp;#8203;rs.&amp;#8203;WebApplicationException'>WebApplicationException</span></code>
+class:</p>
+
+<pre><code>public class NotFoundException extends WebApplicationException {
+
+    public NotFoundException(String msg) {
+        super(Response.status(Response.Status.NOT_FOUND).entity(msg).build());
+    }
+
+}
+</code></pre>
+
+<p>If the exception is thrown from within a resource method, the server will return an HTTP status code <code>404</code>.</p>
+
+<h3 id="exception-mappers">Exception mappers</h3>
+
+<p>Another way of implementing exception handling is to map existing exceptions to <code>Response</code> using an <code>ExceptionMapper</code>:</p>
+
+<pre><code>@Provider
+public class MyBusinessExceptionMapper implements ExceptionMapper&lt;MyBusinessException&gt; {
+
+    @Override
+    public Response toResponse(MyBusinessException exception) {
+        return Response
+                .status(Response.Status.BAD_REQUEST)
+                .entity(exception.getMessage())
+                .build();
+    }
+
+}
+</code></pre>
+
+<p>If the a <code>MyBusinessException</code> exception class is thrown from within a resource method, the server will return an HTTP
+status code <code>400</code>.</p>
+
+<h1 id="testing">Testing</h1>
+
+<p>Testing REST resources can be done in a real Web environment by using <a href="http://seedstack.org/archives/16.7/docs/seed/manual/testing/#web-integration-tests">Seed Web integration testing</a>.
+Consider this example:</p>
+
+<pre><code>public class ProductsResourceIT extends AbstractSeedWebIT {
+
+    @ArquillianResource
+    private URL baseURL;
+
+    @Deployment
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class);
+    }
+
+    @RunAsClient
+    @Test
+    public void testCreate() throws JSONException {
+        JSONObject obj = new JSONObject();
+        obj.put(&quot;summary&quot;, &quot;The world's highest resolution notebook&quot;);
+        obj.put(&quot;categoryId&quot;, 1);
+        obj.put(&quot;designation&quot;, &quot;macbook pro&quot;);
+        obj.put(&quot;picture&quot;, &quot;mypictureurl&quot;);
+        obj.put(&quot;price&quot;, 200.0);
+
+        String response = expect().statusCode(201).given()
+                .header(&quot;Accept&quot;, &quot;application/json&quot;)
+                .header(&quot;Content-Type&quot;, &quot;application/json&quot;)
+                .body(obj.toString())
+                .post(baseURL.toString() + &quot;rest/products/&quot;)
+                .asString();
+
+        JSONAssert.assertEquals(obj, new JSONObject(response), false);
+    }
+
+}
+</code></pre>
+
+<p>This example uses two libraries for easy REST testing:</p>
+
+<ul>
+<li><a href="https://github.com/jayway/rest-assured">REST Assured</a> which can test various HTTP request/response scenarios.</li>
+<li><a href="https://github.com/skyscreamer/JSONassert">JSONassert</a> which can assert conditions on JSON documents.</li>
+</ul>
+
+<h1 id="working-with-streams">Working with streams</h1>
+
+<h2 id="send-a-stream">Send a stream</h2>
+
+<p>To send bytes (like images) JAX-RS can return special stream:</p>
+
+<pre><code> @GET
+ @Produces(&quot;text/plain&quot;)
+ public StreamingOutput  hello() {
+     return new StreamingOutput() {
+         @Override
+         public void write(OutputStream output) throws IOException, WebApplicationException {
+             output.write(&quot;Hello World&quot;.getBytes());
+         }
+    };
+ }
+</code></pre>
+
+<h2 id="receive-a-stream">Receive a stream</h2>
+
+<p>To read a data stream (file, image or bytes) JAX-RS can inject a Reader or an InputStream :</p>
+
+<pre><code>@Path(&quot;/files&quot;)
+public class FileResource {
+
+    @POST
+    @Path(&quot;/upload&quot;)
+    @Consumes(&quot;application/pdf&quot;)
+    public void doSomething(InputStream is) {
+        readFileWithInputStream(is);
+    }
+
+    @POST
+    @Path(&quot;/upload-image&quot;)
+    public void doSomethingWithReader(@FormDataParam(&quot;file&quot;) Reader reader) {
+        readFileWithReader(reader);
+    }
+
+}
+</code></pre>
+
+<h1 id="custom-formats">Custom formats</h1>
+
+<p>Seed REST support works out-of-the-box with XML and JSON formats. If your project requires a custom format, you can implement
+your own readers and/or writers:</p>
+
+<ul>
+<li>Create a class which implements <code><span data-toggle="tooltip" data-html="true" title='javax.&amp;#8203;ws.&amp;#8203;rs.&amp;#8203;ext.&amp;#8203;MessageBodyWriter'>MessageBodyWriter</span></code> and/or <code><span data-toggle="tooltip" data-html="true" title='javax.&amp;#8203;ws.&amp;#8203;rs.&amp;#8203;ext.&amp;#8203;MessageBodyReader'>MessageBodyReader</span></code>
+with the custom format specified as the generic type.</li>
+<li>Add the <code><span data-toggle="tooltip" data-html="true" title='javax.&amp;#8203;ws.&amp;#8203;rs.&amp;#8203;ext.&amp;#8203;Provider'>@Provider</span></code> annotation.</li>
+<li>Add the <code><span data-toggle="tooltip" data-html="true" title='javax.&amp;#8203;ws.&amp;#8203;rs.&amp;#8203;Produces'>@Produces</span></code> if this is a writer.<code>@Produces</code> and <code>@Consumes</code> if relevant.</li>
+<li>Add the <code><span data-toggle="tooltip" data-html="true" title='javax.&amp;#8203;ws.&amp;#8203;rs.&amp;#8203;Consumes'>@Consumes</span></code> if this is a reader.</li>
+<li>Implement the necessary methods.</li>
+</ul>
+
+<p>More documentation is available in the <a href="http://docs.oracle.com/javaee/6/api/javax/ws/rs/ext/package-summary.html">JAX-RS Javadoc</a>.</p>
+
+<h1 id="restful-api-design">RESTful API design</h1>
+
+<p>The <a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">Representational State Transfer</a> (REST) architectural style was defined in 2000 by Roy Fielding. This architectural
+style defines a set of constraints based on the Web architecture. These constraints are the following:</p>
+
+<ol>
+<li>Client-Server</li>
+<li>Stateless</li>
+<li>Cache</li>
+<li>Uniform interface</li>
+<li>Layered System</li>
+<li>Code-On-Demand</li>
+</ol>
+
+<p>In this section, we will focus on the fourth constraint and how to implement it in a Seed application.</p>
+
+<h2 id="uniform-interface">Uniform interface</h2>
+
+<blockquote>
+<p>REST is defined by four interface constraints: identification of
+resources; manipulation of resources through representations;
+self-descriptive messages; and, hypermedia as the engine of
+application state. Roy T. Fielding.</p>
+</blockquote>
+
+<h3 id="identification-of-resources">Identification of resources</h3>
+
+<p>The identification of resources means that each resource should be accessible through an URI. For instance a book <code>123</code>
+will be accessible though the <code>/books/123</code> URI.</p>
+
+<h3 id="manipulation-of-resources-through-representations">Manipulation of resources through representations</h3>
+
+<p>Resources should be manipulated through representation. This means that you <strong>should not</strong> expose your resource (like a
+business object) directly because it will make refactoring impossible without breaking the clients.</p>
+
+<h3 id="self-descriptive-messages">Self-descriptive messages</h3>
+
+<p>The messages should be context-free to respect the stateless constraint. Each message should embedded self-descripting
+messaging. For this, the HTTP 1.1 specification defines a list of <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">HTTP verbs</a>, <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">status codes</a>, and <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14">headers</a> to
+exchange metadata. For instance the following JAX-RS method specify that the HTTP verb is <code>POST</code>, it accepts the media
+type <code>application/json</code> and return <code>201</code> (Created).</p>
+
+<pre><code>@POST
+@Consumes(MediaType.APPLICATION_JSON)
+public Response createPerson(PersonRepresentation pr, @Context UriInfo uriInfo) {
+    PersonRepresentation createdPerson = accountService.register(pr);
+
+    URI newUri = new URI(
+        uriInfo.getRequestUri().toString() + 
+        &quot;/&quot; + 
+        createdPerson.getId()
+    );
+
+    return Response.created(newUri).entity(createdPerson).build();
+}
+</code></pre>
+
+<h3 id="hypermedia-as-the-engine-of-application-state-hateoas">Hypermedia as the engine of application state (HATEOAS)</h3>
+
+<p>According to Roy T. Fielding, a REST API is a set of resources that can be explored by following links. Each resource is
+a representation of a state of the application and the links are the transitions between those states.</p>
+
+<blockquote>
+<p>The name &laquo;Representational State Transfer&raquo; is intended to evoke an
+image of how a well-designed Web application behaves: a network of
+web pages (a virtual state-machine), where the user progresses
+through the application by selecting links (state transitions),
+resulting in the next page (representing the next state of the
+application) being transferred to the user and rendered for their
+use. Roy T. Fielding.</p>
+</blockquote>
+
+<p>Such a Web application has the following advantages:</p>
+
+<ul>
+<li>The state of the application controlled by the server as it tells the client what it can do next.</li>
+<li>It allows the refactoring of server&rsquo;s URI scheme without breaking clients.</li>
+<li>It helps client developers to explore the API.</li>
+<li>It allows the server developers to advertise deprecation or new capabilities by adding hints on existing links or by
+adding new links.</li>
+</ul>
+
+<p>The benefits of an hypermedia API are obvious but it is often seen as difficult to implement in real-life applications.</p>
+
+<p>With Seed, we want to make it so easy that all Seed REST application will support hypermedia by default. In order to do
+this, Seed supports two dedicated media types. They are both based on JSON and describe conventions to link to other
+resources.</p>
+
+<h2 id="json-home">JSON-HOME</h2>
+
+<p>To ease REST API discovery, Seed exposes an API home resource with the <a href="http://tools.ietf.org/html/draft-nottingham-json-home-03">JSON-HOME</a> media type. This is similar to a Website
+homepage but for REST APIs.</p>
+
+<p>The goal of the JSON-HOME media type is to expose an home resource which provides all the entry points of the application&rsquo;s
+API. It tells the client developer what it can do and give him hints on how to use the resources.</p>
+
+<p>The following example shows a JSON-HOME resource with two entry points &laquo;widgets&raquo; and &laquo;widget&raquo;. For the &laquo;widgets&raquo; resource,
+the JSON-HOME provides just an href indicating the URI of the resource. But for the &laquo;widget&raquo; resource, the JSON-HOME provides
+an href-template instead.</p>
+
+<pre><code class="language-json">GET / HTTP/1.1
+Host: example.org
+Accept: application/json-home
+
+HTTP/1.1 200 OK
+Content-Type: application/json-home
+Cache-Control: max-age=3600
+Connection: close
+
+{
+  &quot;resources&quot;: {
+    &quot;http://example.org/rel/widgets&quot;: {
+      &quot;href&quot;: &quot;/widgets/&quot;
+    },
+    &quot;http://example.org/rel/widget&quot;: {
+      &quot;href-template&quot;: &quot;/widgets/{widget_id}&quot;,
+      &quot;href-vars&quot;: {
+        &quot;widget_id&quot;: &quot;http://example.org/param/widget&quot;
+      },
+      &quot;hints&quot;: {
+        &quot;allow&quot;: [&quot;GET&quot;, &quot;PUT&quot;, &quot;DELETE&quot;, &quot;PATCH&quot;],
+        &quot;formats&quot;: {
+          &quot;application/json&quot;: {}
+        },
+        &quot;accept-patch&quot;: [&quot;application/json-patch&quot;],
+        &quot;accept-post&quot;: [&quot;application/xml&quot;],
+        &quot;accept-ranges&quot;: [&quot;bytes&quot;]
+      }
+    }
+  }
+}
+</code></pre>
+
+<p>To expose a JAX-RS resource in the JSON-HOME resource, annotate the resource with <code>@Rel</code> and set the home attribute to
+<code>true</code>. The annotation can be on the class or the method.</p>
+
+<pre><code>@Rel(value = CatalogRels.PRODUCT, home = true) // Add it to JSON-HOME
+@Path(&quot;/products/{title}&quot;)
+@Produces({MediaType.APPLICATION_JSON, &quot;application/hal+json&quot;})
+public class ProductResource {
+
+    @GET
+    public Response getProduct() {
+        ...
+    }
+
+}
+</code></pre>
+
+<h2 id="hypertext-application-language-hal">Hypertext Application Language (HAL)</h2>
+
+<p>Beyond providing an &laquo;API homepage&raquo;, you have to provide a way to navigate between these pages. That&rsquo;s the role of the
+<a href="https://tools.ietf.org/html/draft-kelly-json-hal-06">HAL+JSON</a> media type, which establishes conventions for expressing hypermedia controls. An HAL representation
+looks like this:</p>
+
+<pre><code class="language-json">GET /orders HTTP/1.1
+Host: example.org
+Accept: application/hal+json
+
+HTTP/1.1 200 OK
+Content-Type: application/hal+json
+
+{
+  &quot;_links&quot;: {
+    &quot;self&quot;: { &quot;href&quot;: &quot;/orders&quot; },
+    &quot;next&quot;: { &quot;href&quot;: &quot;/orders?page=2&quot; },
+    &quot;find&quot;: { &quot;href&quot;: &quot;/orders{?id}&quot;, &quot;templated&quot;: true }
+  },
+  &quot;_embedded&quot;: {
+    &quot;orders&quot;: [{
+        &quot;_links&quot;: {
+          &quot;self&quot;: { &quot;href&quot;: &quot;/orders/123&quot; },
+          &quot;basket&quot;: { &quot;href&quot;: &quot;/baskets/98712&quot; },
+          &quot;customer&quot;: { &quot;href&quot;: &quot;/customers/7809&quot; }
+        },
+        &quot;total&quot;: 30.00,
+        &quot;currency&quot;: &quot;USD&quot;,
+        &quot;status&quot;: &quot;shipped&quot;,
+      },{
+        &quot;_links&quot;: {
+          &quot;self&quot;: { &quot;href&quot;: &quot;/orders/124&quot; },
+          &quot;basket&quot;: { &quot;href&quot;: &quot;/baskets/97213&quot; },
+          &quot;customer&quot;: { &quot;href&quot;: &quot;/customers/12369&quot; }
+        },
+        &quot;total&quot;: 20.00,
+        &quot;currency&quot;: &quot;USD&quot;,
+        &quot;status&quot;: &quot;processing&quot;
+    }]
+  },
+  &quot;currentlyProcessing&quot;: 14,
+  &quot;shippedToday&quot;: 20
+}
+</code></pre>
+
+<p>It is a JSON representation with just two reserved keywords:</p>
+
+<ul>
+<li><code>_links</code>: this property is used to share links to other resources. Links are represented as a set of keys and
+values. The keys represents a relation type (rel) and the value a link object. The only required value of the link object
+is <code>href</code> which can be an URI or an URI template (<code>/orders{?id}</code>). By convention, a resource always returns a <code>self</code> link
+with its own URI. However, the propery <code>_links</code> is optional. For more information on link object see the <a href="https://tools.ietf.org/html/draft-kelly-json-hal-06#section-5">section 5</a> of
+the specification.</li>
+<li><code>_embedded</code>: this property is a set of keys and values. Keys are relation types and values can be a resource object or
+an array of resource objects. The embedded resources can be full or partial representations of a resource.</li>
+</ul>
+
+<h2 id="usage">Usage</h2>
+
+<h3 id="building-hal-links">Building HAL links</h3>
+
+<p>Concatenating strings for building hrefs can quickly become painful and error-prone. With Seed, you have access to a
+<code>RelRegistry</code> which can greatly simplify the task. This registry contains all the resources annotated by <code>@Rel</code> and their
+href. HAL links can have two distinct forms:</p>
+
+<ul>
+<li>An expanded form, where all variables are sent already resolved to the client,</li>
+<li>A templated form, where the URI template is sent to the client.</li>
+</ul>
+
+<p>Consider the following resource:</p>
+
+<pre><code>@Path(&quot;/products&quot;)
+public class ProductsResource {
+
+    GET
+    Rel(value = &quot;products&quot;) // defines the resource rel
+    Produces({MediaType.APPLICATION_JSON, &quot;application/hal+json&quot;})
+    public Response products(@DefaultValue(&quot;0&quot;) @QueryParam(&quot;pageIndex&quot;) Integer pageIndex,
+                            @DefaultValue(&quot;10&quot;) @QueryParam(&quot;pageSize&quot;) Integer pageSize) {
+       ...
+    }
+}
+</code></pre>
+
+<p>The expanded link can be created as follows:</p>
+
+<pre><code>Link link = relRegistry.uri(&quot;products&quot;) // points to the resource rel
+                         .set(&quot;pageIndex&quot;, pageIndex)
+                         .set(&quot;pageSize&quot;, pageSize);
+</code></pre>
+
+<p>This will result in the following JSON sent to the client:</p>
+
+<pre><code>{ 
+    &quot;href&quot;: &quot;/products?pageIndex=0&amp;pageSize=10&quot; 
+}
+</code></pre>
+
+<p>The templated link can be created as follows:</p>
+
+<pre><code>Link link = relRegistry.uri(&quot;products&quot;) // points to the resource rel
+                         .set(&quot;pageIndex&quot;, pageIndex)
+                         .set(&quot;pageSize&quot;, pageSize)
+                         .templated();
+</code></pre>
+
+<p>This will result in the following JSON sent to the client:</p>
+
+<pre><code>{ 
+    &quot;href&quot;: &quot;/products{?pageIndex,pageSize}&quot;, 
+    &quot;templated&quot;: true 
+}
+</code></pre>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>Note that seed will automatically use the Servlet context path and the REST prefix to build HAL links, alleviating the need for you
+to build any URI manually.</p>
+
+        </div>
+    </div>
+</div>
+
+<h3 id="creating-hal-representations">Creating HAL representations</h3>
+
+<p>Seed provides two options to simplify the creation of HAL representations. First, you can take an existing representation
+and transform it to an HAL representation using the <code>HALBuilder</code>:</p>
+
+<pre><code>@Inject RelRegistry relRegistry;
+
+...
+
+HalRepresentation representation = HalBuilder.create(productRepresentation)
+                .self(relRegistry.uri(&quot;products&quot;).set(&quot;id&quot;, productId)
+                .link(relRegistry.uri(&quot;find&quot;).templated())
+                .embedded(&quot;related&quot;, relatedProducts);
+</code></pre>
+
+<p>The second option is to make your representation inherit the <code>HalRepresentation</code>.</p>
+
+<pre><code>public class ProductsRepresentation extends HalRepresentation {
+    private long totalSize;
+    private long currentPage;
+
+    ProductsRepresentation() {
+    }
+
+    public ProductsRepresentation(List&lt;Product&gt; products, int totalSize, int pageIndex) {
+        this.totalSize = totalSize;
+        this.currentPage = pageIndex;
+        embedded(&quot;products&quot;, products);
+    }
+
+    public long getTotalSize() {
+        return totalSize;
+    }
+
+    public long getCurrentPage() {
+        return currentPage;
+    }
+}
+</code></pre>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        
+<div class="side-menu">
+    
+        
+        <div class="list-group">
+            <ul class="nav">
+                
+                
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/" class="list-group-item ">
+                            Java framework basics
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/testing/" class="list-group-item ">
+                            Testing
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/cli/" class="list-group-item ">
+                            Command-line
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/web/" class="list-group-item ">
+                            Web
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/security/" class="list-group-item ">
+                            Security
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/rest/" class="list-group-item  active ">
+                            REST
+                        </a>
+                        
+                        
+                            <nav id="TableOfContents">
+<ul>
+<li><a href="#base-prefix">Base prefix</a></li>
+<li><a href="#jax-rs-basics">JAX-RS basics</a>
+<ul>
+<li><a href="#requests">Requests</a>
+<ul>
+<li><a href="#path">Path</a></li>
+<li><a href="#verb">Verb</a></li>
+<li><a href="#content-type">Content-type</a></li>
+</ul></li>
+<li><a href="#responses">Responses</a></li>
+<li><a href="#exception-handling">Exception handling</a>
+<ul>
+<li><a href="#web-application-exceptions">Web application exceptions</a></li>
+<li><a href="#exception-mappers">Exception mappers</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#working-with-streams">Working with streams</a>
+<ul>
+<li><a href="#send-a-stream">Send a stream</a></li>
+<li><a href="#receive-a-stream">Receive a stream</a></li>
+</ul></li>
+<li><a href="#custom-formats">Custom formats</a></li>
+<li><a href="#restful-api-design">RESTful API design</a>
+<ul>
+<li><a href="#uniform-interface">Uniform interface</a>
+<ul>
+<li><a href="#identification-of-resources">Identification of resources</a></li>
+<li><a href="#manipulation-of-resources-through-representations">Manipulation of resources through representations</a></li>
+<li><a href="#self-descriptive-messages">Self-descriptive messages</a></li>
+<li><a href="#hypermedia-as-the-engine-of-application-state-hateoas">Hypermedia as the engine of application state (HATEOAS)</a></li>
+</ul></li>
+<li><a href="#json-home">JSON-HOME</a></li>
+<li><a href="#hypertext-application-language-hal">Hypertext Application Language (HAL)</a></li>
+<li><a href="#usage">Usage</a>
+<ul>
+<li><a href="#building-hal-links">Building HAL links</a></li>
+<li><a href="#creating-hal-representations">Creating HAL representations</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                            <script>
+                                seedstack.state.previousPage = '\/archives\/16.7\/docs\/seed\/manual\/security\/';
+                            </script>
+                            
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/transactions/" class="list-group-item ">
+                            Transactions
+                        </a>
+                        
+                            <script>
+                                seedstack.state.nextPage = '\/archives\/16.7\/docs\/seed\/manual\/transactions\/';
+                            </script>
+                            
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/operations/" class="list-group-item ">
+                            Operations
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/crypto/" class="list-group-item ">
+                            Cryptography
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/more/" class="list-group-item ">
+                            More
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+            </ul>
+        </div>
+        
+    
+    
+    <div class="list-group">
+        <ul class="nav">
+            <li class="list-group-item"><div style="margin-bottom: 10px;"><i class="fa fa-tag"></i> Tags</div>
+                <div class="tags">
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/jax-rs">Jax-Rs</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/resource">Resource</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/http">Http</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/hypermedia">Hypermedia</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/api">Api</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/link">Link</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/json">Json</a>
+                    
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="list-group">
+        <ul class="nav">
+            
+                <li><a class="list-group-item" href="https://github.com/seedstack/website/edit/master/content/docs/seed/manual/rest.md" target="_blank"><i class="fa fa-edit"></i> Contribute to this page</a></li>
+            
+        </ul>
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+    <div id="footer">
+        <div class="footer-v3">
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="headline"><h2>About</h2></div>
+                    <p class="margin-bottom-25 md-margin-bottom-40">SeedStack is an Open-Source enterprise-class development stack for building modern and robust applications.</p>
+                </div>
+
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="posts">
+                        <div class="headline"><h2>License</h2></div>
+                        <p>
+                            Code licensed under the <a href="https://www.mozilla.org/MPL/2.0" target="_blank">Mozilla Public License 2.0</a>.
+                            <br/>
+                            Documentation licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 map-img">
+                    <div class="headline"><h2>Contact us</h2></div>
+                    <address>
+                        <p>
+                            IRC channel <a href="irc://chat.freenode.net/seedstack">#seedstack on Freenode community</a>
+                            <br/>
+                            Google group <a href="https://groups.google.com/forum/#!forum/seedstack">seedstack@googlegroups.com</a>
+                        </p>
+                    </address>
+
+                    <div class="headline"><h2>Stay in touch</h2></div>
+                    <div style="margin-bottom: 20px;">
+                        <a class="twitter-follow-button"
+                           href="https://twitter.com/seedstack"
+                           data-show-count="false"
+                           data-lang="en">
+                            Follow @seedstack
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+    <div id="hotkeys-modal" class="modal">
+    <div class="modal-dialog" style="min-width: 960px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Keyboard shortcuts <a id="show-all-shortcuts" style="cursor: pointer;" onclick="seedstack.ui.showAllShortcuts();">(Show all)</a></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Global shortcuts</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>?</kbd>
+                                </td>
+                                <td>Show this help dialog</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>/</kbd>
+                                </td>
+                                <td>Focus the search field</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↑</kbd>
+                                </td>
+                                <td>Go to previous menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↓</kbd>
+                                </td>
+                                <td>Go to next menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>S</kbd>
+                                </td>
+                                <td>Go to Seed framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>W</kbd>
+                                </td>
+                                <td>Go to W20 framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>B</kbd>
+                                </td>
+                                <td>Go to Business framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>A</kbd>
+                                </td>
+                                <td>Go to add-ons</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>G</kbd>
+                                </td>
+                                <td>Go to guides</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Seed framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>t</kbd>
+                                </td>
+                                <td>Go to testing</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to cryptography</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>w</kbd>
+                                </td>
+                                <td>Go to Web</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>r</kbd>
+                                </td>
+                                <td>Go to REST</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>o</kbd>
+                                </td>
+                                <td>Go to operations</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>T</kbd>
+                                </td>
+                                <td>Go to transactions</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Business framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>m</kbd>
+                                </td>
+                                <td>Go to model</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>l</kbd>
+                                </td>
+                                <td>Go to lifecycle</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>e</kbd>
+                                </td>
+                                <td>Go to events</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>p</kbd>
+                                </td>
+                                <td>Go to policies</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>a</kbd>
+                                </td>
+                                <td>Go to assemblers</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>f</kbd>
+                                </td>
+                                <td>Go to finders</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>P</kbd>
+                                </td>
+                                <td>Go to pagination</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>W20 framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to culture</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>h</kbd>
+                                </td>
+                                <td>Go to hypermedia</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>u</kbd>
+                                </td>
+                                <td>Go to UI</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="versions-modal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 id="versions-title" class="modal-title">Fetching components...</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="versions-table" class="table table-striped table-hover table-bordered">
+                            <tr>
+                                <th>Component</th>
+                                <th>Version</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/github.min.css">
+
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mousetrap/1.4.6/mousetrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lunr.js/0.5.9/lunr.min.js"></script>
+<script src="/assets/unify/plugins/smoothScroll.js"></script>
+<script src="/js/xml2json.js"></script>
+<script src="/js/jquery.highlight.js"></script>
+<script src="/js/seedstack.js"></script>
+<script>
+    $(document).ready(function () {
+        var $search = $('.search-btn');
+
+        $('.search').click(function () {
+            if ($search.hasClass('fa-search')) {
+                seedstack.ui.openSearch();
+            } else {
+                seedstack.ui.closeSearch();
+            }
+        });
+
+        $('pre code').each(function (i, block) {
+            hljs.highlightBlock(block);
+        });
+
+        $('.side-menu').affix({
+            offset: {
+                top: $('#header').height() + 20,
+                bottom: $('#footer').height() + 40
+            }
+        });
+
+        Mousetrap.bind('/', function () {
+            seedstack.ui.openSearch();
+            return false;
+        });
+
+        Mousetrap.bind('alt+up', function () {
+            if (seedstack.state.previousPage) {
+                window.location = seedstack.state.previousPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('alt+down', function () {
+            if (seedstack.state.nextPage) {
+                window.location = seedstack.state.nextPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('?', function () {
+            seedstack.ui.openHelp();
+            return false;
+        });
+
+        Mousetrap.bind('esc', function () {
+            seedstack.ui.closeHelp();
+            seedstack.ui.closeSearch();
+            return false;
+        });
+
+        var originalCallback = Mousetrap.stopCallback;
+        Mousetrap.stopCallback = function (e, element, combo) {
+            if (combo === 'esc') {
+                return false;
+            }
+
+            return originalCallback(e, element, combo);
+        };
+
+        function bindShortcuts(value) {
+            $.each(value, function (sequence, item) {
+                if (typeof item === 'string') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item;
+                        return false;
+                    });
+                } else if (typeof item === 'object') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item.path;
+                        return false;
+                    });
+                    if (item.shortcuts && location.pathname.indexOf(item.path) === 0) {
+                        bindShortcuts(item.shortcuts);
+                    }
+                }
+            });
+        }
+
+        function resolveVersions() {
+            var $versionsTitle = $('#versions-title');
+            if (!seedstack.versions) {
+                $.ajax({
+                    dataType: 'text',
+                    url: '/distribution.pom.xml'
+                }).done(function (data) {
+                    var pom = new X2JS().xml_str2json(data);
+
+                    if (pom.project && pom.project.properties && pom.project.version) {
+                        var $versions = $('#versions-table');
+                        var blackList = ['seedstack-maven-plugin', 'java-compiler', 'maven-failsafe-plugin', 'logback'];
+                        var versions = {};
+
+                        $versionsTitle.text("SeedStack " + pom.project.version);
+
+                        $.each(pom.project.properties, function (name, value) {
+                            if (/\.version$/.test(name)) {
+                                var shortName = name.substr(0, name.indexOf('.version'));
+                                if ($.inArray(shortName, blackList) === -1) {
+                                    versions[shortName] = value;
+                                    $versions.append(
+                                            '<tr>' +
+                                            '<td>' +
+                                            shortName.substr(0, 1).toUpperCase() + shortName.substr(1, shortName.length - 1).replace(/-/g, ' ') +
+                                            '</td>' +
+                                            '<td>' + value + '</td>' +
+                                            '</tr>');
+                                }
+                            }
+                        });
+
+                        $('.loginbar').prepend(
+                                '<li class="hidden-xs hidden-sm"><i class="fa fa-tag"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openVersions();">Latest version: ' + pom.project.version + '</a></li>' +
+                                '<li class="topbar-devider"></li>'
+                        );
+
+                        seedstack.versions = versions;
+                    }
+                }).error(function () {
+                    console.error("SeedStack version could not be resolved");
+                });
+            }
+        }
+
+        bindShortcuts(seedstack.ui.shortcuts);
+
+        resolveVersions();
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $('#hotkeys-modal, #versions-modal').bind('hidden.bs.modal', function () {
+            $("html").css("margin-right", "0px");
+        }).bind('show.bs.modal', function () {
+            $("html").css("margin-right", "-15px");
+        });
+
+        var query = seedstack.strings.parseQueryString(location);
+        if (query.h && query.h.length > 0) {
+            $('.doc-content').highlight(query.h);
+            if (query.scroll) {
+                $('html, body').animate({
+                    scrollTop: $('span[class=highlight]:first').offset().top - 20
+                }, 250);
+            }
+        }
+    });
+</script>
+<script>window.twttr = (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+    if (d.getElementById(id))return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    t._e = [];
+    t.ready = function (f) {
+        t._e.push(f);
+    };
+    return t;
+}(document, "script", "twitter-wjs"));</script>
+
+</body>
+</html>

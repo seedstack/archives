@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    
+
+<title>
+    Entities and Value Objects
+</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="robots" content="noindex,nofollow">
+
+
+
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,700,300,400" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Bitter:700" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/css/style.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/plugins/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/css/style.css">
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "SoftwareApplication",
+  "name" : "SeedStack",
+  "image" : "http://www.seedstack.org/img/logos/seedstack-logo-round.svg",
+  "publisher" : {
+    "@type" : "Organization",
+    "name" : "Open-Source Software"
+  },
+  "applicationCategory" : "development stack"
+}
+</script>
+
+
+
+<meta property="og:title" content="Entities and Value Objects" />
+<meta property="og:description" content="Modeling business concepts with objects may seem very intuitive at first sight but there are a lot of difficulties
+awaiting us in the details. To clarify the meaning of model elements and propose a set of design practices, Domain-Driven
+Design defines three patterns that express the model: Entities, Value Objects and Services. This chapter will focus
+on Entities and Value Objects, leaving Services for their own chapter." />
+<meta property="og:url" content="http://seedstack.org/archives/16.7/guides/ddd-pitfalls-and-tips/entities-and-value-objects/" />
+<meta property="og:site_name" content="SeedStack" />
+<meta property="og:image" content="http://seedstack.org/archives/16.7/img/opengraph-default.png" />
+
+
+
+<link rel="search" type="application/opensearchdescription+xml" href="http://seedstack.org/archives/16.7/opensearch.xml" title="SeedStack" />
+
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="http://seedstack.org/archives/16.7/img/favicons/manifest.json">
+<meta name="apple-mobile-web-app-title" content="SeedStack">
+<meta name="application-name" content="SeedStack">
+<meta name="msapplication-TileColor" content="#00a300">
+<meta name="msapplication-TileImage" content="/img/favicons/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<script type="text/javascript">
+    window.seedstack = {
+        baseUrl: "http:\/\/seedstack.org\/archives\/16.7\/",
+        state: {}
+    };
+</script>
+
+
+</head>
+<body>
+
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5R5FP9"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5R5FP9');</script>
+
+
+<div id="header">
+    <div class="header">
+    <div class="container">
+        <a class="logo" href="http://seedstack.org/archives/16.7/">SeedStack</a>
+        <div class="topbar hidden-xs hidden-sm">
+            <ul class="loginbar pull-right">
+                <li><i class="fa fa-stack-overflow"></i> <a style="color: orange;" target="_blank" href="http://stackoverflow.com/questions/ask?tags=seedstack">Ask a question</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-comments"></i> <a target="_blank" href="https://kiwiirc.com/client/irc.freenode.net#seedstack">Discuss on IRC</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-github"></i> <a target="_blank" href="https://github.com/seedstack">GitHub</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-keyboard-o"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openHelp();">Shortcuts</a></li>
+            </ul>
+        </div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="fa fa-bars"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse navbar-responsive-collapse" data-role="navigation" style="pointer-events: none;">
+        <div class="container">
+            <ul class="nav navbar-nav" style="pointer-events: auto;">
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/getting-started">Getting started</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        Documentation
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://seedstack.org/archives/16.7/docs/seed">Java framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/w20">Web framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/business">Business framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/guides">Guides</a></li>
+                        <li><a target="_blank" href="https://github.com/seedstack/samples">Samples</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/addons">Add-ons</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/themes">Themes</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/posts">Blog</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        More
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="http://seedstack.org/archives/16.7/project/community">Community</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/roadmap">Roadmap</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/faq">FAQ</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/glossary">Glossary</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/tags">Tags</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <i class="search fa fa-search search-btn"></i>
+                    <div class="search-open">
+                        <form method="GET" action="/search">
+                            <div class="input-group animated fadeInDown">
+                                <input id="search-field" type="text" class="form-control" placeholder="Search" name="q">
+                                <span class="input-group-btn">
+                                    <button class="btn-u" type="submit">Go</button>
+                                </span>
+                            </div>
+                        </form>
+                        
+                            
+                        
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+    <div class="title-header small">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-12">
+                <h2>Guides</h2>
+                <p class="hidden-xs">Hands-on instructions and detailed insight applicable to SeedStack-based projects.</p>
+            </div>
+            <div class="col-md-3 hidden-sm hidden-xs">
+                <div class="header-image-wrapper">
+                    <img class="header-image" src="http://seedstack.org/archives/16.7/img/logos/guides-logo.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="title-subheader">
+        <div class="container">
+            <ul>
+                <li><h3><i class="fa fa-list"></i> <a href="http://seedstack.org/archives/16.7/guides">All guides</a></h3></li>
+                <li><h3 class="active"><i class="fa fa-book"></i> <a href="">DDD pitfalls and tips</a></h3></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="content" class="container">
+    <div class="row">
+    <div class="col-md-9">
+        <div class="content-wrapper">
+            <div class="doc-content">
+                <p>Modeling business concepts with objects may seem very intuitive at first sight but there are a lot of difficulties
+awaiting us in the details. To clarify the meaning of model elements and propose a set of design practices, Domain-Driven
+Design defines three patterns that express the model: Entities, Value Objects and Services. This chapter will focus
+on Entities and Value Objects, leaving Services for their <a href="http://seedstack.org/archives/16.7/guides/ddd-pitfalls-and-tips/behavior-and-services/">own chapter</a>.</p>
+
+<h1 id="entities">Entities</h1>
+
+<p>An object having a specific identity and defined primarily by it is called an Entity. We model a domain concept as an
+Entity when its individuality is primordial and it must be distinguished from other objects in the system. There is a
+notion of continuity in Entities, as they can change drastically throughout their lifecycle, yet they remain uniquely
+identified.</p>
+
+<p>Entities don&rsquo;t need to be tied to an identifiable real-world concept, as their name could imply. They can be anything
+that need to be tracked in the system, regardless of their attributes.</p>
+
+<h2 id="identity">Identity</h2>
+
+<p>When designing an Entity, the focus should be put first on its primary attributes and behaviors that contribute to
+its identity. There is a tendency, especially for DDD beginners, to focus on data and define all the attributes
+of a domain object. This should be delayed until all the aspects of the Entity identity have been considered and
+settled. One should first consider how the identity is obtained.</p>
+
+<h3 id="user-provided-identity">User-provided identity</h3>
+
+<p>The user could input one or more unique values into the application to be used as an identity, which in turn should
+ensure that they have the required qualities:</p>
+
+<ul>
+<li>Correctness. The provided values should adequately identify the Entity without ambiguity.</li>
+<li>Uniqueness. The provided values should be unique among all the entities of the same type.</li>
+<li>Immutable. Most of the time the identity must be immutable because the cost of changing an identity may be very high.</li>
+</ul>
+
+<h3 id="application-generated-identity">Application-generated identity</h3>
+
+<p>The application could internally generate an identity using an algorithm that provide unique values. The Business
+framework provides an API that can delegate the identity generation to any specified implementation at Entity creation.
+This is called <strong>early identity generation</strong> because identity is assigned <em>before</em> the Entity can be used in the
+application. This requires the Entity identity attribute to be annotated with <code>@Identity</code>:</p>
+
+<pre><code>public class MyEntity extends BaseEntity&lt;Long&gt; {
+
+    @Identity(handler = SequenceHandler.class)
+    private Long id;
+
+    // ... other attributes and methods
+
+}
+</code></pre>
+
+<p>The factory method which create the entity must be annotated with <code>@Create</code>:</p>
+
+<pre><code>@Create
+MyEntity createMyEntity() {
+    return new MyEntity();
+}
+</code></pre>
+
+<p>Here, the specified handler class (<code>SequenceHandler</code>) is an interface so configuration is required to specify the qualifier
+of the implementation (it could be <code>oracle-sequence</code> for instance) and the additional implementation properties (like a
+sequence name). For more information, refer to the <a href="http://seedstack.org/archives/16.7/docs/business/manual/factories/#identity">documentation</a>.</p>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>This mechanism can be used to delegate the identity generation to a specific technology without tainting your domain (by
+keeping the handler implementation in the infrastructure). But it also can be used to simply reuse a pure domain generation
+logic across multiple Entity types.</p>
+
+        </div>
+    </div>
+</div>
+
+<h3 id="persistence-generated-identity">Persistence-generated identity</h3>
+
+<p>The application waits until a persistence mechanism affects an identity to the persisted Entity. This is called <strong>late
+identity generation</strong> and is <strong>less than ideal</strong> because an Entity won&rsquo;t have any identity and, as such, will be invalid
+until it is persisted. It is strongly recommended to use the business framework identity generation mechanism instead,
+which can delegate the generation to the persistence without compromising entity validity.</p>
+
+<h3 id="externally-generated-identity">Externally-generated identity</h3>
+
+<p>Another <a href='/glossary#bounded-context'>Bounded Context</a> (like another application) has already an identity or a list of identities which
+the user can choose from. This is the most complex identity creation strategy as it involves one or more external systems.
+The Business framework identity generation mechanism can help by allowing to encapsulate this complex logic into a custom
+<code>IdentityHandler</code>.</p>
+
+<h3 id="surrogate-identity">Surrogate identity</h3>
+
+<p>It is sometimes necessary to define a surrogate identity, mainly for certain persistence mechanisms that do not deal
+with complex identities. In this case, we need to use two identities: one for the persistence tool which should be hidden
+from the rest of the domain and one for the domain which is used throughout the system. The surrogate identity can often
+be hidden by using a <code>private</code> or <code>protected</code> visibility as most persistence tools are able to deal with it.</p>
+
+<div class="callout callout-warn">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>A surrogate identity is not something desirable and should only be used in last resort.</p>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="equality">Equality</h2>
+
+<p>Entity equality should <strong>always</strong> be based on the comparison of the type and the identity only. The Business framework
+<code>BaseEntity</code> base class already implements this equality mechanism. If you choose to implement the <code>Entity</code> interface
+directly or just annotate you class with <code>DomainEntity</code> instead, be sure to implement compliant <code>equals()</code> and <code>hashCode()</code>
+methods.</p>
+
+<h1 id="value-objects">Value Objects</h1>
+
+<p>An object that don&rsquo;t have a conceptual identity but is just describing some characteristics of a thing is called a
+Value Object. Because the most visible objects in a model are usually Entities, there is a natural tendency to assign
+an identity to every domain object. But this tendency should be refrained. Here are the main characteristics of a
+Value Object:</p>
+
+<ul>
+<li>It measures, quantifies or describes a thing in the domain.</li>
+<li>It is immutable, meaning that its state cannot be changed after creation.</li>
+<li>It describes a conceptual whole. Its attributes are related to each other and are all participating to the description.
+This means that all the required values should be assigned upon creation (i.e. in the constructor).</li>
+<li>It is comparable to others using value equality.</li>
+<li>Its behavior is side-effect free.</li>
+</ul>
+
+<h2 id="example">Example</h2>
+
+<p>As an example, consider the following class:</p>
+
+<pre><code>public class MonetaryValue {
+    private final BigDecimal amount;
+    private final String currency;
+
+    public MonetaryValue(BigDecimal amount, String currency) {
+        this.amount = amount;
+        this.currency = currency;
+    }
+
+    // ... behavior methods         
+}
+</code></pre>
+
+<p>A monetary value consists at least in an amount of money and the currency this amount is expressed in. These two
+attributes cannot be separated without losing the meaning of this domain object. Moreover, if a thing would be worth
+1000$, we would <em>not</em> expect it to have these two separate attributes, as it would muddle the model and its client would
+have to know when and how to use <code>amount</code> and <code>currency</code> together. It would be vastly better to describe the worth as
+a whole and only have an attribute of type <code>MonetaryValue</code>, especially if it can provide additional behavior to manipulate
+it.</p>
+
+<h2 id="immutability">Immutability</h2>
+
+<p>One of the most important constraint of a Value Object is immutability. The object state cannot change after it has been
+created. When a change is required a new instance of the Value Object is created, either from scratch or derived from
+an existing instance. In this latter case, the object itself can provide methods to derive itself:</p>
+
+<pre><code>public MonetaryValue add(MonetaryValue other) {
+    if (!currency.equals(other.currency)) {
+        throw new IllegalArgumentException(&quot;Cannot add two monetary values of different currency&quot;);
+    }
+
+    return new MonetaryValue(amount.add(other.amount), currency);
+}
+</code></pre>
+
+<p>This method is said to be side-effect-free as it produces an output but without modifying its own state. This kind of
+design allows to share any Value Object by reference throughout the system, improving performance without compromising
+model integrity.</p>
+
+<h2 id="simple-value-as-value-object">Simple value as Value Object</h2>
+
+<p>Very often, we resort to primitive data types and Strings to describe a lot of the model attributes. This is sound when
+these attributes are secondary to the model. But when considering attributes of first importance, they are better modeled
+as Value Objects with only one attribute. For instance an email could be modeled as a String but it would be able to
+provide a real meaning to it nor any behavior. Moreover, it would leak a vague concept in the model client code instead
+of a clear, valid and useful one.</p>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>Since identities are of crucial importance in the model, they can be modeled as Value Objects with great success.</p>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="equality-1">Equality</h2>
+
+<p>Value Object equality should <strong>always</strong> be based on the comparison of the type and the attributes values. The Business
+framework <code>BaseValueObject</code> already implement this equality mechanism. If you choose to implement the <code>ValueObject</code>
+interface directly or just annotate you class with <code>DomainValueObject</code> instead, be sure to implement compliant
+<code>equals()</code> and <code>hashCode()</code> methods.</p>
+
+<h2 id="persistence">Persistence</h2>
+
+<p>Persisting Value Objects as part of referencing Entities can pose its challenges, especially with relational databases
+and ORM.</p>
+
+<h3 id="simple-references">Simple references</h3>
+
+<p>When an entity holds a reference to a Value Object, there is basically two choices:</p>
+
+<ul>
+<li>The Value Object can be serialized in a format such as JSON or XML to a column of the Entity table. The inability to
+execute queries referring to the contents of the Value Object can pose problem though.</li>
+<li>The Value Object attributes can be stored independently as columns of the holding Entity table by using a mechanism
+such as JPA <code>@Embeddable/@Embedded</code>. This is the preferred way because it preserves the ability to query the Value Object
+attributes.</li>
+</ul>
+
+<p>In this case, whatever the method, the persistence of Value Objects is clean and optimized. No persistence store specifics
+leaks in the model.</p>
+
+<h3 id="collections">Collections</h3>
+
+<p>Persisting a collection of Value Objects hold by an Entity is more difficult. Like in the single Value Object case, the
+whole collection can still be serialized in a specific column although column-size problems can arise in addition to the
+inability to query the collection contents. This mechanism may also require custom ORM code to handle the
+serialization/deserialization process.</p>
+
+<p>An alternative would to treat such Value Objects as Entities in the data model, by giving them an identity and their own
+table. It would be crucial to hide this persistence-only identity from the rest of the domain and the system by using
+visibility restrictions (private attribute) or other techniques.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        
+<div class="side-menu">
+    
+        
+        <div class="list-group">
+            <ul class="nav">
+                
+                
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/guides/ddd-pitfalls-and-tips/" class="list-group-item ">
+                            Introduction
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/guides/ddd-pitfalls-and-tips/anemic-domain-model/" class="list-group-item ">
+                            Anemic Domain Model
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/guides/ddd-pitfalls-and-tips/entities-and-value-objects/" class="list-group-item  active ">
+                            Entities and Value Objects
+                        </a>
+                        
+                        
+                            <nav id="TableOfContents">
+<ul>
+<li><a href="#entities">Entities</a>
+<ul>
+<li><a href="#identity">Identity</a>
+<ul>
+<li><a href="#user-provided-identity">User-provided identity</a></li>
+<li><a href="#application-generated-identity">Application-generated identity</a></li>
+<li><a href="#persistence-generated-identity">Persistence-generated identity</a></li>
+<li><a href="#externally-generated-identity">Externally-generated identity</a></li>
+<li><a href="#surrogate-identity">Surrogate identity</a></li>
+</ul></li>
+<li><a href="#equality">Equality</a></li>
+</ul></li>
+<li><a href="#value-objects">Value Objects</a>
+<ul>
+<li><a href="#example">Example</a></li>
+<li><a href="#immutability">Immutability</a></li>
+<li><a href="#simple-value-as-value-object">Simple value as Value Object</a></li>
+<li><a href="#equality-1">Equality</a></li>
+<li><a href="#persistence">Persistence</a>
+<ul>
+<li><a href="#simple-references">Simple references</a></li>
+<li><a href="#collections">Collections</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                            <script>
+                                seedstack.state.previousPage = '\/archives\/16.7\/guides\/ddd-pitfalls-and-tips\/anemic-domain-model\/';
+                            </script>
+                            
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/guides/ddd-pitfalls-and-tips/aggregate-design/" class="list-group-item ">
+                            Aggregate design
+                        </a>
+                        
+                            <script>
+                                seedstack.state.nextPage = '\/archives\/16.7\/guides\/ddd-pitfalls-and-tips\/aggregate-design\/';
+                            </script>
+                            
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/guides/ddd-pitfalls-and-tips/behavior-and-services/" class="list-group-item ">
+                            Behavior and services
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+            </ul>
+        </div>
+        
+    
+    
+    <div class="list-group">
+        <ul class="nav">
+            
+                <li><a class="list-group-item" href="https://github.com/seedstack/website/edit/master/content/guides/ddd-pitfalls-and-tips/entities-and-value-objects.md" target="_blank"><i class="fa fa-edit"></i> Contribute to this page</a></li>
+            
+        </ul>
+    </div>
+</div>
+
+    </div>
+</div>
+
+</div>
+<div id="footer">
+    <div class="footer-v3">
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="headline"><h2>About</h2></div>
+                    <p class="margin-bottom-25 md-margin-bottom-40">SeedStack is an Open-Source enterprise-class development stack for building modern and robust applications.</p>
+                </div>
+
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="posts">
+                        <div class="headline"><h2>License</h2></div>
+                        <p>
+                            Code licensed under the <a href="https://www.mozilla.org/MPL/2.0" target="_blank">Mozilla Public License 2.0</a>.
+                            <br/>
+                            Documentation licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 map-img">
+                    <div class="headline"><h2>Contact us</h2></div>
+                    <address>
+                        <p>
+                            IRC channel <a href="irc://chat.freenode.net/seedstack">#seedstack on Freenode community</a>
+                            <br/>
+                            Google group <a href="https://groups.google.com/forum/#!forum/seedstack">seedstack@googlegroups.com</a>
+                        </p>
+                    </address>
+
+                    <div class="headline"><h2>Stay in touch</h2></div>
+                    <div style="margin-bottom: 20px;">
+                        <a class="twitter-follow-button"
+                           href="https://twitter.com/seedstack"
+                           data-show-count="false"
+                           data-lang="en">
+                            Follow @seedstack
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<div id="hotkeys-modal" class="modal">
+    <div class="modal-dialog" style="min-width: 960px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Keyboard shortcuts <a id="show-all-shortcuts" style="cursor: pointer;" onclick="seedstack.ui.showAllShortcuts();">(Show all)</a></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Global shortcuts</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>?</kbd>
+                                </td>
+                                <td>Show this help dialog</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>/</kbd>
+                                </td>
+                                <td>Focus the search field</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↑</kbd>
+                                </td>
+                                <td>Go to previous menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↓</kbd>
+                                </td>
+                                <td>Go to next menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>S</kbd>
+                                </td>
+                                <td>Go to Seed framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>W</kbd>
+                                </td>
+                                <td>Go to W20 framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>B</kbd>
+                                </td>
+                                <td>Go to Business framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>A</kbd>
+                                </td>
+                                <td>Go to add-ons</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>G</kbd>
+                                </td>
+                                <td>Go to guides</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Seed framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>t</kbd>
+                                </td>
+                                <td>Go to testing</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to cryptography</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>w</kbd>
+                                </td>
+                                <td>Go to Web</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>r</kbd>
+                                </td>
+                                <td>Go to REST</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>o</kbd>
+                                </td>
+                                <td>Go to operations</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>T</kbd>
+                                </td>
+                                <td>Go to transactions</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Business framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>m</kbd>
+                                </td>
+                                <td>Go to model</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>l</kbd>
+                                </td>
+                                <td>Go to lifecycle</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>e</kbd>
+                                </td>
+                                <td>Go to events</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>p</kbd>
+                                </td>
+                                <td>Go to policies</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>a</kbd>
+                                </td>
+                                <td>Go to assemblers</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>f</kbd>
+                                </td>
+                                <td>Go to finders</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>P</kbd>
+                                </td>
+                                <td>Go to pagination</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>W20 framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to culture</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>h</kbd>
+                                </td>
+                                <td>Go to hypermedia</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>u</kbd>
+                                </td>
+                                <td>Go to UI</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="versions-modal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 id="versions-title" class="modal-title">Fetching components...</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="versions-table" class="table table-striped table-hover table-bordered">
+                            <tr>
+                                <th>Component</th>
+                                <th>Version</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/github.min.css">
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mousetrap/1.4.6/mousetrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lunr.js/0.5.9/lunr.min.js"></script>
+<script src="/assets/unify/plugins/smoothScroll.js"></script>
+<script src="/js/xml2json.js"></script>
+<script src="/js/jquery.highlight.js"></script>
+<script src="/js/seedstack.js"></script>
+<script>
+    $(document).ready(function () {
+        var $search = $('.search-btn');
+
+        $('.search').click(function () {
+            if ($search.hasClass('fa-search')) {
+                seedstack.ui.openSearch();
+            } else {
+                seedstack.ui.closeSearch();
+            }
+        });
+
+        $('pre code').each(function (i, block) {
+            hljs.highlightBlock(block);
+        });
+
+        $('.side-menu').affix({
+            offset: {
+                top: $('#header').height() + 20,
+                bottom: $('#footer').height() + 40
+            }
+        });
+
+        Mousetrap.bind('/', function () {
+            seedstack.ui.openSearch();
+            return false;
+        });
+
+        Mousetrap.bind('alt+up', function () {
+            if (seedstack.state.previousPage) {
+                window.location = seedstack.state.previousPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('alt+down', function () {
+            if (seedstack.state.nextPage) {
+                window.location = seedstack.state.nextPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('?', function () {
+            seedstack.ui.openHelp();
+            return false;
+        });
+
+        Mousetrap.bind('esc', function () {
+            seedstack.ui.closeHelp();
+            seedstack.ui.closeSearch();
+            return false;
+        });
+
+        var originalCallback = Mousetrap.stopCallback;
+        Mousetrap.stopCallback = function (e, element, combo) {
+            if (combo === 'esc') {
+                return false;
+            }
+
+            return originalCallback(e, element, combo);
+        };
+
+        function bindShortcuts(value) {
+            $.each(value, function (sequence, item) {
+                if (typeof item === 'string') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item;
+                        return false;
+                    });
+                } else if (typeof item === 'object') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item.path;
+                        return false;
+                    });
+                    if (item.shortcuts && location.pathname.indexOf(item.path) === 0) {
+                        bindShortcuts(item.shortcuts);
+                    }
+                }
+            });
+        }
+
+        function resolveVersions() {
+            var $versionsTitle = $('#versions-title');
+            if (!seedstack.versions) {
+                $.ajax({
+                    dataType: 'text',
+                    url: '/distribution.pom.xml'
+                }).done(function (data) {
+                    var pom = new X2JS().xml_str2json(data);
+
+                    if (pom.project && pom.project.properties && pom.project.version) {
+                        var $versions = $('#versions-table');
+                        var blackList = ['seedstack-maven-plugin', 'java-compiler', 'maven-failsafe-plugin', 'logback'];
+                        var versions = {};
+
+                        $versionsTitle.text("SeedStack " + pom.project.version);
+
+                        $.each(pom.project.properties, function (name, value) {
+                            if (/\.version$/.test(name)) {
+                                var shortName = name.substr(0, name.indexOf('.version'));
+                                if ($.inArray(shortName, blackList) === -1) {
+                                    versions[shortName] = value;
+                                    $versions.append(
+                                            '<tr>' +
+                                            '<td>' +
+                                            shortName.substr(0, 1).toUpperCase() + shortName.substr(1, shortName.length - 1).replace(/-/g, ' ') +
+                                            '</td>' +
+                                            '<td>' + value + '</td>' +
+                                            '</tr>');
+                                }
+                            }
+                        });
+
+                        $('.loginbar').prepend(
+                                '<li class="hidden-xs hidden-sm"><i class="fa fa-tag"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openVersions();">Latest version: ' + pom.project.version + '</a></li>' +
+                                '<li class="topbar-devider"></li>'
+                        );
+
+                        seedstack.versions = versions;
+                    }
+                }).error(function () {
+                    console.error("SeedStack version could not be resolved");
+                });
+            }
+        }
+
+        bindShortcuts(seedstack.ui.shortcuts);
+
+        resolveVersions();
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $('#hotkeys-modal, #versions-modal').bind('hidden.bs.modal', function () {
+            $("html").css("margin-right", "0px");
+        }).bind('show.bs.modal', function () {
+            $("html").css("margin-right", "-15px");
+        });
+
+        var query = seedstack.strings.parseQueryString(location);
+        if (query.h && query.h.length > 0) {
+            $('.doc-content').highlight(query.h);
+            if (query.scroll) {
+                $('html, body').animate({
+                    scrollTop: $('span[class=highlight]:first').offset().top - 20
+                }, 250);
+            }
+        }
+    });
+</script>
+<script>window.twttr = (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+    if (d.getElementById(id))return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    t._e = [];
+    t.ready = function (f) {
+        t._e.push(f);
+    };
+    return t;
+}(document, "script", "twitter-wjs"));</script>
+
+</body>
+</html>

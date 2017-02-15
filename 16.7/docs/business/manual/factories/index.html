@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+<head>
+
+    
+
+<title>
+    Factories
+</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="robots" content="noindex,nofollow">
+
+
+
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,700,300,400" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Bitter:700" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/css/style.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/plugins/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/css/style.css">
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "SoftwareApplication",
+  "name" : "SeedStack",
+  "image" : "http://www.seedstack.org/img/logos/seedstack-logo-round.svg",
+  "publisher" : {
+    "@type" : "Organization",
+    "name" : "Open-Source Software"
+  },
+  "applicationCategory" : "development stack"
+}
+</script>
+
+
+
+<meta property="og:title" content="Factories" />
+<meta property="og:description" content="A factory is a pattern used to create domain objects, checking that provided data is complete and consistent." />
+<meta property="og:url" content="http://seedstack.org/archives/16.7/docs/business/manual/factories/" />
+<meta property="og:site_name" content="SeedStack" />
+<meta property="og:image" content="http://seedstack.org/archives/16.7/img/opengraph-default.png" />
+
+
+
+<link rel="search" type="application/opensearchdescription+xml" href="http://seedstack.org/archives/16.7/opensearch.xml" title="SeedStack" />
+
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="http://seedstack.org/archives/16.7/img/favicons/manifest.json">
+<meta name="apple-mobile-web-app-title" content="SeedStack">
+<meta name="application-name" content="SeedStack">
+<meta name="msapplication-TileColor" content="#00a300">
+<meta name="msapplication-TileImage" content="/img/favicons/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<script type="text/javascript">
+    window.seedstack = {
+        baseUrl: "http:\/\/seedstack.org\/archives\/16.7\/",
+        state: {}
+    };
+</script>
+
+
+</head>
+<body class="homepage">
+    
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5R5FP9"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5R5FP9');</script>
+
+
+    <div id="header">
+        <div class="header">
+    <div class="container">
+        <a class="logo" href="http://seedstack.org/archives/16.7/">SeedStack</a>
+        <div class="topbar hidden-xs hidden-sm">
+            <ul class="loginbar pull-right">
+                <li><i class="fa fa-stack-overflow"></i> <a style="color: orange;" target="_blank" href="http://stackoverflow.com/questions/ask?tags=seedstack">Ask a question</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-comments"></i> <a target="_blank" href="https://kiwiirc.com/client/irc.freenode.net#seedstack">Discuss on IRC</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-github"></i> <a target="_blank" href="https://github.com/seedstack">GitHub</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-keyboard-o"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openHelp();">Shortcuts</a></li>
+            </ul>
+        </div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="fa fa-bars"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse navbar-responsive-collapse" data-role="navigation" style="pointer-events: none;">
+        <div class="container">
+            <ul class="nav navbar-nav" style="pointer-events: auto;">
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/getting-started">Getting started</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        Documentation
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://seedstack.org/archives/16.7/docs/seed">Java framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/w20">Web framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/business">Business framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/guides">Guides</a></li>
+                        <li><a target="_blank" href="https://github.com/seedstack/samples">Samples</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/addons">Add-ons</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/themes">Themes</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/posts">Blog</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        More
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="http://seedstack.org/archives/16.7/project/community">Community</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/roadmap">Roadmap</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/faq">FAQ</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/glossary">Glossary</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/tags">Tags</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <i class="search fa fa-search search-btn"></i>
+                    <div class="search-open">
+                        <form method="GET" action="/search">
+                            <div class="input-group animated fadeInDown">
+                                <input id="search-field" type="text" class="form-control" placeholder="Search" name="q">
+                                <span class="input-group-btn">
+                                    <button class="btn-u" type="submit">Go</button>
+                                </span>
+                            </div>
+                        </form>
+                        
+                            
+                        
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+        
+<div class="title-header small">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-12">
+                <h2>Business framework</h2>
+                <p class="hidden-xs">Based on the Domain-Driven-Design methodology, the business framework will help you structure and implement your business code cleanly and efficiently.</p>
+            </div>
+            <div class="col-md-3 hidden-sm hidden-xs">
+                <div class="header-image-wrapper">
+                    <img class="header-image" src="http://seedstack.org/archives/16.7/img/logos/business-logo.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="title-subheader">
+    <div class="container">
+        <ul>
+            <li><h3 class=''><i class="fa fa-play-circle"></i> <a href="http://seedstack.org/archives/16.7/docs/business">Introduction</a></h3></li>
+            <li><h3 class='active'><i class="fa fa-book"></i> <a href="http://seedstack.org/archives/16.7/docs/business/manual">Manual</a></h3></li>
+            <li><h3><i class="fa fa-info-circle"></i> <a href="http://seedstack.org/archives/16.7/javadoc" target="_blank">Javadoc</a></h3></li>
+            <li><h3><i class="fa fa-tag"></i> <a href="https://github.com/seedstack/business/releases" target="_blank">Releases</a></h3></li>
+            <li><h3><i class="fa fa-github"></i> <a href="https://github.com/seedstack/business" target="_blank">Source</a></h3></li>
+        </ul>
+    </div>
+</div>
+
+    </div>
+    <div id="content" class="container">
+        <div class="row">
+    <div class="col-md-9">
+        <div class="content-wrapper">
+            <div class="doc-content">
+                <p>A factory is a pattern used to <strong>create domain objects</strong>, checking that provided data is complete and consistent.</p>
+
+<p>To be created by a factory the domain object must also implements <code>Producible</code>. This is necessary because all
+the domain objects are not producible by a factory. For instance an entity is only be producible by an aggregate
+root.</p>
+
+<p>The types implementing <code>DomainObject</code> and <code>Producible</code> are the followings:</p>
+
+<ul>
+<li>AggregateRoot,</li>
+<li>DomainPolicy,</li>
+<li>ValueObject,</li>
+<li>DomainEvent,</li>
+<li>DomainService.</li>
+</ul>
+
+<h1 id="default-factory">Default factory</h1>
+
+<p>The default factory has a single method <code>create</code> with varargs that will match via reflection the constructor corresponding
+to the passed arguments. The created domain object should implement the desired constructors:</p>
+
+<pre><code>public class Customer extends BaseAggregate&lt;Long&gt; {
+    private Long id;
+
+    Customer() {
+        ...
+    }
+
+    Customer(String firstName, String lastName) { // This constructor will be called
+        ...
+    }
+}
+</code></pre>
+
+<p>The default factory can then be injected and used by invoking its <code>create()</code> method with arguments unambiguously corresponding
+to only one constructor:</p>
+
+<pre><code>@Inject
+Factory&lt;Customer&gt; factory;
+
+Customer customer = factory.create(&quot;John&quot;, &quot;Doe&quot;);
+</code></pre>
+
+<p>One benefit over the plain constructor approach is that default factories will invoke identity generation (see <a href="#identity-generation">below</a>)
+and/or validation automatically after object instantiation. The</p>
+
+<p>As other factories this method will provide validation on the created object. But it won&rsquo;t survive to refactoring, so be careful using the method (ie. unit test it!).</p>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>This factory can only be used to create domain objects that implement the <code>Producible</code> and <code>DomainObject</code> interfaces. Classes
+extending Business framework base classes will already implement those interfaces but annotated POJO, such as policies or
+services, must implement them explicitly. As an alternative, you implement the <code>GenericDomainPolicy</code> and <code>GenericDomainService</code>
+interfaces instead.</p>
+
+        </div>
+    </div>
+</div>
+
+<h1 id="custom-factory">Custom factory</h1>
+
+<p>A custom factory is composed of an interface, which is located in the package of the aggregate it constructs, and an
+implementation which can be located either:</p>
+
+<ul>
+<li>In the aggregate package too,</li>
+<li>Or in an infrastructure package if it is dependent upon a specific technology.</li>
+</ul>
+
+<p>The factory interface has to extend the <code>GenericFactory</code> interface:</p>
+
+<pre><code>package org.mycompany.myapp.domain.model.order;
+
+import org.javatuples.Triplet;
+import org.seedstack.business.domain.GenericFactory;
+
+public interface OrderFactory extends GenericFactory&lt;Order&gt; {
+
+    Order createOrder(String customerId, Date checkoutDate, Double price,
+            List&lt;Triplet&lt;Integer, Double, Long&gt;&gt; orderItemTriplets);
+}
+</code></pre>
+
+<ul>
+<li><code>Order</code> is the type which is the expected to be returned by all the create methods.</li>
+<li><code>createOrder</code> method creates an <code>Order</code> aggregate with the required parameters. Some parameters can be grouped with a tuple like
+<code>oderItemTriplets</code> which represents a list <code>OrderItem</code> entities belonging to the <code>Order</code> aggregate (see
+<a href="http://seedstack.org/archives/16.7/docs/business/manual/#tuples">tuples</a> for more information on tuple pattern).</li>
+</ul>
+
+<p>The factory implementation must extend the <code>BaseFactory</code> abstract class and implement its own interface.</p>
+
+<pre><code>package org.mycompany.myapp.domain.model.order;
+
+import org.javatuples.Triplet;
+import org.seedstack.business.domain.BaseFactory;
+import org.mycompany.myapp.domain.customer.CustomerId;
+
+public class OrderFactoryImpl extends BaseFactory&lt;Order&gt; implements OrderFactory {
+
+    @Override
+    public Order createOrder(String customerId) {
+        Order o = new Order();
+
+        o.setCustomerId(new CustomerId(customerId));
+        o.setCheckoutDate(new Date());
+
+        return o;
+    }
+}
+</code></pre>
+
+<p>Here, the factory encapsulates the logic of creating a minimal but valid <code>Order</code> aggregate. This order can be further
+populated by an assembler or by custom logic.</p>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>When the implementation and its interface share the same package, the <strong>implementation should be in package visibility</strong>.
+It prevents any direct use of the implementation.</p>
+
+        </div>
+    </div>
+</div>
+
+<h1 id="identity-generation">Identity generation</h1>
+
+<p>Factories provide methods to create entities with a well defined identity. But sometimes, you want to delegate the identity
+creation, for instance to an Oracle sequence. For this use case Seed provides an <strong>identity generation strategies</strong>.
+A generation strategy makes sure a unique identity is provided to any new Entity before it is even persisted.</p>
+
+<h2 id="declaration">Declaration</h2>
+
+<p>Below is an aggregate using the identity strategy:</p>
+
+<pre><code>package org.mycompany.myapp.domain.model.myaggregate;
+
+public class MyAggregate extends BaseAggregateRoot&lt;UUID&gt; {
+
+    @Identity(handler = UUIDHandler.class)
+    private UUID id;
+
+    private String name;
+    private MyEntity mySubEntity;
+    private Set&lt;MyEntity&gt; mySubEntities;
+}
+</code></pre>
+
+<p>Below is an Entity using the identity strategy:</p>
+
+<pre><code>package org.mycompany.myapp.domain.model.myaggregate;
+
+public class MyEntity extends BaseEntity&lt;Long&gt; {
+
+    @Identity(handler = SequenceHandler.class)
+    private Long id;
+}
+</code></pre>
+
+<p>The <code>@Identity</code> annotation is applied on attribute holding the object identity. This annotation takes two arguments:</p>
+
+<ul>
+<li><code>handler</code>: strategy implementation</li>
+<li><code>source</code>: a String that can be used in a custom handler. For instance, it could provide a SEQUENCE name for DB.</li>
+</ul>
+
+<p>Only specifying the identity strategy is not enough to effectively generate an identity. An implementation of the strategy
+must be configured:</p>
+
+<pre><code>[org.mycompany.myapp.domain.model.myaggregate.MyAggregate]
+identity.handler-qualifier = simple-UUID
+
+[org.mycompany.myapp.domain.model.myaggregate.MyEntity]
+identity.handler-qualifier = oracle-sequence
+identity.sequence-name = SEQ_TEST
+</code></pre>
+
+<p>In this case we can see that the <code>simple-UUID</code> implementation will be used for <code>MyAggregate</code>. Similarly, the <code>oracle-sequence</code>
+implementation will be used for <code>MyEntity</code> but is further configured with a sequence name.</p>
+
+<h2 id="usage">Usage</h2>
+
+<p>The chosen identity strategy is applied:</p>
+
+<ul>
+<li>Automatically, on methods annotated with the <code>@Create</code> annotation. They are intercepted to apply the identity strategy
+on their return value.</li>
+</ul>
+
+<pre><code>public class MyAggregateFactoryDefault extends BaseFactory&lt;MyAggregate&gt;
+        implements MyAggregateFactory {
+
+    @Create
+    @Override
+    public MyAggregate createMyAggregate(String name) {
+        MyAggregate myAggregate = new MyAggregate();
+        myAggregate.setName(name);
+
+        MyEntity myEntity = createMyEntity();
+        myAggregate.setMyEntity(myEntity);
+
+        return myAggregate;
+    }
+
+    @Create
+    MyEntity createMyEntity() {
+        return new MyEntity();
+    }
+}
+</code></pre>
+
+<ul>
+<li>Manually, by injecting the <code>IdentityService</code> service and invoking its <code>identify()</code> method with the entity to generate
+an identity for as argument.</li>
+</ul>
+
+<pre><code>public class MyAggregateFactoryDefault extends BaseFactory&lt;MyAggregate&gt;
+        implements MyAggregateFactory {
+
+    @Inject
+    IdentityService identityService;
+
+    @Override
+    public MyAggregate createMyAggregate(String name) {
+        MyAggregate myAggregate = new MyAggregate();
+        identityService.identify(myAggregate);
+        myAggregate.setName(name);
+
+        MyEntity myEntity = new MyEntity();
+        identityService.identify(myEntity);
+        myAggregate.setMyEntity(myEntity);
+
+        return myAggregate;
+    }
+}
+</code></pre>
+
+<p>Note that identity generation doesn&rsquo;t walk the object graph to generate identities for eventual sub-entities. You must
+trigger identity generation (automatically or manually) separately on each entity.</p>
+
+<div class="callout callout-tips">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+                <i class="fa fa-lightbulb-o icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>If all methods of a factory delegate identity generation to Seed, a <code>@Create</code> annotation can be applied directly at the
+class or interface level.</p>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="custom-identity-handler">Custom identity handler</h2>
+
+<p><img src="img/manage-entity-spi.svg" alt="identity-seed" /></p>
+
+<p>Two different options are available to define custom identity handlers:</p>
+
+<p><img src="img/manage-entity-usage.png" alt="identity-seed" /></p>
+
+<p>Below is an example of a basic Timestamp id generation strategy:</p>
+
+<pre><code>package org.mycompany.myapp.infrastructure.domain;
+
+import org.seedstack.business.domain.BaseEntity;
+import org.seedstack.business.domain.identity.IdentityHandler;
+
+@Named(&quot;timestamp-id&quot;)
+public class TimestampIdentityHandler implements IdentityHandler&lt;BaseEntity&lt;Long&gt;, Long&gt; {
+
+    @Override
+    public Long handle(BaseEntity&lt;Long&gt; entity, Map&lt;String, String&gt; entityConfig) {
+        return new Date().getTime();
+    }
+}
+</code></pre>
+
+<h2 id="provided-identity-strategies">Provided identity strategies</h2>
+
+<h3 id="sequencehandler">SequenceHandler</h3>
+
+<p>Handles sequence generated ID. Two implementations are provided:</p>
+
+<ul>
+<li><code>OracleSequenceHandler</code>: Get next oracle sequence value for new entity id. The following properties.</li>
+</ul>
+
+<pre><code>[org.mycompany.myapp...YourEntity]
+identity.handler-qualifier = oracle-sequence
+identity.sequence-name = your_sequence_name
+</code></pre>
+
+<ul>
+<li><code>InMemorySequenceHandler</code>: To be used <strong>ONLY</strong> for testing (preserves behaviour without a database). The following
+properties.</li>
+</ul>
+
+<pre><code>[org.mycompany.myapp...YourEntity]
+identity.handler-qualifier = inmemory-sequence
+</code></pre>
+
+<h3 id="uuidhandler">UUIDHandler</h3>
+
+<p>Use for handling UUID generated ID. One implementation is provided:</p>
+
+<ul>
+<li><code>SimpleUUIDHandler</code>: Get new random UUID from java.util.UUID.randomUUID(). Need one property using entity props
+configuration:</li>
+</ul>
+
+<pre><code>[org.mycompany.myapp...YourEntity]
+identity.handler-qualifier = simple-UUID
+</code></pre>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        
+<div class="side-menu">
+    
+        
+        <div class="list-group">
+            <ul class="nav">
+                
+                
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/" class="list-group-item ">
+                            Business framework basics
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/model/" class="list-group-item ">
+                            Domain model
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/aggregates/" class="list-group-item ">
+                            Aggregates
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/repositories/" class="list-group-item ">
+                            Repositories
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/factories/" class="list-group-item  active ">
+                            Factories
+                        </a>
+                        
+                        
+                            <nav id="TableOfContents">
+<ul>
+<li><a href="#default-factory">Default factory</a></li>
+<li><a href="#custom-factory">Custom factory</a></li>
+<li><a href="#identity-generation">Identity generation</a>
+<ul>
+<li><a href="#declaration">Declaration</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#custom-identity-handler">Custom identity handler</a></li>
+<li><a href="#provided-identity-strategies">Provided identity strategies</a>
+<ul>
+<li><a href="#sequencehandler">SequenceHandler</a></li>
+<li><a href="#uuidhandler">UUIDHandler</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                            <script>
+                                seedstack.state.previousPage = '\/archives\/16.7\/docs\/business\/manual\/repositories\/';
+                            </script>
+                            
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/events/" class="list-group-item ">
+                            Domain events
+                        </a>
+                        
+                            <script>
+                                seedstack.state.nextPage = '\/archives\/16.7\/docs\/business\/manual\/events\/';
+                            </script>
+                            
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/policies/" class="list-group-item ">
+                            Policies
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/assemblers/" class="list-group-item ">
+                            Assemblers
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/finders/" class="list-group-item ">
+                            Finders
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/pagination/" class="list-group-item ">
+                            Pagination
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+            </ul>
+        </div>
+        
+    
+    
+    <div class="list-group">
+        <ul class="nav">
+            <li class="list-group-item"><div style="margin-bottom: 10px;"><i class="fa fa-tag"></i> Tags</div>
+                <div class="tags">
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/factory">Factory</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/pattern">Pattern</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/aggregate">Aggregate</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/lifecycle">Lifecycle</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/persistence">Persistence</a>
+                    
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="list-group">
+        <ul class="nav">
+            
+                <li><a class="list-group-item" href="https://github.com/seedstack/website/edit/master/content/docs/business/manual/factories.md" target="_blank"><i class="fa fa-edit"></i> Contribute to this page</a></li>
+            
+        </ul>
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+    <div id="footer">
+        <div class="footer-v3">
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="headline"><h2>About</h2></div>
+                    <p class="margin-bottom-25 md-margin-bottom-40">SeedStack is an Open-Source enterprise-class development stack for building modern and robust applications.</p>
+                </div>
+
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="posts">
+                        <div class="headline"><h2>License</h2></div>
+                        <p>
+                            Code licensed under the <a href="https://www.mozilla.org/MPL/2.0" target="_blank">Mozilla Public License 2.0</a>.
+                            <br/>
+                            Documentation licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 map-img">
+                    <div class="headline"><h2>Contact us</h2></div>
+                    <address>
+                        <p>
+                            IRC channel <a href="irc://chat.freenode.net/seedstack">#seedstack on Freenode community</a>
+                            <br/>
+                            Google group <a href="https://groups.google.com/forum/#!forum/seedstack">seedstack@googlegroups.com</a>
+                        </p>
+                    </address>
+
+                    <div class="headline"><h2>Stay in touch</h2></div>
+                    <div style="margin-bottom: 20px;">
+                        <a class="twitter-follow-button"
+                           href="https://twitter.com/seedstack"
+                           data-show-count="false"
+                           data-lang="en">
+                            Follow @seedstack
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+    <div id="hotkeys-modal" class="modal">
+    <div class="modal-dialog" style="min-width: 960px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Keyboard shortcuts <a id="show-all-shortcuts" style="cursor: pointer;" onclick="seedstack.ui.showAllShortcuts();">(Show all)</a></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Global shortcuts</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>?</kbd>
+                                </td>
+                                <td>Show this help dialog</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>/</kbd>
+                                </td>
+                                <td>Focus the search field</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↑</kbd>
+                                </td>
+                                <td>Go to previous menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↓</kbd>
+                                </td>
+                                <td>Go to next menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>S</kbd>
+                                </td>
+                                <td>Go to Seed framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>W</kbd>
+                                </td>
+                                <td>Go to W20 framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>B</kbd>
+                                </td>
+                                <td>Go to Business framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>A</kbd>
+                                </td>
+                                <td>Go to add-ons</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>G</kbd>
+                                </td>
+                                <td>Go to guides</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Seed framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>t</kbd>
+                                </td>
+                                <td>Go to testing</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to cryptography</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>w</kbd>
+                                </td>
+                                <td>Go to Web</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>r</kbd>
+                                </td>
+                                <td>Go to REST</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>o</kbd>
+                                </td>
+                                <td>Go to operations</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>T</kbd>
+                                </td>
+                                <td>Go to transactions</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Business framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>m</kbd>
+                                </td>
+                                <td>Go to model</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>l</kbd>
+                                </td>
+                                <td>Go to lifecycle</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>e</kbd>
+                                </td>
+                                <td>Go to events</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>p</kbd>
+                                </td>
+                                <td>Go to policies</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>a</kbd>
+                                </td>
+                                <td>Go to assemblers</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>f</kbd>
+                                </td>
+                                <td>Go to finders</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>P</kbd>
+                                </td>
+                                <td>Go to pagination</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>W20 framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to culture</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>h</kbd>
+                                </td>
+                                <td>Go to hypermedia</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>u</kbd>
+                                </td>
+                                <td>Go to UI</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="versions-modal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 id="versions-title" class="modal-title">Fetching components...</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="versions-table" class="table table-striped table-hover table-bordered">
+                            <tr>
+                                <th>Component</th>
+                                <th>Version</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/github.min.css">
+
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mousetrap/1.4.6/mousetrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lunr.js/0.5.9/lunr.min.js"></script>
+<script src="/assets/unify/plugins/smoothScroll.js"></script>
+<script src="/js/xml2json.js"></script>
+<script src="/js/jquery.highlight.js"></script>
+<script src="/js/seedstack.js"></script>
+<script>
+    $(document).ready(function () {
+        var $search = $('.search-btn');
+
+        $('.search').click(function () {
+            if ($search.hasClass('fa-search')) {
+                seedstack.ui.openSearch();
+            } else {
+                seedstack.ui.closeSearch();
+            }
+        });
+
+        $('pre code').each(function (i, block) {
+            hljs.highlightBlock(block);
+        });
+
+        $('.side-menu').affix({
+            offset: {
+                top: $('#header').height() + 20,
+                bottom: $('#footer').height() + 40
+            }
+        });
+
+        Mousetrap.bind('/', function () {
+            seedstack.ui.openSearch();
+            return false;
+        });
+
+        Mousetrap.bind('alt+up', function () {
+            if (seedstack.state.previousPage) {
+                window.location = seedstack.state.previousPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('alt+down', function () {
+            if (seedstack.state.nextPage) {
+                window.location = seedstack.state.nextPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('?', function () {
+            seedstack.ui.openHelp();
+            return false;
+        });
+
+        Mousetrap.bind('esc', function () {
+            seedstack.ui.closeHelp();
+            seedstack.ui.closeSearch();
+            return false;
+        });
+
+        var originalCallback = Mousetrap.stopCallback;
+        Mousetrap.stopCallback = function (e, element, combo) {
+            if (combo === 'esc') {
+                return false;
+            }
+
+            return originalCallback(e, element, combo);
+        };
+
+        function bindShortcuts(value) {
+            $.each(value, function (sequence, item) {
+                if (typeof item === 'string') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item;
+                        return false;
+                    });
+                } else if (typeof item === 'object') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item.path;
+                        return false;
+                    });
+                    if (item.shortcuts && location.pathname.indexOf(item.path) === 0) {
+                        bindShortcuts(item.shortcuts);
+                    }
+                }
+            });
+        }
+
+        function resolveVersions() {
+            var $versionsTitle = $('#versions-title');
+            if (!seedstack.versions) {
+                $.ajax({
+                    dataType: 'text',
+                    url: '/distribution.pom.xml'
+                }).done(function (data) {
+                    var pom = new X2JS().xml_str2json(data);
+
+                    if (pom.project && pom.project.properties && pom.project.version) {
+                        var $versions = $('#versions-table');
+                        var blackList = ['seedstack-maven-plugin', 'java-compiler', 'maven-failsafe-plugin', 'logback'];
+                        var versions = {};
+
+                        $versionsTitle.text("SeedStack " + pom.project.version);
+
+                        $.each(pom.project.properties, function (name, value) {
+                            if (/\.version$/.test(name)) {
+                                var shortName = name.substr(0, name.indexOf('.version'));
+                                if ($.inArray(shortName, blackList) === -1) {
+                                    versions[shortName] = value;
+                                    $versions.append(
+                                            '<tr>' +
+                                            '<td>' +
+                                            shortName.substr(0, 1).toUpperCase() + shortName.substr(1, shortName.length - 1).replace(/-/g, ' ') +
+                                            '</td>' +
+                                            '<td>' + value + '</td>' +
+                                            '</tr>');
+                                }
+                            }
+                        });
+
+                        $('.loginbar').prepend(
+                                '<li class="hidden-xs hidden-sm"><i class="fa fa-tag"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openVersions();">Latest version: ' + pom.project.version + '</a></li>' +
+                                '<li class="topbar-devider"></li>'
+                        );
+
+                        seedstack.versions = versions;
+                    }
+                }).error(function () {
+                    console.error("SeedStack version could not be resolved");
+                });
+            }
+        }
+
+        bindShortcuts(seedstack.ui.shortcuts);
+
+        resolveVersions();
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $('#hotkeys-modal, #versions-modal').bind('hidden.bs.modal', function () {
+            $("html").css("margin-right", "0px");
+        }).bind('show.bs.modal', function () {
+            $("html").css("margin-right", "-15px");
+        });
+
+        var query = seedstack.strings.parseQueryString(location);
+        if (query.h && query.h.length > 0) {
+            $('.doc-content').highlight(query.h);
+            if (query.scroll) {
+                $('html, body').animate({
+                    scrollTop: $('span[class=highlight]:first').offset().top - 20
+                }, 250);
+            }
+        }
+    });
+</script>
+<script>window.twttr = (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+    if (d.getElementById(id))return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    t._e = [];
+    t.ready = function (f) {
+        t._e.push(f);
+    };
+    return t;
+}(document, "script", "twitter-wjs"));</script>
+
+</body>
+</html>

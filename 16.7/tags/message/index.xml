@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/message/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/message/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Configuration</title>
+      <link>http://seedstack.org/archives/16.7/addons/jms/configuration/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/jms/configuration/</guid>
+      <description>
+
+&lt;p&gt;Configuring your messaging solution is mandatory in order to be able to use Seed JMS add-on.&lt;/p&gt;
+
+&lt;h1 id=&#34;connection-factories&#34;&gt;Connection factories&lt;/h1&gt;
+
+&lt;p&gt;The connectionFactory is the base to create connections. Connection factories are declared using the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms]
+connection-factories = connection-factory-1, connection-factory-1, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;direct-instantiation-configuration&#34;&gt;Direct instantiation configuration&lt;/h2&gt;
+
+&lt;p&gt;In direct instantiation mode, Seed will create the connection factory and configure it by setting properties on its
+instance. Use the following property syntax to define the configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms]
+connection-factory.connection-factory-1.vendor.class = fully qualified vendor classname
+connection-factory.connection-factory-1.vendor.property.property1 = value1
+connection-factory.connection-factory-1.vendor.property.property2 = value2
+connection-factory.connection-factory-1.vendor.property.property3 = value3
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Seed will instantiate the specified class and will set each property as defined above.&lt;/p&gt;
+
+&lt;h2 id=&#34;with-jndi&#34;&gt;With JNDI&lt;/h2&gt;
+
+&lt;p&gt;In JNDI mode, Seed will lookup for connection factory instances using the name and optionally the specified context:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms]
+connection-factory.connection-factory-1.jndi.name = name to lookup for
+connection-factory.connection-factory-1.jndi.context = context for lookup  # Optional
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The context must be specified according to the list of JNDI contexts defined in core support (see &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/more/#jndi&#34;&gt;the corresponding
+documentation&lt;/a&gt;). If no context is specified the default context is used.&lt;/p&gt;
+
+&lt;h1 id=&#34;connections&#34;&gt;Connections&lt;/h1&gt;
+
+&lt;p&gt;Multiple connections can be created and managed by Seed. All connections must be listed in the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms]
+connections = connection-1, connection-2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Each connection can then be configured as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms.connection.connection-1]
+connection-factory = connection-factory-1
+user = ...         # Optional
+password = ...     # Optional
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;exception-listener&#34;&gt;Exception listener&lt;/h2&gt;
+
+&lt;p&gt;You can specify an exception listener on a connection with the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms.connection.connection-1]
+exception-listener = fully.qualified.class.of.the.exception.listener
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;automatic-reconnection&#34;&gt;Automatic reconnection&lt;/h2&gt;
+
+&lt;p&gt;Seed-managed JMS connections can automatically reconnect after they go down. This behavior is enabled by default but
+can be disabled by the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms.connection.connection-1]
+managed-connection = false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The delay before automatic reconnection is 30 seconds but it can be changed with the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms.connection.connection-1]
+reconnection-delay = 10000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that the delay is specified in milliseconds.&lt;/p&gt;
+
+&lt;h2 id=&#34;client-id&#34;&gt;Client ID&lt;/h2&gt;
+
+&lt;p&gt;Seed will automatically set the client ID of the connection if not in JEE mode (see below). To disable the setting of
+the client ID, use the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms.connection.connection-1]
+set-client-id = false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The client ID itself can be defined with the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms.connection.connection-1]
+client-id = my-client-id
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If not specified, the default client ID is formed by concatenating the application identifier with the connection name.&lt;/p&gt;
+
+&lt;h2 id=&#34;jee-mode&#34;&gt;JEE mode&lt;/h2&gt;
+
+&lt;p&gt;In a strict JEE environment, some JMS methods are forbidden (refer to the EE.6.7 section of the JavaEE platform specification).
+You can enable the JEE mode on a connection with the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms.connection.connection-1]
+jee-mode = true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this mode, the forbidden methods are not invoked. It prevents the uses of asynchronous message reception (driven by
+the JMS provider after setMessageListener()) so polling must be used instead.&lt;/p&gt;
+
+&lt;p&gt;Seed allows to still use a MessageListener when in polling mode but a message poller must be specified when registering
+the listener. Having a MessageListener defined without a corresponding message poller while in JEE mode results in an
+error.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Publish handler</title>
+      <link>http://seedstack.org/archives/16.7/addons/mqtt/publish-handler/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/mqtt/publish-handler/</guid>
+      <description>&lt;p&gt;To handle a MQTT publisher, create a handler class which implements the &lt;code&gt;org.eclipse.paho.client.mqttv3.MqttCallback&lt;/code&gt; interface and is
+annotated with &lt;code&gt;@MqttPublishHandler&lt;/code&gt;. This annotation takes the following parameter:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;clients&lt;/code&gt; parameter specifying the client that will publish the messages.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With this class, the default reconnection behavior can be overridden.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Publishing messages</title>
+      <link>http://seedstack.org/archives/16.7/addons/mqtt/publisher/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/mqtt/publisher/</guid>
+      <description>&lt;p&gt;In a Java class, just inject your own client:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+@Named(&amp;quot;client-1&amp;quot;)
+IMqttClient mqttClient;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And then in a method, just do:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mqttClient.publish(&amp;quot;topicName&amp;quot;,&amp;quot;message&amp;quot;.getBytes(Charset.forName(&amp;quot;UTF-8&amp;quot;)), 1, false);
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Receiving messages</title>
+      <link>http://seedstack.org/archives/16.7/addons/jms/receiving/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/jms/receiving/</guid>
+      <description>
+
+&lt;p&gt;To receive JMS messages, create a listener class which implements the &lt;code&gt;javax.jms.MessageListener&lt;/code&gt; interface and is
+annotated with &lt;code&gt;@JMSMessageListener&lt;/code&gt;. This annotation takes the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;connection&lt;/code&gt; parameter specifying the connection that will be used to receive the messages.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;destinationType&lt;/code&gt; parameter specifying what kind of destination the class will listen to (queue or topic).&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;destinationName&lt;/code&gt; parameter specifying the name of the destination.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;poller&lt;/code&gt; parameter is optional and is used to enable polling on this listener.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;polling&#34;&gt;Polling&lt;/h1&gt;
+
+&lt;p&gt;When a &lt;code&gt;poller&lt;/code&gt; parameter is specified, no asynchronous message reception (driven by the JMS provider after a
+setMessageListener() call) takes place. Polling behavior is delegated to the specified class (which must implement
+&lt;code&gt;org.seedstack.jms.spi.MessagePoller&lt;/code&gt;).&lt;/p&gt;
+
+&lt;h2 id=&#34;simple-message-poller&#34;&gt;Simple message poller&lt;/h2&gt;
+
+&lt;p&gt;If polling is needed on a particular listener you may use the &lt;code&gt;org.seedstack.jms.SimpleMessagePoller&lt;/code&gt; class for
+basic polling needs. It spawns a thread which calls to &lt;code&gt;receive()&lt;/code&gt; in a loop, dispatching the message to the
+&lt;code&gt;onMessage()&lt;/code&gt; method when a message is received. If an exception occurs during &lt;code&gt;receive()&lt;/code&gt;, the exception is dispatched
+to the connection exception listener if any.&lt;/p&gt;
+
+&lt;p&gt;If an exception is thrown during the reception or message handling, the polling thread is shutdown and scheduled to
+restart 10 seconds later. When used in conjunction with the automatic reconnection, the exception also triggers a
+connection refresh. In that case, the poller may retry to receive messages several times before the connection is up again,
+depending on the configured connection refresh timeout.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Receiving messages</title>
+      <link>http://seedstack.org/archives/16.7/addons/mqtt/listener/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/mqtt/listener/</guid>
+      <description>&lt;p&gt;To receive MQTT messages, create a listener class which implements the &lt;code&gt;org.eclipse.paho.client.mqttv3.MqttCallback&lt;/code&gt; interface and is
+annotated with &lt;code&gt;@MqttListener&lt;/code&gt;. This annotation takes the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;clients&lt;/code&gt; parameter specifying the client that will be used to receive the messages.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;topics&lt;/code&gt; parameter specifying which topic it will listen to.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;qos&lt;/code&gt; parameter specifying which topic it will listen to (for the topicFilter defined).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The 2 lists &lt;code&gt;topics&lt;/code&gt; and &lt;code&gt;qos&lt;/code&gt; should have the same size. They are linked together.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Sending messages</title>
+      <link>http://seedstack.org/archives/16.7/addons/jms/sending/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/jms/sending/</guid>
+      <description>
+
+&lt;h1 id=&#34;seed-managed-session&#34;&gt;Seed Managed Session&lt;/h1&gt;
+
+&lt;p&gt;Using a managed session consists in the following steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Inject a Session (note that a session is &lt;em&gt;transactional&lt;/em&gt;).&lt;/li&gt;
+&lt;li&gt;Specify the connection to use with the &lt;code&gt;@JmsConnection&lt;/code&gt; annotation.&lt;/li&gt;
+&lt;li&gt;Use the session to create the destination Queue or Topic.&lt;/li&gt;
+&lt;li&gt;Transaction will be automatically committed or rolled back according to your &lt;code&gt;@Transactional&lt;/code&gt; annotation.&lt;/li&gt;
+&lt;li&gt;Session object is managed by Seed. There is no need to care about thread-safe usage or closing it.&lt;/li&gt;
+&lt;li&gt;To fine tune the Transaction, please refer to the transaction support documentation.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Below is an example using a session to create a queue and send a TextMessage:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class ClassWithJMSSending {
+    @Inject
+    private Session session;
+
+    @Transactional
+    @JmsConnection(&amp;quot;connection-1&amp;quot;)
+    public void send(String stringMessage) throws JMSException {
+        Destination queue = session.createQueue(&amp;quot;queue1&amp;quot;);
+        TextMessage message1 = session.createTextMessage();
+        message1.setText(stringMessage);
+
+        MessageProducer producer = session.createProducer(queue);
+        producer.send(message1);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;manually-created-session&#34;&gt;Manually Created Session&lt;/h1&gt;
+
+&lt;p&gt;A connection can be injected directly inject and used to manually create all needed objects to send a message.
+In this case, except for the connection, nothing is managed by Seed. &lt;strong&gt;Objects life cycles have to be dealt with (creation, closing, etc.).&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyUnManagedMessageSender {
+    @Inject
+    @Named(&amp;quot;connection-1&amp;quot;)
+    private Connection connection;
+
+    public void send(String stringMessage) throws JMSException {
+        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Destination queue = session.createQueue(&amp;quot;queue2&amp;quot;);
+        TextMessage message = session.createTextMessage();
+        message.setText(stringMessage);
+        message.setJMSExpiration(1000);
+        message.setJMSReplyTo(queue);
+        MessageProducer producer = session.createProducer(queue);
+        producer.send(message);
+        session.close();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;automatic-reconnection&#34;&gt;Automatic reconnection&lt;/h1&gt;
+
+&lt;p&gt;When you inject a session or a connection and automatic reconnection is enabled, Seed provides managed objects which
+embed a reconnection mechanism. When the connection is down, creating a producer or sending a message will throw a
+JMSException. But when the underlying connection is up again, &lt;strong&gt;the connection and the session will be refreshed&lt;/strong&gt;.
+So you won&amp;rsquo;t need to get new connection or session. By default Seed attempt to reconnect every 30 seconds, but this is
+configurable (see &lt;a href=&#34;#automatic-reconnection&#34;&gt;here&lt;/a&gt;).&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Notice that it is still up to you to handle the retry policy of the sent message.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

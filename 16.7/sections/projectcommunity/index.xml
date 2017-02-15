@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/sections/projectcommunity/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/sections/projectcommunity/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Community</title>
+      <link>http://seedstack.org/archives/16.7/project/community/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/project/community/</guid>
+      <description>&lt;p&gt;SeedStack has just arrived on the Open-Source scene. Nonetheless we already have the tools to let people discuss about
+SeedStack, file issues, ask for help and simply discover the stack together.&lt;/p&gt;
+
+&lt;h1 id=&#34;irc&#34;&gt;IRC&lt;/h1&gt;
+
+&lt;p&gt;The &lt;a href=&#34;irc://chat.freenode.net/seedstack&#34;&gt;#seedstack&lt;/a&gt; IRC on the FreeNode community is intended to chat with the SeedStack
+team and other users.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Join the chat room directly in your browser by using &lt;a href=&#34;https://kiwiirc.com/client/irc.freenode.net#seedstack&#34;&gt;KiwiIRC&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;mailing-list&#34;&gt;Mailing list&lt;/h1&gt;
+
+&lt;p&gt;You can ask for support on the &lt;a href=&#34;https://groups.google.com/forum/#!forum/seedstack&#34;&gt;Google Group&lt;/a&gt; or directly on the
+mailing list by sending an email to &lt;a href=&#34;mailto:seedstack@googlegroups.com&#34;&gt;seedstack@googlegroups.com&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that you must already belong to the group to be able to participate. To join, go to the &lt;a href=&#34;https://groups.google.com/forum/#!forum/seedstack&#34;&gt;Google Group&lt;/a&gt;
+and click the &amp;laquo;Join&amp;raquo; button.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;stackoverflow&#34;&gt;StackOverflow&lt;/h1&gt;
+
+&lt;p&gt;If you have any question or problem please use &lt;a href=&#34;http://stackoverflow.com/&#34;&gt;StackOverflow&lt;/a&gt; and make sure to tag your
+question with &lt;code&gt;seedstack&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;twitter&#34;&gt;Twitter&lt;/h1&gt;
+
+&lt;p&gt;You can &lt;a href=&#34;https://twitter.com/intent/follow?screen_name=seedstack&#34;&gt;follow @seedstack&lt;/a&gt; to stay in touch or simply share
+your experience with SeedStack or by tweeting about it using the &lt;code&gt;#seedstack&lt;/code&gt; hashtag.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Project members</title>
+      <link>http://seedstack.org/archives/16.7/project/community/members/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/project/community/members/</guid>
+      <description>&lt;p&gt;This page lists the SeedStack project members and contributors.&lt;/p&gt;
+
+&lt;h1 id=&#34;core-team&#34;&gt;Core team&lt;/h1&gt;
+
+&lt;p&gt;The core team is composed of full-time dedicated members.&lt;/p&gt;
+
+&lt;ul class=&#34;list-unstyled team-v1&#34;&gt;
+
+&lt;li class=&#34;row md-margin-bottom-30&#34;&gt;
+    &lt;h2 class=&#34;col-md-12 nocount&#34;&gt;Adrien LAUER&lt;/h2&gt;
+    &lt;div class=&#34;team-img col-md-2&#34;&gt;
+        &lt;img class=&#34;img-responsive&#34; src=&#34;https://avatars2.githubusercontent.com/u/2498919?v=3&#34; alt=&#34;Adrien LAUER&#34;&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a target=&#34;_blank&#34; href=&#34;https://github.com/adrienlauer&#34;&gt;&lt;i class=&#34;icon-custom icon-sm rounded-x fa fa-github&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            
+                &lt;li&gt;&lt;a target=&#34;_blank&#34; href=&#34;https://twitter.com/adrienlauer&#34;&gt;&lt;i class=&#34;icon-custom icon-sm rounded-x fa fa-twitter&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-md-10&#34;&gt;
+        &lt;p&gt;&lt;p&gt;Software engineer with 10 years of experience, he worked on various Java projects at PSA Peugeot Citroën before creating
+the W20 Web framework in 2011. He joined the SeedStack team in 2013, at the beginning of the project. Since then, he
+has actively contributed to define and implement the whole solution.&lt;/p&gt;
+&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;hr/&gt;&lt;/li&gt;
+
+    
+&lt;li class=&#34;row md-margin-bottom-30&#34;&gt;
+    &lt;h2 class=&#34;col-md-12 nocount&#34;&gt;Marius MATEI&lt;/h2&gt;
+    &lt;div class=&#34;team-img col-md-2&#34;&gt;
+        &lt;img class=&#34;img-responsive&#34; src=&#34;https://avatars2.githubusercontent.com/u/3427528?v=3&#34; alt=&#34;Marius MATEI&#34;&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a target=&#34;_blank&#34; href=&#34;https://github.com/cmmatei&#34;&gt;&lt;i class=&#34;icon-custom icon-sm rounded-x fa fa-github&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            
+                &lt;li&gt;&lt;a target=&#34;_blank&#34; href=&#34;https://twitter.com/C_M_Matei&#34;&gt;&lt;i class=&#34;icon-custom icon-sm rounded-x fa fa-twitter&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-md-10&#34;&gt;
+        &lt;p&gt;&lt;p&gt;Marius Matei is the SeedStack Program Manager. He contributed on various Java/web applications as Senior software architect, IT Manager or Team Leader before building the SeedStack team and putting on the rails the SeedStack enterprise software project.&lt;/p&gt;
+&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;hr/&gt;&lt;/li&gt;
+
+
+&lt;li class=&#34;row md-margin-bottom-30&#34;&gt;
+    &lt;h2 class=&#34;col-md-12 nocount&#34;&gt;Thierry BOUVET&lt;/h2&gt;
+    &lt;div class=&#34;team-img col-md-2&#34;&gt;
+        &lt;img class=&#34;img-responsive&#34; src=&#34;https://avatars2.githubusercontent.com/u/12045960?v=3&#34; alt=&#34;Thierry BOUVET&#34;&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a target=&#34;_blank&#34; href=&#34;https://github.com/tbouvet&#34;&gt;&lt;i class=&#34;icon-custom icon-sm rounded-x fa fa-github&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-md-10&#34;&gt;
+        &lt;p&gt;&lt;p&gt;Software engineer with 15 years of experience, he worked on various Java projects at PSA Peugeot Citroën before joining SeedStack team. He has actively contributed to define, implement the whole solution. He actively contributes to improve SeedStack usage and development performance.&lt;/p&gt;
+&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;hr/&gt;&lt;/li&gt;
+
+
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;active-members&#34;&gt;Active members&lt;/h1&gt;
+
+&lt;p&gt;Active members are frequently contributing to SeedStack.&lt;/p&gt;
+
+&lt;ul class=&#34;list-unstyled team-v1&#34;&gt;
+
+&lt;li class=&#34;row md-margin-bottom-30&#34;&gt;
+    &lt;h2 class=&#34;col-md-12 nocount&#34;&gt;Adrien DOMURADO&lt;/h2&gt;
+    &lt;div class=&#34;team-img col-md-2&#34;&gt;
+        &lt;img class=&#34;img-responsive&#34; src=&#34;https://avatars2.githubusercontent.com/u/5311127?v=3&#34; alt=&#34;Adrien DOMURADO&#34;&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a target=&#34;_blank&#34; href=&#34;https://github.com/adriendomurado&#34;&gt;&lt;i class=&#34;icon-custom icon-sm rounded-x fa fa-github&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-md-10&#34;&gt;
+        &lt;p&gt;&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;hr/&gt;&lt;/li&gt;
+
+
+&lt;li class=&#34;row md-margin-bottom-30&#34;&gt;
+    &lt;h2 class=&#34;col-md-12 nocount&#34;&gt;Épo JEMBA&lt;/h2&gt;
+    &lt;div class=&#34;team-img col-md-2&#34;&gt;
+        &lt;img class=&#34;img-responsive&#34; src=&#34;https://avatars2.githubusercontent.com/u/887400?v=3&#34; alt=&#34;Épo JEMBA&#34;&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a target=&#34;_blank&#34; href=&#34;https://github.com/ejemba&#34;&gt;&lt;i class=&#34;icon-custom icon-sm rounded-x fa fa-github&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-md-10&#34;&gt;
+        &lt;p&gt;&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;hr/&gt;&lt;/li&gt;
+
+
+&lt;li class=&#34;row md-margin-bottom-30&#34;&gt;
+    &lt;h2 class=&#34;col-md-12 nocount&#34;&gt;Kavi RAMYEAD&lt;/h2&gt;
+    &lt;div class=&#34;team-img col-md-2&#34;&gt;
+        &lt;img class=&#34;img-responsive&#34; src=&#34;https://avatars0.githubusercontent.com/u/5616469?v=3&#34; alt=&#34;Kavi RAMYEAD&#34;&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a target=&#34;_blank&#34; href=&#34;https://github.com/kavi87&#34;&gt;&lt;i class=&#34;icon-custom icon-sm rounded-x fa fa-github&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-md-10&#34;&gt;
+        &lt;p&gt;&lt;p&gt;Software frontend developer, he worked on various Java/web projects. He joined the SeedStack team in the end of 2013. Since then, he mainly works on the front end framework, W20 and on the productivity tools.&lt;/p&gt;
+&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;hr/&gt;&lt;/li&gt;
+
+
+&lt;li class=&#34;row md-margin-bottom-30&#34;&gt;
+    &lt;h2 class=&#34;col-md-12 nocount&#34;&gt;Pierre THIROUIN&lt;/h2&gt;
+    &lt;div class=&#34;team-img col-md-2&#34;&gt;
+        &lt;img class=&#34;img-responsive&#34; src=&#34;https://avatars3.githubusercontent.com/u/2495124?v=3&#34; alt=&#34;Pierre THIROUIN&#34;&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a target=&#34;_blank&#34; href=&#34;https://github.com/pith&#34;&gt;&lt;i class=&#34;icon-custom icon-sm rounded-x fa fa-github&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            
+                &lt;li&gt;&lt;a target=&#34;_blank&#34; href=&#34;https://twitter.com/pierrethirouin&#34;&gt;&lt;i class=&#34;icon-custom icon-sm rounded-x fa fa-twitter&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-md-10&#34;&gt;
+        &lt;p&gt;&lt;p&gt;Software developer for Infotel, he worked on various Java projects in the industry and banking sectors. He joined the SeedStack team in the end of 2013. Since then, he mainly works on the Java and Business frameworks, plus some tooling and SeedStack functions.&lt;/p&gt;
+&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;hr/&gt;&lt;/li&gt;
+
+
+&lt;li class=&#34;row md-margin-bottom-30&#34;&gt;
+    &lt;h2 class=&#34;col-md-12 nocount&#34;&gt;Redouane LOULOU&lt;/h2&gt;
+    &lt;div class=&#34;team-img col-md-2&#34;&gt;
+        &lt;img class=&#34;img-responsive&#34; src=&#34;https://avatars2.githubusercontent.com/u/9444088?v=3&#34; alt=&#34;Redouane LOULOU&#34;&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a target=&#34;_blank&#34; href=&#34;https://github.com/red1l&#34;&gt;&lt;i class=&#34;icon-custom icon-sm rounded-x fa fa-github&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-md-10&#34;&gt;
+        &lt;p&gt;&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;hr/&gt;&lt;/li&gt;
+
+
+&lt;li class=&#34;row md-margin-bottom-30&#34;&gt;
+    &lt;h2 class=&#34;col-md-12 nocount&#34;&gt;Tuan DO CAO&lt;/h2&gt;
+    &lt;div class=&#34;team-img col-md-2&#34;&gt;
+        &lt;img class=&#34;img-responsive&#34; src=&#34;https://avatars0.githubusercontent.com/u/8062405?v=3&#34; alt=&#34;Tuan DO CAO&#34;&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a target=&#34;_blank&#34; href=&#34;https://github.com/notoon&#34;&gt;&lt;i class=&#34;icon-custom icon-sm rounded-x fa fa-github&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-md-10&#34;&gt;
+        &lt;p&gt;&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;hr/&gt;&lt;/li&gt;
+
+
+&lt;li class=&#34;row md-margin-bottom-30&#34;&gt;
+    &lt;h2 class=&#34;col-md-12 nocount&#34;&gt;Yves DAUTREMAY&lt;/h2&gt;
+    &lt;div class=&#34;team-img col-md-2&#34;&gt;
+        &lt;img class=&#34;img-responsive&#34; src=&#34;https://avatars3.githubusercontent.com/u/3729195?v=3&#34; alt=&#34;Yves DAUTREMAY&#34;&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a target=&#34;_blank&#34; href=&#34;https://github.com/ydautremay&#34;&gt;&lt;i class=&#34;icon-custom icon-sm rounded-x fa fa-github&#34;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;
+            
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-md-10&#34;&gt;
+        &lt;p&gt;&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;hr/&gt;&lt;/li&gt;
+
+
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;all-contributors&#34;&gt;All contributors&lt;/h1&gt;
+
+&lt;p&gt;All contributors to SeedStack, past and present, are listed below. Thanks to all of them for their time and effort !&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If you contributed to SeedStack &lt;strong&gt;code or documentation&lt;/strong&gt; (or want to), you should appear in this list. To register your
+name here, please open a pull request on the &lt;a href=&#34;https://github.com/seedstack/seedstack&#34;&gt;seedstack repository&lt;/a&gt; to update the
+CONTRIBUTORS file. If relevant, the AUTHORS file may be updated too.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+    
+        
+        
+            
+        
+    
+        
+        
+            
+        
+    
+        
+        
+            
+        
+    
+        
+        
+            
+        
+    
+        
+        
+            
+        
+    
+        
+        
+            
+        
+    
+        
+        
+    
+        
+        
+            
+        
+    
+        
+        
+            
+        
+    
+        
+        
+    
+        
+        
+            
+        
+    
+        
+        
+    
+        
+        
+            
+                &lt;li class=&#34;list-unstyled&#34;&gt;Adrien DOMURADO &lt;/li&gt;
+            
+        
+    
+        
+        
+            
+                &lt;li class=&#34;list-unstyled&#34;&gt;Adrien LAUER &lt;/li&gt;
+            
+        
+    
+        
+        
+            
+                &lt;li class=&#34;list-unstyled&#34;&gt;Aymen ABBES &lt;/li&gt;
+            
+        
+    
+        
+        
+            
+                &lt;li class=&#34;list-unstyled&#34;&gt;Aymen BENHMIDA &lt;/li&gt;
+            
+        
+    
+        
+        
+            
+                &lt;li class=&#34;list-unstyled&#34;&gt;David SCHERRER &lt;/li&gt;
+            
+        
+    
+        
+        
+            
+                &lt;li class=&#34;list-unstyled&#34;&gt;Emmanuel VINEL &lt;/li&gt;
+            
+        
+    
+        
+        
+            
+                &lt;li class=&#34;list-unstyled&#34;&gt;Épo JEMBA &lt;/li&gt;
+            
+        
+    
+        
+        
+            
+                &lt;li class=&#34;list-unstyled&#34;&gt;Florent BRUEL &lt;/li&gt;
+            
+        
+    
+        
+        
+            
+                &lt;li class=&#34;list-unstyled&#34;&gt;Jean-Baptiste LENGLET &lt;/li&gt;
+            
+        
+    
+        
+        
+            
+                &lt;li class=&#34;list-unstyled&#34;&gt;Jonathan DIDIOT &lt;/li&gt;
+            
+        
+    
+        
+        
+            
+                &lt;li class=&#34;list-unstyled&#34;&gt;Kavi RAMYEAD &lt;/li&gt;
+            
+        
+    
+        
+        
+            
+                &lt;li class=&#34;list-unstyled&#34;&gt;Laurent DIDIER &lt;/li&gt;
+            
+        
+    
+        
+        
+            
+                &lt;li class=&#34;list-unstyled&#34;&gt;Pierre THIROUIN &lt;/li&gt;
+            
+        
+    
+        
+        
+            
+                &lt;li class=&#34;list-unstyled&#34;&gt;Redouane LOULOU &lt;/li&gt;
+            
+        
+    
+        
+        
+            
+                &lt;li class=&#34;list-unstyled&#34;&gt;Tuan DO CAO &lt;/li&gt;
+            
+        
+    
+        
+        
+            
+                &lt;li class=&#34;list-unstyled&#34;&gt;Yves DAUTREMAY &lt;/li&gt;
+            
+        
+    
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Users</title>
+      <link>http://seedstack.org/archives/16.7/project/community/users/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/project/community/users/</guid>
+      <description>&lt;p&gt;This page lists the major users of SeedStack.&lt;/p&gt;
+
+&lt;div class=&#34;row clients-page&#34;&gt;
+    &lt;h2&gt;PSA Peugeot-Citroën&lt;/h2&gt;
+    &lt;div class=&#34;col-md-3&#34;&gt;
+        &lt;img src=&#34;http://seedstack.org/archives/16.7/img/clients/psa.svg&#34; alt=&#34;PSA Peugeot-Citroën&#34; style=&#34;width: 100%; max-width: 200px;&#34;&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-md-9&#34;&gt;
+        &lt;ul class=&#34;list-inline&#34;&gt;
+            &lt;li&gt;&lt;i class=&#34;fa fa-map-marker color-green&#34;&gt;&lt;/i&gt; France&lt;/li&gt;
+            &lt;li&gt;&lt;i class=&#34;fa fa-briefcase color-green&#34;&gt;&lt;/i&gt; Car manufacturing&lt;/li&gt;
+            &lt;li&gt;&lt;i class=&#34;fa fa-globe color-green&#34;&gt;&lt;/i&gt; &lt;a target=&#34;_blank&#34; class=&#34;linked&#34; href=&#34;http://www.psa-peugeot-citroen.com&#34;&gt;Website&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p&gt;Since the end of 2013 SeedStack is the foundation of all the new enterprise applications of &amp;laquo;PSA Peugeot Citroën&amp;raquo;. More than
+50 Java web information systems for different domains like vehicle trading, research and development, digital, manufacturing,
+quality, billing and monitoring are based on SeedStack components.&lt;/p&gt;
+
+&lt;p&gt;Built first as a key lever for optimizing the PSA’s application development costs, the stack was consolidated for
+2 years to ensure now the operational excellence of the IT projects portfolio from all the enterprise’s domains.
+More than 250 people shared their Java development experience since 2013 by using SeedStack.&lt;/p&gt;
+
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;p&gt;&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If you use SeedStack and want to appear on this page, please let us know by opening an issue on the
+&lt;a href=&#34;https://github.com/seedstack/website&#34;&gt;Website repository&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

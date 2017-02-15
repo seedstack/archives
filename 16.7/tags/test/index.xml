@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/test/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/test/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Testing</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/manual/testing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/manual/testing/</guid>
+      <description>&lt;p&gt;Seed offers various tools to facilitate the writing of your tests in the &lt;code&gt;seed-testing&lt;/code&gt; module, notably a JUnit test runner
+for integration testing. This runner handles kernel startup and shutdown as well as injection of test classes. It can also
+detect and activate Seed test plugins which augment the test behavior. For instance the Seed security test plugin can
+login a predefined user based on an annotation.&lt;/p&gt;
+
+&lt;p&gt;To use Seed testing tools, add the &lt;code&gt;seed-testing&lt;/code&gt; module in your test classpath. 
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-testing-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-testing-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-seed-seed-testing-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;seed-testing&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-seed-seed-testing-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+    &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-seed-seed-testing-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-seed-seed-testing-show&#34; onclick=&#34;$(&#39;#org-seedstack-seed-seed-testing-version, #org-seedstack-seed-seed-testing-warn&#39;).show(); $(&#39;#org-seedstack-seed-seed-testing-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-seed-seed-testing-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    testCompile(&#34;org.seedstack.seed:seed-testing:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;h1 id=&#34;supported-test-typologies&#34;&gt;Supported test typologies&lt;/h1&gt;
+
+&lt;p&gt;Seed testing tools are based upon the popular &lt;a href=&#34;http://junit.org/&#34;&gt;JUnit&lt;/a&gt; testing framework.&lt;/p&gt;
+
+&lt;h2 id=&#34;unit-tests&#34;&gt;Unit tests&lt;/h2&gt;
+
+&lt;p&gt;The purpose of unit tests is to take a small and testable part of a program, isolate it from any dependency (injection,
+databases, network, file system, &amp;hellip;) by mocking them and check whether it behaves exactly as expected. The main goal is
+to validate code quality and reliability.&lt;/p&gt;
+
+&lt;p&gt;Seed doesn&amp;rsquo;t help much when writing unit tests beyond packaging a few high-quality test libraries, such as
+&lt;a href=&#34;http://joel-costigliola.github.io/assertj/&#34;&gt;AssertJ&lt;/a&gt; or &lt;a href=&#34;http://mockito.org/&#34;&gt;Mockito&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;integration-tests&#34;&gt;Integration tests&lt;/h2&gt;
+
+&lt;p&gt;The purpose of integration tests is to pick multiple components together and test them as a whole. Integration tests can
+range from a testing a simple operation involving two classes to an entire application setup with all its dependencies
+(databases, file system, network, &amp;hellip;).&lt;/p&gt;
+
+&lt;p&gt;Their main goal is to detect issues appearing when components interact with each other. Integration tests can be
+used to validate technical behavior, such as the correct operation of a group of components, or can extend beyond to verify
+the global program behavior in regard to functional expectations. In this latter case, it is often useful to supplement
+Seed testing tools with a framework for Behavior-Driven-Development (BDD) like &lt;a href=&#34;http://jbehave.org/&#34;&gt;JBehave&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;simple-integration-tests&#34;&gt;Simple integration tests&lt;/h1&gt;
+
+&lt;p&gt;When a Web container is not required, you can simply use the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;it.&amp;amp;#8203;SeedITRunner&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/it/SeedITRunner.html&#39;&gt;SeedITRunner&lt;/a&gt;&lt;/code&gt; JUnit runner on your
+test class. Alternatively you can also extend the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;it.&amp;amp;#8203;AbstractSeedIT&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/it/AbstractSeedIT.html&#39;&gt;AbstractSeedIT&lt;/a&gt;&lt;/code&gt; class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyComponentIT extends AbstractSeedIT {
+    @Inject
+    MyService myService;
+
+    @Test
+    public void my_service_is_injectable() {
+        Assertions.assertThat(myService).isNotNull();
+    }       
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this example:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The test class itself is instantiated by Seed injector and benefit from dependency injection and AOP interception.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;A different kernel is used for each test class. All test methods within a test class are invoked in the context
+of its kernel. After all test methods are completed, the kernel is shutdown. This behavior can be altered manually or
+automatically by test plugins.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Simple integration tests run faster than Web integration tests are simpler to maintain. They should be preferred when
+Web testing is not necessary and be supplemented with the minimal amount of Web integration tests.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;altering-kernel-mode&#34;&gt;Altering kernel mode&lt;/h2&gt;
+
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+
+&lt;h2 id=&#34;testing-with-security&#34;&gt;Testing with security&lt;/h2&gt;
+
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+
+&lt;h2 id=&#34;testing-command-line-applications&#34;&gt;Testing command-line applications&lt;/h2&gt;
+
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+
+&lt;h1 id=&#34;web-integration-tests&#34;&gt;Web integration tests&lt;/h1&gt;
+
+&lt;p&gt;Seed provides an &lt;a href=&#34;http://arquillian.org/&#34;&gt;Arquillian&lt;/a&gt; integration for Web application testing. These kind of integration
+tests allow to programmatically define the deployed Web archive (WAR) and test it either from server-side or from client-side.
+You can use the &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;jboss.&amp;amp;#8203;arquillian.&amp;amp;#8203;junit.&amp;amp;#8203;Arquillian&#39;&gt;Arquillian&lt;/span&gt;&lt;/code&gt; runner directly on your test class. Alternatively you can extend
+the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;it.&amp;amp;#8203;AbstractSeedWebIT&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/it/AbstractSeedWebIT.html&#39;&gt;AbstractSeedWebIT&lt;/a&gt;&lt;/code&gt; class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyComponentIT extends AbstractSeedWebIT {
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To specify the deployed artifact, declare a public static method annotated with &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;jboss.&amp;amp;#8203;arquillian.&amp;amp;#8203;container.&amp;amp;#8203;test.&amp;amp;#8203;api.&amp;amp;#8203;Deployment&#39;&gt;@Deployment&lt;/span&gt;&lt;/code&gt;
+that returns a &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;jboss.&amp;amp;#8203;shrinkwrap.&amp;amp;#8203;api.&amp;amp;#8203;spec.&amp;amp;#8203;WebArchive&#39;&gt;WebArchive&lt;/span&gt;&lt;/code&gt; class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class RestIT extends AbstractSeedWebIT {
+    @Inject
+    MyService myService; 
+
+    @Deployment
+    public static WebArchive createDeployment() {
+        return ShrinkWrap
+            .create(WebArchive.class)
+            .addAsResource(
+                &amp;quot;my-conf.props&amp;quot;, 
+                &amp;quot;META-INF/configuration/my-conf.props&amp;quot;
+            );
+    }
+
+    @Test
+    public void my_service_is_injectable() {
+        Assertions.assertThat(myService).isNotNull();
+    }
+
+    @RunAsClient
+    @Test
+    public void my_rest_resource_is_working(@ArquillianResource URL baseURL) {
+        expect().statusCode(200).when().get(baseURL.toString() + &amp;quot;rest/my-resource&amp;quot;);
+    }       
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this example:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The test class itself is NOT instantiated by Seed injector and, as such, cannot benefit from AOP interception. It benefits
+from dependency injection though.&lt;/li&gt;
+&lt;li&gt;The kernel is started via the Web application listener, automatically registered (no need for a &lt;code&gt;web.xml&lt;/code&gt; file although one can be specified). A unique kernel is used for all test methods. This behavior cannot be altered.&lt;/li&gt;
+&lt;li&gt;The first test method, named &lt;code&gt;my_service_is_injectable()&lt;/code&gt;, is a server-side test. It can test if injected dependencies,
+like a service of the Web application here, are working correctly.&lt;/li&gt;
+&lt;li&gt;The second test method, named &lt;code&gt;my_rest_resource_is_working()&lt;/code&gt;, is a client-side test. It is executed in a separate
+thread and can invoke the deployed Web application through the URL provided by the
+&lt;code&gt;@org.jboss.arquillian.test.api.ArquillianResource&lt;/code&gt; annotated parameter.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;&lt;a href=&#34;http://tomcat.apache.org/&#34;&gt;Apache Tomcat&lt;/a&gt; is the default test server configured. You can override this choice by specifying
+a custom &lt;code&gt;arquillian.xml&lt;/code&gt; file at the root of the classpath. Arquillian provides many more features than described in
+this section. For more information about Arquillian, visit the &lt;a href=&#34;http://arquillian.org/&#34;&gt;official website&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;maven-settings&#34;&gt;Maven settings&lt;/h1&gt;
+
+&lt;p&gt;It is often useful to separate integration tests and unit tests into different source folders. If you use Maven your can
+do so by adding the following configuration to your project root &lt;code&gt;pom.xml&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;build&amp;gt;
+  &amp;lt;testResources&amp;gt;
+    &amp;lt;testResource&amp;gt;
+      &amp;lt;directory&amp;gt;src/it/resources&amp;lt;/directory&amp;gt;
+    &amp;lt;/testResource&amp;gt;
+    &amp;lt;testResource&amp;gt;
+      &amp;lt;directory&amp;gt;src/test/resources&amp;lt;/directory&amp;gt;
+    &amp;lt;/testResource&amp;gt;
+  &amp;lt;/testResources&amp;gt;
+  &amp;lt;plugins&amp;gt;
+    &amp;lt;plugin&amp;gt;
+      &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;
+      &amp;lt;artifactId&amp;gt;maven-failsafe-plugin&amp;lt;/artifactId&amp;gt;
+      &amp;lt;version&amp;gt;...&amp;lt;/version&amp;gt;
+      &amp;lt;executions&amp;gt;
+        &amp;lt;execution&amp;gt;
+          &amp;lt;id&amp;gt;execute-integration-tests&amp;lt;/id&amp;gt;
+          &amp;lt;phase&amp;gt;integration-test&amp;lt;/phase&amp;gt;
+          &amp;lt;goals&amp;gt;
+            &amp;lt;goal&amp;gt;integration-test&amp;lt;/goal&amp;gt;
+          &amp;lt;/goals&amp;gt;
+        &amp;lt;/execution&amp;gt;
+        &amp;lt;execution&amp;gt;
+          &amp;lt;id&amp;gt;verify-integration-tests&amp;lt;/id&amp;gt;
+          &amp;lt;phase&amp;gt;verify&amp;lt;/phase&amp;gt;
+          &amp;lt;goals&amp;gt;
+            &amp;lt;goal&amp;gt;verify&amp;lt;/goal&amp;gt;
+          &amp;lt;/goals&amp;gt;
+        &amp;lt;/execution&amp;gt;
+      &amp;lt;/executions&amp;gt;
+    &amp;lt;/plugin&amp;gt;
+    &amp;lt;plugin&amp;gt;
+      &amp;lt;groupId&amp;gt;org.codehaus.mojo&amp;lt;/groupId&amp;gt;
+      &amp;lt;artifactId&amp;gt;build-helper-maven-plugin&amp;lt;/artifactId&amp;gt;
+      &amp;lt;version&amp;gt;...&amp;lt;/version&amp;gt;
+      &amp;lt;executions&amp;gt;
+        &amp;lt;execution&amp;gt;
+          &amp;lt;id&amp;gt;add-it-sources&amp;lt;/id&amp;gt;
+          &amp;lt;phase&amp;gt;generate-test-sources&amp;lt;/phase&amp;gt;
+          &amp;lt;goals&amp;gt;
+            &amp;lt;goal&amp;gt;add-test-source&amp;lt;/goal&amp;gt;
+          &amp;lt;/goals&amp;gt;
+          &amp;lt;configuration&amp;gt;
+            &amp;lt;sources&amp;gt;
+              &amp;lt;source&amp;gt;src/it/java&amp;lt;/source&amp;gt;
+            &amp;lt;/sources&amp;gt;
+          &amp;lt;/configuration&amp;gt;
+        &amp;lt;/execution&amp;gt;
+      &amp;lt;/executions&amp;gt;
+    &amp;lt;/plugin&amp;gt;
+  &amp;lt;/plugins&amp;gt;
+&amp;lt;/build&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Testing</title>
+      <link>http://seedstack.org/archives/16.7/docs/w20/manual/testing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/w20/manual/testing/</guid>
+      <description>&lt;p&gt;As your application grows it becomes harder to assert that all your features are still working correctly.
+Whether you are doing some refactoring, upgrading a library version or adding new features, you want
+a mechanism to assert that thing are working correctly and protect yourself from regression.&lt;/p&gt;
+
+&lt;h1 id=&#34;testing&#34;&gt;Testing&lt;/h1&gt;
+
+&lt;h2 id=&#34;unit-tests&#34;&gt;Unit tests&lt;/h2&gt;
+
+&lt;p&gt;The web framework does not enforce a particular runner or test suite for unit testing but we found that
+a good combination is &lt;a href=&#34;http://karma-runner.github.io/0.13/index.html&#34;&gt;Karma&lt;/a&gt; as the runner and
+&lt;a href=&#34;http://jasmine.github.io/2.0/introduction.html&#34;&gt;Jasmine&lt;/a&gt; as the test suite language. This is probably the most
+popular combination for running tests and the one that the AngularJS team uses. Recommended lecture are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://karma-runner.github.io/0.13/index.html&#34;&gt;Karma documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://jasmine.github.io/2.0/introduction.html&#34;&gt;Jasmine documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.angularjs.org/guide/unit-testing&#34;&gt;AngularJS guide on unit testing&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;installation-and-configuration&#34;&gt;Installation and configuration&lt;/h3&gt;
+
+&lt;p&gt;If you used the generator-w20, required packages will already be installed  in your node_modules folder.
+If you want to start from scratch, first install &lt;a href=&#34;https://nodejs.org/en/&#34;&gt;NodeJS&lt;/a&gt;, create a directory for your app
+if you do not already have one, cd into it and use the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ npm install karma karma-cli karma-jasmine karma-phantomjs-launcher karma-requirejs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You will need to configure a &lt;code&gt;karma.conf.js&lt;/code&gt; file at your project root to instruct Karma. You can use the following &lt;a href=&#34;http://karma-runner.github.io/0.12/intro/configuration.html&#34;&gt;guide&lt;/a&gt;
+to configure every options in cli mode. Please have a look at the &lt;a href=&#34;http://karma-runner.github.io/0.12/intro/configuration.html&#34;&gt;Karma documentation&lt;/a&gt;
+for a complete description of the options. The end result should look something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;module.exports = function(config) {
+    &#39;use strict&#39;;
+
+    config.set({
+        frameworks: [ &#39;jasmine&#39;, &#39;requirejs&#39; ],
+        files: [
+            &#39;test-main.js&#39;,
+            { pattern: &#39;fragment/**/*.js&#39;, included: false },
+            { pattern: &#39;bower_components/**/*&#39;, included: false }
+        ],
+        port: 9876,
+        colors: true,
+        logLevel: &#39;INFO&#39;,
+        browsers: [ &#39;PhantomJS&#39; ]
+    });
+};
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This file instruct Karma about the file patterns to be served when running the tests.
+As you can see we will served the business modules of the fragment located in the &amp;laquo;fragment&amp;raquo; folder, along
+with the web dependencies of the &amp;laquo;bower_components&amp;raquo;.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The PhantomJS browser will be used for loading the application. PhantomJS is
+a headless browser. It can run the application without rendering the HTML pages which we do not need since we are only interested in
+testing the application logic. This is useful for executing tests in an environment which does not support graphical interface such as a
+CI server for instance.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Since we are using RequireJS, we will need a main module for the tests. This module will be declared in a &lt;code&gt;test-main.js&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var tests = [];
+
+for (var file in window.__karma__.files) {
+    if (/.spec\.js$/.test(file)) {
+        tests.push(file);
+    }
+}
+
+window.w20 = {
+    configuration: {
+        &#39;/base/bower_components/w20/w20-core.w20.json&#39;: {
+            modules: {
+                application: {
+                    id: &#39;w20-test&#39;,
+                    home: &#39;/test&#39;
+                }
+            },
+            vars: {
+                &#39;components-path&#39;: &#39;/base/bower_components&#39;
+            }
+        }
+    },
+    deps: tests,
+    callback: window.__karma__.start
+};
+
+requirejs.config({
+    paths: {
+        &#39;{angular-mocks}&#39;: &#39;/base/bower_components/angular-mocks&#39;,
+        &#39;{fragment}&#39;: &#39;/base/fragment&#39;
+    },
+    shim: {
+        &#39;{angular-mocks}/angular-mocks&#39;: [ &#39;{angular}/angular&#39; ]
+    }
+});
+
+requirejs([ &#39;/base/bower_components/w20/modules/w20.js&#39; ]);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is a lot going on in the &lt;code&gt;test-main.js&lt;/code&gt; file and we will explain what this configuration does. This module is the
+main entry point to the application under test.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Loaded files are listed in the global variable &lt;code&gt;window._karma_.files&lt;/code&gt;.
+We add all the &lt;code&gt;.spec.js&lt;/code&gt; files in a list, those files corresponding to the unit test modules (we will write one soon).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;We configure the application programmatically by editing the &lt;code&gt;w20&lt;/code&gt; global variable &lt;code&gt;configuration&lt;/code&gt; property. Normally, the loader will create this configuration
+by reading and parsing an application manifest but we can edit it directly for the need of bootstrapping a test environment. We declare the core fragment and configure
+the application module. Because Karma will serve files from &lt;code&gt;/base&lt;/code&gt; we need to specify the path to our web components (by default the components path is mapped to
+&lt;code&gt;bower_components&lt;/code&gt; but here we need to remap it to &lt;code&gt;/base/bower_components&lt;/code&gt;. This is possible using the &lt;code&gt;vars&lt;/code&gt; property. We add the unit test modules to the dependencies
+by using the &lt;code&gt;deps&lt;/code&gt; property and allow the start of Karma once the configuration has been processed using the &lt;code&gt;callback&lt;/code&gt; property.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Some additional RequireJS configuration are necessary to remap the &lt;code&gt;angular-mocks&lt;/code&gt; module and the business fragment alias to suit Karma base path.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Finally we start the application by requiring explicitely the &lt;code&gt;w20&lt;/code&gt; module.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;writing-unit-tests&#34;&gt;Writing unit tests&lt;/h3&gt;
+
+&lt;p&gt;We are ready to start unit testing a module. We will take the example of a simple AngularJS controller defined in &lt;code&gt;fragment/modules/module-to-test.js&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;define([
+    &#39;{angular}/angular&#39;
+], function(angular) {
+    &#39;use strict&#39;;
+
+     var module = angular.module(&#39;moduleToTest&#39;, []);
+
+     module.controller(&#39;ControllerToTest&#39;, [&#39;$scope&#39;, function ($scope) {
+        $scope.greeting = &#39;Hello World!&#39;;
+    }]);
+
+    return {
+        angularModules : [ &#39;moduleToTest&#39; ]
+    };
+});
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This module does not do anything fancy. We declare an AngularJS module &lt;code&gt;moduleToTest&lt;/code&gt; and a controller with
+a scope property.&lt;/p&gt;
+
+&lt;p&gt;The &amp;lsquo;spec&amp;rsquo; (unit test module) for this module will be located in &lt;code&gt;fragment/specs/module-to-test.spec.js&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;define([
+    &#39;{angular}/angular&#39;,
+    &#39;{angular-mocks}/angular-mocks&#39;,
+    &#39;{fragment}/modules/module-to-test&#39;  
+    ], function (angular) {
+        &#39;use strict&#39;;
+
+        describe(&#39;The module to test&#39;, function() {
+        
+            var scope;
+
+            beforeEach(angular.mock.module(&#39;moduleToTest&#39;));
+
+            beforeEach(inject(function ($rootScope, $controller) {
+                scope = $rootScope.$new();
+                $controller(&#39;ControllerToTest&#39;, {
+                    $scope: scope
+                });
+            }));
+
+            it(&#39;says hello world!&#39;, function () {
+                expect(scope.greeting).toEqual(&#39;Hello World!&#39;);
+            });
+
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;A test suite begins with a call to the global Jasmine function &lt;code&gt;describe&lt;/code&gt; with two parameters: a string and a function.
+The string is the title of the suite - usually what is under test. The function body implements the suite.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The &lt;code&gt;beforeEach&lt;/code&gt; function executes before each unit test. Here we register a mocked version of the module &lt;code&gt;moduleToTest&lt;/code&gt;. This will allow us later to request
+the controller declared on this module without having to worry about the dependency of this module.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;We also request that before each test, the &lt;code&gt;scope&lt;/code&gt; variable be initialized with a new scope. The &lt;code&gt;$controller&lt;/code&gt; service allow us to retrieve our controller and provide
+it its dependency. Our newly created scope (with &lt;code&gt;$rootScope.$new()&lt;/code&gt;) will be passed to the constructor through dependency injection.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Finally the unit test can be written. A unit test in Jasmine takes the form of &lt;code&gt;it&lt;/code&gt; statement which reads like a sentence describing the expected result of the test.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

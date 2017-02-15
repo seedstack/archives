@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/archetype/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/archetype/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Generate goal</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/generate/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/generate/</guid>
+      <description>&lt;p&gt;To create a SeedStack project from scratch you can use &lt;code&gt;generate&lt;/code&gt; goal from the SeedStack Maven Plugin.
+This goal is invoked from the command line.&lt;/p&gt;
+
+&lt;h1 id=&#34;parameters&#34;&gt;Parameters&lt;/h1&gt;
+
+&lt;p&gt;Parameters should be given as system properties (&lt;code&gt;-DparameterName=parameterValue&lt;/code&gt;):&lt;/p&gt;
+
+&lt;table class=&#34;table table-striped table-bordered table-condensed&#34;&gt;
+    &lt;thead&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Type&lt;/th&gt;
+        &lt;th&gt;Mandatory&lt;/th&gt;
+        &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td&gt;groupId&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;Yes&lt;/td&gt;
+        &lt;td&gt;The group identifier of your generated project. &lt;strong&gt;Required.&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;artifactId&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;Yes&lt;/td&gt;
+        &lt;td&gt;The artifact identifier of your generated project. &lt;strong&gt;Required.&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;version&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;The version of your generated project. Defaults to &lt;code&gt;1.0.0-SNAPSHOT&lt;/code&gt;.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;type&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;Specifies the archetype type to use for project generation. Needed if &lt;code&gt;archetypeArtifactId&lt;/code&gt; is
+        not specified explicitly. No default value. &lt;strong&gt;Available types are: web, rest, domain and batch.&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;allowSnapshots&lt;/td&gt;
+        &lt;td&gt;Boolean&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;Allow to use archetype snapshots. Defaults to &lt;code&gt;false&lt;/code&gt;.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;archetypeGroupId&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;Allow to explicitly specify the archetype group identifier. Defaults to &lt;code&gt;com.inetpsa.fnd.tools&lt;/code&gt;.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;archetypeArtifactId&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;Allow to explicitly specify the archetype artifact identifier. Needed if &lt;code&gt;type&lt;/code&gt; is not specified. Defaults to &lt;code&gt;seed-{type}-archetype&lt;/code&gt;.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;archetypeVersion&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;Allow to explicitly specify the archetype version. Defaults to latest release version available or to the latest snapshot available
+        if &lt;code&gt;allowSnapshots&lt;/code&gt; is also specified.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&#34;examples&#34;&gt;Examples&lt;/h1&gt;
+
+&lt;p&gt;Interactive mode:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mvn org.seedstack:seedstack-maven-plugin:generate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Batch mode:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mvn org.seedstack:seedstack-maven-plugin:generate -DgroupId=org.myorganization -DartifactId=myproject -Dtype=web
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;type&lt;/code&gt; property can be any of the archetype names provided by the distribution (i.e.: web, rest, domain, &amp;hellip;).&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

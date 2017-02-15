@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+<head>
+
+    
+
+<title>
+    Web
+</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="robots" content="noindex,nofollow">
+
+
+
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,700,300,400" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Bitter:700" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/css/style.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/plugins/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/css/style.css">
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "SoftwareApplication",
+  "name" : "SeedStack",
+  "image" : "http://www.seedstack.org/img/logos/seedstack-logo-round.svg",
+  "publisher" : {
+    "@type" : "Organization",
+    "name" : "Open-Source Software"
+  },
+  "applicationCategory" : "development stack"
+}
+</script>
+
+
+
+<meta property="og:title" content="Web" />
+<meta property="og:description" content="Seed has great support for Web applications whether by using its lightweight embedded Web server or in more classical
+environments, when using an external Web application server. Seed provides tight integration with the Java Servlet
+specification along with support for HTTP security, WebSockets, Cross-Origin Resource Sharing (CORS), or advanced
+static-resources serving. To enable Web support in your project, add the seed-web-core module to your classpath." />
+<meta property="og:url" content="http://seedstack.org/archives/16.7/docs/seed/manual/web/" />
+<meta property="og:site_name" content="SeedStack" />
+<meta property="og:image" content="http://seedstack.org/archives/16.7/img/opengraph-default.png" />
+
+
+
+<link rel="search" type="application/opensearchdescription+xml" href="http://seedstack.org/archives/16.7/opensearch.xml" title="SeedStack" />
+
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="http://seedstack.org/archives/16.7/img/favicons/manifest.json">
+<meta name="apple-mobile-web-app-title" content="SeedStack">
+<meta name="application-name" content="SeedStack">
+<meta name="msapplication-TileColor" content="#00a300">
+<meta name="msapplication-TileImage" content="/img/favicons/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<script type="text/javascript">
+    window.seedstack = {
+        baseUrl: "http:\/\/seedstack.org\/archives\/16.7\/",
+        state: {}
+    };
+</script>
+
+
+</head>
+<body class="homepage">
+    
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5R5FP9"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5R5FP9');</script>
+
+
+    <div id="header">
+        <div class="header">
+    <div class="container">
+        <a class="logo" href="http://seedstack.org/archives/16.7/">SeedStack</a>
+        <div class="topbar hidden-xs hidden-sm">
+            <ul class="loginbar pull-right">
+                <li><i class="fa fa-stack-overflow"></i> <a style="color: orange;" target="_blank" href="http://stackoverflow.com/questions/ask?tags=seedstack">Ask a question</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-comments"></i> <a target="_blank" href="https://kiwiirc.com/client/irc.freenode.net#seedstack">Discuss on IRC</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-github"></i> <a target="_blank" href="https://github.com/seedstack">GitHub</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-keyboard-o"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openHelp();">Shortcuts</a></li>
+            </ul>
+        </div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="fa fa-bars"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse navbar-responsive-collapse" data-role="navigation" style="pointer-events: none;">
+        <div class="container">
+            <ul class="nav navbar-nav" style="pointer-events: auto;">
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/getting-started">Getting started</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        Documentation
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://seedstack.org/archives/16.7/docs/seed">Java framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/w20">Web framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/business">Business framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/guides">Guides</a></li>
+                        <li><a target="_blank" href="https://github.com/seedstack/samples">Samples</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/addons">Add-ons</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/themes">Themes</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/posts">Blog</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        More
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="http://seedstack.org/archives/16.7/project/community">Community</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/roadmap">Roadmap</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/faq">FAQ</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/glossary">Glossary</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/tags">Tags</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <i class="search fa fa-search search-btn"></i>
+                    <div class="search-open">
+                        <form method="GET" action="/search">
+                            <div class="input-group animated fadeInDown">
+                                <input id="search-field" type="text" class="form-control" placeholder="Search" name="q">
+                                <span class="input-group-btn">
+                                    <button class="btn-u" type="submit">Go</button>
+                                </span>
+                            </div>
+                        </form>
+                        
+                            
+                        
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+        
+<div class="title-header small">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-12">
+                <h2>Java framework</h2>
+                <p class="hidden-xs">Also known as Seed, the Java framework provides support for a large range of technologies and standards from the Java world.</p>
+            </div>
+            <div class="col-md-3 hidden-sm hidden-xs">
+                <div class="header-image-wrapper">
+                    <img class="header-image" src="http://seedstack.org/archives/16.7/img/logos/seed-logo.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="title-subheader">
+    <div class="container">
+        <ul>
+            <li><h3 class=''><i class="fa fa-play-circle"></i> <a href="http://seedstack.org/archives/16.7/docs/seed">Introduction</a></h3></li>
+            <li><h3 class='active'><i class="fa fa-book"></i> <a href="http://seedstack.org/archives/16.7/docs/seed/manual">Manual</a></h3></li>
+            <li><h3 class=''><i class="fa fa-server"></i> <a href="http://seedstack.org/archives/16.7/docs/seed/runtime">Runtime</a></h3></li>
+            <li><h3 class=''><i class="fa fa-cogs"></i> <a href="http://seedstack.org/archives/16.7/docs/seed/maven-plugin">Maven plugin</a></h3></li>
+            <li><h3><i class="fa fa-info-circle"></i> <a href="http://seedstack.org/archives/16.7/javadoc" target="_blank">Javadoc</a></h3></li>
+            <li><h3><i class="fa fa-tag"></i> <a href="https://github.com/seedstack/seed/releases" target="_blank">Releases</a></h3></li>
+            <li><h3><i class="fa fa-github"></i> <a href="https://github.com/seedstack/seed" target="_blank">Source</a></h3></li>
+        </ul>
+    </div>
+</div>
+
+    </div>
+    <div id="content" class="container">
+        <div class="row">
+    <div class="col-md-9">
+        <div class="content-wrapper">
+            <div class="doc-content">
+                <p>Seed has great support for Web applications whether by using its lightweight embedded Web server or in more classical
+environments, when using an external Web application server. Seed provides tight integration with the Java Servlet
+specification along with support for HTTP security, WebSockets, Cross-Origin Resource Sharing (CORS), or advanced
+static-resources serving. To enable Web support in your project, add the <code>seed-web-core</code> module to your classpath.</p>
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+<div class="tab-v2">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab-org-seedstack-seed-seed-web-core-maven" data-toggle="tab" aria-expanded="true">Maven</a></li>
+        <li class=""><a href="#tab-org-seedstack-seed-seed-web-core-gradle" data-toggle="tab" aria-expanded="true">Gradle</a></li>
+    </ul>
+    <span class="tabs-icon fa-2x fa fa-cubes pull-right"></span>
+    <div class="clear-both"></div>
+    <div class="tab-content">
+        <div class="tab-pane in active" id="tab-org-seedstack-seed-seed-web-core-maven">
+            <pre style="margin-top: 0;"><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.seedstack.seed&lt;/groupId&gt;
+    &lt;artifactId&gt;seed-web-core&lt;/artifactId&gt;<span id="org-seedstack-seed-seed-web-core-version" style="display: none;">
+    &lt;version&gt;2.3.0&lt;/version&gt;</span>
+&lt;/dependency&gt;</code></pre>
+            <small class="pull-right" style="color: #aaa; margin-top: -20px; margin-right: 5px;">
+                <span id="org-seedstack-seed-seed-web-core-warn" style="display: none;"><i class="fa fa-warning" style="color: orange;"></i> Specifying versions manually is error-prone, use the <a href="http://seedstack.org/archives/16.7/getting-started/distribution">distribution</a> instead.</span>
+                <a style="cursor: pointer;" id="org-seedstack-seed-seed-web-core-show" onclick="$('#org-seedstack-seed-seed-web-core-version, #org-seedstack-seed-seed-web-core-warn').show(); $('#org-seedstack-seed-seed-web-core-show').hide();">Show version</a>
+            </small>
+        </div>
+        <div class="tab-pane in" id="tab-org-seedstack-seed-seed-web-core-gradle">
+            <pre style="margin-bottom: 0;"><code class="java">dependencies {
+    compile("org.seedstack.seed:seed-web-core:2.3.0")
+}</code></pre>
+        </div>
+    </div>
+</div>
+
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>When deploying a Seed application in a standalone Web container, the required minimum Servlet compliance level is 2.5
+though some features require a Servlet 3.0 compliance level. The presence of a <code>web.xml</code> file is only required for servlet 2.5.</p>
+
+<p>All the features are available with the embedded Web server.</p>
+
+        </div>
+    </div>
+</div>
+
+<h1 id="security">Security</h1>
+
+<p>When running in a Servlet environment (Web), you might want to secure access to the application URLs by specifying
+filtering patterns. To enable this feature, add the <code>seed-web-security</code> module to your project.</p>
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+<div class="tab-v2">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab-org-seedstack-seed-seed-web-security-maven" data-toggle="tab" aria-expanded="true">Maven</a></li>
+        <li class=""><a href="#tab-org-seedstack-seed-seed-web-security-gradle" data-toggle="tab" aria-expanded="true">Gradle</a></li>
+    </ul>
+    <span class="tabs-icon fa-2x fa fa-cubes pull-right"></span>
+    <div class="clear-both"></div>
+    <div class="tab-content">
+        <div class="tab-pane in active" id="tab-org-seedstack-seed-seed-web-security-maven">
+            <pre style="margin-top: 0;"><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.seedstack.seed&lt;/groupId&gt;
+    &lt;artifactId&gt;seed-web-security&lt;/artifactId&gt;<span id="org-seedstack-seed-seed-web-security-version" style="display: none;">
+    &lt;version&gt;2.3.0&lt;/version&gt;</span>
+&lt;/dependency&gt;</code></pre>
+            <small class="pull-right" style="color: #aaa; margin-top: -20px; margin-right: 5px;">
+                <span id="org-seedstack-seed-seed-web-security-warn" style="display: none;"><i class="fa fa-warning" style="color: orange;"></i> Specifying versions manually is error-prone, use the <a href="http://seedstack.org/archives/16.7/getting-started/distribution">distribution</a> instead.</span>
+                <a style="cursor: pointer;" id="org-seedstack-seed-seed-web-security-show" onclick="$('#org-seedstack-seed-seed-web-security-version, #org-seedstack-seed-seed-web-security-warn').show(); $('#org-seedstack-seed-seed-web-security-show').hide();">Show version</a>
+            </small>
+        </div>
+        <div class="tab-pane in" id="tab-org-seedstack-seed-seed-web-security-gradle">
+            <pre style="margin-bottom: 0;"><code class="java">dependencies {
+    compile("org.seedstack.seed:seed-web-security:2.3.0")
+}</code></pre>
+        </div>
+    </div>
+</div>
+
+
+<p>This module depends upon the <code>seed-security-core</code> module. A servlet filter is automatically added on <code>/*</code> and, as such,
+has the ability to intercept all application URLs. You can then define its interception behavior by specifying a list or
+URL patterns with their associated chains of security filters.</p>
+
+<h2 id="url-patterns">URL patterns</h2>
+
+<p>Declaring URL patterns for security interception is done in configuration, by prefixing patterns with
+<code>org.seedstack.seed.security.urls</code>. This can be easily done in a Props file by defining a section:</p>
+
+<pre><code>[org.seedstack.seed.security.urls]
+/some/path/specific = filter1, filter2
+/some/path/** = filter3, filter4, filter5
+/other/path/* = filter6
+/** = fallbackFilter
+</code></pre>
+
+<p>The patterns (at the left of the equal sign) are <a href="https://ant.apache.org/manual/dirtasks.html#patterns">Ant-style path expressions</a>
+relative to your Web application&rsquo;s context root. The order matters as the first pattern to match the incoming request is
+applied and subsequent patterns are ignored. This allows to define a catch-all default pattern at the end that will apply
+if no above filters matched. When a pattern is matched, the filters (at the right of the equal sign) are applied in sequence.</p>
+
+<h2 id="filters">Filters</h2>
+
+<p>Filters can be used for various task such as:</p>
+
+<ul>
+<li>Authentication (form, basic),</li>
+<li>Authorization (verify some permission, role),</li>
+<li>Other security checks or tasks.</li>
+</ul>
+
+<p>You can directly use built-in filters or define custom ones.</p>
+
+<h3 id="built-in-filters">Built-in filters</h3>
+
+<p>Various built-in filters are directly available by specifying their names (and eventual parameters) in the filter chain:</p>
+
+<ul>
+<li><code>anon</code>: immediately allows access to the path without performing security checks of any kind (unless you add other
+filters after it in the chain).</li>
+<li><code>authc</code>: authentifies the subject using the request params (<code>username</code> and <code>password</code>). This can be used for form
+authentication.</li>
+<li><code>authcBasic</code>: triggers and checks a Basic authentication.</li>
+<li><code>cert</code>: extracts the certificates found by the JEE server and provides them to a <code>X509CertificateRealm</code>. You can specify
+the <code>optional</code> parameter to allow the request even if certificate authentication fails: <code>cert[optional]</code>.</li>
+<li><code>logout</code>: logouts the current Subject. Note that it will clear the subject session and will invalidate the corresponding
+security caches. Note that basic authentication credentials are kept by user-agents (like browsers), meaning that
+authentication will automatically happen again during the next request.</li>
+<li><code>noSessionCreation</code>: will prevent the creation of a security session.</li>
+<li><code>perms</code>: checks for the permission specified as a parameter. Only allows access if the current subject has the
+specified permission. Multiple permissions can be specified with commas: <code>perms[users:delete, cache:invalidate]</code> for
+instance.</li>
+<li><code>port</code>: requires the request to be on the specified port: <code>port[8080]</code> for instance.</li>
+<li><code>rest</code>: similar to the <code>perms</code> filter but appends a CRUD verb derived from the HTTP method to the specified permission(s).
+For instance, <code>rest[users]</code> will check the following permissions depending on the HTTP verb:
+
+<ul>
+<li>DELETE checks for the <code>users:delete</code> permission,</li>
+<li>GET checks for the <code>users:read</code> permission,</li>
+<li>HEAD checks for the <code>users:read</code> permission,</li>
+<li>OPTIONS checks for the <code>users:read</code> permission,</li>
+<li>POST checks for the <code>users:create</code> permission,</li>
+<li>PUT checks for the <code>users:update</code> permission,</li>
+<li>TRACE checks for the <code>users:read</code> permission.</li>
+</ul></li>
+<li><code>roles</code>: checks that the subject has the specified role(s). Only allows access if current subject has <strong>all</strong> the
+specified roles. Multiple roles can be specified with commas: <code>roles[manager, admin]</code> for instance.</li>
+<li><code>ssl</code>: Only allows access if the request is on port 443 and <code>ServletRequest.isSecure()</code> returns true.</li>
+<li><code>user</code>: Only allows access if the user is identified.</li>
+</ul>
+
+<h3 id="custom-filters">Custom filters</h3>
+
+<p>You can define you own custom security filters by creating a class implementing <code><span data-toggle="tooltip" data-html="true" title='javax.&amp;#8203;servlet.&amp;#8203;Filter'>Filter</span></code> and
+annotating it with <code><a data-toggle="tooltip" data-html="true" title='org.&amp;#8203;seedstack.&amp;#8203;seed.&amp;#8203;web.&amp;#8203;security.&amp;#8203;SecurityFilter' href='http://seedstack.org/javadoc/org/seedstack/seed/web/security/SecurityFilter.html'>@SecurityFilter</a></code>. The annotation value will define
+the name of the filter that can be used in filter chains.</p>
+
+<p>As an example, consider a filter that always returns HTTP response code 418:</p>
+
+<pre><code>@SecurityFilter(&quot;teapot&quot;)
+public class TeapotFilter implements Filter {
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, 
+                         ServletResponse response, 
+                         FilterChain chain) throws IOException, ServletException {
+        ((HttpServletResponse)response).sendError(418);
+    }
+
+    @Override
+    public void destroy() {
+    }
+
+}
+</code></pre>
+
+<p>You can use it in filter chains like this:</p>
+
+<pre><code class="language-ini">[org.seedstack.seed.security.urls]
+/teapot = teapot
+</code></pre>
+
+<p>When a subject access the <code>/teapot</code> URL, an HTTP response code 418 will be returned. To create advanced security filters,
+you can extend existing Shiro security filters, or use them as models.</p>
+
+<h2 id="example">Example</h2>
+
+<p>Consider the following example:</p>
+
+<pre><code class="language-ini">[org.seedstack.seed.security.urls]
+/resources/** = anon
+/rest/users = ssl, authcBasic, rest[users]
+/rest/** = authcBasic, roles[normal]
+/** = authcBasic
+</code></pre>
+
+<p>Note that:</p>
+
+<ul>
+<li>Anything served under <code>/resource/**</code> can be accessed anonymously.</li>
+<li>The <code>/rest/users</code> resource can only be accessed by authenticated subjects in HTTPS with the <code>users:action</code> permission,
+where action is dependent upon the HTTP method used (see the <code>rest</code> filter definition for details).</li>
+<li>Anything served under <code>/rest/**</code> can only be accessed by authenticated subjects with the <code>normal</code> application-role.</li>
+<li>All others URLs can only be accessed by authenticated subjects.</li>
+<li>In this example, authentication is handled with the Basic Authentication scheme.</li>
+</ul>
+
+<h1 id="servlets-and-filters">Servlets and Filters</h1>
+
+<p>You can register a servlet and its mappings automatically by annotating your servlet class with <code><span data-toggle="tooltip" data-html="true" title='javax.&amp;#8203;servlet.&amp;#8203;annotation.&amp;#8203;WebServlet'>WebServlet</span></code>:</p>
+
+<pre><code>@WebServlet(&quot;/myservlet/*&quot;)
+public class MyServlet extends HttpServlet {
+    ...
+}
+</code></pre>
+
+<p>Similarly, you can register a filter and its mappings automatically by annotating your servlet class with <code><span data-toggle="tooltip" data-html="true" title='javax.&amp;#8203;servlet.&amp;#8203;annotation.&amp;#8203;WebFilter'>WebFilter</span></code>:</p>
+
+<pre><code>@WebFilter(&quot;/myfilter/*&quot;)
+public class MyFilter implements Filter {
+    ...
+}
+</code></pre>
+
+<h1 id="static-resources">Static resources</h1>
+
+<p>Seed provides automatic static resource serving from the classpath and the document root with some benefits over the container
+default resource serving:</p>
+
+<ul>
+<li>Automatic serving of pre-minified and/or pre-gzipped versions of resources,</li>
+<li>On-the-fly gzipping of resources,</li>
+<li>Cache friendly,</li>
+<li>Emulation of servlet 3.0 serving from classpath when not available.</li>
+</ul>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>Static resource serving is enabled by default. It has a low priority
+Docroot resources always have precedence over classpath resources. If a file under document root leads to the same resulting
+path as in classpath, then the document root file have priority (like robots.txt in above example).</p>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="default-behavior">Default behavior</h2>
+
+<p>The default behavior is to serve resources located under the document root folder and, if not found, under the
+<code>META-INF/resources</code> classpath location on the <code>/*</code> path. For example, consider the following folder tree:</p>
+
+<pre><code>docroot/
+    index.html
+    robots.txt
+
+META-INF/
+    resources/
+        robots.txt
+        lib/
+            jquery.js
+            jquery.min.js
+            jquery.min.js.gz
+</code></pre>
+
+<p>The default behavior is to serve index.html, robots.txt and jquery.js on the following paths:</p>
+
+<pre><code>/robots.txt
+/index.html
+/lib/jquery.js
+</code></pre>
+
+<p>The jquery.js file will be served as a minified and gzipped version (without the overhead of on-the-fly gzipping since
+a pre-gzipped version is already available).</p>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>Docroot resources always have precedence over classpath resources. If a file under document root leads to the same resulting
+path as in classpath, then the document root file have priority (like robots.txt in above example).</p>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>Resources are always served on <code>/*</code> with a low priority</p>
+
+<p>The default serving path can be altered. For example:</p>
+
+<pre><code>org.seedstack.seed.web.resources.path = /my-custom-resource-path
+</code></pre>
+
+<p>The serving paths then are updated by appending <code>/my-custom-resource-path</code> to the document root base path and the
+<code>META-INF/resources</code> classpath location thus serving from respective following paths:</p>
+
+<ul>
+<li><code>docroot/my-custom-resource-path</code> for document root based resources</li>
+<li><code>META-INF/resources/my-custom-resource-path</code> for classpath based resources</li>
+</ul>
+
+<p>Note that specifying an empty resource path would mean that resources are served directly under the application context root.
+In that case the webapp must be dedicated to serving web resources since it will not be able to register additional
+servlets (<code>/*</code> will be reserved for web resources).</p>
+
+<h2 id="minification-and-gzip-support">Minification and gzip support</h2>
+
+<p>The file extension is determined from the requested URL as the characters&rsquo; sequence after the last dot <code>.</code> of the
+hierarchical part. For instance <code>js</code> extension would be retrieved from:</p>
+
+<pre><code class="language-plain">http://myapplication/resources/lib/jquery.js
+</code></pre>
+
+<p>If minification support is enabled and a file with a <code>min.</code> prefixed extension is found, then it is used instead of the
+originally requested file In below example, the last file would be served:</p>
+
+<pre><code class="language-plain">/resources/lib/jquery.js
+/resources/lib/jquery.min.js
+</code></pre>
+
+<p>If gzip support is enabled and the browser accepts gzip encoding and a file with a <code>.gzip</code> suffixed extension is found,
+then it is used instead of the originally requested file (or instead of the minified file determined in the previous step):</p>
+
+<p>For instance, in below example, the last file would be served:</p>
+
+<pre><code class="language-plain">/resources/lib/jquery.js
+/resources/lib/jquery.min.js
+/resources/lib/jquery.js.gzip
+</code></pre>
+
+<p>If no gzipped version has been found but on-the-fly gzip support is enabled, the resource will be gzipped in-memory for
+serving. To control the minification and gzip behavior, use the following properties:</p>
+
+<pre><code>org.seedstack.seed.web.resources.minification-support = true | false
+org.seedstack.seed.web.resources.gzip-support = true | false
+org.seedstack.seed.web.resources.gzip-on-the-fly = true | false
+</code></pre>
+
+<h2 id="mime-types">MIME types</h2>
+
+<p>The following MIME types are automatically derived from extensions:</p>
+
+<table class="table table-striped">
+<tr><th>Mime type</th><th>Extensions</th></tr>
+<tr><td>text/html</td><td>html htm HTML HTM</td></tr>
+<tr><td>text/plain</td><td>txt text TXT TEXT</td></tr>
+<tr><td>text/javascript</td><td>js JS</td></tr>
+<tr><td>text/css</td><td>css less CSS LESS</td></tr>
+<tr><td>image/gif</td><td>gif GIF</td></tr>
+<tr><td>image/jpeg</td><td>jpeg jpg jpe JPEG JPG JPE</td></tr>
+<tr><td>image/png</td><td>png PNG</td></tr>
+<tr><td>image/vnd.microsoft.icon</td><td>ico ICO</td></tr>
+<tr><td>application/pdf</td><td>pdf PDF</td></tr>
+<tr><td>application/json</td><td>json JSON</td></tr>
+<tr><td>application/font-woff</td><td>woff WOFF</td></tr>
+<tr><td>application/vnd.ms-fontobject</td><td>eot EOT</td></tr>
+<tr><td>font/truetype</td><td>ttf TTF</td></tr>
+<tr><td>font/opentype</td><td>otf OTF</td></tr>
+</table>
+
+<h2 id="caching">Caching</h2>
+
+<p>Resource information is determined by calls to classloader <code>getResource()</code> for classpath locations and by calls to
+<code>File.canRead()</code> for docroot locations. The number of these calls per resource lookup can increase when:</p>
+
+<ul>
+<li>Using multiple locations (classpath or docroot based), in which case the lookup logic is invoked for each location.</li>
+<li>Using minification and gzip support, in which case the lookup logic itself is more costly trying to find
+the resource in the following order :<br />
+
+<ul>
+<li>gzipped minified version</li>
+<li>gzipped version</li>
+<li>minified version</li>
+<li>normal version<br /></li>
+</ul></li>
+</ul>
+
+<p>A built-in cache is used to improve the lookup performance of resources that were served at least one time. You can
+alter the cache properties as follows (below example with default values):</p>
+
+<pre><code class="language-ini">org.seedstack.seed.web.resources.cache.max-size = 8192
+org.seedstack.seed.web.resources.cache.concurrency = 32
+org.seedstack.seed.web.resources.cache.initial-size = 2048
+</code></pre>
+
+<p>If you don&rsquo;t specify the initial-size configuration property, it will be set at <code>max-size / 4</code>.</p>
+
+<h1 id="cors">CORS</h1>
+
+<p>Cross-Origin Resource Sharing (CORS) is supported through a Java filter and can be enabled in any Seed application.</p>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>Seed integrates the CORS filter from <a href="http://software.dzhuvinov.com/cors-filter.html">dzhuvinov software</a>. There is no
+need to install and configure the filter manually, it is automatically registered by Seed. All filter options can be
+specified through configuration properties.</p>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="configuration-1">Configuration</h2>
+
+<p>To enable CORS support just add the following configuration to your application:</p>
+
+<pre><code class="language-ini">org.seedstack.seed.web.cors.enabled = true
+</code></pre>
+
+<h2 id="filter-properties">Filter properties</h2>
+
+<p>The CORS filter allows to alter its default behavior with various parameters. The filter documentation enumerates all
+configuration parameters. Seed can transform any configuration property prefixed with <code>org.seedstack.seed.web.cors.property</code>
+to the corresponding filter parameter. For instance, to specify the recognized verbs, you can use the following configuration:</p>
+
+<pre><code class="language-ini">[org.seedstack.seed.web.cors.property]
+supportedMethods= GET\\, POST\\, HEAD\\, OPTIONS\\, PUT\\, DELETE
+</code></pre>
+
+<p>This configuration property is automatically translated to the <code>cors.supportedMethods</code> filter parameter found in the
+documentation. Note that the escaping of the commas is required to inhibit Seed from parsing this value as a list.</p>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>Please refer to this page of the <a href="http://software.dzhuvinov.com/cors-filter-configuration.html">filter documentation</a>
+for a complete list of configuration parameters.</p>
+
+        </div>
+    </div>
+</div>
+
+<h1 id="websockets">WebSockets</h1>
+
+<p>Seed also integrates the Java API for WebSocket (JSR 356), allowing server and client endpoints to be injected. WebSocket
+support requires Java 7 and a compatible server to work.</p>
+
+<h2 id="server-endpoints">Server endpoints</h2>
+
+<p>No specific configuration is required for server endpoint. Just declare a standard JSR 356 endpoint:</p>
+
+<pre><code>@ServerEndpoint(value = &quot;/chat&quot;)
+public class ChatEndpoint {
+
+    @Logging
+    private Logger logger;
+
+    @Inject
+    EchoService echoService;
+
+    @OnOpen
+    public void onOpen(Session session) {
+        logger.info(&quot;Connected ... &quot; + session.getId());
+    }
+
+    @OnMessage
+    public void message(String message, 
+                        Session client) throws IOException, EncodeException {
+        for (Session peer : client.getOpenSessions()) {
+            peer.getBasicRemote().sendText(echoService.echo(message));
+        }
+    }
+
+    @OnClose
+    public void onClose(Session session, CloseReason closeReason) {
+        logger.info(String.format(&quot;Session %s close because of %s&quot;, 
+            session.getId(), closeReason));
+    }
+
+    @OnError
+    public void onError(Session session, Throwable t) {
+        logger.error(t.getMessage, t);
+    }
+
+}
+</code></pre>
+
+<p>In this example, the endpoint receives a message and then broadcast it to all clients.</p>
+
+<h2 id="client-endpoints">Client endpoints</h2>
+
+<p>Unlike server endpoints, client endpoints have to explicitly specify a <code>SeedClientEndpointConfigurator</code> in order to be
+managed by Seed.</p>
+
+<pre><code>@ClientEndpoint(configurator = SeedClientEndpointConfigurator.class)
+public class ChatClientEndpoint1 {
+    public static final String TEXT = &quot;Client1 joins&quot;;
+    public static CountDownLatch latch;
+    public static String response;
+
+    @OnOpen
+    public void onOpen(Session session) {
+        try {
+            session.getBasicRemote().sendText(TEXT);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    @OnMessage
+    public void processMessage(String message) {
+        response = message;
+        latch.countDown();
+    }
+}
+</code></pre>
+
+<h2 id="testing">Testing</h2>
+
+<p>You can test WebSocket endpoints with <a href="http://seedstack.org/archives/16.7/docs/seed/manual/testing/">Seed Web integration testing</a>. Here is an example which tests two
+client endpoints:</p>
+
+<pre><code>public class WebSocketIT extends AbstractSeedWebIT {
+
+    @Logging
+    private Logger logger;
+
+    @Inject
+    ChatClientEndpoint1 chatClientEndpoint1;
+
+    @Inject
+    ChatClientEndpoint2 chatClientEndpoint2;
+
+    @Deployment
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class);
+    }
+
+    @Test
+    @RunAsClient
+    public void communication_is_working(@ArquillianResource URL baseUrl) throws Exception {
+        ChatClientEndpoint1.latch = new CountDownLatch(1);
+
+        final Session session1 = connectToServer(baseUrl, chatClientEndpoint1);
+        assertNotNull(session1);
+
+        assertTrue(ChatClientEndpoint1.latch.await(2, TimeUnit.SECONDS));
+        assertEquals(&quot;echo: &quot; + ChatClientEndpoint1.TEXT, ChatClientEndpoint1.response);
+
+        ChatClientEndpoint1.latch = new CountDownLatch(1);
+        ChatClientEndpoint2.latch = new CountDownLatch(1);
+
+        final Session session2 = connectToServer(baseUrl, chatClientEndpoint2);
+        assertNotNull(session2);
+
+        assertTrue(ChatClientEndpoint1.latch.await(2, TimeUnit.SECONDS));
+        assertTrue(ChatClientEndpoint2.latch.await(2, TimeUnit.SECONDS));
+        assertEquals(&quot;echo: &quot; + ChatClientEndpoint2.TEXT, ChatClientEndpoint1.response);
+        assertEquals(&quot;echo: &quot; + ChatClientEndpoint2.TEXT, ChatClientEndpoint2.response);
+    }
+
+    private Session connectToServer(URL baseUrl, Object endpoint) {
+        try {
+        WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+        URI uri = new URI(&quot;ws://&quot; + baseUrl.getHost() + &quot;:&quot; + baseUrl.getPort()
+            + baseUrl.getPath() + &quot;chat&quot;);
+        return container.connectToServer(endpoint, uri);
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+            fail();
+        }
+    }
+
+}
+</code></pre>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        
+<div class="side-menu">
+    
+        
+        <div class="list-group">
+            <ul class="nav">
+                
+                
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/" class="list-group-item ">
+                            Java framework basics
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/testing/" class="list-group-item ">
+                            Testing
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/cli/" class="list-group-item ">
+                            Command-line
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/web/" class="list-group-item  active ">
+                            Web
+                        </a>
+                        
+                        
+                            <nav id="TableOfContents">
+<ul>
+<li><a href="#security">Security</a>
+<ul>
+<li><a href="#url-patterns">URL patterns</a></li>
+<li><a href="#filters">Filters</a>
+<ul>
+<li><a href="#built-in-filters">Built-in filters</a></li>
+<li><a href="#custom-filters">Custom filters</a></li>
+</ul></li>
+<li><a href="#example">Example</a></li>
+</ul></li>
+<li><a href="#servlets-and-filters">Servlets and Filters</a></li>
+<li><a href="#static-resources">Static resources</a>
+<ul>
+<li><a href="#default-behavior">Default behavior</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#minification-and-gzip-support">Minification and gzip support</a></li>
+<li><a href="#mime-types">MIME types</a></li>
+<li><a href="#caching">Caching</a></li>
+</ul></li>
+<li><a href="#cors">CORS</a>
+<ul>
+<li><a href="#configuration-1">Configuration</a></li>
+<li><a href="#filter-properties">Filter properties</a></li>
+</ul></li>
+<li><a href="#websockets">WebSockets</a>
+<ul>
+<li><a href="#server-endpoints">Server endpoints</a></li>
+<li><a href="#client-endpoints">Client endpoints</a></li>
+<li><a href="#testing">Testing</a></li>
+</ul></li>
+</ul>
+</nav>
+                            <script>
+                                seedstack.state.previousPage = '\/archives\/16.7\/docs\/seed\/manual\/cli\/';
+                            </script>
+                            
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/security/" class="list-group-item ">
+                            Security
+                        </a>
+                        
+                            <script>
+                                seedstack.state.nextPage = '\/archives\/16.7\/docs\/seed\/manual\/security\/';
+                            </script>
+                            
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/rest/" class="list-group-item ">
+                            REST
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/transactions/" class="list-group-item ">
+                            Transactions
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/operations/" class="list-group-item ">
+                            Operations
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/crypto/" class="list-group-item ">
+                            Cryptography
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/more/" class="list-group-item ">
+                            More
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+            </ul>
+        </div>
+        
+    
+    
+    <div class="list-group">
+        <ul class="nav">
+            <li class="list-group-item"><div style="margin-bottom: 10px;"><i class="fa fa-tag"></i> Tags</div>
+                <div class="tags">
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/servlet">Servlet</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/security">Security</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/url">Url</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/filter">Filter</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/static">Static</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/resource">Resource</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/mime">Mime</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/cors">Cors</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/websocket">Websocket</a>
+                    
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="list-group">
+        <ul class="nav">
+            
+                <li><a class="list-group-item" href="https://github.com/seedstack/website/edit/master/content/docs/seed/manual/web.md" target="_blank"><i class="fa fa-edit"></i> Contribute to this page</a></li>
+            
+        </ul>
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+    <div id="footer">
+        <div class="footer-v3">
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="headline"><h2>About</h2></div>
+                    <p class="margin-bottom-25 md-margin-bottom-40">SeedStack is an Open-Source enterprise-class development stack for building modern and robust applications.</p>
+                </div>
+
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="posts">
+                        <div class="headline"><h2>License</h2></div>
+                        <p>
+                            Code licensed under the <a href="https://www.mozilla.org/MPL/2.0" target="_blank">Mozilla Public License 2.0</a>.
+                            <br/>
+                            Documentation licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 map-img">
+                    <div class="headline"><h2>Contact us</h2></div>
+                    <address>
+                        <p>
+                            IRC channel <a href="irc://chat.freenode.net/seedstack">#seedstack on Freenode community</a>
+                            <br/>
+                            Google group <a href="https://groups.google.com/forum/#!forum/seedstack">seedstack@googlegroups.com</a>
+                        </p>
+                    </address>
+
+                    <div class="headline"><h2>Stay in touch</h2></div>
+                    <div style="margin-bottom: 20px;">
+                        <a class="twitter-follow-button"
+                           href="https://twitter.com/seedstack"
+                           data-show-count="false"
+                           data-lang="en">
+                            Follow @seedstack
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+    <div id="hotkeys-modal" class="modal">
+    <div class="modal-dialog" style="min-width: 960px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Keyboard shortcuts <a id="show-all-shortcuts" style="cursor: pointer;" onclick="seedstack.ui.showAllShortcuts();">(Show all)</a></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Global shortcuts</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>?</kbd>
+                                </td>
+                                <td>Show this help dialog</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>/</kbd>
+                                </td>
+                                <td>Focus the search field</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↑</kbd>
+                                </td>
+                                <td>Go to previous menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↓</kbd>
+                                </td>
+                                <td>Go to next menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>S</kbd>
+                                </td>
+                                <td>Go to Seed framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>W</kbd>
+                                </td>
+                                <td>Go to W20 framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>B</kbd>
+                                </td>
+                                <td>Go to Business framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>A</kbd>
+                                </td>
+                                <td>Go to add-ons</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>G</kbd>
+                                </td>
+                                <td>Go to guides</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Seed framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>t</kbd>
+                                </td>
+                                <td>Go to testing</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to cryptography</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>w</kbd>
+                                </td>
+                                <td>Go to Web</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>r</kbd>
+                                </td>
+                                <td>Go to REST</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>o</kbd>
+                                </td>
+                                <td>Go to operations</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>T</kbd>
+                                </td>
+                                <td>Go to transactions</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Business framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>m</kbd>
+                                </td>
+                                <td>Go to model</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>l</kbd>
+                                </td>
+                                <td>Go to lifecycle</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>e</kbd>
+                                </td>
+                                <td>Go to events</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>p</kbd>
+                                </td>
+                                <td>Go to policies</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>a</kbd>
+                                </td>
+                                <td>Go to assemblers</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>f</kbd>
+                                </td>
+                                <td>Go to finders</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>P</kbd>
+                                </td>
+                                <td>Go to pagination</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>W20 framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to culture</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>h</kbd>
+                                </td>
+                                <td>Go to hypermedia</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>u</kbd>
+                                </td>
+                                <td>Go to UI</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="versions-modal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 id="versions-title" class="modal-title">Fetching components...</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="versions-table" class="table table-striped table-hover table-bordered">
+                            <tr>
+                                <th>Component</th>
+                                <th>Version</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/github.min.css">
+
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mousetrap/1.4.6/mousetrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lunr.js/0.5.9/lunr.min.js"></script>
+<script src="/assets/unify/plugins/smoothScroll.js"></script>
+<script src="/js/xml2json.js"></script>
+<script src="/js/jquery.highlight.js"></script>
+<script src="/js/seedstack.js"></script>
+<script>
+    $(document).ready(function () {
+        var $search = $('.search-btn');
+
+        $('.search').click(function () {
+            if ($search.hasClass('fa-search')) {
+                seedstack.ui.openSearch();
+            } else {
+                seedstack.ui.closeSearch();
+            }
+        });
+
+        $('pre code').each(function (i, block) {
+            hljs.highlightBlock(block);
+        });
+
+        $('.side-menu').affix({
+            offset: {
+                top: $('#header').height() + 20,
+                bottom: $('#footer').height() + 40
+            }
+        });
+
+        Mousetrap.bind('/', function () {
+            seedstack.ui.openSearch();
+            return false;
+        });
+
+        Mousetrap.bind('alt+up', function () {
+            if (seedstack.state.previousPage) {
+                window.location = seedstack.state.previousPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('alt+down', function () {
+            if (seedstack.state.nextPage) {
+                window.location = seedstack.state.nextPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('?', function () {
+            seedstack.ui.openHelp();
+            return false;
+        });
+
+        Mousetrap.bind('esc', function () {
+            seedstack.ui.closeHelp();
+            seedstack.ui.closeSearch();
+            return false;
+        });
+
+        var originalCallback = Mousetrap.stopCallback;
+        Mousetrap.stopCallback = function (e, element, combo) {
+            if (combo === 'esc') {
+                return false;
+            }
+
+            return originalCallback(e, element, combo);
+        };
+
+        function bindShortcuts(value) {
+            $.each(value, function (sequence, item) {
+                if (typeof item === 'string') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item;
+                        return false;
+                    });
+                } else if (typeof item === 'object') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item.path;
+                        return false;
+                    });
+                    if (item.shortcuts && location.pathname.indexOf(item.path) === 0) {
+                        bindShortcuts(item.shortcuts);
+                    }
+                }
+            });
+        }
+
+        function resolveVersions() {
+            var $versionsTitle = $('#versions-title');
+            if (!seedstack.versions) {
+                $.ajax({
+                    dataType: 'text',
+                    url: '/distribution.pom.xml'
+                }).done(function (data) {
+                    var pom = new X2JS().xml_str2json(data);
+
+                    if (pom.project && pom.project.properties && pom.project.version) {
+                        var $versions = $('#versions-table');
+                        var blackList = ['seedstack-maven-plugin', 'java-compiler', 'maven-failsafe-plugin', 'logback'];
+                        var versions = {};
+
+                        $versionsTitle.text("SeedStack " + pom.project.version);
+
+                        $.each(pom.project.properties, function (name, value) {
+                            if (/\.version$/.test(name)) {
+                                var shortName = name.substr(0, name.indexOf('.version'));
+                                if ($.inArray(shortName, blackList) === -1) {
+                                    versions[shortName] = value;
+                                    $versions.append(
+                                            '<tr>' +
+                                            '<td>' +
+                                            shortName.substr(0, 1).toUpperCase() + shortName.substr(1, shortName.length - 1).replace(/-/g, ' ') +
+                                            '</td>' +
+                                            '<td>' + value + '</td>' +
+                                            '</tr>');
+                                }
+                            }
+                        });
+
+                        $('.loginbar').prepend(
+                                '<li class="hidden-xs hidden-sm"><i class="fa fa-tag"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openVersions();">Latest version: ' + pom.project.version + '</a></li>' +
+                                '<li class="topbar-devider"></li>'
+                        );
+
+                        seedstack.versions = versions;
+                    }
+                }).error(function () {
+                    console.error("SeedStack version could not be resolved");
+                });
+            }
+        }
+
+        bindShortcuts(seedstack.ui.shortcuts);
+
+        resolveVersions();
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $('#hotkeys-modal, #versions-modal').bind('hidden.bs.modal', function () {
+            $("html").css("margin-right", "0px");
+        }).bind('show.bs.modal', function () {
+            $("html").css("margin-right", "-15px");
+        });
+
+        var query = seedstack.strings.parseQueryString(location);
+        if (query.h && query.h.length > 0) {
+            $('.doc-content').highlight(query.h);
+            if (query.scroll) {
+                $('html, body').animate({
+                    scrollTop: $('span[class=highlight]:first').offset().top - 20
+                }, 250);
+            }
+        }
+    });
+</script>
+<script>window.twttr = (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+    if (d.getElementById(id))return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    t._e = [];
+    t.ready = function (f) {
+        t._e.push(f);
+    };
+    return t;
+}(document, "script", "twitter-wjs"));</script>
+
+</body>
+</html>

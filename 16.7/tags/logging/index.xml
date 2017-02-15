@@ -1,0 +1,836 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/logging/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/logging/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Java framework basics</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/manual/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/manual/</guid>
+      <description>&lt;p&gt;SeedStack Java framework (or simply Seed) is a solution for building Java applications, no matter how simple or advanced,
+without pain. It does so by providing a simple yet highly modular architecture and by taking charge of various technical
+aspects frequently encountered in enterprise applications. It accommodates any kind of Java 1.6+ runtime and offers the
+same level of features from command-line standalone JVMs to full-fledged Web application servers.&lt;/p&gt;
+
+&lt;h1 id=&#34;dependencies&#34;&gt;Dependencies&lt;/h1&gt;
+
+&lt;p&gt;A minimal Seed-based project only requires the &lt;code&gt;seed-core&lt;/code&gt; module and its dependencies in the classpath. This module
+provides basic Seed functionality to your application like lifecycle management, configuration, dependency injection,
+logging or error diagnostics. To include &lt;code&gt;seed-core&lt;/code&gt; in your application you have two main options:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Using a dependency manager like &lt;a href=&#34;http://maven.apache.org&#34;&gt;Maven&lt;/a&gt; or &lt;a href=&#34;http://gradle.io&#34;&gt;Gradle&lt;/a&gt;. &lt;strong&gt;This is the recommended
+solution.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Add &lt;code&gt;seed.jar&lt;/code&gt; manually to your application. This JAR contains all Seed code and the required dependencies in a single,
+convenient yet big, library.&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-core-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-core-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-seed-seed-core-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;seed-core&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-seed-seed-core-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-seed-seed-core-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-seed-seed-core-show&#34; onclick=&#34;$(&#39;#org-seedstack-seed-seed-core-version, #org-seedstack-seed-seed-core-warn&#39;).show(); $(&#39;#org-seedstack-seed-seed-core-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-seed-seed-core-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.seed:seed-core:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If you&amp;rsquo;re using Maven, SeedStack provides comprehensive dependency management in its distribution, whether by inheriting
+from its parent or by importing its BOM. We recommend doing so to ensure that versions of Seed dependencies are consistent
+across the project. Additionally you won&amp;rsquo;t have to specify the version tag of any Seed dependency. Check the
+&lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution/&#34;&gt;distribution documentation page&lt;/a&gt; for more information.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;startup-and-shutdown&#34;&gt;Startup and shutdown&lt;/h1&gt;
+
+&lt;p&gt;Starting a Seed application consists in creating a Kernel instance and invoking its startup logic. Later, the
+application can be cleanly stopped by invoking the kernel stopping logic. All these steps are already encapsulated by Seed
+for two main runtime environments:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The command line,&lt;/li&gt;
+&lt;li&gt;The external servlet-based Web application server.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;command-line&#34;&gt;Command line&lt;/h2&gt;
+
+&lt;h3 id=&#34;launch-from-command-line&#34;&gt;Launch from command line&lt;/h3&gt;
+
+&lt;p&gt;This is the simplest way to launch a Seed application. You do so by executing the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;core.&amp;amp;#8203;SeedMain&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/core/SeedMain.html&#39;&gt;SeedMain&lt;/a&gt;&lt;/code&gt; class with
+the JVM:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;java [jvm-args] -cp ... org.seedstack.core.SeedMain [app-args]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;SeedMain&lt;/code&gt; class will search the classpath for an implementation of the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;core.&amp;amp;#8203;spi.&amp;amp;#8203;SeedLauncher&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/core/spi/SeedLauncher.html&#39;&gt;SeedLauncher&lt;/a&gt;&lt;/code&gt; interface
+and execute its &lt;code&gt;launch()&lt;/code&gt; method with the application arguments. Exactly one launcher must be present in the classpath or
+an exception will be thrown.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Launchers live in various Seed modules such as the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/project-templates/cli/&#34;&gt;CLI module&lt;/a&gt;, handling command-line-interface (CLI) applications
+or the &lt;code&gt;seed-web-undertow&lt;/code&gt; module, providing an &lt;a href=&#34;http://undertow.io/&#34;&gt;Undertow&lt;/a&gt; embedded Web server. Without such module
+containing a launcher in classpath an exception will be thrown. If you have more than one launcher in the classpath an
+exception will also be thrown.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;One difficulty of running a Java application from the command line is to properly set its classpath. As such, launching
+a Seed application from the command line is often used in combination with über-JAR packaging where a unique JAR contains
+all the necessary classes and dependencies to run the application. With this kind of packaging, launching the application
+becomes as simple as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;java [jvm-args] -jar app.jar [app-args]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Check the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/maven-plugin/&#34;&gt;SeedStack Maven plugin&lt;/a&gt; for more information about how to easily package such a JAR.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;shutdown-from-command-line&#34;&gt;Shutdown from command line&lt;/h3&gt;
+
+&lt;p&gt;To shutdown a Seed application from the command line, you simply have to gracefully stop the JVM. You can do this on any
+operating system this by hitting &lt;code&gt;CTRL+C&lt;/code&gt; if the JVM is a foreground process. You can also do this under UNIX systems if
+the JVM is a background process by issuing a &lt;code&gt;SIGINT&lt;/code&gt; signal to the JVM process:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;kill -2 pid
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In any case, the shutdown logic of the Seed application will be invoked.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Warning! If you abruptly terminate or kill the JVM process, the application will NOT gracefully shutdown.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;launch-in-web-application-server&#34;&gt;Launch in Web application server&lt;/h2&gt;
+
+&lt;p&gt;A servlet-based Web application server directly manages the lifecycle of an application. If your server is at least at
+the Servlet 3.0 level of Servlet API, the &lt;code&gt;seed-web-core&lt;/code&gt; module already contains the necessary classes to trigger Seed
+startup and shutdown in response to server events.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If your Servlet API level is lower than 3.0, please check &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/web/&#34;&gt;this page&lt;/a&gt; for the required configuration of your application.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;logging&#34;&gt;Logging&lt;/h1&gt;
+
+&lt;p&gt;Logging is a necessity in almost any application. Seed is built upon the popular &lt;a href=&#34;http://www.slf4j.org&#34;&gt;SLF4J logging facade&lt;/a&gt;
+and provides its Java Commons Logging bridge and Java Util Logging bridge out-of-the-box. The choice of the SLF4J
+implementation is left to you but we recommend &lt;a href=&#34;http://logback.qos.ch/&#34;&gt;Logback&lt;/a&gt;. Seed provides sensible defaults for
+Logback in the &lt;code&gt;org/seedstack/seed/core/logging/logback-defaults.xml&lt;/code&gt; resource which can be imported in any Logback
+configuration file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;include resource=&amp;quot;org/seedstack/seed/core/logging/logback-defaults.xml&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;These defaults include two &lt;code&gt;stdout&lt;/code&gt; console appenders called &lt;code&gt;STDOUT&lt;/code&gt; for a monochrome output or &lt;code&gt;STDOUT-COLOR&lt;/code&gt; for a
+colorized output. You can use these appenders in any of your configured loggers at your discretion.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You can inject a logger in any class by annotating an SLF4J logger field with &lt;code&gt;@Logging&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Logging
+private Logger logger;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will automatically inject a logger for the enclosing class. This also works on static fields although if you need
+your logger fields to be final, you must use the traditional SLF4J syntax instead.&lt;/p&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;Seed provides an unified configuration mechanism that is simple to use, thanks to its strict key/value paradigm, but also
+very powerful.&lt;/p&gt;
+
+&lt;p&gt;Classpath scanning is used to discover all application configuration files present in the &lt;code&gt;META-INF/configuration&lt;/code&gt;
+locations of the classpath, which are aggregated in a global configuration available from anywhere in the application. Seed
+supports two configuration file formats:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The recommended &lt;strong&gt;Props format&lt;/strong&gt; which is a superset of the classic Java Properties format providing a more concise and
+expressive configuration language. Props files must have the &lt;code&gt;props&lt;/code&gt; extension.&lt;/li&gt;
+&lt;li&gt;The legacy &lt;strong&gt;Properties format&lt;/strong&gt; which is described &lt;a href=&#34;http://docs.oracle.com/javase/6/docs/api/java/util/Properties.html#load(java.io.Reader.md&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All files must be located under the &lt;code&gt;META-INF/configuration&lt;/code&gt; directory:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;META-INF/configuration
+    |
+    |- my-app.props
+    |- security.props
+    |- legacy.properties
+    |- ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Lots of configuration features, such as profiles, sections, appending, etc. are only supported with the Props format.
+Try to avoid the legacy Properties format if possible.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;bootstrap-configuration&#34;&gt;Bootstrap configuration&lt;/h2&gt;
+
+&lt;p&gt;A few configuration values must be configured in a special configuration file that &lt;strong&gt;must&lt;/strong&gt; be named &lt;code&gt;seed.props&lt;/code&gt; (or
+&lt;code&gt;seed.properties&lt;/code&gt;). This file must also be put in the &lt;code&gt;META-INF/configuration&lt;/code&gt; folder. The most frequent usage of this
+file is to define the base package(s) that Seed must scan. You can do so with the following :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed]
+base-packages = org.my.package, com.my.other.package, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;It is important to set the &lt;code&gt;org.seedstack.seed.base-packages&lt;/code&gt; property of bootstrap configuration for Seed to scan your classes. If you omit to do so, Seed will only scan &lt;code&gt;org.seedstack&lt;/code&gt; and its sub-packages by default.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that the bootstrap configuration contents will also be available as normal application configuration. As such, you can choose to put all your configuration (bootstrap or not) in this file.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;props-format&#34;&gt;Props format&lt;/h2&gt;
+
+&lt;h3 id=&#34;base-characteristics&#34;&gt;Base characteristics&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;By default, props files are UTF-8 encoded, but can be encoded in any encoding.&lt;/li&gt;
+&lt;li&gt;Leading and trailing spaces will be trimmed from section names, property names.&lt;/li&gt;
+&lt;li&gt;Either equal sign (=) or colon (:) are used to assign property values.&lt;/li&gt;
+&lt;li&gt;Comments begin with either a semicolon (;), or a sharp sign (#) and extend to the end of line. It doesn&amp;rsquo;t have to be
+the first character.&lt;/li&gt;
+&lt;li&gt;A backslash (&lt;code&gt;\&lt;/code&gt;) escapes the next character (e.g., &lt;code&gt;\#&lt;/code&gt; is a literal &lt;code&gt;#&lt;/code&gt;, &lt;code&gt;\\&lt;/code&gt; is a literal &lt;code&gt;\&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;\uXXXX is encoded as character. Also &lt;code&gt;\t&lt;/code&gt;, &lt;code&gt;\r&lt;/code&gt; and &lt;code&gt;\f&lt;/code&gt; are encoded as characters.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;sections&#34;&gt;Sections&lt;/h3&gt;
+
+&lt;p&gt;Sections looks very much like Windows INI file sections. In props files, a section simply represents a key prefix for
+following keys, until the section end or end of file.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Section names are enclosed between &lt;code&gt;[&lt;/code&gt; and &lt;code&gt;]&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Properties following a section header belong to that section.&lt;/li&gt;
+&lt;li&gt;Section name is added as a prefix to section properties.&lt;/li&gt;
+&lt;li&gt;Section ends with empty section definition &lt;code&gt;[]&lt;/code&gt; or with new section start or end of file.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The following example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[users.data]
+weight = 49.5
+height = 87.7
+age = 63
+
+[]
+comment=this is base property
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;is equivalent to this one:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;users.data.weight = 49.5
+users.data.height = 87.7
+users.data.age = 63
+comment=this is base property
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;profiles&#34;&gt;Profiles&lt;/h3&gt;
+
+&lt;p&gt;Seed provides a configuration profile concept which is activated via the &lt;code&gt;org.seedstack.seed.profiles&lt;/code&gt; system property.
+Profiles are determined at application initialization and cannot be changed afterwards. You can activate several profiles
+simultaneously by using &lt;strong&gt;a comma separated list&lt;/strong&gt;. For example, following JVM argument activates both &lt;code&gt;dev&lt;/code&gt; and &lt;code&gt;debug&lt;/code&gt;
+profiles:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-Dorg.seedstack.seed.profiles=dev,debug
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Profile names are enclosed between &lt;code&gt;&amp;lt;&lt;/code&gt; and &lt;code&gt;&amp;gt;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;They can be used as a part of a property key.&lt;/li&gt;
+&lt;li&gt;One key can contain one or more profile name.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;A good practice&lt;/strong&gt; consists in keeping them at the end but they could be used anywhere in a key.&lt;/li&gt;
+&lt;li&gt;Properties without a profile are base properties and are available without providing any profile.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For example :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;db.port=3086
+
+db.url&amp;lt;dev&amp;gt;=localhost
+db.username&amp;lt;dev&amp;gt;=root
+
+db.url&amp;lt;prod&amp;gt;=productionmachine.myorganization.org
+db.username&amp;lt;prod&amp;gt;=securedaccount
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In above example, &lt;code&gt;db.port&lt;/code&gt; key provides a base property that will always be available whereas other keys are dependant
+on a profile name (&lt;code&gt;dev&lt;/code&gt; or &lt;code&gt;prod&lt;/code&gt;). Therefore, these values would be available only if the corresponding profiles
+(environments here) are requested through JVM &lt;code&gt;org.seedstack.seed.profiles&lt;/code&gt; argument.&lt;/p&gt;
+
+&lt;p&gt;Since profiles can be anywhere in the key name, section names can contain profile definitions as well. The above example
+can also be written as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;db.port=3086
+
+[db&amp;lt;dev&amp;gt;]
+url=localhost
+username=root
+
+[db&amp;lt;prod&amp;gt;]
+url=productionmachine.myorganization.org
+username=securedaccount
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There are cases where two ore more profiles share most of their configuration and only few properties are
+different or specific to one profile. To avoid repeating shared properties for each profile, it is possible to define
+different/specific properties assigned to inner profiles only. Props will first lookup keys in inner profiles, then go
+up to the base level. For example :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;key1&amp;lt;one&amp;gt;=Hi!
+key2&amp;lt;one&amp;gt;=...
+....
+key100&amp;lt;one&amp;gt;=...
+
+key1&amp;lt;one.two&amp;gt;=Hola!
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This example defines two profiles. First one is named &amp;lsquo;one&amp;rsquo; and contains 100 properties. Second profile is an inner
+property named &amp;lsquo;one.two&amp;rsquo;. It contains only 1 property (key1) - but all properties from its parent profile are available.&lt;/p&gt;
+
+&lt;h3 id=&#34;macros&#34;&gt;Macros&lt;/h3&gt;
+
+&lt;p&gt;A macro is a reference to some keys&amp;rsquo; value inside the value of another key. Macros are enclosed between &lt;code&gt;${&lt;/code&gt; and &lt;code&gt;}&lt;/code&gt;. Here is a
+simple example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;key1=Something ${foo}
+...
+foo=nice
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Value of key1 is &amp;lsquo;Something nice&amp;rsquo;. Macros can refer to any existing property key, no matter where it is defined. Therefore,
+nested macros are also supported as in following example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;key1=**${key${key3}}**
+key3=2
+key2=foo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Value of key1 is &amp;lsquo;&lt;strong&gt;foo&lt;/strong&gt;&amp;rsquo;.&lt;/p&gt;
+
+&lt;h3 id=&#34;multi-line-values&#34;&gt;Multi-line values&lt;/h3&gt;
+
+&lt;p&gt;Multi-lines values are defined with triple-quotes. Everything in-between is considered as a value. For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;email.body=&#39;&#39;&#39;
+    Hello $n,
+
+    welcome!
+&#39;&#39;&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that multi-line values are NOT trimmed. Therefore, the value from the example will consist of 5 lines. There is no
+need to escape new lines in multi-line values.&lt;/p&gt;
+
+&lt;h3 id=&#34;value-appending&#34;&gt;Value appending&lt;/h3&gt;
+
+&lt;p&gt;Values with the same key name are automatically appended to each other with a comma (&lt;code&gt;,&lt;/code&gt;) separator. With the following
+configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.myorganization.myproject.toto = val1
+org.myorganization.myproject.toto = val2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;org.myorganization.myproject.toto&lt;/code&gt; value evaluates to &lt;code&gt;val1,val2&lt;/code&gt;. You can then retrieve this kind of value as a
+normal string or as a string array.&lt;/p&gt;
+
+&lt;h3 id=&#34;copy-operator&#34;&gt;Copy operator&lt;/h3&gt;
+
+&lt;p&gt;The copy operator can be used to share a set of properties in different sections by copying them. Consider the following
+example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.myorganization.myproject1.action1=value1
+org.myorganization.myproject1.action2=value2
+...
+org.myorganization.myproject2.action1=value1
+org.myorganization.myproject2.action2=value2
+...
+org.myorganization.myproject3.... # etc
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Props allows you to use copy operator: &lt;code&gt;&amp;lt;=&lt;/code&gt; in order to minimize and clarify the declarations required. Above props can
+be written as follows instead:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[actions]
+action1=value1
+action2=value2
+...
+
+[]
+org.myorganization.myproject1 &amp;lt;= actions
+
+[org]
+myorganization.prd2 &amp;lt;= actions
+
+[org.myorganization.myproject3]
+&amp;lt;= actions
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above example shows 3 different but equivalent ways to use copy operator:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;without sections&lt;/li&gt;
+&lt;li&gt;with partial section&lt;/li&gt;
+&lt;li&gt;with full section&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Note that copied values are set as macros, so all above copied properties are identical to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.myorganization.myproject1.action1=${actions.action1}
+org.myorganization.myproject1.action2=${actions.action2}
+org.myorganization.myproject2.action1=${actions.action1}
+....
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All rules for resolving macros apply.&lt;/p&gt;
+
+&lt;h2 id=&#34;environment-variables&#34;&gt;Environment variables&lt;/h2&gt;
+
+&lt;p&gt;System environment variables are provided through configuration, using a macro prefixed by &lt;code&gt;env:&lt;/code&gt;. For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[db]
+url = jdbc:mysql://${env:MYSQL_SERVER}/test
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Please note that the environment variable lookup is case-sensitive&lt;/strong&gt;, contrary to the &lt;code&gt;System.getenv(variableName)&lt;/code&gt; java
+method. Its behavior is equivalent to &lt;code&gt;System.getenv().get(variableName)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;system-properties&#34;&gt;System properties&lt;/h2&gt;
+
+&lt;p&gt;JVM system properties are provided through configuration, using a macro prefixed by &lt;code&gt;sys:&lt;/code&gt;. For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[indexer]
+path = ${sys:java.io.tmpdir}${sys:file.separator}my-index
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The system property lookup is case-sensitive, just as &lt;code&gt;System.getProperty(propertyName)&lt;/code&gt; java method.&lt;/p&gt;
+
+&lt;h2 id=&#34;constant-values&#34;&gt;Constant values&lt;/h2&gt;
+
+&lt;p&gt;Class constant values (i.e. &lt;code&gt;static final&lt;/code&gt; fields) are available in props configuration with &lt;code&gt;const:&lt;/code&gt; prefix.
+For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[action1]
+key = ${const:java.awt.event.KeyEvent.VK_CANCEL}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The value of &lt;code&gt;action1.key&lt;/code&gt; is the value of &lt;code&gt;VK_CANCEL&lt;/code&gt; constant retrieved from &lt;code&gt;java.awt.event.KeyEvent&lt;/code&gt; class.&lt;/p&gt;
+
+&lt;h2 id=&#34;override&#34;&gt;Override&lt;/h2&gt;
+
+&lt;p&gt;Nominal configuration can be overridden explicitly using resources names ending with &lt;code&gt;*.override.properties&lt;/code&gt; and
+&lt;code&gt;*.override.props&lt;/code&gt;. Nominal and override configuration are loaded completely separately and cannot interact with each
+other except in the following ways:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If a key is present both in nominal and override configuration, the override value completely replaces the nominal one.&lt;/li&gt;
+&lt;li&gt;If a key is present in override configuration but not in nominal configuration, it is added to the nominal configuration.&lt;/li&gt;
+&lt;li&gt;If a key is present both in nominal and override configuration but prefixed by a dash (&lt;code&gt;-&lt;/code&gt;) in override configuration it
+is removed from nominal configuration.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As an example, with this nominal configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;overriddenValue = I&#39;m overridden
+removedValue = I&#39;m removed
+emptiedValue = I&#39;m emptied
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And this override configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;overriddenValue = I&#39;m overriding
+-removedValue =
+emptiedValue =
+-removedNonExistentValue =
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You end with the following:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;overriddenValue&lt;/code&gt; evaluates to &lt;code&gt;&#39;I&#39;m overriding&#39;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;emptiedValue&lt;/code&gt; evaluates to an empty string.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;removedValue&lt;/code&gt; evaluates to &lt;code&gt;null&lt;/code&gt; as if it was never declared in the first place.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Please note that as the nominal and the override configurations are completely separate, no macro resolution can take
+place between the two. Also note that the whole property name is used for the dash prefix check, so you can&amp;rsquo;t add the
+dash character in a categorized property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[category]
+-property1 =
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will NOT be removed since the full property name will be &lt;code&gt;category.-property1&lt;/code&gt;. Instead use the following form (outside
+any category block):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-category.property1 =
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can use this particularity to remove several keys from the same category:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[-category]
+property1 =
+property2 =
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will remove &lt;code&gt;category.property1&lt;/code&gt; and &lt;code&gt;category.property2&lt;/code&gt; from the nominal configuration.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;dependency-injection&#34;&gt;Dependency injection&lt;/h1&gt;
+
+&lt;p&gt;In a Seed application, the dependency injection is provided by a Guice injector, created by the kernel in its
+starting phase. The injector is configured in explicit mode, meaning that all the application injection points
+are checked during application startup and must be resolvable. This mode ensures that injection errors are detected as
+soon as possible in the development process.&lt;/p&gt;
+
+&lt;p&gt;Although Guice is operating behind the scenes, it is invisible for the application which only needs to rely on JSR 330
+annotations for defining injection points.&lt;/p&gt;
+
+&lt;h2 id=&#34;injection-points&#34;&gt;Injection points&lt;/h2&gt;
+
+&lt;p&gt;When applying the dependency injection pattern, the dependencies are passed in instead of being requested directly or
+by calling factories. The process of setting dependencies into an object is called injection. In SeedStack the injections
+are explicit and almost always marked with the &lt;code&gt;@Inject&lt;/code&gt; annotation. The element marked with the &lt;code&gt;@Inject&lt;/code&gt; annotation
+is called the &lt;strong&gt;injection point&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;There are multiple injection styles, described below, and they all can be used simultaneously.&lt;/p&gt;
+
+&lt;h3 id=&#34;constructor-injection&#34;&gt;Constructor injection&lt;/h3&gt;
+
+&lt;p&gt;Constructor injection combines instantiation with injection. To use it, annotate the constructor with the &lt;code&gt;@Inject&lt;/code&gt;
+annotation. This constructor should accept class dependencies as parameters. It is then recommended to assign the
+parameters to final fields in the constructor.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyServiceImpl implements MyService {
+    private final OtherService otherService;
+
+    @Inject
+    public MyServiceImpl(OtherService otherService) {
+        this.otherService = otherService;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If your class has no &lt;code&gt;@Inject&lt;/code&gt;-annotated constructor, a public, no-arguments constructor will be used if it exists,
+otherwise an exception will be thrown upon application startup.&lt;/p&gt;
+
+&lt;p&gt;The constructor injection style has two main benefits:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The ability to construct injected immutable instances,&lt;/li&gt;
+&lt;li&gt;The explicit constructor arguments will make unit testing easier: when you construct a test instance manually, you
+are still required by compiler to provide all the dependencies.&lt;br /&gt;
+
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;field-injection&#34;&gt;Field injection&lt;/h3&gt;
+
+&lt;p&gt;Fields injection points are fields annotated with &lt;code&gt;@Inject&lt;/code&gt; and are injected just after instance creation.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyServiceImpl implements MyService {
+    @Inject 
+    private OtherService otherService;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Avoid using field injection with final fields, which are not guaranteed to succeed in some contexts.&lt;/p&gt;
+
+&lt;h3 id=&#34;method-injection&#34;&gt;Method injection&lt;/h3&gt;
+
+&lt;p&gt;Method injection points are methods annotated with &lt;code&gt;@Inject&lt;/code&gt; are called just after field injections. Dependencies take
+the form of parameters, which the injector resolves before invoking the method. Injected methods may have any number of
+parameters, and the method name does not impact injection.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyServiceImpl implements MyService {
+    private OtherService otherService;
+
+    @Inject
+    public void doInjection(OtherService otherService) {
+        this.otherService = otherService;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;injection-scopes&#34;&gt;Injection scopes&lt;/h2&gt;
+
+&lt;p&gt;By default, the injector returns a new instance each time it supplies a value. This behavior can be altered by applying
+a scope to the implementation class. Scopes allow to reuse instances like the &lt;code&gt;@Singleton&lt;/code&gt; scope which will make the
+injector always return the same instance for the lifetime of the application. Annotations are used to identify scopes.
+Specify the scope for a type by applying the scope annotation to the implementation class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Singleton
+public class MyServiceStatefulImpl implements MyService {
+    /* everything here should be thread safe! */
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;By default in SeedStack, almost every class managed by the injector has no scope associated, which means that a new
+instance is created for each injection. This is a desirable behavior because it minimizes the mutability of your code and, as
+such, minimizes the need to use concurrency protection (synchronized, ThreadLocal, &amp;hellip;). In the end, all the bugs associated
+with such techniques are avoided.&lt;/p&gt;
+
+&lt;p&gt;In some cases, you&amp;rsquo;ll need to specify a scope though:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If an object is inherently stateful (like a counter or a cache),&lt;/li&gt;
+&lt;li&gt;If an object is expensive to create,&lt;/li&gt;
+&lt;li&gt;If an object is tied up to external resource.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Note that since the technical aspects that are often the motivation to implement a singleton are already handled by
+the framework, it is unlikely that you will need to apply this scope yourself. Remember that by keeping your &lt;strong&gt;application
+code as stateless and immutable as possible&lt;/strong&gt; you will:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Reduce the probability of bugs,&lt;/li&gt;
+&lt;li&gt;Improve its scalability,&lt;/li&gt;
+&lt;li&gt;Improve its testability.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;static-injections&#34;&gt;Static injections&lt;/h2&gt;
+
+&lt;p&gt;Injection on static fields is a specific case of injection that requires an explicit binding that is very rarely used
+in SeedStack internal code and never in application code. It means that, by default, injection on static fields of your
+classes won&amp;rsquo;t be enabled. This is a good thing because static injections are difficult to test, make dependencies opaque
+and rely on global state.&lt;/p&gt;
+
+&lt;h2 id=&#34;custom-injections&#34;&gt;Custom injections&lt;/h2&gt;
+
+&lt;p&gt;Custom injections can be used for advanced injection behavior that is not possible to achieve through the standard
+&lt;code&gt;@Inject&lt;/code&gt; injection points. They rely instead on specific annotations to trigger the injection. The &lt;code&gt;@Logging&lt;/code&gt; annotation
+described &lt;a href=&#34;#logging&#34;&gt;here&lt;/a&gt; is an example of custom injection. SeedStack doesn&amp;rsquo;t rely heavily on custom injection, using
+standard injection when possible.&lt;/p&gt;
+
+&lt;h2 id=&#34;method-interception&#34;&gt;Method interception&lt;/h2&gt;
+
+&lt;p&gt;To complement dependency injection, method interception is sometimes used in SeedStack. It allows to execute code each
+time a &lt;em&gt;matching&lt;/em&gt; method is invoked. It is suitable for cross cutting concerns (&amp;laquo;aspects&amp;raquo;) and is notably used, among
+other things, for transaction and security.&lt;/p&gt;
+
+&lt;p&gt;Method interception is transparent for the application code but its implementation (which works by dynamically sub-classing
+and overriding matching methods) impose some limitations that you should know:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Classes must be public or package-private,&lt;/li&gt;
+&lt;li&gt;Classes must be non-final,&lt;/li&gt;
+&lt;li&gt;Methods must be public, package-private or protected,&lt;/li&gt;
+&lt;li&gt;Methods must be non-final,&lt;/li&gt;
+&lt;li&gt;Instances must be created by the injector. It is not possible to use method interception on instances that aren&amp;rsquo;t
+constructed by the injector.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;more-information&#34;&gt;More information&lt;/h2&gt;
+
+&lt;p&gt;For more information about the injector used in the Java framework, you can look at the
+&lt;a href=&#34;https://github.com/google/guice/wiki&#34;&gt;Guice documentation wiki&lt;/a&gt;. Please note that some Guice features described
+in this documentation are not available in SeedStack or implemented differently. A knowledge of Guice is &lt;strong&gt;NOT&lt;/strong&gt;
+necessary to develop a Seed-based application.&lt;/p&gt;
+
+&lt;h1 id=&#34;error-diagnostic&#34;&gt;Error diagnostic&lt;/h1&gt;
+
+&lt;p&gt;Seed can dump diagnostic information when an exception is catched at key application locations. Core support dumps
+diagnostic information when an uncaught exception occurs in a thread but other supports can trigger dumps in various
+conditions.&lt;/p&gt;
+
+&lt;p&gt;Diagnostic information is an aggregation of values gathered from various diagnostic collectors in a single map. This map
+is then handled by the diagnostic reporter.&lt;/p&gt;
+
+&lt;h2 id=&#34;diagnostic-collectors&#34;&gt;Diagnostic collectors&lt;/h2&gt;
+
+&lt;p&gt;A diagnostic collector is a class implementing the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;core.&amp;amp;#8203;spi.&amp;amp;#8203;diagnostic.&amp;amp;#8203;DiagnosticInfoCollector&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/core/spi/diagnostic/DiagnosticInfoCollector.html&#39;&gt;DiagnosticInfoCollector&lt;/a&gt;&lt;/code&gt;
+interface and annotated with &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;core.&amp;amp;#8203;spi.&amp;amp;#8203;diagnostic.&amp;amp;#8203;DiagnosticDomain&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/core/spi/diagnostic/DiagnosticDomain.html&#39;&gt;@DiagnosticDomain&lt;/a&gt;&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@DiagnosticDomain(&amp;quot;org.my-organization.my-project.my-diagnostic-domain&amp;quot;)
+public class MyDiagnosticCollector implements DiagnosticInfoCollector {
+
+    @Override
+    public Map&amp;lt;String, Object&amp;gt; collect() {
+        ...
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All diagnostic collectors are automatically detected by Seed and will be used in diagnostic information gathering. The
+diagnostic domain uniquely identifies the information of the collector.&lt;/p&gt;
+
+&lt;h2 id=&#34;diagnostic-reporter&#34;&gt;Diagnostic reporter&lt;/h2&gt;
+
+&lt;p&gt;The default diagnostic reporter dumps the map as a YAML document in the system temporary directory. The diagnostic
+reporter can be changed by setting the &lt;code&gt;org.seedstack.seed.diagnostic.reporter&lt;/code&gt; system property to a class
+implementing &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;core.&amp;amp;#8203;spi.&amp;amp;#8203;diagnostic.&amp;amp;#8203;DiagnosticReporter&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/core/spi/diagnostic/DiagnosticReporter.html&#39;&gt;DiagnosticReporter&lt;/a&gt;&lt;/code&gt;.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

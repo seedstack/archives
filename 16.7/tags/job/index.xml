@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/job/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/job/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Batch</title>
+      <link>http://seedstack.org/archives/16.7/addons/spring-bridge/batch/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/spring-bridge/batch/</guid>
+      <description>
+
+&lt;p&gt;A specific Spring-Batch integration is also provided. Spring-Batch is a comprehensive solution to implement full-featured
+batch jobs in Java. More information about Spring Batch on &lt;a href=&#34;http://docs.spring.io/spring-batch/&#34;&gt;http://docs.spring.io/spring-batch/&lt;/a&gt;.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-spring-spring-bridge-batch-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-spring-spring-bridge-batch-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-spring-spring-bridge-batch-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.spring&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;spring-bridge-batch&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-spring-spring-bridge-batch-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.2.1&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-spring-spring-bridge-batch-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-spring-spring-bridge-batch-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-spring-spring-bridge-batch-version, #org-seedstack-addons-spring-spring-bridge-batch-warn&#39;).show(); $(&#39;#org-seedstack-addons-spring-spring-bridge-batch-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-spring-spring-bridge-batch-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.spring:spring-bridge-batch:2.2.1&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;All Spring context XML files &lt;strong&gt;must be&lt;/strong&gt; in under the &lt;code&gt;META-INF/spring&lt;/code&gt; classpath location.&lt;/p&gt;
+
+&lt;h1 id=&#34;running-jobs&#34;&gt;Running jobs&lt;/h1&gt;
+
+&lt;p&gt;The &lt;code&gt;org.seedstack.seed.cli.SeedRunner&lt;/code&gt; class contains a &lt;code&gt;main()&lt;/code&gt; method. Its role is to launch a named command directly
+from the operating system command line. SeedStack Spring Batch support provides the &lt;code&gt;run-job&lt;/code&gt; command to start a Spring
+Batch job:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;java [java-options] org.seedstack.seed.cli.SeedRunner run-job [run-job-options]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will start the Spring Batch job named &lt;code&gt;job&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;options&#34;&gt;Options&lt;/h2&gt;
+
+&lt;p&gt;A number of options are available for customizing the &lt;code&gt;run-job&lt;/code&gt; command behavior:&lt;/p&gt;
+
+&lt;table class=&#34;table table-striped&#34;&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;th&gt;Short option&lt;/th&gt;
+&lt;th&gt;Long option&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-j&lt;/td&gt;
+&lt;td&gt;--job jobName&lt;/td&gt;
+&lt;td&gt;Specify the job to launch by name (&lt;code&gt;job&lt;/code&gt; by default).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-l&lt;/td&gt;
+&lt;td&gt;--jobLauncher jobLauncherName&lt;/td&gt;
+&lt;td&gt;Specify the job launcher by name (&lt;code&gt;jobLauncher&lt;/code&gt; by default).&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;-P&lt;/td&gt;
+&lt;td&gt;--jobParameters paramName=paramValue&lt;/td&gt;
+&lt;td&gt;Specify a job parameter. Can be used multiple times.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;example&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;Consider the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;java -cp &amp;quot;...&amp;quot; -Dsysprop=sysvalue org.seedstack.seed.cli.SeedRunner run-job --job myJob --jobParameter param1=value1 --jobParameter param2=value2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will execute a Spring Batch job with the following characteristics:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The classpath will be defined by the -cp option of the JVM,&lt;/li&gt;
+&lt;li&gt;A system property &lt;code&gt;sysprop&lt;/code&gt; with the value &lt;code&gt;sysvalue&lt;/code&gt; will be set,&lt;/li&gt;
+&lt;li&gt;The job named &lt;code&gt;myJob&lt;/code&gt; will be executed,&lt;/li&gt;
+&lt;li&gt;Two parameters will be passed to the job: &lt;code&gt;param1&lt;/code&gt; with value &lt;code&gt;value1&lt;/code&gt; and &lt;code&gt;param2&lt;/code&gt; with value &lt;code&gt;value2&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;executable-über-jar&#34;&gt;Executable Über-JAR&lt;/h2&gt;
+
+&lt;p&gt;To run the batch from a unique JAR, you can build the project with the Apache Maven Shade Plugin. This plugin will package
+the artifact as an über JAR with all necessary dependencies. For more information please refer to the plugin
+&lt;a href=&#34;http://maven.apache.org/plugins/maven-shade-plugin/examples/executable-jar.html&#34;&gt;documentation&lt;/a&gt;. You can find a typical
+configuration of the plugin below:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;build&amp;gt;
+    &amp;lt;plugins&amp;gt;
+        &amp;lt;plugin&amp;gt;
+            &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;maven-shade-plugin&amp;lt;/artifactId&amp;gt;
+            &amp;lt;version&amp;gt;...&amp;lt;/version&amp;gt;
+            &amp;lt;configuration&amp;gt;
+                &amp;lt;transformers&amp;gt;
+                    &amp;lt;transformer
+                        implementation=&amp;quot;org.apache.maven.plugins.shade.resource.AppendingTransformer&amp;quot;&amp;gt;
+                        &amp;lt;resource&amp;gt;META-INF/spring.handlers&amp;lt;/resource&amp;gt;
+                    &amp;lt;/transformer&amp;gt;
+
+                    &amp;lt;transformer
+                        implementation=&amp;quot;org.apache.maven.plugins.shade.resource.AppendingTransformer&amp;quot;&amp;gt;
+                        &amp;lt;resource&amp;gt;META-INF/spring.schemas&amp;lt;/resource&amp;gt;
+                    &amp;lt;/transformer&amp;gt;
+
+                    &amp;lt;transformer
+                        implementation=&amp;quot;org.apache.maven.plugins.shade.resource.ManifestResourceTransformer&amp;quot;&amp;gt;
+                        &amp;lt;manifestEntries&amp;gt;
+                            &amp;lt;Main-Class&amp;gt;org.seedstack.seed.cli.SeedRunner&amp;lt;/Main-Class&amp;gt;
+                        &amp;lt;/manifestEntries&amp;gt;
+                    &amp;lt;/transformer&amp;gt;
+
+                    &amp;lt;transformer
+                        implementation=&amp;quot;org.apache.maven.plugins.shade.resource.ServicesResourceTransformer&amp;quot; /&amp;gt;
+                &amp;lt;/transformers&amp;gt;
+            &amp;lt;/configuration&amp;gt;
+            &amp;lt;executions&amp;gt;
+                &amp;lt;execution&amp;gt;
+                    &amp;lt;phase&amp;gt;package&amp;lt;/phase&amp;gt;
+                    &amp;lt;goals&amp;gt;
+                        &amp;lt;goal&amp;gt;shade&amp;lt;/goal&amp;gt;
+                    &amp;lt;/goals&amp;gt;
+                &amp;lt;/execution&amp;gt;
+            &amp;lt;/executions&amp;gt;
+        &amp;lt;/plugin&amp;gt;
+    &amp;lt;/plugins&amp;gt;
+&amp;lt;/build&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;testing&#34;&gt;Testing&lt;/h1&gt;
+
+&lt;p&gt;To be able to do SeedStack integration testing, add the Seed integration test support to your project. Check the
+documentation &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/testing/&#34;&gt;here&lt;/a&gt;. The following example checks that the batch returns
+with the exit code 0 and subsequently that injection works.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import org.seedstack.seed.it.AbstractSeedIT;
+
+public class RunnerBatchIT extends AbstractSeedIT {
+    @Inject
+    MessageService messageService;
+
+    @Test
+    @WithCommandLine(
+        command = &amp;quot;run-job&amp;quot;, 
+        args = {&amp;quot;--job&amp;quot;, &amp;quot;mySimpleJob&amp;quot;}, 
+        expectedExitCode = 0
+    )
+    public void testBatch() {
+        assertThat(messageService).isNotNull();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We could easily use the service (or any injectable class) to check for the batch results. The &lt;code&gt;@WithCommandLine&lt;/code&gt; annotation
+simulates the running of a command from the operating system command line. All the arguments of the &lt;code&gt;run-job&lt;/code&gt; command
+can be used in the &lt;code&gt;args&lt;/code&gt; attribute. Look &lt;a href=&#34;#running-jobs&#34;&gt;here&lt;/a&gt; for information about these arguments.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that the test method is called &lt;strong&gt;after&lt;/strong&gt; the job is completed. &lt;code&gt;@Before&lt;/code&gt; annotated methods are executed after Kernel
+startup (so you can use injection in them) but before job execution (so you can prepare a dataset if needed).&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;full-example&#34;&gt;Full example&lt;/h1&gt;
+
+&lt;p&gt;The goal of this section is to create your first batch. This one-step job will just print “My Simple Job”.&lt;/p&gt;
+
+&lt;h2 id=&#34;add-maven-dependencies&#34;&gt;Add Maven dependencies&lt;/h2&gt;
+
+&lt;p&gt;This example requires &lt;code&gt;business-core&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    &amp;lt;dependency&amp;gt;
+        &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+        &amp;lt;artifactId&amp;gt;spring-batch&amp;lt;/artifactId&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+       &amp;lt;groupId&amp;gt;org.seedstack.business&amp;lt;/groupId&amp;gt;
+       &amp;lt;artifactId&amp;gt;business-core&amp;lt;/artifactId&amp;gt;
+   &amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-the-application-context&#34;&gt;Create the application context&lt;/h2&gt;
+
+&lt;p&gt;We need to set up a Spring Batch environment. Spring files must be in the &lt;code&gt;META-INF/spring&lt;/code&gt; classpath location and end
+with &lt;code&gt;-context.xml&lt;/code&gt; to be automatically detected. The &lt;code&gt;application-context.xml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;beans xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;
+       xmlns:batch=&amp;quot;http://www.springframework.org/schema/batch&amp;quot;
+       xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+       xmlns:seed=&amp;quot;http://www.seedstack.org/xml-schemas/spring-support&amp;quot;
+       xsi:schemaLocation=&amp;quot;http://www.springframework.org/schema/batch
+        http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.seedstack.org/xml-schemas/spring-support
+        http://www.seedstack.org/xml-schemas/spring-support/spring-support-1.1.xsd&amp;quot;&amp;gt;
+
+    &amp;lt;bean id=&amp;quot;jobRepository&amp;quot; class=&amp;quot;org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean&amp;quot;&amp;gt;
+        &amp;lt;property name=&amp;quot;transactionManager&amp;quot; ref=&amp;quot;transactionManager&amp;quot; /&amp;gt;
+    &amp;lt;/bean&amp;gt;
+
+    &amp;lt;bean id=&amp;quot;transactionManager&amp;quot; class=&amp;quot;org.springframework.batch.support.transaction.ResourcelessTransactionManager&amp;quot; /&amp;gt;
+
+    &amp;lt;bean id=&amp;quot;jobLauncher&amp;quot; class=&amp;quot;org.springframework.batch.core.launch.support.SimpleJobLauncher&amp;quot;&amp;gt;
+        &amp;lt;property name=&amp;quot;jobRepository&amp;quot; ref=&amp;quot;jobRepository&amp;quot; /&amp;gt;
+    &amp;lt;/bean&amp;gt;
+&amp;lt;/beans&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Description of the beans:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;JobRepository&lt;/code&gt; : responsible for persistence of batch meta-data information.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;JobLauncher&lt;/code&gt; : responsible for launching the batch job.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;TransactionManager&lt;/code&gt; : As this example won’t be dealing with transactional data, we are using &lt;code&gt;ResourcelessTransactionManager&lt;/code&gt;
+which is mainly used for testing purpose. &lt;strong&gt;Don&amp;rsquo;t use in production&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;create-the-service&#34;&gt;Create the service&lt;/h2&gt;
+
+&lt;p&gt;We will create a service that will be injected directly in a Spring Batch tasklet. The service interface:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.myorg.myapp.domain.services;
+
+import org.seedstack.seed.business.api.Service;
+
+@Service
+public interface MessageService {
+    public String getMessage();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The service implementation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.myorg.myapp.infrastructure.services;
+
+import org.myorg.myapp.domain.services.MessageService;
+
+public class MessageServiceImpl implements MessageService {
+
+    public String getMessage() {
+        return &amp;quot;--- My Simple Job ----&amp;quot;;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;create-the-tasklet&#34;&gt;Create the Tasklet&lt;/h2&gt;
+
+&lt;p&gt;A tasklet is a Class containing custom logic to be ran as a part of a job. &lt;code&gt;PrintTasklet&lt;/code&gt; is our custom tasklet which
+implements &lt;code&gt;Tasklet&lt;/code&gt; interface and overrides the &lt;code&gt;execute()&lt;/code&gt; method which prints the message from &lt;code&gt;MessageService&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.seedstack.seed.batch.tasklet;
+
+import org.springframework.batch.core.StepContribution;
+import org.springframework.batch.core.scope.context.ChunkContext;
+import org.springframework.batch.core.step.tasklet.Tasklet;
+import org.springframework.batch.repeat.RepeatStatus;
+
+import org.seedstack.seed.service.MessageService;
+
+public class PrintTasklet implements Tasklet {
+
+    private MessageService messageService;
+    private Logger logger = LoggerFactory.getLogger(PrintTasklet.class);
+
+    public RepeatStatus execute(StepContribution contribution,
+            ChunkContext chunkContext) throws Exception {
+        logger.info(messageService.getMessage());
+        return RepeatStatus.FINISHED;
+    }
+
+    public MessageService getMessageService() {
+        return messageService;
+    }
+
+    public void setMessageService(MessageService messageService) {
+        this.messageService = messageService;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;define-the-job-configuration&#34;&gt;Define the job Configuration&lt;/h2&gt;
+
+&lt;p&gt;In this section we will configure the Spring Batch job context to use our Tasklet and inject the &lt;code&gt;MessageService&lt;/code&gt; Service.
+The &lt;code&gt;job-context.xml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;beans xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot;
+       xmlns:batch=&amp;quot;http://www.springframework.org/schema/batch&amp;quot;
+       xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+       xmlns:seed=&amp;quot;http://www.seedstack.org/xml-schemas/spring-support&amp;quot;
+       xsi:schemaLocation=&amp;quot;http://www.springframework.org/schema/batch
+        http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.seedstack.org/xml-schemas/spring-support
+        http://www.seedstack.org/xml-schemas/spring-support/spring-support-1.1.xsd&amp;quot;&amp;gt;
+
+    &amp;lt;import resource=&amp;quot;application-context.xml&amp;quot;/&amp;gt;
+
+    &amp;lt;batch:job id=&amp;quot;mySimpleJob&amp;quot;&amp;gt;        
+        &amp;lt;batch:step id=&amp;quot;printStep&amp;quot; &amp;gt;
+            &amp;lt;batch:tasklet&amp;gt;
+                &amp;lt;bean class=&amp;quot;org.seedstack.seed.batch.tasklet.PrintTasklet&amp;quot;&amp;gt;
+                    &amp;lt;property name=&amp;quot;messageService&amp;quot;&amp;gt;
+                        &amp;lt;seed:instance class=&amp;quot;org.seedstack.seed.service.MessageService&amp;quot;/&amp;gt;
+                    &amp;lt;/property&amp;gt;                        
+                &amp;lt;/bean&amp;gt;
+            &amp;lt;/batch:tasklet&amp;gt;
+        &amp;lt;/batch:step&amp;gt;        
+    &amp;lt;/batch:job&amp;gt;
+&amp;lt;/beans&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The example above illustrates the basic structure of a job. A job (&lt;code&gt;&amp;lt;batch:joby&amp;gt;&lt;/code&gt; tag) is made of steps (&lt;code&gt;&amp;lt;batch:step&amp;gt;&lt;/code&gt;
+tag) with a Tasklet (&lt;code&gt;&amp;lt;batch:tasklet&amp;gt;&lt;/code&gt; tag) and irelated beans to be injected. Steps are executed one by one following
+their declared order. For more information, please read the &lt;a href=&#34;http://docs.spring.io/spring-batch/reference/html/index.html&#34;&gt;Spring Batch documentation&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Batch monitoring</title>
+      <link>http://seedstack.org/archives/16.7/addons/monitoring/batch/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/monitoring/batch/</guid>
+      <description>
+
+&lt;p&gt;You can use the monitoring add-on batch module to inspect jobs, executions and steps. Execution statistics are also
+provided. To add this module in you project add the following dependency to your Web application:&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-monitoring-monitoring-batch-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-monitoring-monitoring-batch-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-monitoring-monitoring-batch-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.monitoring&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;monitoring-batch&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-monitoring-monitoring-batch-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.1.1&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-monitoring-monitoring-batch-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-monitoring-monitoring-batch-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-monitoring-monitoring-batch-version, #org-seedstack-addons-monitoring-monitoring-batch-warn&#39;).show(); $(&#39;#org-seedstack-addons-monitoring-monitoring-batch-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-monitoring-monitoring-batch-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.monitoring:monitoring-batch:2.1.1&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;This module will provide a REST API to query for batch execution information.
+You can use the UI provided by this add-on or write your own.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;integration&#34;&gt;Integration&lt;/h1&gt;
+
+&lt;p&gt;This module must be configured&lt;/p&gt;
+
+&lt;h2 id=&#34;create-spring-batch-metadata-tables&#34;&gt;Create Spring Batch metadata tables&lt;/h2&gt;
+
+&lt;p&gt;If you don&amp;rsquo;t have already existing Spring Batch tables, you can create them with the SQL scripts that are located in
+the &lt;strong&gt;spring-batch-core&lt;/strong&gt; JAR inside &lt;strong&gt;org.springframework.batch.core&lt;/strong&gt; package.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The tables &lt;em&gt;(BATCH _)&lt;/em&gt; prefix can be changed but this requires a change in two places:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;tablePrefix&lt;/code&gt; property within batch &lt;code&gt;jobRepository&lt;/code&gt; bean configuration.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;table.prefix&lt;/code&gt; property within props &lt;code&gt;[org.seedstack.seed.monitoring.batch.datasource]&lt;/code&gt; section of the Web appplication.&lt;/li&gt;
+&lt;/ul&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;configure-the-datasource&#34;&gt;Configure the datasource&lt;/h2&gt;
+
+&lt;h3 id=&#34;in-a-batch-module&#34;&gt;In a batch module&lt;/h3&gt;
+
+&lt;p&gt;Each batch module must be configured to write its batch execution information to a specified datasource:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;bean id=&amp;quot;jobRepository&amp;quot;
+class=&amp;quot;org.springframework.batch.core.repository.support.JobRepositoryFactoryBean&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;dataSource&amp;quot; ref=&amp;quot;dataSource&amp;quot; /&amp;gt;
+    &amp;lt;property name=&amp;quot;transactionManager&amp;quot; ref=&amp;quot;transactionManager&amp;quot; /&amp;gt;
+    &amp;lt;property name=&amp;quot;databaseType&amp;quot; value=&amp;quot;....&amp;quot;/&amp;gt;
+    &amp;lt;property name=&amp;quot;tablePrefix&amp;quot; value=&amp;quot;.....&amp;quot; /&amp;gt;
+&amp;lt;/bean&amp;gt;
+
+&amp;lt;bean id=&amp;quot;dataSource&amp;quot;
+class=&amp;quot;org.apache.commons.dbcp.BasicDataSource&amp;quot; destroy-method=&amp;quot;close&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;driverClassName&amp;quot; value=&amp;quot;.....&amp;quot; /&amp;gt;
+    &amp;lt;property name=&amp;quot;url&amp;quot; value=&amp;quot;.....&amp;quot; /&amp;gt;
+    &amp;lt;property name=&amp;quot;username&amp;quot; value=&amp;quot;....&amp;quot; /&amp;gt;
+    &amp;lt;property name=&amp;quot;password&amp;quot; value=&amp;quot;....&amp;quot; /&amp;gt;
+&amp;lt;/bean&amp;gt;
+
+&amp;lt;bean id=&amp;quot;transactionManager&amp;quot;
+class=&amp;quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;dataSource&amp;quot; ref=&amp;quot;dataSource&amp;quot; /&amp;gt;
+&amp;lt;/bean&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;in-a-web-module&#34;&gt;In a Web module&lt;/h3&gt;
+
+&lt;p&gt;The Web module should be configured to access the same datasource as your batch jobs. It will use the tables to fetch
+and display batch execution information.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.batch.monitoring.datasource]
+driver=
+url=
+user=
+password=
+table.prefix=
+pool.size=
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.batch.monitoring.datasource]
+driver= oracle.jdbc.OracleDriver
+url=jdbc:oracle:thin:@TEST:1521:test
+user=test
+password=test
+table.prefix=BATCH_
+pool.size=6
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;security&#34;&gt;Security&lt;/h2&gt;
+
+&lt;p&gt;All batch monitoring REST resources are secured with permissions. These permissions have to be bound
+to application &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/security/&#34;&gt;roles&lt;/a&gt; in order to allow access to the user interface. In the configuration
+file of your web application:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.security.permissions]
+monitoring = seed:monitoring:batch:read
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ConfigurationRealm example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.security.users]
+jane = password, SEED.MONITORING
+admin = password, SEED.MONITORING
+
+[org.seedstack.seed.security.roles]
+monitoring = SEED.MONITORING
+
+[org.seedstack.seed.security.permissions]
+monitoring = seed:monitoring:batch:read
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;usage&#34;&gt;Usage&lt;/h1&gt;
+
+&lt;p&gt;By default, all views are loaded at once with current available data. The &amp;laquo;Update&amp;raquo; button allows
+to force a refresh data every 5 seconds when clicked (red).&lt;/p&gt;
+
+&lt;h2 id=&#34;jobs-detail&#34;&gt;Jobs detail&lt;/h2&gt;
+
+&lt;p&gt;The &amp;laquo;Jobs detail&amp;raquo; view allows a user to inspect jobs that are known to the system (ie. monitoring
+data in same DB tables set):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/jobsDetails.png&#34; alt=&#34;Jobs&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;job-executions-detail&#34;&gt;Job executions detail&lt;/h2&gt;
+
+&lt;p&gt;The &amp;laquo;Job executions detail&amp;raquo; view shows all jobs executions ordered by date (descending order)
+and a brief summary of their status (&lt;em&gt;STARTED, COMPLETED, FAILED&lt;/em&gt;, etc.).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/jobExecutions.png&#34; alt=&#34;Executions&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;steps-detail&#34;&gt;Steps detail&lt;/h2&gt;
+
+&lt;p&gt;The &amp;laquo;Steps detail&amp;raquo; view offers two kinds of feedback:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;global feedback: A list of all steps and their average time consumption (ms) across all past
+job executions as a bar chart. this provides a statistical feel of global performance characteristics.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;For example, a developer running a job in an integration test environment might use the statistics
+here to compare different configurations of a job in order to optimize those (eg. commit interval in
+an item processing step).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+&lt;li&gt;steps feedback: Upon selection of a step in the list (first step selected by default), the bottom
+part of the screen gives detail on this step with a progression bar and figures about read/write/commit/rollback.
+For more details, this section also provides &lt;strong&gt;View full detail&lt;/strong&gt; and &lt;strong&gt;View history&lt;/strong&gt; buttons.
+Corresponding views are described below.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/stepsDetails.png&#34; alt=&#34;Steps&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;step-full-detail&#34;&gt;Step full detail&lt;/h2&gt;
+
+&lt;p&gt;The &amp;laquo;Step detail&amp;raquo; view has the detailed meta-data for the step (status, read count, write count,
+ commit count, skip count, etc.) as well as an extract of the stacktrace from any exception that
+ caused a failure of the step (&lt;strong&gt;statusExitDescription&lt;/strong&gt; value).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/stepDetails.png&#34; alt=&#34;Step details&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;step-history&#34;&gt;Step history&lt;/h2&gt;
+
+&lt;p&gt;The &amp;laquo;Step history&amp;raquo; view shows the history of the execution of this step across all job executions
+(eg. max, min and average of commit/rollback/read/write counts&amp;hellip;).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/history.png&#34; alt=&#34;Step history&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

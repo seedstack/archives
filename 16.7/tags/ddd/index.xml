@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/ddd/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/ddd/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Bibliography</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/bibliography/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/bibliography/</guid>
+      <description>
+
+&lt;p&gt;To go beyond what is described in this documentation, we recommend a few books which will help you to better understand
+DDD, independently of the business framework.&lt;/p&gt;
+
+&lt;h1 id=&#34;eric-evans-domain-driven-design&#34;&gt;Eric Evans: Domain-Driven Design&lt;/h1&gt;
+
+
+&lt;figure class=&#34;img-thumbnail pull-right&#34;&gt;
+    
+        &lt;img src=&#34;img/book_ddd.jpg&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;This is the original book of Domain-Driven Design, the one which introduced this approach to the world.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215/&#34;&gt;Buy it online&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div style=&#34;clear: both;&#34;&gt;&lt;/div&gt;
+
+&lt;h1 id=&#34;vaughn-vernon-implementing-domain-driven-design&#34;&gt;Vaughn Vernon: Implementing Domain-Driven Design&lt;/h1&gt;
+
+
+&lt;figure class=&#34;img-thumbnail pull-right&#34;&gt;
+    
+        &lt;img src=&#34;img/book_implementing_ddd.jpg&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;This books builds upon the one from Eric Evans and a decade of DDD experience to provide concrete guidance on
+implementing the DDD in real-world projects. This book is a must-read for anybody looking to put DDD into practice.
+It also addresses the use of DDD in relation to popular architectural styles like REST.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.amazon.com/Implementing-Domain-Driven-Design-Vaughn-Vernon/dp/0321834577&#34;&gt;Buy it online&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div style=&#34;clear: both;&#34;&gt;&lt;/div&gt;
+
+&lt;h1 id=&#34;abel-avram-floyd-marinescu-domain-driven-design-quickly&#34;&gt;Abel Avram, Floyd Marinescu: Domain-Driven Design Quickly&lt;/h1&gt;
+
+
+&lt;figure class=&#34;img-thumbnail pull-right&#34;&gt;
+    
+        &lt;img src=&#34;img/book_ddd_quickly.jpg&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;This book is a short, quickly-readable summary and introduction to the fundamentals of DDD; it does not introduce any
+new concepts; it attempts to concisely summarize the essence of what DDD is, drawing mostly Eric Evans&amp;rsquo; original book,
+as well other sources since published such as Jimmy Nilsson&amp;rsquo;s Applying Domain Driven Design, and various DDD discussion
+forums. The main topics covered in the book include: Building Domain Knowledge, The Ubiquitous Language, Model Driven
+Design, Refactoring Toward Deeper Insight, and Preserving Model Integrity.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.infoq.com/resource/minibooks/domain-driven-design-quickly/en/pdf/DomainDrivenDesignQuicklyOnline.pdf&#34;&gt;Free PDF version&lt;/a&gt;, also available in &lt;a href=&#34;http://blog.infosaurus.fr/public/docs/DDDViteFait.pdf&#34;&gt;french&lt;/a&gt; or in
+&lt;a href=&#34;http://www.infoq.com/resource/minibooks/domain-driven-design-quickly/zh/pdf/dddquickly-chinese-version.pdf&#34;&gt;chinese&lt;/a&gt;. You can also &lt;a href=&#34;http://www.amazon.com/Domain-Driven-Design-Quickly-Abel-Avram/dp/1411609255&#34;&gt;buy a paper version&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div style=&#34;clear: both;&#34;&gt;&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

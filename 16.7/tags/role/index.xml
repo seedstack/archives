@@ -1,0 +1,1200 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/role/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/role/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Security</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/manual/security/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/manual/security/</guid>
+      <description>&lt;p&gt;Seed provides application security through a powerful security model, which is equally easy to configure and to enforce.
+It takes charge of the following tasks:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Identification (provides the identity of a subject),&lt;/li&gt;
+&lt;li&gt;Authentication (verifies the subject identity),&lt;/li&gt;
+&lt;li&gt;Authorization (defines which roles and permissions a subject can have),&lt;/li&gt;
+&lt;li&gt;Access-control (enforces access restrictions to entry-points and/or to any arbitrary code).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To enable security to your project, you need to add the &lt;code&gt;seed-security-core&lt;/code&gt; module. 
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-security-core-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-security-core-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-seed-seed-security-core-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;seed-security-core&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-seed-seed-security-core-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-seed-seed-security-core-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-seed-seed-security-core-show&#34; onclick=&#34;$(&#39;#org-seedstack-seed-seed-security-core-version, #org-seedstack-seed-seed-security-core-warn&#39;).show(); $(&#39;#org-seedstack-seed-seed-security-core-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-seed-seed-security-core-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.seed:seed-security-core:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In a Web application, you may want to enable HTTP-based security by adding the &lt;code&gt;seed-web-security&lt;/code&gt; module. 
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-web-security-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-web-security-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-seed-seed-web-security-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;seed-web-security&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-seed-seed-web-security-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-seed-seed-web-security-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-seed-seed-web-security-show&#34; onclick=&#34;$(&#39;#org-seedstack-seed-seed-web-security-version, #org-seedstack-seed-seed-web-security-warn&#39;).show(); $(&#39;#org-seedstack-seed-seed-web-security-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-seed-seed-web-security-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.seed:seed-web-security:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The internal security engine is &lt;a href=&#34;http://shiro.apache.org/&#34;&gt;Apache Shiro&lt;/a&gt;. Seed provides additional benefits on top of Shiro
+such as:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Easy, unified configuration.&lt;/li&gt;
+&lt;li&gt;Built-in security realms such as LDAP, X509 certificate or configuration-based.&lt;/li&gt;
+&lt;li&gt;A plugin mechanism to dynamically register additional entry point security.&lt;/li&gt;
+&lt;li&gt;Security scopes which restrict roles and permissions to specified scopes, like a geographical area.&lt;/li&gt;
+&lt;li&gt;Data security which can nullify or obfuscate object attributes based on subject authorizations.&lt;/li&gt;
+&lt;/ul&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;definitions&#34;&gt;Definitions&lt;/h1&gt;
+
+&lt;h2 id=&#34;subject&#34;&gt;Subject&lt;/h2&gt;
+
+&lt;p&gt;A &lt;em&gt;subject&lt;/em&gt; is defined as any entity that request access to an &lt;em&gt;object&lt;/em&gt;. For instance, subject are often end-users which
+request to access a specific resource through a User-Interface. But subjects can really be anything like a remote computer
+or a local program.&lt;/p&gt;
+
+&lt;h2 id=&#34;principal&#34;&gt;Principal&lt;/h2&gt;
+
+&lt;p&gt;A &lt;em&gt;principal&lt;/em&gt; is a defining characteristic of a subject that can be uniquely identified, like an identifier, a name,
+a social-security number, a language, etc&amp;hellip;&lt;/p&gt;
+
+&lt;h2 id=&#34;user&#34;&gt;User&lt;/h2&gt;
+
+&lt;p&gt;A &lt;em&gt;user&lt;/em&gt; is a specific kind of subject that is defined by principals usually referring to a human operator, like a name
+or a user-identifier.&lt;/p&gt;
+
+&lt;h2 id=&#34;identification&#34;&gt;Identification&lt;/h2&gt;
+
+&lt;p&gt;Identification is the process of uniquely tracking a subject across its interactions with the system.&lt;/p&gt;
+
+&lt;h2 id=&#34;authentication&#34;&gt;Authentication&lt;/h2&gt;
+
+&lt;p&gt;Authentication is the process of verifying the subject identity by validating a proof of identity. This is usually done
+by submitting a principal identifying the subject (like a user-identifier) and a proof of identity that the system
+understands and trusts, such as a password, a certificate or any other mean.&lt;/p&gt;
+
+&lt;h2 id=&#34;authorization&#34;&gt;Authorization&lt;/h2&gt;
+
+&lt;p&gt;Authorization is the process of determining an access policy for a subject. This is done by compiling all granted rights
+into an access policy.&lt;/p&gt;
+
+&lt;h2 id=&#34;access-control&#34;&gt;Access control&lt;/h2&gt;
+
+&lt;p&gt;Access control is the process of verifying the authorizations of a subject relative to an object. It enforces the policy
+that is used to determine &lt;em&gt;who&lt;/em&gt; has access to &lt;em&gt;what&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;model&#34;&gt;Model&lt;/h1&gt;
+
+&lt;p&gt;Seed provides a security meta-model that is easy to understand yet powerful enough for the most complex applications. This
+meta-model revolves around three main concepts: permissions, roles and subject. It allows to define a fine-grained and
+modular security policy.&lt;/p&gt;
+
+&lt;h2 id=&#34;permissions&#34;&gt;Permissions&lt;/h2&gt;
+
+&lt;p&gt;Permissions are the most atomic elements of a security policy. They describe concrete actions and represent what can
+be done in an application. A well-formed permission statement describes one or more resource(s) and what actions are
+possible when a subject interacts with those resources. Consider the following examples of permissions:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Open a file,&lt;/li&gt;
+&lt;li&gt;Print a document,&lt;/li&gt;
+&lt;li&gt;Access the &lt;code&gt;/products&lt;/code&gt; Web resource,&lt;/li&gt;
+&lt;li&gt;Delete an order.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;CRUD actions can frequently be found in permissions but any meaningful verb can be used. The fundamental idea is that
+a permission should combine a resource description with an action description.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Permission statements reflect behavior (actions associated with resource types) only. They do &lt;strong&gt;not&lt;/strong&gt; reflect who is able to
+perform such behavior. Defining who (which subject) can do what (which permission) is done by assigning permission to
+subjects.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;simple-usage&#34;&gt;Simple usage&lt;/h3&gt;
+
+&lt;p&gt;The simplest expression of a permission is a single term String:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;printDocument
+deleteDocument
+viewDocument
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;These permissions represent the ability to &lt;code&gt;print&lt;/code&gt;, &lt;code&gt;delete&lt;/code&gt; or &lt;code&gt;view&lt;/code&gt; a document. This very basic form of permission requires
+to be granted one-by-one or with a &lt;code&gt;*&lt;/code&gt; wildcard, which will grant all the permissions of the application. This may work
+in the simplest applications but it is not recommended. The &lt;em&gt;multi-level&lt;/em&gt; permissions should be preferred.&lt;/p&gt;
+
+&lt;h3 id=&#34;multi-level&#34;&gt;Multi-level&lt;/h3&gt;
+
+&lt;p&gt;Instead of expressing the permission as a single term, a multi-level permission can be used:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;document:print
+document:delete
+document:view
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The colon (&lt;code&gt;:&lt;/code&gt;) is a special character that is used to delimit the different parts of a multi-level permission. There
+are no enforced requirements on how a multi-level permission should be organized, but it is recommended to go from the most
+general to the most specific, from left to right. Also, there is no limit to the number of parts.&lt;/p&gt;
+
+&lt;h3 id=&#34;multiple-values&#34;&gt;Multiple values&lt;/h3&gt;
+
+&lt;p&gt;Each part can contain multiple values, separated by commas (&lt;code&gt;,&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;document:print,view
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When assigning this permission to a subject, this grants the ability to &lt;code&gt;print&lt;/code&gt; and &lt;code&gt;view&lt;/code&gt; documents.&lt;/p&gt;
+
+&lt;h3 id=&#34;all-values&#34;&gt;All values&lt;/h3&gt;
+
+&lt;p&gt;To grant all permissions of a specific level, use the &lt;code&gt;*&lt;/code&gt; wildcard character:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;document:*
+*:view
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The first permission, when assigned to a subject, allow to do any action on documents (meaning that any permission check
+of the &lt;code&gt;document:XXX&lt;/code&gt; pattern will be granted). The second permission grants the view action on all application resources
+(meaning that any permission check of the &lt;code&gt;XXX:view&lt;/code&gt; pattern will be granted).&lt;/p&gt;
+
+&lt;h3 id=&#34;instance-level-checks&#34;&gt;Instance-level checks&lt;/h3&gt;
+
+&lt;p&gt;The identifier of a specific instance can be used at the end of a permission:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;document:print:doc273
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This permission allows to print the document identified by the &lt;code&gt;doc273&lt;/code&gt; identifier.&lt;/p&gt;
+
+&lt;h3 id=&#34;missing-parts&#34;&gt;Missing parts&lt;/h3&gt;
+
+&lt;p&gt;Missing parts in permissions imply that the user has access to all values corresponding to that part:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;printer:print
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This permission is equivalent to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;printer:print:*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that you can only leave off parts from the &lt;em&gt;end&lt;/em&gt; of the permission.&lt;/p&gt;
+
+&lt;h2 id=&#34;roles&#34;&gt;Roles&lt;/h2&gt;
+
+&lt;p&gt;A Role is a named entity that typically represents a set of behaviors or responsibilities. Those behaviors translate to
+things you can or can&amp;rsquo;t do with an application. Roles are typically assigned to subject like user accounts, so by
+association, subjects can &lt;em&gt;do&lt;/em&gt; the things attributed to various roles. There are two kinds of roles that can be used:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Implicit roles&lt;/strong&gt;: nothing is explicitly expressed in the application to assign permissions to implicit roles. The
+allowed behavior is implicitly derived from the role name only. For instance the &lt;code&gt;admin&lt;/code&gt; role can do any administration
+task and those administration task are protected by a checking if the subject has the &lt;code&gt;admin&lt;/code&gt; role. This kind of role,
+while superficially simpler, is &lt;strong&gt;strongly discouraged&lt;/strong&gt;. Adding, removing or redefining such roles later in the life of
+an application will be difficult, costly and may lead to holes in the security model.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Explicit roles&lt;/strong&gt;: they are expressed as a named collection of actual permissions. In this form, the allowed behavior
+is explicitly defined and the code only contains specific permission checks which directly relates to the code behavior.
+Altering the security model later in the life of an application will be easy and won&amp;rsquo;t require to change existing code
+with the potential security implications. This kind of role, is &lt;strong&gt;recommended&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;subjects&#34;&gt;Subjects&lt;/h2&gt;
+
+&lt;p&gt;Subjects represent the entity which executes actions on the application. The most common type of subject is the &lt;code&gt;User&lt;/code&gt;
+type, which represents a human operator interacting with the application. Subjects are allowed to perform certain actions
+in your application through their association with roles or direct permissions. Assigning roles and permissions to subjects
+is done through a &lt;code&gt;Realm&lt;/code&gt; implementation.&lt;/p&gt;
+
+&lt;h2 id=&#34;realms&#34;&gt;Realms&lt;/h2&gt;
+
+&lt;p&gt;A realm implementation role is to translate a specific data-model, like an LDAP directory or a set of database tables,
+into a security policy expressed with the security meta-model described above. Seed provides several predefined realms:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;ConfigurationRealm&lt;/code&gt; which computes the security policy from specific properties in the application configuration.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;X509CertificateRealm&lt;/code&gt; which computes the security policy from an X509 certificate.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;LdapRealm&lt;/code&gt; which computes the security policy from requests to a configured LDAP directory. This realm is available
+in the &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/ldap/&#34;&gt;LDAP add-on&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Custom realms can be implemented to compute any data-model into an enforceable security policy.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;Beyond defining the security model of the application, the security infrastructure must be configured.&lt;/p&gt;
+
+&lt;h2 id=&#34;realm-configuration&#34;&gt;Realm configuration&lt;/h2&gt;
+
+&lt;p&gt;A Realm is a component that can access specific security data such as users, roles, and permissions. The Realm translates
+this specific data into a format that is understood by the security engine. There is usually a 1-to-1 relation between
+a realm and a datasource, such as an LDAP directory, a set of relational tables or configuration properties.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Most of the security datasources usually store both authentication and authorization data, so a realm can perform both
+the authentication and authorization tasks.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;To specify the realm(s) to enable, use the following configuration property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.seed.security.realms = list of realms to use
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The realm name correspond to the simple name of the Java class that implements the realm. For instance to enable the
+LDAP realm (which is implemented in the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;ldap.&amp;amp;#8203;internal.&amp;amp;#8203;realms.&amp;amp;#8203;LDAPRealm&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/ldap/internal/realms/LDAPRealm.html&#39;&gt;LDAPRealm&lt;/a&gt;&lt;/code&gt; Java class), use
+the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.seed.security.realms = LdapRealm
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If the property is not specified, the default realm is &lt;code&gt;ConfigurationRealm&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that you can specify multiple realms. In that case the realms are tried in sequence and if at least one realm
+successfully authenticates the subject, the overall attempt is considered successful. If none authenticate successfully,
+the attempt fails. The data from all the successful realms are merged.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;configuration-realm&#34;&gt;Configuration realm&lt;/h3&gt;
+
+&lt;p&gt;This realm relies on the application configuration to authenticate subject and retrieve their roles. It is mainly intended
+to be used for testing purposes. To declare subjects (called users in this realm), use the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.security.users]
+user1 = password, role1, role2
+user2 = password, role3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will define two subjects, &lt;code&gt;user1&lt;/code&gt; and &lt;code&gt;user2&lt;/code&gt; with their respective passwords and roles.&lt;/p&gt;
+
+&lt;h3 id=&#34;x509-realm&#34;&gt;X509 realm&lt;/h3&gt;
+
+&lt;p&gt;This realm, which is intended to be used in a Web context, uses the certificates authorized by the Web server when an SSL
+connection is in use. It stores the certificates in the user principals as well as the UID declared in the certificate.
+It also uses the CN of the issuer of the certificates to define the basic roles of the user.&lt;/p&gt;
+
+&lt;h3 id=&#34;ldap-realm&#34;&gt;LDAP realm&lt;/h3&gt;
+
+&lt;p&gt;Check the &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/ldap/&#34;&gt;LDAP add-on documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;role-permission-resolver&#34;&gt;Role/permission resolver&lt;/h2&gt;
+
+&lt;p&gt;There is a role/permission resolver component per Realm. It resolves the Permissions assigned to a Role and provides them
+to the Realm. To attach a role/permission resolver to a Realm, use the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.seed.security.&amp;lt;RealmName&amp;gt;.role-permission-resolver = ConfigurationRolePermissionResolver
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Where &lt;code&gt;&amp;lt;RealmName&amp;gt;&lt;/code&gt; corresponds to the name of the Realm this role/permission resolver is mapped to. The value corresponds
+to the simple name of the implementing Java class. When no resolver is specified, the configuration-based role/permission
+resolver is used.&lt;/p&gt;
+
+&lt;h3 id=&#34;configuration-based-role-permission&#34;&gt;Configuration-based role/permission&lt;/h3&gt;
+
+&lt;p&gt;This role/permission resolver uses the application configuration to do resolution. You can assign permissions to roles
+with the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.security.permissions]
+role1 = permission1a:permission1b, permission2a:permission2b
+role2 = permission3, permission4a:permission4b
+role3 = permission5
+role4 = permission6
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This configuration assign permissions listed in values to their respective roles as keys. This is the default role/permission
+resolver.&lt;/p&gt;
+
+&lt;h2 id=&#34;role-mapping&#34;&gt;Role mapping&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Optionally&lt;/strong&gt;, roles provided by realms can be mapped to application-specific roles. To do this, a role mapping component
+should be defined in configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.seed.security.&amp;lt;RealmName&amp;gt;.role-mapping = ConfigurationRoleMapping
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Where &lt;code&gt;&amp;lt;RealmName&amp;gt;&lt;/code&gt; corresponds to the name of the Realm this role mapping component is mapped to. The value corresponds
+to the simple name of the implementing Java class. When no mapping is specified, the configuration-based role mapping
+is used.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;When no role mapping is specified, the roles provided by realms are directly used as application roles.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;configuration-based-role-mapping&#34;&gt;Configuration-based role mapping&lt;/h3&gt;
+
+&lt;p&gt;This role mapping uses the application configuration to do the mapping:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.security.roles]
+role1 = ORG.APP.ROLE1, ORG.GLOBAL.ADMIN
+role2 = ORG.APP.ROLE2
+role3 = ORG.APP.{location}.ROLE3
+role4 = *
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This configuration defines the following mappings:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Application-role &lt;code&gt;role1&lt;/code&gt; is attributed to the subject when the realm provides &lt;code&gt;ORG.APP.ROLE1&lt;/code&gt; &lt;strong&gt;OR&lt;/strong&gt; &lt;code&gt;ORG.GLOBAL.ADMIN&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Application-role &lt;code&gt;role2&lt;/code&gt; is attributed to the subject when the realm provides &lt;code&gt;ORG.APP.ROLE2&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Application-role &lt;code&gt;role3&lt;/code&gt; is attributed to the subject when the realm provides &lt;code&gt;ORG.APP.FR.ROLE3&lt;/code&gt;, where &lt;code&gt;FR&lt;/code&gt; is converted
+into a security scope. As such a scoped &lt;code&gt;role3&lt;/code&gt; is attributed to the subject, which is only valid in &lt;code&gt;FR&lt;/code&gt; location.&lt;/li&gt;
+&lt;li&gt;Application-role &lt;code&gt;role4&lt;/code&gt; is attributed to every subject authenticated.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following example is based on the defaults: a &lt;code&gt;ConfigurationRealm&lt;/code&gt;, a &lt;code&gt;ConfigurationRolePermissionResolver&lt;/code&gt; and a &lt;code&gt;ConfigurationRoleMapping&lt;/code&gt;. Their declaration is optional but present here for clarity. You may want to replace each by a more suitable component, especially the &lt;code&gt;ConfigurationRealm&lt;/code&gt; which uses the configuration as its users repository.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.security]
+realms = ConfigurationRealm
+ConfigurationRealm.role-mapping = ConfigurationRoleMapping
+ConfigurationRealm.role-permission-resolver = ConfigurationRolePermissionResolver
+
+[org.seedstack.seed.security.users]
+admin = password1, APP.ADMIN
+user1 = password2, APP.FR.MANAGER, APP.UK.MANAGER
+user2 = password3, APP.BASIC
+
+[org.seedstack.seed.security.roles]
+admin = APP.ADMIN
+manager = APP.ADMIN, APP.{location}.MANAGER
+normal = APP.ADMIN, APP.BASIC
+guest = *
+
+[org.seedstack.seed.security.permissions]
+admin = users:clear, cache:invalidate
+manager = users:delete, users:create
+normal = users:list
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Application-roles (&lt;code&gt;admin&lt;/code&gt;, &lt;code&gt;manager&lt;/code&gt;, &lt;code&gt;normal&lt;/code&gt; and &lt;code&gt;guest&lt;/code&gt;) are attributed to a subject if it has &lt;strong&gt;at least one&lt;/strong&gt; of the corresponding realm roles (&lt;code&gt;APP.ADMIN&lt;/code&gt;, &lt;code&gt;APP.FR.MANAGER&lt;/code&gt; , &lt;code&gt;APP.UK.MANAGER&lt;/code&gt;, &lt;code&gt;APP.BASIC&lt;/code&gt;). For instance, having the &lt;code&gt;APP.ADMIN&lt;/code&gt; realm role is enough to have the &lt;code&gt;manager&lt;/code&gt; application-role.&lt;/li&gt;
+&lt;li&gt;Subject &lt;code&gt;user1&lt;/code&gt; will only have the &lt;code&gt;users:delete&lt;/code&gt; and &lt;code&gt;users:create&lt;/code&gt; permissions on &lt;code&gt;FR&lt;/code&gt; and &lt;code&gt;UK&lt;/code&gt; locations.&lt;/li&gt;
+&lt;li&gt;Subject &lt;code&gt;admin&lt;/code&gt; will have the &lt;code&gt;users:delete&lt;/code&gt; and &lt;code&gt;users:create&lt;/code&gt; permissions everywhere (no location restriction).&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;guest&lt;/code&gt; application-role will be attributed to every identified subject.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;usage&#34;&gt;Usage&lt;/h1&gt;
+
+&lt;p&gt;Access policy enforcement is achieved by using the Seed security API to protect specific sections of the application code.
+Any code can be secured, although restrictions may apply in some cases.&lt;/p&gt;
+
+&lt;h2 id=&#34;enforcement-strategy&#34;&gt;Enforcement strategy&lt;/h2&gt;
+
+&lt;p&gt;It is recommended to follow a well-defined strategy in placing security checks in application code. Failing to do so may
+lead to unexpected security holes, as &lt;em&gt;one missing or incomplete check may be enough to compromise the entire application&lt;/em&gt;.
+Any well thought-out strategy will do, but you can consider applying one of the following (or both):&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Entry-point security&lt;/strong&gt;. This strategy consists in only securing the code that allow to interact with the application.
+This includes REST resources, servlets and filters, Web-Services, administrative commands, etc&amp;hellip; Any applicative code
+can theoretically only be reached through one of these entry points, so this strategy may be enough for most
+applications.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;In-depth security&lt;/strong&gt;. This strategy consists in independently securing each application behavior, regardless of its
+depth in the call hierarchy. This includes all the entry points of the previous strategy as well as services, repositories,
+finders, etc&amp;hellip; It ensures that no behavior can be executed without the appropriate authorizations, regardless how it is
+accessed. This strategy provides higher security, especially in applications with a lot of entry points or when entry
+points are often modified, but is costlier to implement. This cost can be mitigated by limiting the checks to critical
+application behavior only.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;annotation-based-checks&#34;&gt;Annotation-based checks&lt;/h2&gt;
+
+&lt;p&gt;There are two annotations that checks for authorizations before allowing method execution:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;@RequiresRoles&lt;/code&gt; which checks that the current subject has one or more role(s) before allowing to execute the method.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;@RequiresPermissions&lt;/code&gt; which checks that the current subject has one or more permission(s) before allowing to execute
+the method.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;When the security check fails, an exception of type &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;security.&amp;amp;#8203;AuthorizationException&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/security/AuthorizationException.html&#39;&gt;AuthorizationException&lt;/a&gt;&lt;/code&gt;
+is thrown.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that these annotation-based security checks are implemented with &lt;strong&gt;method interception&lt;/strong&gt; and are subject to
+&lt;strong&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/#method-interception&#34;&gt;its limitations&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Examples:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@RequiresRoles(&amp;quot;administrator&amp;quot;)
+public void deleteUser(User user) {
+    // This method is executed only if current subject has role &#39;administrator&#39;
+    // When not, an AuthorizationException is thrown
+}
+
+@RequiresPermissions(&amp;quot;account:create&amp;quot;)
+public void createAccount(Account account) {
+    // This method is executed only if current subject has permission &#39;account:create&#39;
+    // When not, an AuthorizationException is thrown
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;programmatic-checks&#34;&gt;Programmatic checks&lt;/h2&gt;
+
+&lt;p&gt;If annotation-based security checks cannot be used, or if an programmatic style is preferred, the
+&lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;security.&amp;amp;#8203;SecuritySupport&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/security/SecuritySupport.html&#39;&gt;SecuritySupport&lt;/a&gt;&lt;/code&gt; facade can be used. It provides various methods to explicitly check for
+current subject authorizations. It is more versatile than annotation-based checks and it is required when checking
+dynamically generated authorizations. To use it, simply inject it where needed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private SecuritySupport securitySupport;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To check if the current subject, if any, is authenticated:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (securitySupport.isAuthenticated()) {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To check if the current subject, if any, has a specific role:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (securitySupport.hasRole(&amp;quot;jedi&amp;quot;)) {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To check if the current subject, if any, has a specific permission:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (securitySupport.isPermitted(&amp;quot;jediCouncil:attend&amp;quot;)) {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;There are multiple variations for each of these methods, and many more possibilities. Please refer to the
+&lt;a href=&#34;http://seedstack.org/archives/16.7/javadoc/org/seedstack/seed/security/api/SecuritySupport.html&#34;&gt;javadoc&lt;/a&gt; for more information.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;other-checks&#34;&gt;Other checks&lt;/h2&gt;
+
+&lt;p&gt;Seed security can provide additional ways to verify security depending on the technology used to access the application.
+For instance, in a Web application, HTTP requests can be filtered to execute security tasks or checks. For more information
+about applying HTTP security filtering, refer to &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/web/#security&#34;&gt;this documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;access-subject-principals&#34;&gt;Access subject principals&lt;/h2&gt;
+
+&lt;p&gt;Note that &lt;code&gt;SecuritySupport&lt;/code&gt; provides access to current subject Principals:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Get current subject id
+securitySupport.getSimplePrincipalByName(Principals.IDENTITY).getValue();
+
+// Get current subject first name, if any
+securitySupport.getSimplePrincipalByName(Principals.FIRST_NAME).getValue();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;extension&#34;&gt;Extension&lt;/h1&gt;
+
+&lt;p&gt;As Seed security is based on &lt;a href=&#34;http://shiro.apache.org&#34;&gt;Apache Shiro&lt;/a&gt;, it can be extended by adding existing Shiro components
+or by writing your own components. Seed also provides SPI to extend its own security features.&lt;/p&gt;
+
+&lt;h2 id=&#34;creating-a-realm&#34;&gt;Creating a Realm&lt;/h2&gt;
+
+&lt;p&gt;You can create a custom Realm by following these steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create a class that implements &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;apache.&amp;amp;#8203;shiro.&amp;amp;#8203;realm.&amp;amp;#8203;Realm&#39;&gt;Realm&lt;/span&gt;&lt;/code&gt; or extends an existing Shiro realm.&lt;/li&gt;
+&lt;li&gt;Use the realm class simple name as the realm name in the application configuration.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;creating-a-rolepermissionresolver&#34;&gt;Creating a RolePermissionResolver&lt;/h2&gt;
+
+&lt;p&gt;You can create a custom Role/Permission resolver by following these steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create a class that implements &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;apache.&amp;amp;#8203;shiro.&amp;amp;#8203;authz.&amp;amp;#8203;permission.&amp;amp;#8203;RolePermissionResolver&#39;&gt;RolePermissionResolver&lt;/span&gt;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Declare you want to use it on a realm in your properties.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;creating-a-rolemapping&#34;&gt;Creating a RoleMapping&lt;/h2&gt;
+
+&lt;p&gt;You can create a custom Role mapping by following these steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create a class that implements &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;support.&amp;amp;#8203;security.&amp;amp;#8203;core.&amp;amp;#8203;authorization.&amp;amp;#8203;RoleMapping&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/support/security/core/authorization/RoleMapping.html&#39;&gt;RoleMapping&lt;/a&gt;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Declare you want to use it on a realm in your properties.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;testing&#34;&gt;Testing&lt;/h1&gt;
+
+&lt;p&gt;Testing the security model and its implementation is crucial to ensure effective security. This can be easily done with
+Seed through specific integration tests. For a general overview of integration testing, please check
+&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/testing/&#34;&gt;this documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;configuration-1&#34;&gt;Configuration&lt;/h2&gt;
+
+&lt;p&gt;You can choose to fully emulate your security infrastructure, for instance by using an LDAP test directory instead of the
+real one. The main benefit of this approach is that it tests the security effectiveness as closely as possible to the
+real environment. A simpler but still adequate approach is to override the security realm configuration to use a
+&lt;code&gt;ConfigurationRealm&lt;/code&gt; and define test users in application configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.security.users]
+testUser1 = password, role1, role2
+testUser2 = password, role1
+testUser3 = password, role3
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For more information about the Configuration realm, refer to &lt;a href=&#34;#configuration-realm&#34;&gt;this section&lt;/a&gt;.
+For more information on how to override the configuration for testing, refer to &lt;a href=&#34;#override&#34;&gt;this documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;subject-authentication&#34;&gt;Subject authentication&lt;/h2&gt;
+
+&lt;p&gt;To authenticate a subject before a test method is executed, use the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;security.&amp;amp;#8203;WithUser&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/security/WithUser.html&#39;&gt;@WithUser&lt;/a&gt;&lt;/code&gt; annotation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@RunWith(SeedITRunner.class)
+public class MyITWithSecurity {
+    @Inject
+    private SecuritySupport securitySupport;
+
+    @Inject
+    private MySecuredService mySecuredService;
+
+
+    @Test(expected = AuthorizationException)
+    @WithUser(id = &amp;quot;testUser1&amp;quot;, password = &amp;quot;password&amp;quot;)
+    public void unprivileged_user_cannot_access_secured_service() {
+        mySecuredService.securedMethod();
+        fail(&amp;quot;securedMethod() shouldn&#39;t have been called&amp;quot;);
+    }
+
+    @Test
+    @WithUser(id = &amp;quot;testUser3&amp;quot;, password = &amp;quot;password&amp;quot;)
+    public void admin_user_is_allowed_to_access_secured_service() {
+        mySecuredService.securedMethod();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;data-security&#34;&gt;Data security&lt;/h1&gt;
+
+&lt;p&gt;The goal of the security on data is to protect the data exposed by an application. It has the ability to obfuscate any
+attribute of any object that does not pass the security restriction defined on it. For instance, an account number
+&lt;code&gt;79927391338710&lt;/code&gt; can be transformed into &lt;code&gt;799273******10&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;restriction-annotation&#34;&gt;@Restriction annotation&lt;/h2&gt;
+
+&lt;p&gt;This annotation can be applied on any class attribute. The field value will be obfuscated when data security will be applied:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MySecuredPojo {
+    @Restriction(value = &amp;quot;${ hasRole(&#39;manager&#39;) }&amp;quot;, obfuscation = AccountObfuscationHandler.class)
+    private String accountNumber;
+
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The value of the annotation is a security expression (see &lt;a href=&#34;#security-expressions&#34;&gt;this section&lt;/a&gt; for more details). If it
+evaluates to false against the current Subject the field will be obfuscated according to the &lt;code&gt;DataObfuscationHandler&lt;/code&gt;
+specified (see &lt;a href=&#34;#dataobfuscationhandler&#34;&gt;this section&lt;/a&gt; for more details). The default obfuscation handler nullifies the
+field.&lt;/p&gt;
+
+&lt;h2 id=&#34;data-security-service&#34;&gt;Data security service&lt;/h2&gt;
+
+&lt;p&gt;The security on data can be applied by using the &lt;code&gt;DataSecurityService&lt;/code&gt; as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private DataSecurityService dataSecurityService;
+
+dataSecurityService.secure(myDto);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This service will go recursively through the object fields and look for restrictions. Each restriction that evaluates to f
+alse against the current Subject will trigger the obfuscation of its associated field.&lt;/p&gt;
+
+&lt;h2 id=&#34;secured-annotation&#34;&gt;@Secured annotation&lt;/h2&gt;
+
+&lt;p&gt;You can add a &lt;code&gt;@Secured&lt;/code&gt; annotation on any method parameter to automatically apply data security on it. You can also
+apply the &lt;code&gt;@Secured&lt;/code&gt; annotation directly on the method to apply data security on the return value:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Secured
+public SecuredPojo1 securedMethod(@Secured SecuredPojo2 securedPojo2) {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Every method annotated with &lt;code&gt;@Secured&lt;/code&gt; or with the annotation applied to at least one of its parameters will be intercepted
+and the relevant objects will be secured. Note that the
+&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/#dependency-injection&#34;&gt;usual interception limitations&lt;/a&gt; apply.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Please note that the data security interceptor will inspect the whole object graph starting from the secured object, so
+you may encounter some performance penalty depending on its size. It shouldn&amp;rsquo;t be a problem for typical use.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;security-expressions&#34;&gt;Security expressions&lt;/h2&gt;
+
+&lt;p&gt;Security expressions are strings that respect the &lt;a href=&#34;https://uel.java.net/&#34;&gt;Unified Expression Language (UEL)&lt;/a&gt; syntax. The
+following methods are available:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;hasRole(String role)&lt;/code&gt;. Returns true if the current subject has the specified role, false otherwise.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hasOneRole(String... roles)&lt;/code&gt;. Returns true if the current subject has at least one of the specified roles, false otherwise.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hasAllRoles(String... roles)&lt;/code&gt;. Returns true if the current subject has all the specified roles, false otherwise.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hasRole(String role, String... scopes)&lt;/code&gt;. Returns true if the current subject has the specified role for all the specified scopes, false otherwise.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hasPermission(String permission)&lt;/code&gt;. Returns true if the current subject has the specified permission, false otherwise.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hasOnePermission(String... permissions)&lt;/code&gt;. Returns true if the current subject has at least one of the specified permissions, false otherwise.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hasAllPermissions(String... permissions)&lt;/code&gt;. Returns true if the current subject has all the specified permissions, false otherwise.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hasPermission(String permission, String... scopes)&lt;/code&gt;. Returns true if the current subject has the specified permission on the specified scopes, false otherwise.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Examples:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;${ !hasRole(&#39;manager&#39;) &amp;amp;&amp;amp; hasPermission(&#39;salary:view&#39;) }
+${ hasAllPermissions(&#39;salary:view&#39;, &#39;salary:update&#39;) }
+${ hasPermission(&#39;users:manage&#39;, &#39;FR&#39;) }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;More resources on EL:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://docs.oracle.com/javaee/6/tutorial/doc/gjddd.html&#34;&gt;Oracle tutorial&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://uel.java.net/&#34;&gt;Unified Expression Language&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;dataobfuscationhandler&#34;&gt;DataObfuscationHandler&lt;/h2&gt;
+
+&lt;p&gt;The goal of a &lt;code&gt;DataObfuscationHandler&lt;/code&gt; is to obfuscate data with a specific algorithm.
+For instance, it could take a name, eg. &amp;laquo;Doe&amp;raquo; and return an anonymised name &amp;laquo;D.&amp;raquo;. This would be implemented as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/*
+ * This {@code DataObfuscationHandler} takes a {@code String}, eg. &amp;quot;Doe&amp;quot; and
+ * obfuscate it into &amp;quot;D.&amp;quot;.
+ */
+public static class NameObfuscationHandler implements DataObfuscationHandler&amp;lt;String&amp;gt; {
+    @Override
+    public String obfuscate(String data) {
+        String result = &amp;quot;&amp;quot;;
+        if (data != null &amp;amp;&amp;amp; data.length() &amp;gt; 0) {
+            result = data.charAt(0) + &amp;quot;.&amp;quot;;
+            result = result.toUpperCase();
+        }
+        return result;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;custom-annotations&#34;&gt;Custom annotations&lt;/h2&gt;
+
+&lt;p&gt;Custom restriction annotations can be defined and registered with data security by defining a &lt;code&gt;DataSecurityHandler&lt;/code&gt;. Start
+with defining a custom annotation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Retention(RetentionPolicy.RUNTIME)
+@Target({ ElementType.FIELD})
+public @interface MyRestriction {
+
+    String expression();
+
+    Todo todo() default Todo.Nullify;
+
+    public enum Todo {
+        Hide, Round, Nullify
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then, define a &lt;code&gt;DataSecurityHandler&lt;/code&gt; which handles the &lt;code&gt;@MyRestriction&lt;/code&gt; annotation.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyDataSecurityHandler implements DataSecurityHandler&amp;lt;MyRestriction&amp;gt; {
+
+    @Override
+    public Object securityExpression(MyRestriction annotation) {
+        return annotation.expression();
+    }
+
+    @Override
+    public Class&amp;lt;? extends DataObfuscationHandler&amp;lt;?&amp;gt;&amp;gt; securityObfuscationHandler(
+                                                                MyRestriction annotation) {    
+        if (annotation.todo() .equals( Todo.Round  )) {
+            // Uses the rounding obfuscation handler defined below
+            return RoundingObfuscationHandler.class;
+        }
+
+        if (annotation.todo() .equals( Todo.Hide  )) {
+            // Uses the name obfuscation handler defined in the previous section
+            return NameObfuscationHandler.class;
+        }
+
+        return null;
+    }
+
+    public static class RoundingObfuscationHandler 
+                        implements DataObfuscationHandler&amp;lt;Integer&amp;gt; {
+
+        @Override
+        public Integer obfuscate(Integer data) {
+            Integer result = 0;
+            if (data != null) {
+                result = (int) (Math.ceil(data / 1000) * 1000);
+            }
+            return result;
+        }           
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then, you can apply the annotation on a POJO:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyPojo {       
+
+    private String firstName;
+
+    @MyRestriction(expression=&amp;quot;${1 == 2}&amp;quot; , todo = Todo.Hide)
+    private String name;
+
+    @MyRestriction(
+        expression=&amp;quot;${ hasRole(&#39;manager&#39;) }&amp;quot;, 
+        todo=Todo.Round
+    )
+    private Integer salary;
+
+    @MyRestriction(expression=&amp;quot;${false}&amp;quot;)
+    private String password;
+
+    public MyPojo(String name, String firstName, String password, Integer salary) {
+        this.name = name;
+        this.firstName = firstName;
+        this.password = password;
+        this.salary = salary;
+    }
+
+    ...     
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Security</title>
+      <link>http://seedstack.org/archives/16.7/docs/w20/manual/security/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/w20/manual/security/</guid>
+      <description>&lt;p&gt;W20 applications can be integrated with security backends to authenticate users and display views that are consistent with
+the backend security model.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-danger&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Before going into details, &lt;strong&gt;it is crucial to understand that a client-side Web application such as a W20 one can almost
+never provide effective security&lt;/strong&gt;. It is only a frontend that will reflect the security enforced in the backend, but
+there is value in providing a consistent experience between what is possible in the UI and what is allowed by the
+backend and W20 provides such an integration.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;the-security-model&#34;&gt;The security model&lt;/h1&gt;
+
+&lt;h2 id=&#34;subject-and-principals&#34;&gt;Subject and principals&lt;/h2&gt;
+
+&lt;p&gt;The subject is the security term which refers to a security-centric view of an application user. It always have an
+identifier. A particular W20 application instance can only have zero or one subject connected at a time.
+Principals are key/value pairs associated to a subject and provide additional metadata about it, like its default culture,
+its full name, its avatar, etc.&lt;/p&gt;
+
+&lt;h2 id=&#34;security-providers&#34;&gt;Security providers&lt;/h2&gt;
+
+&lt;p&gt;Security providers are the bridge between the backend and the W20 security model. Authentication operations are
+done through security providers.&lt;/p&gt;
+
+&lt;h3 id=&#34;simple-authentication-provider&#34;&gt;Simple authentication provider&lt;/h3&gt;
+
+&lt;p&gt;W20 provides a &lt;code&gt;SimpleAuthenticationProvider&lt;/code&gt; which is configured with two URL:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;an authentication URL which will be requested with a GET upon authentication and a DELETE upon deauthentication.&lt;/li&gt;
+&lt;li&gt;an authorization URL which will be requested with a GET upon successful authentication to retrieve subject authorizations.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The credentials will be passed in clear as query parameters upon authentication so it is recommended that this provider
+is only used in the case of &lt;a href=&#34;https://tools.ietf.org/html/rfc2617&#34;&gt;basic authentication&lt;/a&gt; where credentials can be omitted as they are directly handled by the
+browser.&lt;/p&gt;
+
+&lt;h2 id=&#34;realms&#34;&gt;Realms&lt;/h2&gt;
+
+&lt;p&gt;Realms allow a W20 application to use several security backends at once. Security operations involving the backend(s)
+like authentication will be done on all security realms. The multiple responses are checked for coherence (they must
+all refer to the same subject id for instance) and are partially aggregated:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Subject identity (like its identifier, type and principals) are merged as one definition,&lt;/li&gt;
+&lt;li&gt;Subject authorizations are kept separate to avoid mixing backend security models.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;permissions&#34;&gt;Permissions&lt;/h2&gt;
+
+&lt;p&gt;W20 security model is permission-based. Permissions are arrays of strings which denote a specific right to do something
+in the application:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[ &#39;admin&#39;, &#39;restart&#39; ]
+[ &#39;admin&#39;, &#39;database&#39;, &#39;wipe&#39; ]
+[ &#39;users&#39;, &#39;list&#39;, &#39;create,read,update&#39; ]
+[ &#39;users&#39;, &#39;details&#39;, &#39;*&#39; ]
+[ &#39;printers&#39;, &#39;lp457&#39;, &#39;print&#39; ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Permission names are completely arbitrary and developer defined but it is recommended to start from the least-specific
+term (like a &amp;laquo;functional area&amp;raquo; of the application or a use case) to the most specific term (like an action or an entity
+identifier).&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Permission can also be expressed as colon-delimited strings: &lt;code&gt;users:details:*&lt;/code&gt; is equivalent to &lt;code&gt;[ &#39;users&#39;, &#39;details&#39;, &#39;*&#39; ]&lt;/code&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;roles&#34;&gt;Roles&lt;/h2&gt;
+
+&lt;p&gt;Roles are simply collections of permissions and, although they can be checked for explicitly, it is not recommended for
+the application security model maintainability. The recommendation is to design the permissions such as they express the
+intent of the associated use case or user action and to check for these permissions only. It is guaranteed that as long
+as the user action exists in the code the permission will remain semantically valid, whereas how it is given can change
+throughout application life.&lt;/p&gt;
+
+&lt;h2 id=&#34;attributes&#34;&gt;Attributes&lt;/h2&gt;
+
+&lt;p&gt;Attributes can be attached to roles and checked for during a permission or role check. It is mainly used to restrict
+a role scope to a geographic region or an organisational branch for instance.&lt;/p&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;The security module can be configured with the following options:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;autoLogin&lt;/code&gt; will automatically trigger an authentication upon application startup. In this case, security providers
+will be called without credentials. They can ask for credentials at this points or let the browser handle credential
+entry (as it is the case in basic authentication for instance).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;redirectAfterLogin&lt;/code&gt; will redirect to the specified route path after a successful login.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;redirectAfterLogout&lt;/code&gt; will redirect to the specified route path after a logout.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;roleMapping&lt;/code&gt; will allow to map multiple backend roles to uniquely named unified frontend roles.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;role-mapping&#34;&gt;Role mapping&lt;/h2&gt;
+
+&lt;p&gt;W20 security allows to map several backend roles to a unified frontend role which can then be used for display or
+filtering purpose. It can be done through the &lt;code&gt;roleMapping&lt;/code&gt; configuration attribute:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;roleMapping&amp;quot;: {
+    &amp;quot;UNIFIED_ROLE&amp;quot;: {
+        &amp;quot;realm1&amp;quot;: &amp;quot;SOME_BACKEND_ROLE&amp;quot;,
+        &amp;quot;realm2&amp;quot;: &amp;quot;OTHER_BACKEND_ROLE&amp;quot;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This configuration enables to view the two backend roles, defined from two different realms as one frontend role
+called &lt;code&gt;UNIFIED_ROLE&lt;/code&gt;. If only one security realm is declared in the application, all backend roles of this realm will
+automatically be mapped to unified roles of the same name.&lt;/p&gt;
+
+&lt;h1 id=&#34;fragment-declaration&#34;&gt;Fragment declaration&lt;/h1&gt;
+
+&lt;p&gt;Security providers can be registered programatically with the authentication service but can also be declared in a fragment
+manifest:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;...
+
+&amp;quot;security&amp;quot;: {
+    &amp;quot;provider&amp;quot;: &amp;quot;Simple&amp;quot;,
+    &amp;quot;config&amp;quot;: {
+        &amp;quot;authentication&amp;quot;: &amp;quot;...&amp;quot;,
+        &amp;quot;authorizations&amp;quot;: &amp;quot;...
+    }
+}
+
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will register a security realm with the name of the fragment identifier, using the &lt;code&gt;SimpleSecurityProvider&lt;/code&gt;
+service as the security provider configured with the &lt;code&gt;config&lt;/code&gt; section.&lt;/p&gt;
+
+&lt;h1 id=&#34;security-services&#34;&gt;Security services&lt;/h1&gt;
+
+&lt;h2 id=&#34;authentication-service&#34;&gt;Authentication service&lt;/h2&gt;
+
+&lt;p&gt;The authentication service can be used to alter the currently connected subject:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Authenticate a new subject with its credentials and define it as the globally active subject.&lt;/li&gt;
+&lt;li&gt;Deauthenticate the currently active subject.&lt;/li&gt;
+&lt;li&gt;Refresh the currently active subject.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The authentication service can also be used to query identity information about the subject, such as its identifier or
+its principals.&lt;/p&gt;
+
+&lt;h2 id=&#34;authorization-service&#34;&gt;Authorization service&lt;/h2&gt;
+
+&lt;p&gt;The authorization service can be used to verify specific authorizations on the currently active subject and on a specific
+realm:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If the subject has a specific role (with possibly specific attributes).&lt;/li&gt;
+&lt;li&gt;If the subject has a specific permission (with possibly specific attributes).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It can also be used to query the list of roles, although it is limited to the unified roles.&lt;/p&gt;
+
+&lt;h2 id=&#34;security-expression-service&#34;&gt;Security expression service&lt;/h2&gt;
+
+&lt;p&gt;Security expressions are a simple and effective way of checking the authentication and authorization status of the
+currently active subject. Inject the &lt;code&gt;SecurityExpressionService&lt;/code&gt; to evaluate them. Security expressions are normal
+AngularJS expressions with the following additional functions available:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;hasPermission(realm, permission, attributes)&lt;/code&gt; which checks a permission for the currently active subject,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hasRole(realm, role, attributes)&lt;/code&gt; which checks if the currently active subject has a specific role,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;isAuthenticated()&lt;/code&gt; which checks if there is a currently active subject,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;principal(name)&lt;/code&gt; which returns the value of a specific principal&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The result of the security expression is evaluated as a boolean:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var result = securityExpressionService.evaluate(&amp;quot;hasPermission(&#39;someRealm&#39;, &#39;users:details:clear&#39;)&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;security-directive&#34;&gt;Security directive&lt;/h1&gt;
+
+&lt;p&gt;The &lt;code&gt;w20Security&lt;/code&gt; directive allows to evaluate a security expression in a view and display the element only if it
+evaluates to true. The expression is evaluated in its current scope, augmented with the security expression service operations described above:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;div data-w20-security=&amp;quot;hasRole(&#39;someRealm&#39;, &#39;someRole&#39;)&amp;quot;&amp;gt;
+    ...
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;div data-w20-security=&amp;quot;someLocalScopeVariable &amp;amp;&amp;amp; hasPermission(&#39;someRealm&#39;, &#39;users:details:clear&#39;)&amp;quot;&amp;gt;
+    ...
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;role-filtering&#34;&gt;Role filtering&lt;/h1&gt;
+
+&lt;p&gt;W20 security can narrow the authorizations of the currently active subject by setting up filters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;role filter narrows the authorizations to the specified roles. Any permission or role not allowed by the filter will
+be denied until this filter is cancelled.&lt;/li&gt;
+&lt;li&gt;attribute filter narrows the authorizations on which the specified attribute values are attached. Any permission
+or role which don&amp;rsquo;t have the specified attribute values will be denied until this filter is cancelled.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Filtering is limited to unified roles.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

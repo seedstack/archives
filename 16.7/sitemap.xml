@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/</loc>
+    <lastmod>2016-08-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/guides/creating-addon/</loc>
+    <lastmod>2016-08-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/mqtt/</loc>
+    <lastmod>2016-05-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/themes/material/</loc>
+    <lastmod>2016-04-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/web-services/</loc>
+    <lastmod>2016-03-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/guides/using-snapshots/</loc>
+    <lastmod>2016-02-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/w20-bridge/</loc>
+    <lastmod>2016-02-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/ldap/</loc>
+    <lastmod>2016-02-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/mongodb/</loc>
+    <lastmod>2016-02-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/neo4j/</loc>
+    <lastmod>2016-02-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/redis/</loc>
+    <lastmod>2016-02-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/solr/</loc>
+    <lastmod>2016-02-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/w20-material/</loc>
+    <lastmod>2016-02-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/i18n/</loc>
+    <lastmod>2016-01-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/jdbc/</loc>
+    <lastmod>2016-01-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/jms/</loc>
+    <lastmod>2016-01-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/jpa/</loc>
+    <lastmod>2016-01-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/validation/</loc>
+    <lastmod>2016-01-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/w20-bootstrap-2/</loc>
+    <lastmod>2016-01-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/w20-bootstrap-3/</loc>
+    <lastmod>2016-01-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/w20-components/</loc>
+    <lastmod>2016-01-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/w20-dataviz/</loc>
+    <lastmod>2016-01-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/w20-extras/</loc>
+    <lastmod>2016-01-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/spring-bridge/</loc>
+    <lastmod>2015-11-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/audit/</loc>
+    <lastmod>2015-11-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/elasticsearch/</loc>
+    <lastmod>2015-11-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/io/</loc>
+    <lastmod>2015-11-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/jcache/</loc>
+    <lastmod>2015-11-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/javamail/</loc>
+    <lastmod>2015-11-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/monitoring/</loc>
+    <lastmod>2015-11-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/scheduling/</loc>
+    <lastmod>2015-11-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/themes/business/</loc>
+    <lastmod>2015-07-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/themes/simple/</loc>
+    <lastmod>2015-07-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/guides/ddd-pitfalls-and-tips/</loc>
+    <lastmod>2015-06-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/guides/bootstrap-basics/</loc>
+    <lastmod>2014-12-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/guides/frontend-testing/</loc>
+    <lastmod>2014-12-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/guides/angularjs-dependency-injection/</loc>
+    <lastmod>2014-11-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/guides/angularjs-directive-design/</loc>
+    <lastmod>2014-11-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/guides/make-configurable-application/</loc>
+    <lastmod>2014-04-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/posts/16-7-release-notes/</loc>
+    <lastmod>2016-07-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/posts/16-4-release-notes/</loc>
+    <lastmod>2016-04-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/posts/15-11-2-release-notes/</loc>
+    <lastmod>2016-02-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/posts/i18n-addon-2-2-0/</loc>
+    <lastmod>2016-01-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/posts/15-11-1-release-notes/</loc>
+    <lastmod>2016-01-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/posts/i18n-addon-2-1-1/</loc>
+    <lastmod>2015-12-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/posts/15-11-release-notes/</loc>
+    <lastmod>2015-11-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/posts/welcome-to-seedstack/</loc>
+    <lastmod>2015-05-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/io/advanced-csv-export/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/guides/ddd-pitfalls-and-tips/aggregate-design/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/business/manual/aggregates/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/jpa/alternative/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/guides/ddd-pitfalls-and-tips/anemic-domain-model/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/business/manual/assemblers/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/spring-bridge/batch/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/getting-started/project-templates/batch/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/monitoring/batch/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/guides/ddd-pitfalls-and-tips/behavior-and-services/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/business/bibliography/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/business/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/business/manual/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/getting-started/project-templates/cli/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/seed/manual/cli/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/project/community/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/jms/configuration/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/mqtt/configuration/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/web-services/consume_hello_webservice/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/getting-started/tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/seed/manual/crypto/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/w20/manual/culture/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/io/custom-parsers/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/io/custom-renderers/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/getting-started/distribution/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/business/manual/events/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/business/manual/model/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/getting-started/project-templates/domain/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/w20-dataviz/dygraphs/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/guides/ddd-pitfalls-and-tips/entities-and-value-objects/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/project/faq/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/business/manual/factories/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/business/manual/finders/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/w20-components/forms/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/generate/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/glossary/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/w20/manual/hypermedia/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/getting-started/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/seed/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/seed/manual/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/guides/make-configurable-application/logging/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/web-services/maven-tools/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/seed/manual/more/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/w20-dataviz/nvd3/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/seed/manual/operations/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/guides/make-configurable-application/other-resources/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/project/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/package/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/business/manual/pagination/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/business/manual/policies/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/project/community/members/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/getting-started/project-templates/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/guides/make-configurable-application/props/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/mqtt/publish-handler/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/web-services/publish_hello_webservice/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/mqtt/publisher/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/seed/manual/rest/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/getting-started/project-templates/rest/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/jms/receiving/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/mqtt/listener/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/business/manual/repositories/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/search/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/project/roadmap/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/w20/manual/routing/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/run/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/seed/runtime/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/seed/manual/security/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/w20/manual/security/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/jms/sending/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/getting-started/tutorial/domain/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/getting-started/tutorial/persistence/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/getting-started/tutorial/application/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/getting-started/tutorial/rest/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/guides/make-configurable-application/storage/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/web-services/testing/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/seed/manual/testing/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/w20/manual/testing/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/spring-bridge/transactions/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/seed/manual/transactions/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/web-services/transports/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/w20/manual/ui/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/w20-components/select/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/addons/w20-components/ui-grid/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/project/community/users/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/getting-started/project-templates/w20/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/seed/manual/web/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/getting-started/project-templates/web/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/w20/</loc>
+  </url>
+  
+  <url>
+    <loc>http://seedstack.org/archives/16.7/docs/w20/manual/</loc>
+  </url>
+  
+</urlset>

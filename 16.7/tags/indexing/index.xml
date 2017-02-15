@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/indexing/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/indexing/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/solr/</link>
+      <pubDate>Tue, 09 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/solr/</guid>
+      <description>&lt;p&gt;Coming soon&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/elasticsearch/</link>
+      <pubDate>Tue, 17 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/elasticsearch/</guid>
+      <description>
+
+&lt;p&gt;The ElasticSearch add-on allows you to configure, inject and use &lt;a href=&#34;https://www.elastic.co&#34;&gt;ElasticSearch&lt;/a&gt; clients.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-elasticsearch-elasticsearch-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-elasticsearch-elasticsearch-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-elasticsearch-elasticsearch-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.elasticsearch&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;elasticsearch&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-elasticsearch-elasticsearch-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.1.1&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-elasticsearch-elasticsearch-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-elasticsearch-elasticsearch-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-elasticsearch-elasticsearch-version, #org-seedstack-addons-elasticsearch-elasticsearch-warn&#39;).show(); $(&#39;#org-seedstack-addons-elasticsearch-elasticsearch-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-elasticsearch-elasticsearch-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.elasticsearch:elasticsearch:2.1.1&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Main features:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Embedded indexes,&lt;/li&gt;
+&lt;li&gt;Remote indexes.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;More information about the ElasticSearch Java API &lt;a href=&#34;https://www.elastic.co/guide/en/elasticsearch/client/java-api/current/index.html&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;To access an ElasticSearch index, you need to declare a client in configuration. Multiple clients can be configured. They
+must be listed in the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.elasticsearch.clients = client1, client2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;remote-instance&#34;&gt;Remote instance&lt;/h2&gt;
+
+&lt;p&gt;To access a remote ElasticSearch index, you need to specify the host(s) of one or more node(s) of the ElasticSearch
+cluster:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.elasticsearch.client.client1]
+hosts = host1:port1, host2:port2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can omit the port in which case will be set to the ElasticSearch default (9300).&lt;/p&gt;
+
+&lt;h2 id=&#34;embedded-instance&#34;&gt;Embedded instance&lt;/h2&gt;
+
+&lt;p&gt;If you don&amp;rsquo;t specify the &lt;code&gt;hosts&lt;/code&gt; property, a local ElasticSearch node will be created and stored in the &lt;code&gt;persistence-elasticsearch/{client-name}&lt;/code&gt;
+subdirectory of the Seed local storage location, where &lt;code&gt;{client-name}&lt;/code&gt; is the name of the ElasticSearch client.&lt;/p&gt;
+
+&lt;h2 id=&#34;other-options&#34;&gt;Other options&lt;/h2&gt;
+
+&lt;p&gt;You can specify any configuration property of the ElasticSearch client with the following syntax:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.elasticsearch.client.client1]
+property.name.of.elasticsearch.property = value
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;usage&#34;&gt;Usage&lt;/h1&gt;
+
+&lt;p&gt;To use a configured ElasticSearch client, simply inject it where needed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+@Named(&amp;quot;client1&amp;quot;)
+Client client1;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;example&#34;&gt;Example&lt;/h1&gt;
+
+&lt;p&gt;Configuration for an embedded ElasticSearch instance:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.elasticsearch.clients = test
+
+[org.seedstack.elasticsearch.client.test]
+property.cluster.name = test-cluster-1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To inject this configured client, use the following syntax:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;@Inject
+@Named(&amp;quot;test&amp;quot;)
+Client testClient;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

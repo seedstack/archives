@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/mapping/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/mapping/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Assemblers</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/manual/assemblers/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/manual/assemblers/</guid>
+      <description>&lt;p&gt;The assembler pattern is used to transfer a representation of the state of &lt;em&gt;Aggregates&lt;/em&gt; to &lt;em&gt;DTO/Representation&lt;/em&gt; objects.
+The Business Framework provides a interface and few base classes to ease the development of assemblers.&lt;/p&gt;
+
+&lt;h1 id=&#34;default-assembler&#34;&gt;Default assembler&lt;/h1&gt;
+
+&lt;p&gt;By default, if your mapping is obvious, you don&amp;rsquo;t have to create an explicit assembler. You just add the &lt;code&gt;@DtoOf&lt;/code&gt; annotation
+on your DTO class to link them to their related Aggregate root:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@DtoOf(Product.class)
+class ProductRepresentation {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can then inject a ModelMapper-based assembler with the &lt;code&gt;@ModelMapper&lt;/code&gt; annotation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+@ModelMapper
+Assembler&amp;lt;Product, ProductRepresentation&amp;gt; productAssembler;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This assembler uses the default settings of the &lt;a href=&#34;http://modelmapper.org/&#34;&gt;ModelMapper library&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;It is strongly recommended to always have a DTO. &lt;strong&gt;Never serialize domain objects to your clients.&lt;/strong&gt; Even with the default
+assembler you can define a DTO that is a flat and/or partial mapping of your domain Aggregate. ModelMapper will
+automatically figure out the field mapping if you respect &lt;a href=&#34;http://modelmapper.org/getting-started/#mapping&#34;&gt;their conventions&lt;/a&gt;.
+Besides, you should always have integration tests that checks that the automatic mapping is correct.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;explicit-assembler&#34;&gt;Explicit assembler&lt;/h1&gt;
+
+&lt;p&gt;Create an assembler extending &lt;code&gt;BaseAssembler&lt;/code&gt; class. It will contains
+the logic of the copy between aggregate and DTO. Then, inject your
+assembler in your class.&lt;/p&gt;
+
+&lt;p&gt;There are two methods to implement:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;doAssembleDtoFromAggregate(dto, aggregate)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;doMergeAggregateWithDto(aggregate, dto)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The first method creates a DTO from an aggregate root. The second
+merge the mutable fields of an &lt;strong&gt;existing&lt;/strong&gt; aggregate with the data
+from the dto.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that the aggregate identity should never be updated by the DTO.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;example&#34;&gt;Example&lt;/h1&gt;
+
+&lt;p&gt;An assembler assembling a representation of a product.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class ProductAssembler extends BaseAssembler&amp;lt;Product,ProductRepresentation&amp;gt; {
+
+    @Override
+    protected void doAssembleDtoFromAggregate(ProductRepresentation targetDto, 
+	         Product sourceAggregate) {
+        // Flatten the id
+        targetDto.setStoreId(sourceAggregate.getAggregateId().getStoreId());
+        targetDto.setProductCode(sourceAggregate.getAggregateId().getProductCode());
+         
+        targetDto.setName(sourceAggregate.getName());
+        targetDto.setDescription(sourceAggregate.getDescription());
+    }
+	 
+    @Override
+    protected void doMergeAggregateWithDto(Product targetAggregate, 
+	        ProductRepresentation sourceDto) {
+        // The id is not modified
+        targetAggregate.setName(sourceDto.getName());
+        targetAggregate.setDescription(sourceDto.getDescription());
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can inject the assembler via its interface or directly via the
+implementation class. Both way are acceptable, but the first way
+provides a more encapsulated interface to the developer using it.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+Assembler&amp;lt;Product, ProductRepresentation&amp;gt; productAssembler;
+
+@Inject
+ProductAssembler productAssembler;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// assemble a representation
+representation = productAssembler.assembleDtoFromAggregate(product);
+
+// merge an aggregate
+Product productToMerge = catalog.retrieve(productId);
+productAssembler.mergeAggregateWithDto(productToMerge, productRepresentationSource);
+catalog.update(productToMerge);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;domain-specific-language&#34;&gt;Domain-Specific Language&lt;/h1&gt;
+
+&lt;p&gt;Assembler implementations remains simple, but its usage can become
+tedious when using lists or complexe worflows. To simplify this use
+cases the Business Framework provides a DSL throught
+&lt;code&gt;FluentAssembler&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;lists&#34;&gt;Lists&lt;/h2&gt;
+
+&lt;p&gt;Replace common boilerplate code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;List&amp;lt;ProductRepresentation&amp;gt; representations = new ArrayList&amp;lt;&amp;gt;();
+for (Product product : products {
+    representations.add(productAssembler.assembleDtoFromAggregate(product))
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;by oneliners:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;fluentAssembler.assemble(products).to(ProductRepresentation.class)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;tuples&#34;&gt;Tuples&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;fluentAssembler.assemble(product, order).to(RecipeRepresentation.class)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;qualified-assemblers&#34;&gt;Qualified assemblers&lt;/h2&gt;
+
+&lt;p&gt;You can specify the assembler the DSL should use by specifying a
+qualifier.
+For instance, the following example use the &lt;strong&gt;default ModelMapper
+assembler&lt;/strong&gt;.
+So in this case you don&amp;rsquo;t even have to create an assembler class.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;fluently.assemble(products).with(AssemblerTypes.MODEL_MAPPER).to(MyDto.class)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;advanced-usage&#34;&gt;Advanced usage&lt;/h2&gt;
+
+&lt;p&gt;When we merge a representation to an aggregate, the assembler expects
+an existing aggregate root instance. Normally you have to retreive
+this instance from a repository or to create it from a factory. This
+can become a little tedious when you have to do it a lot. Or by adding
+few metadata to your DTO, you can have the DSL doing it for you.&lt;/p&gt;
+
+&lt;h3 id=&#34;get-an-aggregate-from-its-factory&#34;&gt;Get an aggregate from its factory&lt;/h3&gt;
+
+&lt;p&gt;If the aggregate root to merge doesn&amp;rsquo;t exists, you can tell the DSL to
+create it from its factory.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;fluentAssembler.merge(repr).into(Product.class).fromFactory();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It will search the aggregate root&amp;rsquo;s factory
+(&lt;code&gt;GenericFactory&amp;lt;Product&amp;gt;&lt;/code&gt;). Then it will search the appropriate
+method to call. In order to indicate to the DSL which method should be called,
+annotate the DTO&amp;rsquo;s getters matching the factory method&amp;rsquo;s parameters
+with &lt;code&gt;@MatchingFactoryParameter(index=0)&lt;/code&gt;. The index represents the
+position of the parameters in the factory method.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class ProductRepesentation {
+
+    private Short storeId;
+    private Short productCode;
+    private String name;
+    private String description
+
+    @MatchingFactoryParameter(index=0)
+    public Short getStoreId() { ... }
+
+    @MatchingFactoryParameter(index=1)
+    public Short getProductCode() { ... }
+
+    @MatchingFactoryParameter(index=2)
+    public Short getName() { ... }
+
+    public Short getDescription() { ... }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;public interface ProductFactory extends GenericFactory&amp;lt;Product&amp;gt; {
+
+	Product createProduct(Short storeId, Short productCode, String name);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;get-an-aggregate-from-its-repository&#34;&gt;Get an aggregate from its repository&lt;/h3&gt;
+
+&lt;p&gt;If the aggregate root to merge already exists, you can tell the DSL to
+get it from its repository. If the DSL doesn&amp;rsquo;t find the aggregate root
+from the repository, two strategies are possible. The first throw an
+exception, the second fall back to the &lt;code&gt;fromFactory()&lt;/code&gt; method.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;try {
+    product = fluentAssembler.merge(representation).into(Product.class)
+        .fromRepository().orFail();
+
+} catch (AggregateNotFoundException e) {
+    return Response.status(Response.Status.NOT_FOUND).build();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;product = fluentAssembler.merge(repr).into(Product.class)
+    .fromRepository().thenFromFactory();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It will search the aggregate root&amp;rsquo;s repository
+(&lt;code&gt;GenericRepository&amp;lt;Product&amp;gt;&lt;/code&gt;). Then it will call its &lt;code&gt;load()&lt;/code&gt;
+method.
+In order to indicate to the DSL how to find the ID,
+annotate the DTO getter matching the aggregate root ID with
+&lt;code&gt;@MatchingEntityId&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If the ID is composite annotate the getter
+methods matching the ID constructor parameters with
+&lt;code&gt;@MatchingEntityId(index=0)&lt;/code&gt;. In this case, the index is mandatory and
+represents the position of the parameters in the constructor method.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code&gt;public class ProductRepesentation {
+
+    private Short storeId;
+    private Short productCode;
+    private String name;
+    private String description
+
+    @MatchingEntityId(index=0)
+    public Short getStoreId() { ... }
+
+    @MatchingEntityId(index=1)
+    public Short getProductCode() { ... }
+
+    public Short getName() { ... }
+
+    public Short getDescription() { ... }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;public class ProductId extends BaseValueObject {
+
+	private Short storeId;
+	private Short productCode;
+
+	public ProductId(Short storeId, Short productCode) {
+		this.storeId = storeId;
+		this.productCode = productCode;
+	}
+
+    // Getters ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;automation-with-modelmapper&#34;&gt;Automation with ModelMapper&lt;/h1&gt;
+
+&lt;p&gt;DTOs are meant to expose domain objects or a part of these objects.
+So there are often similarities between the DTOs and the domain
+object.
+This can lead to a lot of boilerplate code when the assembler doesn&amp;rsquo;t
+hold complex logic but just populates objects.&lt;/p&gt;
+
+&lt;p&gt;For this use case, you can now &lt;strong&gt;use a default&lt;/strong&gt; assembler based on
+&lt;a href=&#34;http://modelmapper.org/&#34;&gt;ModelMapper&lt;/a&gt;. It&amp;rsquo;s an &lt;em&gt;automatic assembler&lt;/em&gt;
+which provides an &lt;strong&gt;intelligent mapping&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;how-to-use-it&#34;&gt;How to use it ?&lt;/h2&gt;
+
+&lt;p&gt;The only thing you have to do is to annotate the DTO with
+&lt;code&gt;@DtoOf(MyAggregate.class)&lt;/code&gt;. It tells the framework to bind a default
+assembler for assembling &lt;code&gt;MyAggregate&lt;/code&gt; into the annotated DTO.
+After you can inject the assembler as follows, and use it as usual.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@DtoOf(MyProduct.class)
+public class MyDto { ... }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+@ModelMapper
+private Assembler&amp;lt;MyAggregate,MyDto&amp;gt; myDtoAssemebler;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;how-does-it-work&#34;&gt;How does it work ?&lt;/h2&gt;
+
+&lt;p&gt;It uses a intelligent mapping provided by the ModelMapper library.
+You can find the detailed explanation here
+&lt;a href=&#34;http://modelmapper.org/user-manual/how-it-works/&#34;&gt;matching documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;can-i-customize-it&#34;&gt;Can I customize it ?&lt;/h2&gt;
+
+&lt;p&gt;Yes. If there are ambiguities, or if you only want to change the mapping of
+one field, you don&amp;rsquo;t need to fall back to the old assembler. You can
+just create an assembler extending the &lt;code&gt;ModelMapperAssembler&lt;/code&gt; class and
+implement the methods returning a &lt;code&gt;ModelMapper&lt;/code&gt; instance.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;See here &lt;a href=&#34;http://modelmapper.org/user-manual/property-mapping/&#34;&gt;how to override the mapping&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;It supports:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Deep mapping&lt;/li&gt;
+&lt;li&gt;Skipping properties&lt;/li&gt;
+&lt;li&gt;Providers&lt;/li&gt;
+&lt;li&gt;Conditional mapping&lt;/li&gt;
+&lt;li&gt;String mapping&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;can-i-see-some-code&#34;&gt;Can I see some code ?&lt;/h3&gt;
+
+&lt;p&gt;Below is an example from the &lt;a href=&#34;https://github.com/seedstack/store-webapp-sample&#34;&gt;Web application sample&lt;/a&gt;.
+The Product contains a field &lt;code&gt;entityId&lt;/code&gt; and a field &lt;code&gt;categoryId&lt;/code&gt;, but the representation only contains a field
+&lt;code&gt;id&lt;/code&gt;. So ModelMapper doesn&amp;rsquo;t know which field match.&lt;/p&gt;
+
+&lt;p&gt;To fix this, extend &lt;code&gt;ModelMapperAssembler&lt;/code&gt; and add a &lt;code&gt;PropertyMap&lt;/code&gt; to the &lt;code&gt;modelMapper&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that, as you implemented an assembler, you don&amp;rsquo;t use the default
+assembler anymore. So remove the &lt;code&gt;@DtoOf&lt;/code&gt; annotation on the DTO.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code&gt;public class ProductModelMapperAssembler extends ModelMapperAssembler&amp;lt;Product, ProductRepresentation&amp;gt; {
+
+    @Override
+    protected void configureAssembly(ModelMapper modelMapper) {
+        modelMapper.addMappings(new PropertyMap&amp;lt;Product, ProductRepresentation&amp;gt;() {
+            @Override
+            protected void configure() {
+                // Required due to the ambiguity with the categoryId field
+                map().setId(source.getEntityId());
+            }
+        });
+    }
+
+    @Override
+    protected void configureMerge(ModelMapper modelMapper) {
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then use it as usual.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private Assembler&amp;lt;Product, ProductRepresentation&amp;gt; assembler;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;assembler.assembleDtoFromAggregate(aProduct);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

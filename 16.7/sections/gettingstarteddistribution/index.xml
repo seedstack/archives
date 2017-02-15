@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/sections/gettingstarteddistribution/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/sections/gettingstarteddistribution/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Distribution</title>
+      <link>http://seedstack.org/archives/16.7/getting-started/distribution/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/getting-started/distribution/</guid>
+      <description>&lt;p&gt;SeedStack modular design involves a lot of small modules that focus on a particular technology or scope. This enables you
+to cherry-pick the modules you really need for your projects and not more. It also allows us to update components
+independently, in their own lifecycle, without disruption to other parts of the stack.&lt;/p&gt;
+
+&lt;p&gt;Usually, managing projects with numerous dependent modules, each with their own lifecycle, can be a complex task. Not so
+much with the SeedStack distribution which &lt;strong&gt;automatically handles the dependency management for you&lt;/strong&gt;. The main benefits of
+using the distribution over manual management of dependencies are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;All component versions are managed so you won&amp;rsquo;t need to worry about it for any SeedStack dependency,&lt;/li&gt;
+&lt;li&gt;Components that are part of a distribution are tested and validated together,&lt;/li&gt;
+&lt;li&gt;The distribution provides &lt;em&gt;composite dependencies&lt;/em&gt; which regroups components that are frequently used together,&lt;/li&gt;
+&lt;li&gt;The distribution provides the corresponding project archetypes and code generators.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Using a distribution in your project is almost always the recommended way to go.&lt;/strong&gt; It has no additional cost in build
+time. Composite dependencies can sometimes add unwanted dependencies but they can be easily excluded or you can choose
+to not use the composites at all while still having the benefits of dependency management.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Each organization can create its own tailored distribution(s) which can include cherry-picked SeedStack components
+along with the organization private components and extensions to the stack. We provide a reference Open-Source
+distribution that can be used as-is or as a base for customization.&lt;/p&gt;
+
+&lt;p&gt;This page is only about the reference distribution.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;dependency-management&#34;&gt;Dependency management&lt;/h1&gt;
+
+&lt;p&gt;To benefit from the dependency management of the distribution, just add the following dependency management snippet
+to your root pom.xml:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependencyManagement&amp;gt;
+    &amp;lt;dependencies&amp;gt;
+        &amp;lt;dependency&amp;gt;
+            &amp;lt;groupId&amp;gt;org.seedstack&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;seedstack-bom&amp;lt;/artifactId&amp;gt;
+            &amp;lt;version&amp;gt;???&amp;lt;/version&amp;gt;
+            &amp;lt;type&amp;gt;pom&amp;lt;/type&amp;gt;
+            &amp;lt;scope&amp;gt;import&amp;lt;/scope&amp;gt;
+        &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependencies&amp;gt;
+&amp;lt;dependencyManagement&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All components under &lt;code&gt;org.seedstack.*&lt;/code&gt; group identifiers are managed.&lt;/p&gt;
+
+&lt;h1 id=&#34;composite-dependencies&#34;&gt;Composite dependencies&lt;/h1&gt;
+
+&lt;p&gt;Composites are POM-type dependencies that can be added to your various project modules. They regroup multiple modules
+that a frequently used together and often necessary in SeedStack application. To add a composite dependency to one of
+your modules, add the following dependency snippet:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;???-composite&amp;lt;/artifactId&amp;gt;
+    &amp;lt;type&amp;gt;pom&amp;lt;/type&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There are several types of composites targeted for different needs:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;domain&lt;/code&gt; composite is intended for use as a dependency to standalone domain modules,&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;rest&lt;/code&gt; composite is intended for use as a dependency to REST micro-services (without UI).&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;web&lt;/code&gt; composite is intended for use as a dependency to classic Web applications.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;batch&lt;/code&gt; composite is intended for use as a dependency to standalone batch jobs.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;It is recommended to only use one composite per project module. Note that you can add any additional dependency you may require (such as add-ons), besides the composite.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;archetypes-and-generators&#34;&gt;Archetypes and generators&lt;/h1&gt;
+
+&lt;p&gt;The distribution also contains archetypes for different patterns. They provide an easy way to start developping java web applications, batches, implement domains and rest modules.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

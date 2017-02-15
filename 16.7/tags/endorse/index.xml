@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/endorse/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/endorse/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/web-services/</link>
+      <pubDate>Wed, 09 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/web-services/</guid>
+      <description>
+
+&lt;p&gt;SeedStack Web-Services add-on provides a JAX-WS integration. JAX-WS offers facilities to create and connect to web services.
+To enable Web-Services standalone add-on (without a Web environment) use the following dependency snippet in your module.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-ws-web-services-core-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-ws-web-services-core-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-ws-web-services-core-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.ws&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;web-services-core&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-ws-web-services-core-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.2.2&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-ws-web-services-core-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-ws-web-services-core-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-ws-web-services-core-version, #org-seedstack-addons-ws-web-services-core-warn&#39;).show(); $(&#39;#org-seedstack-addons-ws-web-services-core-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-ws-web-services-core-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.ws:web-services-core:2.2.2&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;In a Web environment you must use the following dependency snippet instead:&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-ws-web-services-web-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-ws-web-services-web-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-ws-web-services-web-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.ws&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;web-services-web&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-ws-web-services-web-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.2.2&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-ws-web-services-web-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-ws-web-services-web-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-ws-web-services-web-version, #org-seedstack-addons-ws-web-services-web-warn&#39;).show(); $(&#39;#org-seedstack-addons-ws-web-services-web-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-ws-web-services-web-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.ws:web-services-web:2.2.2&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h1 id=&#34;best-practices&#34;&gt;Best practices&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Since classes &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/web-services/maven-tools/&#34;&gt;generated&lt;/a&gt; from WSDL are both for client and server side, this logic should belong to a shared module.
+This module can then be used as a dependency both on client and server side.&lt;/li&gt;
+&lt;li&gt;Keep one source WSDL per Web Service and use &lt;code&gt;copy-resources&lt;/code&gt; of &lt;code&gt;maven-resources-plugin&lt;/code&gt; just after generating classes from WSDL. Reasons are:
+
+&lt;ul&gt;
+&lt;li&gt;successful code generation means the WSDL is probably valid and generated code match that WSDL&lt;/li&gt;
+&lt;li&gt;a copy of last valid WSDL is copied everywhere it is required (eg. published to &lt;code&gt;META-INF/ws&lt;/code&gt;)
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;endorsement&#34;&gt;Endorsement&lt;/h1&gt;
+
+&lt;h2 id=&#34;jdk-6&#34;&gt;JDK 6&lt;/h2&gt;
+
+&lt;p&gt;JDK 6 contains an older version of the JAX-WS specifications than the one used in WS add-on.
+Therefore the endorsed mechanism has to be used with required version of &lt;code&gt;webservices-api.jar&lt;/code&gt; available
+&lt;a href=&#34;http://search.maven.org/remotecontent?filepath=org/glassfish/metro/webservices-api/2.3/webservices-api-2.3.jar&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;endorse-ws-api&#34;&gt;Endorse WS API&lt;/h3&gt;
+
+&lt;p&gt;There are two options:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Java Endorsed Standards Override Mechanism&lt;/strong&gt; applies to all projects using the JDK with endorsed library:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Copy &lt;code&gt;webservices-api.jar&lt;/code&gt; into &lt;strong&gt;&amp;laquo;JDK6 folder&amp;raquo;\jre\lib\endorsed&lt;/strong&gt; (create &lt;strong&gt;endorsed&lt;/strong&gt; directory if it does not exist).&lt;/li&gt;
+&lt;li&gt;Alternative: set the &lt;code&gt;java.endorsed.dirs&lt;/code&gt; system property to the directory containing &lt;code&gt;webservices-api.jar&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Documentation is available &lt;a href=&#34;http://docs.oracle.com/javase/6/docs/technotes/guides/standards/&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;IDE classpath override. This method must be applied per-project:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Add the &lt;code&gt;webservices-api.jar&lt;/code&gt; library to the &lt;strong&gt;bootstrap classpath&lt;/strong&gt; of your project. This ensures that this library
+overrides the one in the JRE.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;endorse-the-web-server&#34;&gt;Endorse the Web server&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;To use the WS add-on in a Web application, the server JRE has to endorse the library as well. Add the &lt;strong&gt;webservices-api.jar&lt;/strong&gt;
+JAR to the server &lt;code&gt;endorsed&lt;/code&gt; directory or to server buildpath.&lt;/li&gt;
+&lt;li&gt;As described in &lt;strong&gt;Java Endorsed Standards Override Mechanism&lt;/strong&gt;, you can check endorsed directories through &lt;code&gt;java.endorsed.dirs&lt;/code&gt; java System property.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;jdk-7&#34;&gt;JDK 7&lt;/h2&gt;
+
+&lt;p&gt;JDK 7 works out of the box as required version of JAX-Ws is already embedded.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

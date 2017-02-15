@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+<head>
+
+    
+
+<title>
+    Hypermedia
+</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="robots" content="noindex,nofollow">
+
+
+
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,700,300,400" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Bitter:700" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/css/style.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/plugins/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/css/style.css">
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "SoftwareApplication",
+  "name" : "SeedStack",
+  "image" : "http://www.seedstack.org/img/logos/seedstack-logo-round.svg",
+  "publisher" : {
+    "@type" : "Organization",
+    "name" : "Open-Source Software"
+  },
+  "applicationCategory" : "development stack"
+}
+</script>
+
+
+
+<meta property="og:title" content="Hypermedia" />
+<meta property="og:description" content="Hypermedia is a powerful aspect of the REST architectural style. A client application can consume and navigate through
+REST resources via structured links relations. Navigation through APIs resemble web navigation: from a web page it is
+possible to follow links to new documents. In the same way, hypermedia provides a mechanism to interact with remote data
+with navigation and discovery in mind." />
+<meta property="og:url" content="http://seedstack.org/archives/16.7/docs/w20/manual/hypermedia/" />
+<meta property="og:site_name" content="SeedStack" />
+<meta property="og:image" content="http://seedstack.org/archives/16.7/img/opengraph-default.png" />
+
+
+
+<link rel="search" type="application/opensearchdescription+xml" href="http://seedstack.org/archives/16.7/opensearch.xml" title="SeedStack" />
+
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="http://seedstack.org/archives/16.7/img/favicons/manifest.json">
+<meta name="apple-mobile-web-app-title" content="SeedStack">
+<meta name="application-name" content="SeedStack">
+<meta name="msapplication-TileColor" content="#00a300">
+<meta name="msapplication-TileImage" content="/img/favicons/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<script type="text/javascript">
+    window.seedstack = {
+        baseUrl: "http:\/\/seedstack.org\/archives\/16.7\/",
+        state: {}
+    };
+</script>
+
+
+</head>
+<body class="homepage">
+    
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5R5FP9"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5R5FP9');</script>
+
+
+    <div id="header">
+        <div class="header">
+    <div class="container">
+        <a class="logo" href="http://seedstack.org/archives/16.7/">SeedStack</a>
+        <div class="topbar hidden-xs hidden-sm">
+            <ul class="loginbar pull-right">
+                <li><i class="fa fa-stack-overflow"></i> <a style="color: orange;" target="_blank" href="http://stackoverflow.com/questions/ask?tags=seedstack">Ask a question</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-comments"></i> <a target="_blank" href="https://kiwiirc.com/client/irc.freenode.net#seedstack">Discuss on IRC</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-github"></i> <a target="_blank" href="https://github.com/seedstack">GitHub</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-keyboard-o"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openHelp();">Shortcuts</a></li>
+            </ul>
+        </div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="fa fa-bars"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse navbar-responsive-collapse" data-role="navigation" style="pointer-events: none;">
+        <div class="container">
+            <ul class="nav navbar-nav" style="pointer-events: auto;">
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/getting-started">Getting started</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        Documentation
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://seedstack.org/archives/16.7/docs/seed">Java framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/w20">Web framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/business">Business framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/guides">Guides</a></li>
+                        <li><a target="_blank" href="https://github.com/seedstack/samples">Samples</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/addons">Add-ons</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/themes">Themes</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/posts">Blog</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        More
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="http://seedstack.org/archives/16.7/project/community">Community</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/roadmap">Roadmap</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/faq">FAQ</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/glossary">Glossary</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/tags">Tags</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <i class="search fa fa-search search-btn"></i>
+                    <div class="search-open">
+                        <form method="GET" action="/search">
+                            <div class="input-group animated fadeInDown">
+                                <input id="search-field" type="text" class="form-control" placeholder="Search" name="q">
+                                <span class="input-group-btn">
+                                    <button class="btn-u" type="submit">Go</button>
+                                </span>
+                            </div>
+                        </form>
+                        
+                            
+                        
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+        
+<div class="title-header small">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-12">
+                <h2>Web framework</h2>
+                <p class="hidden-xs">Also known as W20, the Web framework is built upon a powerful RequireJS/AngularJS mix to help you develop single page applications.</p>
+            </div>
+            <div class="col-md-3 hidden-sm hidden-xs">
+                <div class="header-image-wrapper">
+                    <img class="header-image" src="http://seedstack.org/archives/16.7/img/logos/w20-logo.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="title-subheader">
+    <div class="container">
+        <ul>
+            <li><h3 class=''><i class="fa fa-play-circle"></i> <a href="http://seedstack.org/archives/16.7/docs/w20">Introduction</a></h3></li>
+            <li><h3 class='active'><i class="fa fa-book"></i> <a href="http://seedstack.org/archives/16.7/docs/w20/manual">Manual</a></h3></li>
+            <li><h3><i class="fa fa-info-circle"></i> <a href="http://seedstack.org/archives/16.7/jsdoc" target="_blank">JSDoc</a></h3></li>
+            <li><h3><i class="fa fa-tag"></i> <a href="https://github.com/seedstack/w20/releases" target="_blank">Releases</a></h3></li>
+            <li><h3><i class="fa fa-github"></i> <a href="https://github.com/seedstack/w20" target="_blank">Source</a></h3></li>
+        </ul>
+    </div>
+</div>
+
+    </div>
+    <div id="content" class="container">
+        <div class="row">
+    <div class="col-md-9">
+        <div class="content-wrapper">
+            <div class="doc-content">
+                <p>Hypermedia is a powerful aspect of the REST architectural style. A client application can consume and navigate through
+REST resources via structured links relations. Navigation through APIs resemble web navigation: from a web page it is
+possible to follow links to new documents. In the same way, hypermedia provides a mechanism to interact with remote data
+with navigation and discovery in mind.</p>
+
+<p>For an overview of this concept, please refer to the documentation of the Java framework <a href="http://seedstack.org/archives/16.7/docs/seed/manual/rest/#designing-restful-api">Restful API</a>.</p>
+
+<h1 id="hypermedia-module">Hypermedia module</h1>
+
+<p>To enable the hypermedia module, declare it in the core fragment configuration.</p>
+
+<pre><code class="language-json">&quot;hypermedia&quot;: {}
+</code></pre>
+
+<p>Available configuration for this module is provided below along with short introductions to
+the hypermedia formats supported.</p>
+
+<h1 id="json-home">JSON-HOME</h1>
+
+<p>The MIME type <a href="http://tools.ietf.org/html/draft-nottingham-json-home-03">application/json-home</a> specify a
+document &laquo;map&raquo; of resources  that can serve as entry points for clients into an hypermedia api.</p>
+
+<h2 id="json-home-sample-catalog-and-product">Json-home sample: catalog and product</h2>
+
+<pre><code class="language-json">    {
+        &quot;resources&quot;: {
+            &quot;catalog&quot;: {
+                &quot;href&quot;: &quot;api/products&quot;
+            },
+            &quot;product&quot;: {
+                &quot;href-template&quot;: &quot;api/product/{name}&quot;,
+                &quot;href-vars&quot;: {
+                    &quot;name&quot;: &quot;api/doc/param/name&quot;
+                }
+            }
+        }
+    }
+</code></pre>
+
+<p>In this scenario a client can enter a commercial api by requesting the json home document which will provide it
+with two <strong><em>relations</em></strong>:</p>
+
+<ul>
+<li><p><strong><em>&laquo;catalog&raquo;</em></strong> with an URI defined in the <strong><em>href</em></strong> property which, when queried, could for instance return a
+list of available products in the catalog.</p></li>
+
+<li><p><strong><em>&laquo;product&raquo;</em></strong> with an <a href="https://tools.ietf.org/html/rfc6570">URI template</a> defined in the <strong><em>href-template</em></strong>
+property which uses the name of a product as a criteria for the query. Note that since we are using an
+URI template, the property is href-template instead of href. Now, how should this parameter be used ? Whether by
+implicit knowledge or through documentation for parameters that can be provided in a <strong><em>href-vars</em></strong> property.
+This allows client to discover the usability of an api by querying the URL at this location.</p></li>
+</ul>
+
+<p>More information can be provided in a json home document such as <strong><em>hints</em></strong> for available actions on the resource
+and/or accepted format. We advice you to take a look at the specification for an exhaustive documentation of the
+json home document type.</p>
+
+<h2 id="configuring-json-home-endpoints">Configuring Json home endpoints</h2>
+
+<p>In your hypermedia module declaration of the core fragment, specify the api endpoint which exposes your json-home
+resources with the <code>api</code> property:</p>
+
+<pre><code class="language-json">&quot;api&quot;: {
+    &quot;myFirstApi&quot;: &quot;http://domain:port/&quot;,
+    &quot;mySecondApi&quot;: &quot;/&quot;
+}
+</code></pre>
+
+<p>You can specify a full absolute url (starting with the http/https protocol) or an absolute url (starting with &laquo;/&raquo;).
+In the last case, the domain and port from which the application is served will be used as the hostname of the api.</p>
+
+<h2 id="using-aliases">Using aliases</h2>
+
+<p>You can use alias for your api endpoint to refer to a previously declared api.</p>
+
+<pre><code class="language-json">&quot;api&quot;: {
+    &quot;namedAlias&quot;: &quot;http://domain:port/&quot;,
+    &quot;myApi&quot;: &quot;@namedAlias&quot;
+}
+</code></pre>
+
+<p>There is one default alias <code>@home</code> which resolve to <strong><em>/</em></strong></p>
+
+<pre><code class="language-json">&quot;api&quot;: {
+    &quot;home&quot;: &quot;@home&quot;
+}
+</code></pre>
+
+<h2 id="homeservice">HomeService</h2>
+
+<p>The <code>HomeService</code> allows you to interact with the declared api endpoint(s). All endpoint declared in the manifest
+are automatically registered. To access an api use the following declaration:</p>
+
+<pre><code class="language-js">homeService('&lt;api&gt;'); //&lt;api&gt; is the property used to reference the api URL
+</code></pre>
+
+<p>The service has 3 methods:</p>
+
+<ul>
+<li><code>enter(api, parameters, actions, options)</code>: Provide a modified $resource object configured from a registered home
+resource. It signature is the same as the $resource service of AngularJS but instead of providing a url as the first
+parameter, you provide the name of the wanted relation provided in the Json home document. Another important difference
+is that only the get method is available by default on the returned object since it is used only for retrieving entry
+point resources.</li>
+</ul>
+
+<pre><code class="language-js">homeService('myApi').enter('catalog').get(function (products) {
+    ...
+};
+</code></pre>
+
+<ul>
+<li><code>register(jsonHomeResource)</code>: Programmatically register a new resource. The resource should respect the format for
+a Json-home document resource.</li>
+</ul>
+
+<pre><code class="language-js">homeService('myApi').register({
+    &quot;someNewResource&quot;: {
+        &quot;href&quot;: &quot;/some/url/&quot;
+    }
+});
+</code></pre>
+
+<ul>
+<li><code>getDefinition(resourceNAme)</code>: Return the definition of the resource.</li>
+</ul>
+
+<pre><code class="language-js">homeService('myApi').getDefinition('someNewResource'); 
+// { &quot;href&quot;: &quot;/some/url/&quot; }
+
+</code></pre>
+
+<h1 id="hal-hypertext-application-language">HAL (Hypertext Application Language)</h1>
+
+<p>W20 provide support for <a href="http://stateless.co/hal_specification.html">application/hal+json</a> resources. If Json home
+document constitute a &laquo;map&raquo; of the available entry points to the api, HAL is the format for these entry points and
+any subsequent resources obtained by following the links provided in these resources. Check the example below:</p>
+
+<h2 id="hal-sample-querying-products">HAL sample: querying products</h2>
+
+<pre><code class="language-json">{
+  &quot;currentPage&quot;: 1,
+  &quot;totalProduct&quot;: 20,
+  &quot;_links&quot;: {
+    &quot;self&quot;: {
+      &quot;href&quot;: &quot;/api/products?page=1&quot;
+    },
+    &quot;next&quot;: {
+      &quot;href&quot;: &quot;/api/products?page=2&quot;
+    },
+    &quot;find&quot;: {
+      &quot;href&quot;: &quot;/api/products{?q}&quot;,
+      &quot;templated&quot;: true
+    }
+  },
+  &quot;_embedded&quot;: {
+    &quot;products&quot;: [
+      {
+        &quot;name&quot;: &quot;myProduct&quot;,
+        &quot;_links&quot;: {
+          &quot;self&quot;: {
+            &quot;href&quot;: &quot;/api/product/myProduct&quot;
+          }
+        },
+        &quot;_embedded&quot;: {
+          &quot;related&quot;: [
+            {
+              &quot;name&quot;: &quot;productRelatedToMyProduct&quot;,
+              &quot;_links&quot;: {
+                &quot;self&quot;: {
+                  &quot;href&quot;: &quot;/api/product/myProduct/related&quot;
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+</code></pre>
+
+<p>HAL document must validate against the JSON specification and contains two important recognizable fields:</p>
+
+<ul>
+<li><p><strong><em>_links</em></strong> which is mandatory and must contain at the very least a <strong><em>&laquo;self&raquo;</em></strong> property which reference
+the resource itself. Additional links constitute the actual power of hypermedia: they provide additional resources
+in the form of named actions/resources. In this example two actions are available: going to the next page by following
+the &laquo;next&raquo; links or finding a product through the &laquo;find&raquo; links. This last one uses URI template to define
+the available query parameter.</p></li>
+
+<li><p><strong><em>_embedded</em></strong> is not mandatory but allow to provide embedded resources directly in the response. In this example
+we embedded a list of products (with one element). Each embedded resources respect itself the HAL specification
+so it must contain a &laquo;_links&raquo; with a reference to itself and optional embedded resources.</p></li>
+</ul>
+
+<h2 id="usage">Usage</h2>
+
+<p>When a resource is served with the application/hal+json MIME type, the hypermedia module will intercept the response
+and return a $resource object augmented with two additional methods:</p>
+
+<ul>
+<li><code>$links(link, parameters, actions, options)</code>: This method has the same signature as $resource but will use the name
+of the links instead of the url. Suppose we return the HAL document above when querying the catalog api. We can get
+the next page by following the &laquo;next&raquo; link.</li>
+</ul>
+
+<pre><code class="language-js">homeService('myApi').enter('catalog').get(function (products) {
+
+    var nextProductPage = products.$links('next').get();
+
+});
+</code></pre>
+
+<p>If the $links method is called without parameter, it returns a list of the available links on the resource.</p>
+
+<ul>
+<li><code>$embedded(name)</code>: If the resource contains embedded items, they can be accessed with this method. Suppose we
+return the HAL document above when querying the catalog api. We can get the embedded items with the following
+declaration</li>
+</ul>
+
+<pre><code class="language-js">homeService('myApi').enter('catalog').get(function (products) {
+
+    var embeddedProducts = products.$embedded('products');
+    console.info(embeddedProducts.name); // &quot;myProduct&quot;
+    
+    var relatedProducts = embeddedProducts.$embedded('related')[0].$links('self').get();
+    
+    // the last line will GET /api/product/myProduct/related
+
+});
+</code></pre>
+
+<p>Note: Although we used the HomeService in these example to start querying the api, it is not an obligation. Provided
+that a resource is served with the MIME type application/hal+json, we could have used a simple $resource object to
+start querying the api with a url.</p>
+
+<h1 id="manual-interception">Manual interception</h1>
+
+<p>By default if the hypermedia module is configured and a resource is served with the MIME type application/hal+json, the
+response will automatically be intercepted and processed according to what we said above. If you want to disable this
+behavior and intercept response manually you need to set the <code>interceptAll</code> property to false in the hypermedia module
+configuration.</p>
+
+<pre><code class="language-json">&quot;hypermedia&quot;: {
+    &quot;interceptAll&quot;: false
+}
+</code></pre>
+
+<p>To do a manual interception you then need to inject the <code>HypermediaRestAdapter</code> and use it as follow:</p>
+
+<pre><code class="language-js">HypermediaRestAdapter.process(response.data).then(function (processedResponse) {
+    ...
+});
+</code></pre>
+
+<h1 id="additional-configuration">Additional configuration</h1>
+
+<pre><code class="language-json">&quot;hypermedia&quot;: {
+    &quot;api&quot;: { // key-value pair of api endpoint name and url },
+    &quot;interceptAll&quot;: true, (default)  // Intercept all hal+json response automatically
+    &quot;linksKey&quot;: &quot;_links&quot;, (default) // Rename the links key
+    &quot;linksHrefKey&quot;: &quot;href&quot;, (default) // Rename the href key
+    &quot;linksSelfLinkName&quot;: &quot;self&quot;, (default) // Rename self link
+    &quot;embeddedKey&quot;: &quot;_embedded&quot;, (default) // Rename embedded key
+    &quot;embeddedNewKey&quot;: &quot;$embedded&quot;, (default) // Rename the embedded function
+    &quot;resourcesKey&quot;: &quot;$links&quot;, (default) // Rename the links function
+}
+</code></pre>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        
+<div class="side-menu">
+    
+        
+        <div class="list-group">
+            <ul class="nav">
+                
+                
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/w20/manual/" class="list-group-item ">
+                            Web framework basics
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/w20/manual/routing/" class="list-group-item ">
+                            Routing
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/w20/manual/security/" class="list-group-item ">
+                            Security
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/w20/manual/culture/" class="list-group-item ">
+                            Culture
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/w20/manual/hypermedia/" class="list-group-item  active ">
+                            Hypermedia
+                        </a>
+                        
+                        
+                            <nav id="TableOfContents">
+<ul>
+<li><a href="#hypermedia-module">Hypermedia module</a></li>
+<li><a href="#json-home">JSON-HOME</a>
+<ul>
+<li><a href="#json-home-sample-catalog-and-product">Json-home sample: catalog and product</a></li>
+<li><a href="#configuring-json-home-endpoints">Configuring Json home endpoints</a></li>
+<li><a href="#using-aliases">Using aliases</a></li>
+<li><a href="#homeservice">HomeService</a></li>
+</ul></li>
+<li><a href="#hal-hypertext-application-language">HAL (Hypertext Application Language)</a>
+<ul>
+<li><a href="#hal-sample-querying-products">HAL sample: querying products</a></li>
+<li><a href="#usage">Usage</a></li>
+</ul></li>
+<li><a href="#manual-interception">Manual interception</a></li>
+<li><a href="#additional-configuration">Additional configuration</a></li>
+</ul>
+</nav>
+                            <script>
+                                seedstack.state.previousPage = '\/archives\/16.7\/docs\/w20\/manual\/culture\/';
+                            </script>
+                            
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/w20/manual/ui/" class="list-group-item ">
+                            UI
+                        </a>
+                        
+                            <script>
+                                seedstack.state.nextPage = '\/archives\/16.7\/docs\/w20\/manual\/ui\/';
+                            </script>
+                            
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/w20/manual/testing/" class="list-group-item ">
+                            Testing
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+            </ul>
+        </div>
+        
+    
+    
+    <div class="list-group">
+        <ul class="nav">
+            <li class="list-group-item"><div style="margin-bottom: 10px;"><i class="fa fa-tag"></i> Tags</div>
+                <div class="tags">
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/hypermedia">Hypermedia</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/rest">Rest</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/link">Link</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/api">Api</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/resource">Resource</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/json">Json</a>
+                    
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="list-group">
+        <ul class="nav">
+            
+                <li><a class="list-group-item" href="https://github.com/seedstack/website/edit/master/content/docs/w20/manual/hypermedia.md" target="_blank"><i class="fa fa-edit"></i> Contribute to this page</a></li>
+            
+        </ul>
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+    <div id="footer">
+        <div class="footer-v3">
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="headline"><h2>About</h2></div>
+                    <p class="margin-bottom-25 md-margin-bottom-40">SeedStack is an Open-Source enterprise-class development stack for building modern and robust applications.</p>
+                </div>
+
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="posts">
+                        <div class="headline"><h2>License</h2></div>
+                        <p>
+                            Code licensed under the <a href="https://www.mozilla.org/MPL/2.0" target="_blank">Mozilla Public License 2.0</a>.
+                            <br/>
+                            Documentation licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 map-img">
+                    <div class="headline"><h2>Contact us</h2></div>
+                    <address>
+                        <p>
+                            IRC channel <a href="irc://chat.freenode.net/seedstack">#seedstack on Freenode community</a>
+                            <br/>
+                            Google group <a href="https://groups.google.com/forum/#!forum/seedstack">seedstack@googlegroups.com</a>
+                        </p>
+                    </address>
+
+                    <div class="headline"><h2>Stay in touch</h2></div>
+                    <div style="margin-bottom: 20px;">
+                        <a class="twitter-follow-button"
+                           href="https://twitter.com/seedstack"
+                           data-show-count="false"
+                           data-lang="en">
+                            Follow @seedstack
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+    <div id="hotkeys-modal" class="modal">
+    <div class="modal-dialog" style="min-width: 960px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Keyboard shortcuts <a id="show-all-shortcuts" style="cursor: pointer;" onclick="seedstack.ui.showAllShortcuts();">(Show all)</a></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Global shortcuts</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>?</kbd>
+                                </td>
+                                <td>Show this help dialog</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>/</kbd>
+                                </td>
+                                <td>Focus the search field</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↑</kbd>
+                                </td>
+                                <td>Go to previous menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↓</kbd>
+                                </td>
+                                <td>Go to next menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>S</kbd>
+                                </td>
+                                <td>Go to Seed framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>W</kbd>
+                                </td>
+                                <td>Go to W20 framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>B</kbd>
+                                </td>
+                                <td>Go to Business framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>A</kbd>
+                                </td>
+                                <td>Go to add-ons</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>G</kbd>
+                                </td>
+                                <td>Go to guides</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Seed framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>t</kbd>
+                                </td>
+                                <td>Go to testing</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to cryptography</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>w</kbd>
+                                </td>
+                                <td>Go to Web</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>r</kbd>
+                                </td>
+                                <td>Go to REST</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>o</kbd>
+                                </td>
+                                <td>Go to operations</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>T</kbd>
+                                </td>
+                                <td>Go to transactions</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Business framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>m</kbd>
+                                </td>
+                                <td>Go to model</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>l</kbd>
+                                </td>
+                                <td>Go to lifecycle</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>e</kbd>
+                                </td>
+                                <td>Go to events</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>p</kbd>
+                                </td>
+                                <td>Go to policies</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>a</kbd>
+                                </td>
+                                <td>Go to assemblers</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>f</kbd>
+                                </td>
+                                <td>Go to finders</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>P</kbd>
+                                </td>
+                                <td>Go to pagination</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>W20 framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to culture</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>h</kbd>
+                                </td>
+                                <td>Go to hypermedia</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>u</kbd>
+                                </td>
+                                <td>Go to UI</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="versions-modal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 id="versions-title" class="modal-title">Fetching components...</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="versions-table" class="table table-striped table-hover table-bordered">
+                            <tr>
+                                <th>Component</th>
+                                <th>Version</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/github.min.css">
+
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mousetrap/1.4.6/mousetrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lunr.js/0.5.9/lunr.min.js"></script>
+<script src="/assets/unify/plugins/smoothScroll.js"></script>
+<script src="/js/xml2json.js"></script>
+<script src="/js/jquery.highlight.js"></script>
+<script src="/js/seedstack.js"></script>
+<script>
+    $(document).ready(function () {
+        var $search = $('.search-btn');
+
+        $('.search').click(function () {
+            if ($search.hasClass('fa-search')) {
+                seedstack.ui.openSearch();
+            } else {
+                seedstack.ui.closeSearch();
+            }
+        });
+
+        $('pre code').each(function (i, block) {
+            hljs.highlightBlock(block);
+        });
+
+        $('.side-menu').affix({
+            offset: {
+                top: $('#header').height() + 20,
+                bottom: $('#footer').height() + 40
+            }
+        });
+
+        Mousetrap.bind('/', function () {
+            seedstack.ui.openSearch();
+            return false;
+        });
+
+        Mousetrap.bind('alt+up', function () {
+            if (seedstack.state.previousPage) {
+                window.location = seedstack.state.previousPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('alt+down', function () {
+            if (seedstack.state.nextPage) {
+                window.location = seedstack.state.nextPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('?', function () {
+            seedstack.ui.openHelp();
+            return false;
+        });
+
+        Mousetrap.bind('esc', function () {
+            seedstack.ui.closeHelp();
+            seedstack.ui.closeSearch();
+            return false;
+        });
+
+        var originalCallback = Mousetrap.stopCallback;
+        Mousetrap.stopCallback = function (e, element, combo) {
+            if (combo === 'esc') {
+                return false;
+            }
+
+            return originalCallback(e, element, combo);
+        };
+
+        function bindShortcuts(value) {
+            $.each(value, function (sequence, item) {
+                if (typeof item === 'string') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item;
+                        return false;
+                    });
+                } else if (typeof item === 'object') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item.path;
+                        return false;
+                    });
+                    if (item.shortcuts && location.pathname.indexOf(item.path) === 0) {
+                        bindShortcuts(item.shortcuts);
+                    }
+                }
+            });
+        }
+
+        function resolveVersions() {
+            var $versionsTitle = $('#versions-title');
+            if (!seedstack.versions) {
+                $.ajax({
+                    dataType: 'text',
+                    url: '/distribution.pom.xml'
+                }).done(function (data) {
+                    var pom = new X2JS().xml_str2json(data);
+
+                    if (pom.project && pom.project.properties && pom.project.version) {
+                        var $versions = $('#versions-table');
+                        var blackList = ['seedstack-maven-plugin', 'java-compiler', 'maven-failsafe-plugin', 'logback'];
+                        var versions = {};
+
+                        $versionsTitle.text("SeedStack " + pom.project.version);
+
+                        $.each(pom.project.properties, function (name, value) {
+                            if (/\.version$/.test(name)) {
+                                var shortName = name.substr(0, name.indexOf('.version'));
+                                if ($.inArray(shortName, blackList) === -1) {
+                                    versions[shortName] = value;
+                                    $versions.append(
+                                            '<tr>' +
+                                            '<td>' +
+                                            shortName.substr(0, 1).toUpperCase() + shortName.substr(1, shortName.length - 1).replace(/-/g, ' ') +
+                                            '</td>' +
+                                            '<td>' + value + '</td>' +
+                                            '</tr>');
+                                }
+                            }
+                        });
+
+                        $('.loginbar').prepend(
+                                '<li class="hidden-xs hidden-sm"><i class="fa fa-tag"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openVersions();">Latest version: ' + pom.project.version + '</a></li>' +
+                                '<li class="topbar-devider"></li>'
+                        );
+
+                        seedstack.versions = versions;
+                    }
+                }).error(function () {
+                    console.error("SeedStack version could not be resolved");
+                });
+            }
+        }
+
+        bindShortcuts(seedstack.ui.shortcuts);
+
+        resolveVersions();
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $('#hotkeys-modal, #versions-modal').bind('hidden.bs.modal', function () {
+            $("html").css("margin-right", "0px");
+        }).bind('show.bs.modal', function () {
+            $("html").css("margin-right", "-15px");
+        });
+
+        var query = seedstack.strings.parseQueryString(location);
+        if (query.h && query.h.length > 0) {
+            $('.doc-content').highlight(query.h);
+            if (query.scroll) {
+                $('html, body').animate({
+                    scrollTop: $('span[class=highlight]:first').offset().top - 20
+                }, 250);
+            }
+        }
+    });
+</script>
+<script>window.twttr = (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+    if (d.getElementById(id))return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    t._e = [];
+    t.ready = function (f) {
+        t._e.push(f);
+    };
+    return t;
+}(document, "script", "twitter-wjs"));</script>
+
+</body>
+</html>

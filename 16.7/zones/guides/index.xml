@@ -1,0 +1,3305 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/zones/guides/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/zones/guides/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Creating an add-on</title>
+      <link>http://seedstack.org/archives/16.7/guides/creating-addon/</link>
+      <pubDate>Wed, 31 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/guides/creating-addon/</guid>
+      <description>&lt;p&gt;SeedStack is an extensible solution that can be enriched with add-ons to provide new functionality or features.
+Writing an add-on is not a difficult task as it is very similar to writing an application but some rules and
+conventions must be obeyed. This guide will describe these rules and conventions.&lt;/p&gt;
+
+&lt;h1 id=&#34;project-structure&#34;&gt;Project structure&lt;/h1&gt;
+
+&lt;p&gt;An add-on almost always consists in an API/SPI with one or more implementations. Depending on the complexity of
+the add-on and the re-usability requirements, several project structures can be used.&lt;/p&gt;
+
+&lt;h2 id=&#34;single-module-add-on&#34;&gt;Single-module add-on&lt;/h2&gt;
+
+&lt;p&gt;The simplest form of add-on is a single module project. In this case, the API/SPI and the implementation will be
+contained in a single JAR artifact. The typical single-module add-on structure is:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;single-addon
+    |- src/main/java
+    |   |- org.myorg.feature    &amp;lt;-- API goes in the add-on base package
+    |       |- internal         &amp;lt;-- Implementation            
+    |       |- spi              &amp;lt;-- SPI if any
+    |- src/test/java
+        ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Example single module add-on: &lt;a href=&#34;https://github.com/seedstack/jpa-addon&#34;&gt;https://github.com/seedstack/jpa-addon&lt;/a&gt;&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;add-on-with-a-separated-api-spi&#34;&gt;Add-on with a separated API/SPI&lt;/h2&gt;
+
+&lt;p&gt;When you need to provide the API/SPI to clients separately from the implementation you need to create a multi-module
+add-on:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;specs&lt;/code&gt; module will contain the API (and the SPI if any),&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;core&lt;/code&gt; module will contain the implementation.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The typical structure for such add-on is:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;multi-addon
+    |- core
+    |   |- src/main/java
+    |   |   |- org.myorg.feature    
+    |   |       |- internal         &amp;lt;-- Implementation            
+    |   |- src/test/java
+    |       ...
+    |- specs        
+    |   |- src/main/java
+    |   |   |- org.myorg.feature    &amp;lt;-- API goes in the add-on base package
+    |   |       |- spi              &amp;lt;-- SPI if any
+    |   |- src/test/java
+            ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Java packages are still the same that found in the single module add-on but segregated in two maven modules.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;multiple-implementations-add-on&#34;&gt;Multiple implementations add-on&lt;/h2&gt;
+
+&lt;p&gt;When you have multiple implementations or implementation extensions for an add-on you can add a new sub-module per
+implementation/extension. This type of add-on is the same a the previous one with additional sub-modules:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;specs&lt;/code&gt; module will contain the API (and the SPI if any),&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;core&lt;/code&gt; module will contain the main/common implementation,&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;impl1&lt;/code&gt; module will contain the &lt;code&gt;impl1&lt;/code&gt; implementation,&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;impl2&lt;/code&gt; module will contain the &lt;code&gt;impl2&lt;/code&gt; implementation,&lt;/li&gt;
+&lt;li&gt;&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;multi-addon
+    |- core
+    |   |- src/main/java
+    |   |   |- org.myorg.feature    
+    |   |       |- internal         &amp;lt;-- Main/common implementation            
+    |   |- src/test/java
+    |       ...
+    |- impl1
+    |   |- src/main/java
+    |   |   |- org.myorg.feature.impl1    
+    |   |       |- internal         &amp;lt;-- Implementation/extension 1            
+    |   |- src/test/java
+    |       ...
+    |- impl2
+    |   |- src/main/java
+    |   |   |- org.myorg.feature.impl2    
+    |   |       |- internal         &amp;lt;-- Implementation/extension 2            
+    |   |- src/test/java
+    |       ...
+    |- specs        
+    |   |- src/main/java
+    |   |   |- org.myorg.feature    &amp;lt;-- API goes in the add-on base package
+    |   |       |- spi              &amp;lt;-- SPI if any
+    |   |- src/test/java
+            ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If you don&amp;rsquo;t have any API, like when it is provided by a third party, you can omit
+the specs module completely.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Example multi-module add-on: &lt;a href=&#34;https://github.com/seedstack/i18n-addon&#34;&gt;https://github.com/seedstack/i18n-addon&lt;/a&gt;&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;dependencies&#34;&gt;Dependencies&lt;/h1&gt;
+
+&lt;p&gt;As the add-on is a reusable component which will be used in various contexts, the rules on dependencies are
+tighter than on applications.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;As a general rule, try to minimize the number of dependencies in your add-on to help avoid
+unintended side-effects and limit its impact on client projects.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Any dependency that will be provided by the client project or its runtime environment must
+be specified with a &lt;code&gt;provided&lt;/code&gt; scope. The meaning here is that the dependency is required for
+proper operation but must be provided downstream.&lt;/li&gt;
+&lt;li&gt;If your add-on contains optional features that have dependencies you have two options:
+
+&lt;ul&gt;
+&lt;li&gt;Either package those features in their own implementation sub-module with their own dependencies,&lt;/li&gt;
+&lt;li&gt;Or package those features in the core implementation, mark their dependencies as &lt;code&gt;optional&lt;/code&gt; and use
+conditional code to initialize those features only when their dependency requirements are met.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;api-spi&#34;&gt;API/SPI&lt;/h1&gt;
+
+&lt;p&gt;All API classes go in the base package of the add-on. All SPI classes go in a &lt;code&gt;spi&lt;/code&gt; subpackage of the base package. Try
+to keep the API classes as flat as possible, ideally without subpackage.&lt;/p&gt;
+
+&lt;h1 id=&#34;implementation&#34;&gt;Implementation&lt;/h1&gt;
+
+&lt;p&gt;All implementation classes go in a &lt;code&gt;*.internal.*&lt;/code&gt; which is completely excluded from backwards compatibility requirements
+between versions.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Using SeedStack development snapshots</title>
+      <link>http://seedstack.org/archives/16.7/guides/using-snapshots/</link>
+      <pubDate>Fri, 19 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/guides/using-snapshots/</guid>
+      <description>
+
+&lt;p&gt;Sometimes there is a need to use a development version of a SeedStack component in your project, &lt;strong&gt;for testing purposes&lt;/strong&gt;.
+SeedStack Java components are available as Maven dependencies at the following locations:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Releases are available on &lt;a href=&#34;https://bintray.com/seedstack/jars&#34;&gt;Bintray&lt;/a&gt;, &lt;a href=&#34;https://bintray.com/bintray/jcenter&#34;&gt;JCenter&lt;/a&gt;
+and &lt;a href=&#34;http://search.maven.org/&#34;&gt;Maven central&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Development snapshots are available on &lt;a href=&#34;https://oss.jfrog.org/artifactory/webapp/#/artifacts/browse/simple/General/oss-snapshot-local/org/seedstack&#34;&gt;JFrog OSS Artifactory&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;proxy-configuration&#34;&gt;Proxy configuration&lt;/h1&gt;
+
+&lt;p&gt;In the case where you are behind a corporate proxy, you must configure Maven to go through the proxy. You can do so, by
+following &lt;a href=&#34;https://maven.apache.org/guides/mini/guide-proxies.html&#34;&gt;this documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;settings&amp;gt;
+  ...
+  &amp;lt;proxies&amp;gt;
+   &amp;lt;proxy&amp;gt;
+      &amp;lt;id&amp;gt;example-proxy&amp;lt;/id&amp;gt;
+      &amp;lt;active&amp;gt;true&amp;lt;/active&amp;gt;
+      &amp;lt;protocol&amp;gt;http&amp;lt;/protocol&amp;gt;
+      &amp;lt;host&amp;gt;proxy.example.com&amp;lt;/host&amp;gt;
+      &amp;lt;port&amp;gt;8080&amp;lt;/port&amp;gt;
+      &amp;lt;username&amp;gt;proxyuser&amp;lt;/username&amp;gt;
+      &amp;lt;password&amp;gt;somepassword&amp;lt;/password&amp;gt;
+      &amp;lt;nonProxyHosts&amp;gt;www.google.com|*.example.com&amp;lt;/nonProxyHosts&amp;gt;
+    &amp;lt;/proxy&amp;gt;
+  &amp;lt;/proxies&amp;gt;
+  ...
+&amp;lt;/settings&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;configuring-maven-for-seedstack-snapshots&#34;&gt;Configuring Maven for SeedStack snapshots&lt;/h1&gt;
+
+&lt;p&gt;You can configure access to SeedStack snapshots located on JFrog OSS Artifactory. You can do this either specifically for
+a project or globally in your system-wide Maven settings.&lt;/p&gt;
+
+&lt;h2 id=&#34;project-specific&#34;&gt;Project-specific&lt;/h2&gt;
+
+&lt;p&gt;To access snapshots, you need to add the following repository definitions to your project POM:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;repositories&amp;gt;
+    &amp;lt;repository&amp;gt;
+        &amp;lt;id&amp;gt;ojo-libs-snapshot&amp;lt;/id&amp;gt;
+        &amp;lt;name&amp;gt;ojo-snapshots&amp;lt;/name&amp;gt;
+        &amp;lt;url&amp;gt;https://oss.jfrog.org/artifactory/libs-snapshot&amp;lt;/url&amp;gt;
+        &amp;lt;releases&amp;gt;
+            &amp;lt;enabled&amp;gt;false&amp;lt;/enabled&amp;gt;
+        &amp;lt;/releases&amp;gt;
+        &amp;lt;snapshots&amp;gt;
+            &amp;lt;enabled&amp;gt;true&amp;lt;/enabled&amp;gt;
+        &amp;lt;/snapshots&amp;gt;
+    &amp;lt;/repository&amp;gt;
+&amp;lt;/repositories&amp;gt;
+&amp;lt;pluginRepositories&amp;gt;
+    &amp;lt;pluginRepository&amp;gt;
+        &amp;lt;id&amp;gt;ojo-libs-snapshot&amp;lt;/id&amp;gt;
+        &amp;lt;name&amp;gt;ojo-snapshots&amp;lt;/name&amp;gt;
+        &amp;lt;url&amp;gt;https://oss.jfrog.org/artifactory/libs-snapshot&amp;lt;/url&amp;gt;
+        &amp;lt;releases&amp;gt;
+            &amp;lt;enabled&amp;gt;false&amp;lt;/enabled&amp;gt;
+        &amp;lt;/releases&amp;gt;
+        &amp;lt;snapshots&amp;gt;
+            &amp;lt;enabled&amp;gt;true&amp;lt;/enabled&amp;gt;
+        &amp;lt;/snapshots&amp;gt;
+    &amp;lt;/pluginRepository&amp;gt;
+&amp;lt;/pluginRepositories&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that the &lt;code&gt;&amp;lt;pluginRepositories&amp;gt;&lt;/code&gt; section is only needed if you want use development snapshots of &lt;a href=&#34;http://seedstack.org/docs/seed/maven-plugin/&#34;&gt;SeedStack Maven
+plugin&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;system-wide-configuration&#34;&gt;System-wide configuration&lt;/h2&gt;
+
+&lt;p&gt;Update your Maven &lt;code&gt;settings.xml&lt;/code&gt; file which is located by default under &lt;code&gt;~/.m2/settings.xml&lt;/code&gt; with the following profile:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;profile&amp;gt;
+    &amp;lt;id&amp;gt;ojo-snapshots&amp;lt;/id&amp;gt;
+    &amp;lt;repositories&amp;gt;
+        &amp;lt;repository&amp;gt;
+            &amp;lt;id&amp;gt;ojo-libs-snapshot&amp;lt;/id&amp;gt;
+            &amp;lt;name&amp;gt;ojo-snapshots&amp;lt;/name&amp;gt;
+            &amp;lt;url&amp;gt;https://oss.jfrog.org/artifactory/libs-snapshot&amp;lt;/url&amp;gt;
+            &amp;lt;releases&amp;gt;
+                &amp;lt;enabled&amp;gt;false&amp;lt;/enabled&amp;gt;
+            &amp;lt;/releases&amp;gt;
+            &amp;lt;snapshots&amp;gt;
+                &amp;lt;enabled&amp;gt;true&amp;lt;/enabled&amp;gt;
+            &amp;lt;/snapshots&amp;gt;
+        &amp;lt;/repository&amp;gt;
+    &amp;lt;/repositories&amp;gt;
+    &amp;lt;pluginRepositories&amp;gt;
+        &amp;lt;pluginRepository&amp;gt;
+            &amp;lt;id&amp;gt;ojo-libs-snapshot&amp;lt;/id&amp;gt;
+            &amp;lt;name&amp;gt;ojo-snapshots&amp;lt;/name&amp;gt;
+            &amp;lt;url&amp;gt;https://oss.jfrog.org/artifactory/libs-snapshot&amp;lt;/url&amp;gt;
+            &amp;lt;releases&amp;gt;
+                &amp;lt;enabled&amp;gt;false&amp;lt;/enabled&amp;gt;
+            &amp;lt;/releases&amp;gt;
+            &amp;lt;snapshots&amp;gt;
+                &amp;lt;enabled&amp;gt;true&amp;lt;/enabled&amp;gt;
+            &amp;lt;/snapshots&amp;gt;
+        &amp;lt;/pluginRepository&amp;gt;
+    &amp;lt;/pluginRepositories&amp;gt;
+&amp;lt;/profile&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Similarly to project-specific configuration, the &lt;code&gt;&amp;lt;pluginRepositories&amp;gt;&lt;/code&gt; section is only needed if you want use development
+snapshots of &lt;a href=&#34;http://seedstack.org/docs/seed/maven-plugin/&#34;&gt;SeedStack Maven plugin&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You can activate the &lt;code&gt;ojo-snapshots&lt;/code&gt; profile on-demand or choose to always enable it by adding the following section to
+your &lt;code&gt;settings.xml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;activeProfiles&amp;gt;
+    &amp;lt;activeProfile&amp;gt;ojo-snapshots&amp;lt;/activeProfile&amp;gt;
+&amp;lt;/activeProfiles&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Introduction</title>
+      <link>http://seedstack.org/archives/16.7/guides/ddd-pitfalls-and-tips/</link>
+      <pubDate>Tue, 23 Jun 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/guides/ddd-pitfalls-and-tips/</guid>
+      <description>&lt;p&gt;Domain-Driven Design is focused on creating high-quality software that not only meet the users needs, but also is designed
+to deliver true business value. Software that is not merely working but has the potential to accompany the business
+strategic initiatives and provide a clear competitive advantage. Software that can be evolved throughout the years to
+remain a valuable asset instead of being a recurring cost.&lt;/p&gt;
+
+&lt;p&gt;It does so by addressing both the strategic needs of the business and the tactical ways of translating them into real
+software that works. This guide doesn&amp;rsquo;t even try to address the strategic side of DDD but is focused on the common
+mistakes and their solution your can face when implementing DDD in your project. Examples of such mistakes and their
+solution are presented, based on the SeedStack business framework.&lt;/p&gt;
+
+&lt;h1 id=&#34;contents-of-this-guide&#34;&gt;Contents of this guide&lt;/h1&gt;
+
+&lt;p&gt;This guide is mainly intended for beginners that should know about these pitfalls in order to recognize and avoid them
+before it&amp;rsquo;s too late. But it can also be of valuable help to more seasoned developers.&lt;/p&gt;
+
+&lt;p&gt;The following topics are addressed:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The Anemic Domain Model [Fowler, Anemic], is viewed by many as an anti-pattern of Domain Modeling and will prevent you
+to get all the benefits from Domain-Driven Design. We will look at its disadvantages and how to recognize it. An example
+will show how to refactor an Anemic Domain Model into a Rich Domain Model.&lt;/li&gt;
+&lt;li&gt;The duality of Entities and Value Objects will be explored. What are their respective characteristics, when to use which,
+and how to manage identities.&lt;/li&gt;
+&lt;li&gt;Aggregate design is a particularly difficult topic, especially for beginners. We will review various criteria which
+can help in achieving the right granularity and (de)coupling level.&lt;/li&gt;
+&lt;li&gt;In relation to the Anemic Domain Model topic, we will focus on the behavior of the domain. When behavior should go
+into Entities/VO or segregated into Services, what are the characteristics of a good service.&lt;/li&gt;
+&lt;li&gt;Beyond the Domain, live its clients like the Application layer. We will look at how they can effectively use the domain
+while being kept thin.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;tactical-patterns&#34;&gt;Tactical patterns&lt;/h1&gt;
+
+&lt;p&gt;As a reference, the main DDD tactical patterns and their relations are summarized on the following diagram:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/all-domain.png&#34; alt=&#34;tactical-patterns&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;references&#34;&gt;References&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;[Fowler, Anemic] Fowler Martin. 2003. &lt;a href=&#34;http://www.martinfowler.com/bliki/AnemicDomainModel.html&#34;&gt;http://www.martinfowler.com/bliki/AnemicDomainModel.html&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Bootstrap 3 basics</title>
+      <link>http://seedstack.org/archives/16.7/guides/bootstrap-basics/</link>
+      <pubDate>Wed, 10 Dec 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/guides/bootstrap-basics/</guid>
+      <description>&lt;style type=&#34;text/css&#34;&gt;
+    .bs-grid {
+        background: #EEE;
+        border: 1px solid #DDD;
+        padding: 10px;
+    }
+
+    .show-grid [class^=col-] {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-color: #eee;
+        background-color: rgba(86, 61, 124, .15);
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86, 61, 124, .2);
+    }
+&lt;/style&gt;
+&lt;div&gt;
+&lt;p&gt;
+    See &lt;a href=&#34;http://getbootstrap.com/&#34;&gt;the official bootstrap documentation &lt;/a&gt; for exhaustive information.
+    See also &lt;a href=&#34;http://angular-ui.github.io/bootstrap/&#34;&gt;the bootstrap-ui documentation&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;p&gt;
+    The bootstrap framework consists of css resources for the layout and responsive grid design; and javascript for
+    interactive or animated components. With its flat and clear design, the Bootstrap (version 3) framework is of
+    great help for building your views structure.
+&lt;/p&gt;
+
+&lt;p&gt;
+    The Ui Bootstrap library offer tight integration of Bootstrap with AngularJS through dedicated directives that
+    are included
+    in W20.
+&lt;/p&gt;
+
+&lt;p&gt;
+    Bootstrap is loaded naturally whenever you include the &lt;b&gt;w20-ui&lt;/b&gt; module.
+&lt;/p&gt;
+
+&lt;p&gt;
+    Browse this section for information regarding Bootstrap grid layout and major components.
+&lt;/p&gt;
+
+&lt;!-- GRID LAYOUT ---
+--------------------&gt;
+&lt;h1&gt;Grid layout&lt;/h1&gt;
+
+&lt;p&gt;Bootstrap 3.x grid system, as opposed to its predecessor Bootstrap 2.x, is designed to be mobile first.&lt;/p&gt;
+
+&lt;p&gt; Grid systems are used for creating page layouts through a series of rows and columns that house your content.
+    Here&#39;s
+    how the Bootstrap grid system works: &lt;/p&gt;
+
+&lt;ul&gt;
+    &lt;li&gt;Rows must be placed within a &lt;code&gt;.container&lt;/code&gt; (fixed-width) or &lt;code&gt;.container-fluid&lt;/code&gt;
+        (full-width)
+        for proper alignment and padding.
+    &lt;/li&gt;
+    &lt;li&gt;Use rows to create horizontal groups of columns.&lt;/li&gt;
+    &lt;li&gt;Content should be placed within columns, and only columns may be immediate children of rows.&lt;/li&gt;
+    &lt;li&gt;Predefined grid classes like &lt;code&gt;.row&lt;/code&gt; and &lt;code&gt;.col-xs-4&lt;/code&gt; are available for quickly making
+        grid
+        layouts. Less mixins can also be used for more semantic layouts.
+    &lt;/li&gt;
+    &lt;li&gt;Columns create gutters (gaps between column content) via &lt;code&gt;padding&lt;/code&gt;. That padding is offset in
+        rows
+        for the first and last column via negative margin on &lt;code&gt;.row&lt;/code&gt;s.
+    &lt;/li&gt;
+    &lt;li&gt;Grid columns are created by specifying the number of twelve available columns you wish to span. For example,
+        three equal columns would use three &lt;code&gt;.col-xs-4&lt;/code&gt;.
+    &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt; Depending on the device size, the grid will adopt the corresponding css class. Here is a summary of the
+    different available size : &lt;/p&gt;
+
+&lt;table class=&#34;table table-striped table-bordered&#34;&gt;
+    &lt;tbody&gt;
+    &lt;tr class=&#34;active&#34;&gt;
+        &lt;td&gt;&lt;code&gt;.col-xs-$&lt;/code&gt;&lt;/td&gt;
+        &lt;td&gt;Extra Small&lt;/td&gt;
+        &lt;td&gt;Phones Less than 768px&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr class=&#34;danger&#34;&gt;
+        &lt;td&gt;&lt;code&gt;.col-sm-$&lt;/code&gt;&lt;/td&gt;
+        &lt;td&gt;Small Devices&lt;/td&gt;
+        &lt;td&gt;Tablets 768px and Up&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr class=&#34;warning&#34;&gt;
+        &lt;td&gt;&lt;code&gt;.col-md-$&lt;/code&gt;&lt;/td&gt;
+        &lt;td&gt;Medium Devices&lt;/td&gt;
+        &lt;td&gt;Desktops 992px and Up&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr class=&#34;success&#34;&gt;
+        &lt;td&gt;&lt;code&gt;.col-lg-$&lt;/code&gt;&lt;/td&gt;
+        &lt;td&gt;Large Devices&lt;/td&gt;
+        &lt;td&gt;Large Desktops 1200px and Up&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;!-- RESPONSIVE UTILITIES ------
+--------------------------------&gt;
+&lt;h1&gt; Responsive Utilities &lt;/h1&gt;
+
+&lt;p&gt; Sometime you simply want to hide/show a part of the DOM depending of the size of the viewing device. Bootstrap
+    offer convenient classes for this purpose : &#34;visible-$&#34; and &#34;hidden-$&#34;.&lt;/p&gt;
+
+&lt;ul&gt;
+    &lt;li&gt;&lt;code&gt;.visible-xs&lt;/code&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;code&gt;.visible-sm&lt;/code&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;code&gt;.visible-md&lt;/code&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;code&gt;.visible-lg&lt;/code&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;code&gt;.hidden-xs&lt;/code&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;code&gt;.hidden-sm&lt;/code&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;code&gt;.hidden-md&lt;/code&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;code&gt;.hidden-lg&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here are a few examples of the grids that you can create. We&#39;ll go through some basic sites that some people
+    might want and show how easy it is to build that site with the Bootstrap 3 grid.&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-info&#34;&gt;&lt;i class=&#34;icon-bolt&#34;&gt;&lt;/i&gt; Resize your browser&amp;#8217;s width to see the different grids in action. &lt;/div&gt;
+
+&lt;h3&gt;Simple: Large Desktop vs Mobile&lt;/h3&gt;
+
+&lt;p&gt;Let&amp;#8217;s say you wanted a site to have &lt;strong&gt;1 column&lt;/strong&gt; on extra small (phone) and small (tablet)
+    devices, &lt;strong&gt;2 columns&lt;/strong&gt; on medium (medium desktop) devices, and &lt;strong&gt;4 columns&lt;/strong&gt; on large
+    (desktop) devices.&lt;/p&gt;
+
+&lt;div class=&#34;row&#34;&gt;
+    &lt;div class=&#34;col-md-6 col-lg-3&#34;&gt;
+        &lt;div class=&#34;bs-grid visible-lg text-success&#34;&gt;Large Devices!&lt;/div&gt;
+        &lt;div class=&#34;bs-grid visible-md text-warning&#34;&gt;Medium Devices!&lt;/div&gt;
+        &lt;div class=&#34;bs-grid visible-sm text-primary&#34;&gt;Small Devices!&lt;/div&gt;
+        &lt;div class=&#34;bs-grid visible-xs text-danger&#34;&gt;Extra Small&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-md-6 col-lg-3&#34;&gt;
+        &lt;div class=&#34;bs-grid visible-lg text-success&#34;&gt;Large Devices!&lt;/div&gt;
+        &lt;div class=&#34;bs-grid visible-md text-warning&#34;&gt;Medium Devices!&lt;/div&gt;
+        &lt;div class=&#34;bs-grid visible-sm text-primary&#34;&gt;Small Devices!&lt;/div&gt;
+        &lt;div class=&#34;bs-grid visible-xs text-danger&#34;&gt;Extra Small&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-md-6 col-lg-3&#34;&gt;
+        &lt;div class=&#34;bs-grid visible-lg text-success&#34;&gt;Large Devices!&lt;/div&gt;
+        &lt;div class=&#34;bs-grid visible-md text-warning&#34;&gt;Medium Devices!&lt;/div&gt;
+        &lt;div class=&#34;bs-grid visible-sm text-primary&#34;&gt;Small Devices!&lt;/div&gt;
+        &lt;div class=&#34;bs-grid visible-xs text-danger&#34;&gt;Extra Small&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;col-md-6 col-lg-3&#34;&gt;
+        &lt;div class=&#34;bs-grid visible-lg text-success&#34;&gt;Large Devices!&lt;/div&gt;
+        &lt;div class=&#34;bs-grid visible-md text-warning&#34;&gt;Medium Devices!&lt;/div&gt;
+        &lt;div class=&#34;bs-grid visible-sm text-primary&#34;&gt;Small Devices!&lt;/div&gt;
+        &lt;div class=&#34;bs-grid visible-xs text-danger&#34;&gt;Extra Small&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Here is the code for that example:&lt;/p&gt;
+
+        &lt;pre&gt;
+            &amp;lt;div class=&#34;row&#34;&amp;gt;
+                &amp;lt;div class=&#34;col-md-6 col-lg-3&#34;&amp;gt;
+                    &amp;lt;div class=&#34;visible-lg text-success&#34;&amp;gt;Large Devices!&amp;lt;/div&amp;gt;
+                    &amp;lt;div class=&#34;visible-md text-warning&#34;&amp;gt;Medium Devices!&amp;lt;/div&amp;gt;
+                    &amp;lt;div class=&#34;visible-sm text-primary&#34;&amp;gt;Small Devices!&amp;lt;/div&amp;gt;
+                    &amp;lt;div class=&#34;visible-xs visible-sm text-danger&#34;&amp;gt;Extra Small and Small Devices&amp;lt;/div&amp;gt;
+                &amp;lt;/div&amp;gt;
+                &amp;lt;div class=&#34;col-md-6 col-lg-3&#34;&amp;gt;
+                    &amp;lt;div class=&#34;visible-lg text-success&#34;&amp;gt;Large Devices!&amp;lt;/div&amp;gt;
+                    &amp;lt;div class=&#34;visible-md text-warning&#34;&amp;gt;Medium Devices!&amp;lt;/div&amp;gt;
+                    &amp;lt;div class=&#34;visible-sm text-primary&#34;&amp;gt;Small Devices!&amp;lt;/div&amp;gt;
+                    &amp;lt;div class=&#34;visible-xs visible-sm text-danger&#34;&amp;gt;Extra Small and Small Devices&amp;lt;/div&amp;gt;
+                &amp;lt;/div&amp;gt;
+                &amp;lt;div class=&#34;col-md-6 col-lg-3&#34;&amp;gt;
+                    &amp;lt;div class=&#34;visible-lg text-success&#34;&amp;gt;Large Devices!&amp;lt;/div&amp;gt;
+                    &amp;lt;div class=&#34;visible-md text-warning&#34;&amp;gt;Medium Devices!&amp;lt;/div&amp;gt;
+                    &amp;lt;div class=&#34;visible-sm text-primary&#34;&amp;gt;Small Devices!&amp;lt;/div&amp;gt;
+                    &amp;lt;div class=&#34;visible-xs visible-sm text-danger&#34;&amp;gt;Extra Small and Small Devices&amp;lt;/div&amp;gt;
+                &amp;lt;/div&amp;gt;
+                &amp;lt;div class=&#34;col-md-6 col-lg-3&#34;&amp;gt;
+                    &amp;lt;div class=&#34;visible-lg text-success&#34;&amp;gt;Large Devices!&amp;lt;/div&amp;gt;
+                    &amp;lt;div class=&#34;visible-md text-warning&#34;&amp;gt;Medium Devices!&amp;lt;/div&amp;gt;
+                     &amp;lt;div class=&#34;visible-sm text-primary&#34;&amp;gt;Small Devices!&amp;lt;/div&amp;gt;
+                    &amp;lt;div class=&#34;visible-xs visible-sm text-danger&#34;&amp;gt;Extra Small and Small Devices&amp;lt;/div&amp;gt;
+                &amp;lt;/div&amp;gt;
+            &amp;lt;/div&amp;gt;
+        &lt;/pre&gt;
+
+&lt;h3&gt;Intermediate: Show Extra Column on Large Desktops&lt;/h3&gt;
+
+&lt;p&gt;This is an interesting example and one that the new grid excels at. Let&amp;#8217;s say you have a site that has a
+    sidebar and a main content section. For &lt;strong&gt;extra small devices&lt;/strong&gt;, you want one column, main content
+    with
+    the sidebar stacked below it. For &lt;strong&gt;small and medium devices&lt;/strong&gt;, we want sidebar and main content to
+    sit
+    side by side. Now for &lt;strong&gt;large devices&lt;/strong&gt;, we want to utilize the space on larger devices. We want to
+    add
+    an extra sidebar to show more content.&lt;/p&gt;
+
+&lt;div class=&#34;row&#34;&gt;
+    &lt;div class=&#34;col-sm-9 col-lg-6 text-danger&#34;&gt;
+        &lt;div class=&#34;bs-grid&#34;&gt;I am the main content.&lt;/div&gt;
+        &lt;/p&gt;&lt;/div&gt;
+    &lt;div class=&#34;col-sm-3 text-warning&#34;&gt;
+        &lt;div class=&#34;bs-grid&#34;&gt;I am the main sidebar.&lt;/div&gt;
+        &lt;/p&gt;&lt;/div&gt;
+    &lt;div class=&#34;col-lg-3 visible-lg text-success&#34;&gt;
+        &lt;div class=&#34;bs-grid&#34;&gt;I am the secondary sidebar that only shows up on LARGE devices.&lt;/div&gt;
+        &lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;We change the size of the main content to span 6 columns on large devices to make room for our second sidebar.
+    This
+    is a great way to utilize the space on larger desktops. And here is the code for that example.&lt;/p&gt;
+        &lt;pre&gt;
+            &amp;lt;div class=&#34;row&#34;&amp;gt;
+                &amp;lt;div class=&#34;col-sm-9 col-lg-6 text-danger&#34;&amp;gt;
+                    I am the main content.
+                &amp;lt;/div&amp;gt;
+                &amp;lt;div class=&#34;col-sm-3 text-warning&#34;&amp;gt;
+                    I am the main sidebar.
+                &amp;lt;/div&amp;gt;
+                &amp;lt;div class=&#34;col-lg-3 visible-lg text-success&#34;&amp;gt;
+                    I am the secondary sidebar that only shows up on LARGE devices.
+                &amp;lt;/div&amp;gt;
+            &amp;lt;/div&amp;gt;
+        &lt;/pre&gt;
+
+&lt;h3&gt;Advanced: Different Grid For Every Size&lt;/h3&gt;
+
+&lt;p&gt;This will be a more complex example. Let&amp;#8217;s say that at no point in our grid system do we want all of our
+    columns to stack. For &lt;strong&gt;extra small devices&lt;/strong&gt;, we want 2 columns. For &lt;strong&gt;small
+        devices&lt;/strong&gt;,
+    we want 3 columns. For &lt;strong&gt;medium devices&lt;/strong&gt;, we want 4 columns. For &lt;strong&gt;large devices&lt;/strong&gt;,
+    we
+    want 6 columns (one that only shows on large devices).&lt;/p&gt;
+
+&lt;p&gt;You get the drill now. Let&#39;s just straight into the example and code.&lt;/p&gt;
+
+&lt;div class=&#34;row&#34;&gt;
+    &lt;div class=&#34;col-xs-6 col-sm-4 col-md-3 col-lg-2&#34;&gt;
+        &lt;div class=&#34;bs-grid text-success&#34;&gt;I&#39;m content!&lt;/div&gt;
+        &lt;/p&gt;&lt;/div&gt;
+    &lt;div class=&#34;col-xs-6 col-sm-4 col-md-3 col-lg-2&#34;&gt;
+        &lt;div class=&#34;bs-grid text-success&#34;&gt;I&#39;m content!&lt;/div&gt;
+        &lt;/p&gt;&lt;/div&gt;
+    &lt;div class=&#34;col-xs-6 col-sm-4 col-md-3 col-lg-2&#34;&gt;
+        &lt;div class=&#34;bs-grid text-success&#34;&gt;I&#39;m content!&lt;/div&gt;
+        &lt;/p&gt;&lt;/div&gt;
+    &lt;div class=&#34;col-xs-6 col-sm-4 col-md-3 col-lg-2&#34;&gt;
+        &lt;div class=&#34;bs-grid text-success&#34;&gt;I&#39;m content!&lt;/div&gt;
+        &lt;/p&gt;&lt;/div&gt;
+    &lt;div class=&#34;col-xs-6 col-sm-4 col-md-3 col-lg-2&#34;&gt;
+        &lt;div class=&#34;bs-grid text-success&#34;&gt;I&#39;m content!&lt;/div&gt;
+        &lt;/p&gt;&lt;/div&gt;
+    &lt;div class=&#34;col-xs-6 col-sm-4 col-md-3 col-lg-2 visible-lg&#34;&gt;
+        &lt;div class=&#34;bs-grid text-danger&#34;&gt;I&#39;m content only visible on large devices!&lt;/div&gt;
+        &lt;/p&gt;&lt;/div&gt;
+&lt;/div&gt;
+        &lt;pre&gt;
+            &amp;lt;div class=&#34;row&#34;&amp;gt;
+                &amp;lt;div class=&#34;col-xs-6 col-sm-4 col-md-3 col-lg-2&#34;&amp;gt;
+                    I&#39;m content!
+                &amp;lt;/div&amp;gt;
+                &amp;lt;div class=&#34;col-xs-6 col-sm-4 col-md-3 col-lg-2&#34;&amp;gt;
+                    I&#39;m content!
+                &amp;lt;/div&amp;gt;
+                &amp;lt;div class=&#34;col-xs-6 col-sm-4 col-md-3 col-lg-2&#34;&amp;gt;
+                    I&#39;m content!
+                &amp;lt;/div&amp;gt;
+                &amp;lt;div class=&#34;col-xs-6 col-sm-4 col-md-3 col-lg-2&#34;&amp;gt;
+                    I&#39;m content!
+                &amp;lt;/div&amp;gt;
+                &amp;lt;div class=&#34;col-xs-6 col-sm-4 col-md-3 col-lg-2&#34;&amp;gt;
+                    I&#39;m content!
+                &amp;lt;/div&amp;gt;
+                &amp;lt;div class=&#34;col-xs-6 col-sm-4 col-md-3 col-lg-2 visible-lg&#34;&amp;gt;
+                    I&#39;m content only visible on large devices!
+                &amp;lt;/div&amp;gt;
+            &amp;lt;/div&amp;gt;
+        &lt;/pre&gt;
+
+&lt;p&gt;You can see that as the browser size gets smaller, the columns start to form. Also, the content inside each will
+    begin stacking.&lt;/p&gt;
+
+&lt;h3 id=&#34;grid-offsetting&#34;&gt;Offsetting columns&lt;/h3&gt;
+
+&lt;p&gt;Move columns to the right using &lt;code&gt;.col-md-offset-*&lt;/code&gt; classes. These classes increase the left margin of
+    a column by &lt;code&gt;*&lt;/code&gt; columns. For example, &lt;code&gt;.col-md-offset-4&lt;/code&gt; moves &lt;code&gt;.col-md-4&lt;/code&gt; over four columns.&lt;/p&gt;
+
+&lt;div class=&#34;show-grid bs-docs-grid&#34;&gt;
+    &lt;div class=&#34;row show-grid&#34;&gt;
+        &lt;div class=&#34;col-md-4&#34;&gt;.col-md-4&lt;/div&gt;
+        &lt;div class=&#34;col-md-4 col-md-offset-4&#34;&gt;.col-md-4 .col-md-offset-4&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;row show-grid&#34;&gt;
+        &lt;div class=&#34;col-md-3 col-md-offset-3&#34;&gt;.col-md-3 .col-md-offset-3&lt;/div&gt;
+        &lt;div class=&#34;col-md-3 col-md-offset-3&#34;&gt;.col-md-3 .col-md-offset-3&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;row show-grid&#34;&gt;
+        &lt;div class=&#34;col-md-6 col-md-offset-3&#34;&gt;.col-md-6 .col-md-offset-3&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;br&gt;
+
+&lt;div&gt;
+            &lt;pre&gt;
+            &amp;lt;div class=&amp;quot;show-grid bs-docs-grid&amp;quot;&amp;gt;
+                &amp;lt;div class=&amp;quot;row show-grid&amp;quot;&amp;gt;
+                    &amp;lt;div class=&amp;quot;col-md-4&amp;quot;&amp;gt;.col-md-4&amp;lt;/div&amp;gt;
+                    &amp;lt;div class=&amp;quot;col-md-4 col-md-offset-4&amp;quot;&amp;gt;.col-md-4 .col-md-offset-4&amp;lt;/div&amp;gt;
+                &amp;lt;/div&amp;gt;
+                &amp;lt;div class=&amp;quot;row show-grid&amp;quot;&amp;gt;
+                    &amp;lt;div class=&amp;quot;col-md-3 col-md-offset-3&amp;quot;&amp;gt;.col-md-3 .col-md-offset-3&amp;lt;/div&amp;gt;
+                    &amp;lt;div class=&amp;quot;col-md-3 col-md-offset-3&amp;quot;&amp;gt;.col-md-3 .col-md-offset-3&amp;lt;/div&amp;gt;
+                &amp;lt;/div&amp;gt;
+                &amp;lt;div class=&amp;quot;row show-grid&amp;quot;&amp;gt;
+                    &amp;lt;div class=&amp;quot;col-md-6 col-md-offset-3&amp;quot;&amp;gt;.col-md-6 .col-md-offset-3&amp;lt;/div&amp;gt;
+                &amp;lt;/div&amp;gt;
+            &amp;lt;/div&amp;gt;
+            &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;alert alert-info&#34;&gt; Please check out the official &lt;a href=&#34;http://getbootstrap.com/css/&#34;&gt; Bootstrap
+    documentation &lt;/a&gt; for full information regarding the framework.
+&lt;/div&gt;
+
+&lt;!-- COMPONENTS ---------------
+--------------------------------&gt;
+&lt;h1&gt;Components&lt;/h1&gt;
+&lt;br&gt;
+&lt;p&gt; The Bootstrap library of components is huge ! Check out &lt;a href=&#34;http://getbootstrap.com/components/&#34;&gt;bootstrap
+    official documentation &lt;/a&gt; for an exhaustive list of components. We have selected some excerpt of the most commonly used.&lt;/p&gt;
+
+&lt;p&gt; Here are some demos of a few components available in Bootstrap 3.x. (Not exhaustive)&lt;/p&gt;
+
+&lt;!-- ========= Tables =============== --&gt;
+&lt;h1 class=&#34;page-header&#34;&gt; Table &lt;/h1&gt;
+
+&lt;p&gt; Use Bootstrap classes to customize table.&lt;/p&gt;
+&lt;table class=&#34;table&#34;&gt;
+    &lt;thead&gt;
+    &lt;tr&gt;
+        &lt;th&gt;#&lt;/th&gt;
+        &lt;th&gt;Column heading&lt;/th&gt;
+        &lt;th&gt;Column heading&lt;/th&gt;
+        &lt;th&gt;Column heading&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr class=&#34;active&#34;&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr class=&#34;success&#34;&gt;
+        &lt;td&gt;3&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;4&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr class=&#34;info&#34;&gt;
+        &lt;td&gt;5&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;6&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr class=&#34;warning&#34;&gt;
+        &lt;td&gt;7&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;8&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr class=&#34;danger&#34;&gt;
+        &lt;td&gt;9&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+        &lt;td&gt;Column content&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+        &lt;pre&gt;
+        &amp;lt;table class=&#34;table&#34;&amp;gt;
+                ...
+        &amp;lt;!-- On rows --&amp;gt;
+        &amp;lt;tr class=&amp;quot;active&amp;quot;&amp;gt;...&amp;lt;/tr&amp;gt;
+        &amp;lt;tr class=&amp;quot;success&amp;quot;&amp;gt;...&amp;lt;/tr&amp;gt;
+        &amp;lt;tr class=&amp;quot;warning&amp;quot;&amp;gt;...&amp;lt;/tr&amp;gt;
+        &amp;lt;tr class=&amp;quot;danger&amp;quot;&amp;gt;...&amp;lt;/tr&amp;gt;
+        &amp;lt;tr class=&amp;quot;info&amp;quot;&amp;gt;...&amp;lt;/tr&amp;gt;
+
+        &amp;lt;!-- On cells (`td` or `th`) --&amp;gt;
+        &amp;lt;tr&amp;gt;
+          &amp;lt;td class=&amp;quot;active&amp;quot;&amp;gt;...&amp;lt;/td&amp;gt;
+          &amp;lt;td class=&amp;quot;success&amp;quot;&amp;gt;...&amp;lt;/td&amp;gt;
+          &amp;lt;td class=&amp;quot;warning&amp;quot;&amp;gt;...&amp;lt;/td&amp;gt;
+          &amp;lt;td class=&amp;quot;danger&amp;quot;&amp;gt;...&amp;lt;/td&amp;gt;
+          &amp;lt;td class=&amp;quot;info&amp;quot;&amp;gt;...&amp;lt;/td&amp;gt;
+        &amp;lt;/tr&amp;gt;
+            &lt;/pre&gt;
+&lt;div class=&#34;alert alert-info&#34;&gt;
+    Create responsive tables by wrapping any .table in .table-responsive to make them scroll horizontally up to
+    small devices (under 768px).
+    When viewing on anything larger than 768px wide, you will not see any difference in these tables.
+&lt;/div&gt;
+
+&lt;!-- ========= Forms =============== --&gt;
+&lt;h1&gt; Forms &lt;/h1&gt;
+
+&lt;h2 id=&#34;forms-example&#34;&gt;Basic example&lt;/h2&gt;
+
+&lt;p&gt;Individual form controls automatically receive some global styling. All textual &lt;code&gt;&amp;lt;input&amp;gt;&lt;/code&gt;,
+    &lt;code&gt;&amp;lt;textarea&amp;gt;&lt;/code&gt;, and &lt;code&gt;&amp;lt;select&amp;gt;&lt;/code&gt; elements with &lt;code&gt;.form-control&lt;/code&gt; are set
+    to &lt;code&gt;width: 100%;&lt;/code&gt; by default. Wrap labels and controls in &lt;code&gt;.form-group&lt;/code&gt; for optimum
+    spacing.&lt;/p&gt;
+
+&lt;div&gt;
+    &lt;form role=&#34;form&#34;&gt;
+        &lt;div class=&#34;form-group&#34;&gt;
+            &lt;label for=&#34;exampleInputEmail1&#34;&gt;Email address&lt;/label&gt;
+            &lt;input type=&#34;email&#34; class=&#34;form-control&#34; id=&#34;exampleInputEmail1&#34; placeholder=&#34;Enter email&#34;&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;form-group&#34;&gt;
+            &lt;label for=&#34;exampleInputPassword1&#34;&gt;Password&lt;/label&gt;
+            &lt;input type=&#34;password&#34; class=&#34;form-control&#34; id=&#34;exampleInputPassword1&#34; placeholder=&#34;Password&#34;&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;form-group&#34;&gt;
+            &lt;label for=&#34;exampleInputFile&#34;&gt;File input&lt;/label&gt;
+            &lt;input type=&#34;file&#34; id=&#34;exampleInputFile&#34;&gt;
+
+            &lt;p class=&#34;help-block&#34;&gt;Example block-level help text here.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;checkbox&#34;&gt;
+            &lt;label&gt;
+                &lt;input type=&#34;checkbox&#34;&gt; Check me out
+            &lt;/label&gt;
+        &lt;/div&gt;
+        &lt;button type=&#34;submit&#34; class=&#34;btn btn-default&#34;&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+&lt;/div&gt;
+&lt;!-- /example --&gt;
+&lt;br&gt;
+
+&lt;div&gt;
+                &lt;pre&gt;
+&amp;lt;form role=&amp;quot;form&amp;quot;&amp;gt;
+    &amp;lt;div class=&amp;quot;form-group&amp;quot;&amp;gt;
+        &amp;lt;label for=&amp;quot;exampleInputEmail1&amp;quot;&amp;gt;Email address&amp;lt;/label&amp;gt;
+        &amp;lt;input type=&amp;quot;email&amp;quot; class=&amp;quot;form-control&amp;quot; id=&amp;quot;exampleInputEmail1&amp;quot; placeholder=&amp;quot;Enter email&amp;quot;&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;div class=&amp;quot;form-group&amp;quot;&amp;gt;
+        &amp;lt;label for=&amp;quot;exampleInputPassword1&amp;quot;&amp;gt;Password&amp;lt;/label&amp;gt;
+        &amp;lt;input type=&amp;quot;password&amp;quot; class=&amp;quot;form-control&amp;quot; id=&amp;quot;exampleInputPassword1&amp;quot; placeholder=&amp;quot;Password&amp;quot;&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;div class=&amp;quot;form-group&amp;quot;&amp;gt;
+        &amp;lt;label for=&amp;quot;exampleInputFile&amp;quot;&amp;gt;File input&amp;lt;/label&amp;gt;
+        &amp;lt;input type=&amp;quot;file&amp;quot; id=&amp;quot;exampleInputFile&amp;quot;&amp;gt;
+
+        &amp;lt;p class=&amp;quot;help-block&amp;quot;&amp;gt;Example block-level help text here.&amp;lt;/p&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;div class=&amp;quot;checkbox&amp;quot;&amp;gt;
+        &amp;lt;label&amp;gt;
+            &amp;lt;input type=&amp;quot;checkbox&amp;quot;&amp;gt; Check me out
+        &amp;lt;/label&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;button type=&amp;quot;submit&amp;quot; class=&amp;quot;btn btn-default&amp;quot;&amp;gt;Submit&amp;lt;/button&amp;gt;
+&amp;lt;/form&amp;gt;
+                &lt;/pre&gt;
+&lt;/div&gt;
+&lt;!-- Buttons
+================================================== --&gt;
+&lt;div class=&#34;bs-docs-section&#34;&gt;
+    &lt;h1 id=&#34;buttons&#34;&gt;Buttons&lt;/h1&gt;
+
+    &lt;h2 id=&#34;buttons-options&#34;&gt;Options&lt;/h2&gt;
+
+    &lt;p&gt;Use any of the available button classes to quickly create a styled button.&lt;/p&gt;
+
+    &lt;div class=&#34;bs-example&#34;&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-default&#34;&gt;Default&lt;/button&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-primary&#34;&gt;Primary&lt;/button&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-success&#34;&gt;Success&lt;/button&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-info&#34;&gt;Info&lt;/button&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-warning&#34;&gt;Warning&lt;/button&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-danger&#34;&gt;Danger&lt;/button&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-link&#34;&gt;Link&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;br&gt;
+
+    &lt;div&gt;
+                &lt;pre&gt;
+&amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-default&amp;quot;&amp;gt;Default&amp;lt;/button&amp;gt;
+&amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-primary&amp;quot;&amp;gt;Primary&amp;lt;/button&amp;gt;
+&amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-success&amp;quot;&amp;gt;Success&amp;lt;/button&amp;gt;
+&amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-info&amp;quot;&amp;gt;Info&amp;lt;/button&amp;gt;
+&amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-warning&amp;quot;&amp;gt;Warning&amp;lt;/button&amp;gt;
+&amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-danger&amp;quot;&amp;gt;Danger&amp;lt;/button&amp;gt;
+&amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-link&amp;quot;&amp;gt;Link&amp;lt;/button&amp;gt;
+                &lt;/pre&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;buttons-sizes&#34;&gt;Sizes&lt;/h2&gt;
+
+&lt;p&gt;Fancy larger or smaller buttons? Add &lt;code&gt;.btn-lg&lt;/code&gt;, &lt;code&gt;.btn-sm&lt;/code&gt;, or &lt;code&gt;.btn-xs&lt;/code&gt; for
+    additional sizes.&lt;/p&gt;
+
+&lt;div class=&#34;bs-example&#34;&gt;
+    &lt;p&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-primary btn-lg&#34;&gt;Large button&lt;/button&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-default btn-lg&#34;&gt;Large button&lt;/button&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-primary&#34;&gt;Default button&lt;/button&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-default&#34;&gt;Default button&lt;/button&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-primary btn-sm&#34;&gt;Small button&lt;/button&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-default btn-sm&#34;&gt;Small button&lt;/button&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-primary btn-xs&#34;&gt;Extra small button&lt;/button&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-default btn-xs&#34;&gt;Extra small button&lt;/button&gt;
+    &lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;
+                &lt;pre&gt;
+ &amp;lt;p&amp;gt;
+    &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-primary btn-lg&amp;quot;&amp;gt;Large button&amp;lt;/button&amp;gt;
+    &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-default btn-lg&amp;quot;&amp;gt;Large button&amp;lt;/button&amp;gt;
+&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;
+    &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-primary&amp;quot;&amp;gt;Default button&amp;lt;/button&amp;gt;
+    &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-default&amp;quot;&amp;gt;Default button&amp;lt;/button&amp;gt;
+&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;
+    &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-primary btn-sm&amp;quot;&amp;gt;Small button&amp;lt;/button&amp;gt;
+    &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-default btn-sm&amp;quot;&amp;gt;Small button&amp;lt;/button&amp;gt;
+&amp;lt;/p&amp;gt;
+&amp;lt;p&amp;gt;
+    &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-primary btn-xs&amp;quot;&amp;gt;Extra small button&amp;lt;/button&amp;gt;
+    &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-default btn-xs&amp;quot;&amp;gt;Extra small button&amp;lt;/button&amp;gt;
+&amp;lt;/p&amp;gt;
+                &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;btn-dropdowns-single&#34;&gt;Single button dropdowns&lt;/h2&gt;
+
+&lt;p&gt;Turn a button into a dropdown toggle with some basic markup changes.&lt;/p&gt;
+
+&lt;div class=&#34;bs-example&#34;&gt;
+    &lt;div class=&#34;btn-group&#34;&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-default dropdown-toggle&#34; data-toggle=&#34;dropdown&#34;&gt;Default
+            &lt;span class=&#34;caret&#34;&gt;&lt;/span&gt;&lt;/button&gt;
+        &lt;ul class=&#34;dropdown-menu&#34; role=&#34;menu&#34;&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Action&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Another action&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Something else here&lt;/a&gt;&lt;/li&gt;
+            &lt;li class=&#34;divider&#34;&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Separated link&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;!-- /btn-group --&gt;
+    &lt;div class=&#34;btn-group&#34;&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-primary dropdown-toggle&#34; data-toggle=&#34;dropdown&#34;&gt;Primary
+            &lt;span class=&#34;caret&#34;&gt;&lt;/span&gt;&lt;/button&gt;
+        &lt;ul class=&#34;dropdown-menu&#34; role=&#34;menu&#34;&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Action&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Another action&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Something else here&lt;/a&gt;&lt;/li&gt;
+            &lt;li class=&#34;divider&#34;&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Separated link&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;!-- /btn-group --&gt;
+    &lt;div class=&#34;btn-group&#34;&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-success dropdown-toggle&#34; data-toggle=&#34;dropdown&#34;&gt;Success
+            &lt;span class=&#34;caret&#34;&gt;&lt;/span&gt;&lt;/button&gt;
+        &lt;ul class=&#34;dropdown-menu&#34; role=&#34;menu&#34;&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Action&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Another action&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Something else here&lt;/a&gt;&lt;/li&gt;
+            &lt;li class=&#34;divider&#34;&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Separated link&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;!-- /btn-group --&gt;
+    &lt;div class=&#34;btn-group&#34;&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-info dropdown-toggle&#34; data-toggle=&#34;dropdown&#34;&gt;Info
+            &lt;span class=&#34;caret&#34;&gt;&lt;/span&gt;&lt;/button&gt;
+        &lt;ul class=&#34;dropdown-menu&#34; role=&#34;menu&#34;&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Action&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Another action&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Something else here&lt;/a&gt;&lt;/li&gt;
+            &lt;li class=&#34;divider&#34;&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Separated link&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;!-- /btn-group --&gt;
+    &lt;div class=&#34;btn-group&#34;&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-warning dropdown-toggle&#34; data-toggle=&#34;dropdown&#34;&gt;Warning
+            &lt;span class=&#34;caret&#34;&gt;&lt;/span&gt;&lt;/button&gt;
+        &lt;ul class=&#34;dropdown-menu&#34; role=&#34;menu&#34;&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Action&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Another action&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Something else here&lt;/a&gt;&lt;/li&gt;
+            &lt;li class=&#34;divider&#34;&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Separated link&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;!-- /btn-group --&gt;
+    &lt;div class=&#34;btn-group&#34;&gt;
+        &lt;button type=&#34;button&#34; class=&#34;btn btn-danger dropdown-toggle&#34; data-toggle=&#34;dropdown&#34;&gt;Danger
+            &lt;span class=&#34;caret&#34;&gt;&lt;/span&gt;&lt;/button&gt;
+        &lt;ul class=&#34;dropdown-menu&#34; role=&#34;menu&#34;&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Action&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Another action&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Something else here&lt;/a&gt;&lt;/li&gt;
+            &lt;li class=&#34;divider&#34;&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&#34;#&#34;&gt;Separated link&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;!-- /btn-group --&gt;
+&lt;/div&gt;
+&lt;br&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;
+        &lt;pre&gt;
+&amp;lt;div class=&amp;quot;btn-group&amp;quot;&amp;gt;
+    &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-success dropdown-toggle&amp;quot; data-toggle=&amp;quot;dropdown&amp;quot;&amp;gt;Success
+        &amp;lt;span class=&amp;quot;caret&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/button&amp;gt;
+    &amp;lt;ul class=&amp;quot;dropdown-menu&amp;quot; role=&amp;quot;menu&amp;quot;&amp;gt;
+        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;Action&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;Another action&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;Something else here&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;li class=&amp;quot;divider&amp;quot;&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;Separated link&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+    &amp;lt;/ul&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;!-- /btn-group --&amp;gt;
+&amp;lt;div class=&amp;quot;btn-group&amp;quot;&amp;gt;
+    &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-info dropdown-toggle&amp;quot; data-toggle=&amp;quot;dropdown&amp;quot;&amp;gt;Info
+        &amp;lt;span class=&amp;quot;caret&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/button&amp;gt;
+    &amp;lt;ul class=&amp;quot;dropdown-menu&amp;quot; role=&amp;quot;menu&amp;quot;&amp;gt;
+        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;Action&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;Another action&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;Something else here&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;li class=&amp;quot;divider&amp;quot;&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;Separated link&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+    &amp;lt;/ul&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;!-- /btn-group --&amp;gt;
+&amp;lt;div class=&amp;quot;btn-group&amp;quot;&amp;gt;
+    &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-warning dropdown-toggle&amp;quot; data-toggle=&amp;quot;dropdown&amp;quot;&amp;gt;Warning
+        &amp;lt;span class=&amp;quot;caret&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/button&amp;gt;
+    &amp;lt;ul class=&amp;quot;dropdown-menu&amp;quot; role=&amp;quot;menu&amp;quot;&amp;gt;
+        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;Action&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;Another action&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;Something else here&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;li class=&amp;quot;divider&amp;quot;&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;Separated link&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+    &amp;lt;/ul&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;!-- /btn-group --&amp;gt;
+&amp;lt;div class=&amp;quot;btn-group&amp;quot;&amp;gt;
+    &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-danger dropdown-toggle&amp;quot; data-toggle=&amp;quot;dropdown&amp;quot;&amp;gt;Danger
+        &amp;lt;span class=&amp;quot;caret&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;&amp;lt;/button&amp;gt;
+    &amp;lt;ul class=&amp;quot;dropdown-menu&amp;quot; role=&amp;quot;menu&amp;quot;&amp;gt;
+        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;Action&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;Another action&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;Something else here&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;li class=&amp;quot;divider&amp;quot;&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;Separated link&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+    &amp;lt;/ul&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;!-- /btn-group --&amp;gt;
+        &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h1&gt; Panels &lt;/h1&gt;
+
+&lt;p&gt;Like other components, easily make a panel more meaningful to a particular context by adding any of the
+    contextual state classes.&lt;/p&gt;
+
+&lt;div class=&#34;bs-example&#34;&gt;
+    &lt;div class=&#34;panel panel-primary&#34;&gt;
+        &lt;div class=&#34;panel-heading&#34;&gt;
+            &lt;h3 class=&#34;panel-title&#34;&gt;Panel title&lt;/h3&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;panel-body&#34;&gt;
+            Panel content
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;panel panel-success&#34;&gt;
+        &lt;div class=&#34;panel-heading&#34;&gt;
+            &lt;h3 class=&#34;panel-title&#34;&gt;Panel title&lt;/h3&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;panel-body&#34;&gt;
+            Panel content
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;panel panel-info&#34;&gt;
+        &lt;div class=&#34;panel-heading&#34;&gt;
+            &lt;h3 class=&#34;panel-title&#34;&gt;Panel title&lt;/h3&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;panel-body&#34;&gt;
+            Panel content
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;panel panel-warning&#34;&gt;
+        &lt;div class=&#34;panel-heading&#34;&gt;
+            &lt;h3 class=&#34;panel-title&#34;&gt;Panel title&lt;/h3&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;panel-body&#34;&gt;
+            Panel content
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#34;panel panel-danger&#34;&gt;
+        &lt;div class=&#34;panel-heading&#34;&gt;
+            &lt;h3 class=&#34;panel-title&#34;&gt;Panel title&lt;/h3&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;panel-body&#34;&gt;
+            Panel content
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;
+                &lt;pre&gt;
+&amp;lt;div class=&amp;quot;panel panel-primary&amp;quot;&amp;gt;
+    &amp;lt;div class=&amp;quot;panel-heading&amp;quot;&amp;gt;
+        &amp;lt;h3 class=&amp;quot;panel-title&amp;quot;&amp;gt;Panel title&amp;lt;/h3&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;div class=&amp;quot;panel-body&amp;quot;&amp;gt;
+        Panel content
+    &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;div class=&amp;quot;panel panel-success&amp;quot;&amp;gt;
+    &amp;lt;div class=&amp;quot;panel-heading&amp;quot;&amp;gt;
+        &amp;lt;h3 class=&amp;quot;panel-title&amp;quot;&amp;gt;Panel title&amp;lt;/h3&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;div class=&amp;quot;panel-body&amp;quot;&amp;gt;
+        Panel content
+    &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;div class=&amp;quot;panel panel-info&amp;quot;&amp;gt;
+    &amp;lt;div class=&amp;quot;panel-heading&amp;quot;&amp;gt;
+        &amp;lt;h3 class=&amp;quot;panel-title&amp;quot;&amp;gt;Panel title&amp;lt;/h3&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;div class=&amp;quot;panel-body&amp;quot;&amp;gt;
+        Panel content
+    &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;div class=&amp;quot;panel panel-warning&amp;quot;&amp;gt;
+    &amp;lt;div class=&amp;quot;panel-heading&amp;quot;&amp;gt;
+        &amp;lt;h3 class=&amp;quot;panel-title&amp;quot;&amp;gt;Panel title&amp;lt;/h3&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;div class=&amp;quot;panel-body&amp;quot;&amp;gt;
+        Panel content
+    &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;div class=&amp;quot;panel panel-danger&amp;quot;&amp;gt;
+    &amp;lt;div class=&amp;quot;panel-heading&amp;quot;&amp;gt;
+        &amp;lt;h3 class=&amp;quot;panel-title&amp;quot;&amp;gt;Panel title&amp;lt;/h3&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;div class=&amp;quot;panel-body&amp;quot;&amp;gt;
+        Panel content
+    &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+                &lt;/pre&gt;
+&lt;/div&gt;
+&lt;h1&gt;Modal&lt;/h1&gt;
+
+&lt;p&gt;Toggle a modal via JavaScript by clicking the button below. It will slide down and fade in from the top of the
+    page.&lt;/p&gt;
+&lt;!-- sample modal content --&gt;
+&lt;div id=&#34;myModal&#34; class=&#34;modal fade&#34; tabindex=&#34;-1&#34; role=&#34;dialog&#34; aria-labelledby=&#34;myModalLabel&#34; aria-hidden=&#34;true&#34;&gt;
+    &lt;div class=&#34;modal-dialog&#34;&gt;
+        &lt;div class=&#34;modal-content&#34;&gt;
+            &lt;div class=&#34;modal-header&#34;&gt;
+                &lt;button type=&#34;button&#34; class=&#34;close&#34; data-dismiss=&#34;modal&#34; aria-hidden=&#34;true&#34;&gt;&amp;times;&lt;/button&gt;
+                &lt;h4 class=&#34;modal-title&#34; id=&#34;myModalLabel&#34;&gt;Modal Heading&lt;/h4&gt;
+            &lt;/div&gt;
+            &lt;div class=&#34;modal-body&#34;&gt;
+
+                &lt;h4&gt;Overflowing text to show scroll behavior&lt;/h4&gt;
+
+                &lt;p&gt;Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.&lt;/p&gt;
+
+                &lt;p&gt;Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                    augue laoreet rutrum faucibus dolor auctor.&lt;/p&gt;
+
+                &lt;p&gt;Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.&lt;/p&gt;
+
+                &lt;p&gt;Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.&lt;/p&gt;
+
+                &lt;p&gt;Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                    augue laoreet rutrum faucibus dolor auctor.&lt;/p&gt;
+
+                &lt;p&gt;Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.&lt;/p&gt;
+
+                &lt;p&gt;Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.&lt;/p&gt;
+
+                &lt;p&gt;Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                    augue laoreet rutrum faucibus dolor auctor.&lt;/p&gt;
+
+                &lt;p&gt;Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.&lt;/p&gt;
+            &lt;/div&gt;
+            &lt;div class=&#34;modal-footer&#34;&gt;
+                &lt;button type=&#34;button&#34; class=&#34;btn btn-default&#34; data-dismiss=&#34;modal&#34;&gt;Close&lt;/button&gt;
+                &lt;button type=&#34;button&#34; class=&#34;btn btn-primary&#34;&gt;Save changes&lt;/button&gt;
+            &lt;/div&gt;
+
+        &lt;/div&gt;
+        &lt;!-- /.modal-content --&gt;
+    &lt;/div&gt;
+    &lt;!-- /.modal-dialog --&gt;
+&lt;/div&gt;
+&lt;!-- /.modal --&gt;
+
+&lt;div class=&#34;bs-example&#34; style=&#34;padding-bottom: 24px;&#34;&gt;
+    &lt;button class=&#34;btn btn-primary btn-lg&#34; data-toggle=&#34;modal&#34; data-target=&#34;#myModal&#34;&gt;
+        Launch demo modal
+    &lt;/button&gt;
+&lt;/div&gt;
+&lt;!-- /example --&gt;
+&lt;div class=&#34;highlight&#34;&gt;
+                &lt;pre&gt;
+ gt&amp;lt;!-- sample modal content --&amp;gt;
+&amp;lt;div id=&amp;quot;myModal&amp;quot; class=&amp;quot;modal fade&amp;quot; tabindex=&amp;quot;-1&amp;quot; role=&amp;quot;dialog&amp;quot; aria-labelledby=&amp;quot;myModalLabel&amp;quot; aria-hidden=&amp;quot;true&amp;quot;&amp;gt;
+    &amp;lt;div class=&amp;quot;modal-dialog&amp;quot;&amp;gt;
+        &amp;lt;div class=&amp;quot;modal-content&amp;quot;&amp;gt;
+            &amp;lt;div class=&amp;quot;modal-header&amp;quot;&amp;gt;
+                &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;close&amp;quot; data-dismiss=&amp;quot;modal&amp;quot; aria-hidden=&amp;quot;true&amp;quot;&amp;gt;&amp;amp;times;&amp;lt;/button&amp;gt;
+                &amp;lt;h4 class=&amp;quot;modal-title&amp;quot; id=&amp;quot;myModalLabel&amp;quot;&amp;gt;Modal Heading&amp;lt;/h4&amp;gt;
+            &amp;lt;/div&amp;gt;
+            &amp;lt;div class=&amp;quot;modal-body&amp;quot;&amp;gt;
+
+                &amp;lt;h4&amp;gt;Overflowing text to show scroll behavior&amp;lt;/h4&amp;gt;
+
+                &amp;lt;p&amp;gt;Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.&amp;lt;/p&amp;gt;
+
+                &amp;lt;p&amp;gt;Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                    augue laoreet rutrum faucibus dolor auctor.&amp;lt;/p&amp;gt;
+
+                &amp;lt;p&amp;gt;Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.&amp;lt;/p&amp;gt;
+
+                &amp;lt;p&amp;gt;Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.&amp;lt;/p&amp;gt;
+
+                &amp;lt;p&amp;gt;Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                    augue laoreet rutrum faucibus dolor auctor.&amp;lt;/p&amp;gt;
+
+                &amp;lt;p&amp;gt;Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.&amp;lt;/p&amp;gt;
+
+                &amp;lt;p&amp;gt;Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in,
+                    egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.&amp;lt;/p&amp;gt;
+
+                &amp;lt;p&amp;gt;Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+                    augue laoreet rutrum faucibus dolor auctor.&amp;lt;/p&amp;gt;
+
+                &amp;lt;p&amp;gt;Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque
+                    nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.&amp;lt;/p&amp;gt;
+            &amp;lt;/div&amp;gt;
+            &amp;lt;div class=&amp;quot;modal-footer&amp;quot;&amp;gt;
+                &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-default&amp;quot; data-dismiss=&amp;quot;modal&amp;quot;&amp;gt;Close&amp;lt;/button&amp;gt;
+                &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-primary&amp;quot;&amp;gt;Save changes&amp;lt;/button&amp;gt;
+            &amp;lt;/div&amp;gt;
+
+        &amp;lt;/div&amp;gt;
+        &amp;lt;!-- /.modal-content --&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;!-- /.modal-dialog --&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;!-- /.modal --&amp;gt;
+
+&amp;lt;div class=&amp;quot;bs-example&amp;quot; style=&amp;quot;padding-bottom: 24px;&amp;quot;&amp;gt;
+    &amp;lt;button class=&amp;quot;btn btn-primary btn-lg&amp;quot; data-toggle=&amp;quot;modal&amp;quot; data-target=&amp;quot;#myModal&amp;quot;&amp;gt;
+        Launch demo modal
+    &amp;lt;/button&amp;gt;
+&amp;lt;/div&amp;;
+                &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;tabs&#34;&gt;Togglable tabs &lt;/h1&gt;
+
+&lt;p&gt;Add quick, dynamic tab functionality to transition through panes of local content, even via dropdown menus.&lt;/p&gt;
+
+&lt;div class=&#34;bs-example bs-example-tabs&#34;&gt;
+    &lt;ul id=&#34;myTab&#34; class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#home&#34; data-toggle=&#34;tab&#34;&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&#34;#profile&#34; data-toggle=&#34;tab&#34;&gt;Profile&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;dropdown&#34;&gt;
+            &lt;a href=&#34;#&#34; id=&#34;myTabDrop1&#34; class=&#34;dropdown-toggle&#34; data-toggle=&#34;dropdown&#34;&gt;Dropdown
+                &lt;b class=&#34;caret&#34;&gt;&lt;/b&gt;&lt;/a&gt;
+            &lt;ul class=&#34;dropdown-menu&#34; role=&#34;menu&#34; aria-labelledby=&#34;myTabDrop1&#34;&gt;
+                &lt;li&gt;&lt;a href=&#34;#dropdown1&#34; tabindex=&#34;-1&#34; data-toggle=&#34;tab&#34;&gt;@fat&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href=&#34;#dropdown2&#34; tabindex=&#34;-1&#34; data-toggle=&#34;tab&#34;&gt;@mdo&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;br&gt;
+
+    &lt;div id=&#34;myTabContent&#34; class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane fade in active&#34; id=&#34;home&#34;&gt;
+            &lt;p&gt;Raw denim you probably haven&#39;t heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua,
+                retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.
+                Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry
+                richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american
+                apparel, butcher voluptate nisi qui.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane fade&#34; id=&#34;profile&#34;&gt;
+            &lt;p&gt;Food truck fixie locavore, accusamus mcsweeney&#39;s marfa nulla single-origin coffee squid. Exercitation
+                +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table
+                craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts
+                ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.
+                Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio
+                cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson
+                biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed
+                echo park.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane fade&#34; id=&#34;dropdown1&#34;&gt;
+            &lt;p&gt;Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney&#39;s organic lomo retro
+                fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer,
+                iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony.
+                Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles
+                pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven&#39;t heard of
+                them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane fade&#34; id=&#34;dropdown2&#34;&gt;
+            &lt;p&gt;Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master
+                cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party
+                locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before
+                they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade
+                thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park
+                vegan.&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- /example --&gt;
+
+
+&lt;p&gt;You can activate a tab or pill navigation without writing any JavaScript by simply specifying &lt;code&gt;data-toggle=&#34;tab&#34;&lt;/code&gt;
+    or &lt;code&gt;data-toggle=&#34;pill&#34;&lt;/code&gt; on an element. Adding the &lt;code&gt;nav&lt;/code&gt; and &lt;code&gt;nav-tabs&lt;/code&gt; classes
+    to the tab &lt;code&gt;ul&lt;/code&gt; will apply the Bootstrap tab styling, while adding the &lt;code&gt;nav&lt;/code&gt; and &lt;code&gt;nav-pills&lt;/code&gt;
+    classes will apply pill styling.&lt;/p&gt;
+
+&lt;div&gt;
+            &lt;pre&gt;
+&amp;lt;ul id=&amp;quot;myTab&amp;quot; class=&amp;quot;nav nav-tabs&amp;quot;&amp;gt;
+    &amp;lt;li class=&amp;quot;active&amp;quot;&amp;gt;&amp;lt;a href=&amp;quot;#home&amp;quot; data-toggle=&amp;quot;tab&amp;quot;&amp;gt;Home&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+    &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#profile&amp;quot; data-toggle=&amp;quot;tab&amp;quot;&amp;gt;Profile&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+    &amp;lt;li class=&amp;quot;dropdown&amp;quot;&amp;gt;
+        &amp;lt;a href=&amp;quot;#&amp;quot; id=&amp;quot;myTabDrop1&amp;quot; class=&amp;quot;dropdown-toggle&amp;quot; data-toggle=&amp;quot;dropdown&amp;quot;&amp;gt;Dropdown
+            &amp;lt;b class=&amp;quot;caret&amp;quot;&amp;gt;&amp;lt;/b&amp;gt;&amp;lt;/a&amp;gt;
+        &amp;lt;ul class=&amp;quot;dropdown-menu&amp;quot; role=&amp;quot;menu&amp;quot; aria-labelledby=&amp;quot;myTabDrop1&amp;quot;&amp;gt;
+            &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#dropdown1&amp;quot; tabindex=&amp;quot;-1&amp;quot; data-toggle=&amp;quot;tab&amp;quot;&amp;gt;@fat&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+            &amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;#dropdown2&amp;quot; tabindex=&amp;quot;-1&amp;quot; data-toggle=&amp;quot;tab&amp;quot;&amp;gt;@mdo&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
+        &amp;lt;/ul&amp;gt;
+    &amp;lt;/li&amp;gt;
+&amp;lt;/ul&amp;gt;
+
+&amp;lt;br&amp;gt;
+
+&amp;lt;div id=&amp;quot;myTabContent&amp;quot; class=&amp;quot;tab-content&amp;quot;&amp;gt;
+    &amp;lt;div class=&amp;quot;tab-pane fade in active&amp;quot; id=&amp;quot;home&amp;quot;&amp;gt;
+        &amp;lt;p&amp;gt;Raw denim you probably haven&amp;#39;t heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua,
+            retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.
+            Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry
+            richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american
+            apparel, butcher voluptate nisi qui.&amp;lt;/p&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;div class=&amp;quot;tab-pane fade&amp;quot; id=&amp;quot;profile&amp;quot;&amp;gt;
+        &amp;lt;p&amp;gt;Food truck fixie locavore, accusamus mcsweeney&amp;#39;s marfa nulla single-origin coffee squid. Exercitation
+            +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table
+            craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts
+            ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.
+            Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio
+            cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson
+            biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed
+            echo park.&amp;lt;/p&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;div class=&amp;quot;tab-pane fade&amp;quot; id=&amp;quot;dropdown1&amp;quot;&amp;gt;
+        &amp;lt;p&amp;gt;Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney&amp;#39;s organic lomo retro
+            fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer,
+            iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony.
+            Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles
+            pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven&amp;#39;t heard of
+            them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.&amp;lt;/p&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;div class=&amp;quot;tab-pane fade&amp;quot; id=&amp;quot;dropdown2&amp;quot;&amp;gt;
+        &amp;lt;p&amp;gt;Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master
+            cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party
+            locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before
+            they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade
+            thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park
+            vegan.&amp;lt;/p&amp;gt;
+    &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+            &lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3&gt;Fade effect&lt;/h3&gt;
+
+&lt;p&gt;To make tabs fade in, add &lt;code&gt;.fade&lt;/code&gt; to each &lt;code&gt;.tab-pane&lt;/code&gt;. The first tab pane must also have
+    &lt;code&gt;.in&lt;/code&gt; to properly fade in initial content.&lt;/p&gt;
+
+&lt;div class=&#34;highlight&#34;&gt;
+                &lt;pre&gt;
+&amp;lt;div class=&amp;quot;tab-content&amp;quot;&amp;gt;
+    &amp;lt;div class=&amp;quot;tab-pane fade in active&amp;quot; id=&amp;quot;home&amp;quot;&amp;gt;...&amp;lt;/div&amp;gt;
+    &amp;lt;div class=&amp;quot;tab-pane fade&amp;quot; id=&amp;quot;profile&amp;quot;&amp;gt;...&amp;lt;/div&amp;gt;
+    &amp;lt;div class=&amp;quot;tab-pane fade&amp;quot; id=&amp;quot;messages&amp;quot;&amp;gt;...&amp;lt;/div&amp;gt;
+    &amp;lt;div class=&amp;quot;tab-pane fade&amp;quot; id=&amp;quot;settings&amp;quot;&amp;gt;...&amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+                &lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Frontend testing</title>
+      <link>http://seedstack.org/archives/16.7/guides/frontend-testing/</link>
+      <pubDate>Wed, 10 Dec 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/guides/frontend-testing/</guid>
+      <description>
+
+&lt;p&gt;As your application grows it becomes harder to assert that all your features are still working correctly. Whether you are
+doing some refactoring, upgrading a library version or adding new features, you would want a mechanism to protect yourself
+from regression. Testing is well known for Java EE server side application but your front end web application also deserves
+unit testing especially when complex logic are involved.&lt;/p&gt;
+
+&lt;p&gt;Unit testing as the name implies is about testing individual units of code. Unit tests try to answer questions such as
+&amp;laquo;Did I think about the logic correctly?&amp;raquo; or &amp;laquo;Does the sort function order the list in the right order?&amp;raquo;.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+&lt;p&gt;W20 itself is agnostic of the testing framework and the test runner but you may have good results with respectively
+&lt;a href=&#34;http://jasmine.github.io/&#34;&gt;Jasmine&lt;/a&gt; and &lt;a href=&#34;http://karma-runner.github.io/&#34;&gt;Karma&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;writing-unit-tests&#34;&gt;Writing unit tests&lt;/h1&gt;
+
+&lt;p&gt;Instead of repeating in a less complete way what the documentation on Jasmine &lt;a href=&#34;http://jasmine.github.io/2.1/introduction.html&#34;&gt;Jasmine&lt;/a&gt;
+and &lt;a href=&#34;http://docs.angularjs.org/guide/dev_guide.unit-testing&#34;&gt;AngularJS&lt;/a&gt; have to offer on testing, we are going
+to follow an example and see how we can test our individual unit of code.&lt;/p&gt;
+
+&lt;h2 id=&#34;the-code-to-test&#34;&gt;The code to test&lt;/h2&gt;
+
+&lt;p&gt;We will use the example of a small CRUD application for managing users. The code that we will test consists of a service
+&amp;lsquo;UsersService&amp;rsquo; that retrieve users and an angular controller which holds some functions : addUser, loadUsers and clearUsers.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;module.factory(&#39;UsersService&#39;, [ &#39;$resource&#39;, function($resource) {
+    return {
+        usersResource: $resource(require.toUrl(&#39;{fragmentRoot}/data/users.json&#39;))
+    };
+}]);
+
+module.controller(&#39;UserController&#39;, [ &#39;$scope&#39;, &#39;UsersService&#39;, function ($scope, usersService) {
+
+    var userId = 0;
+    var Users = usersService.usersResource;
+
+    // User array initialization
+    $scope.users = [];
+
+    // This function add the current entered user to the user array
+    $scope.addUser = function () {
+        $scope.users.push({
+            id: (++userId).toString(),
+            firstName: $scope.firstName,
+            lastName: $scope.lastName,
+        });
+    };
+
+    // This function loads users from a resource
+    $scope.loadUsers = function () {
+        Users.query(function (result) {
+            for (var i = 0; i &amp;lt; result.length; i++)
+                if (result[i].id &amp;gt; userId)
+                    userId = result[i].maxid;
+            $scope.users = result;
+        });
+    };
+
+    // This function clears the user array
+    $scope.clearUsers = function () {
+        $scope.users = [];
+    };
+
+]);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can now start writing some tests in our user.test.js file.&lt;/p&gt;
+
+&lt;h2 id=&#34;unit-test-structure&#34;&gt;Unit test structure&lt;/h2&gt;
+
+&lt;p&gt;A &lt;b&gt;test suite&lt;/b&gt; begins with a call to the global Jasmine function &lt;code&gt;describe&lt;/code&gt; with two parameters: a string and a function. The string is a name or title
+for a spec suite – usually what is under test. The function is a block of code that implements the suite.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;describe(&amp;quot;A suite&amp;quot;, function() {
+  it(&amp;quot;contains spec with an expectation&amp;quot;, function() {
+    expect(true).toBe(true);
+  });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;b&gt;Specs&lt;/b&gt; are defined by calling the global Jasmine function &lt;code&gt;it&lt;/code&gt;, which, like &lt;code&gt;describe&lt;/code&gt; takes a string and a function.
+The string is a title for this spec and the function is the spec, or test. A spec contains one or more expectations that test the state of the code under test.
+An expectation in Jasmine is an assertion that can be either true or false. A spec with all true expectations is a passing spec.
+A spec with one or more expectations that evaluate to false is a failing spec.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;describe(&amp;quot;A suite of spec&amp;quot;, function() {
+  var a;
+  it(&amp;quot;is a spec and variable a should be true &amp;quot;, function() {
+    a = true;
+    expect(a).toBe(true);
+  });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Jasmine also provides the global &lt;code&gt;beforeEach&lt;/code&gt; and &lt;code&gt;afterEach&lt;/code&gt; functions.
+As the name implies the beforeEach function is called once before each spec in the describe is run and the afterEach function is called once after each spec.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;describe(&amp;quot;A spec (with setup and tear-down)&amp;quot;, function() {
+  var foo;
+
+  beforeEach(function() {
+    foo = 0;
+    foo += 1;
+  });
+
+  afterEach(function() {
+    foo = 0;
+  });
+
+  it(&amp;quot;is just a function, so it can contain any code&amp;quot;, function() {
+    expect(foo).toEqual(1);
+  });
+
+  it(&amp;quot;can have more than one expectation&amp;quot;, function() {
+    expect(foo).toEqual(1);
+    expect(true).toEqual(true);
+  });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;example&#34;&gt;Example&lt;/h1&gt;
+
+&lt;p&gt;With those basic concepts we can now start writing some tests for our code sample. Before writing the test suite we want
+to get our hand on the service and controller inside our test file. We do this by using the &lt;code&gt;beforeEach&lt;/code&gt; function :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;define([
+    &#39;{angular}/angular&#39;,
+    &#39;{angular-mocks}/angular-mocks&#39;
+    &#39;{my-fragment}/modules/user&#39;
+], function(angular) {
+    var userController, $scope;
+
+    beforeEach(function () {
+        // Load the user module, which contains the service and controller
+        module(&#39;user&#39;);
+
+        // inject services that will allow us to get our hands on the required components we want to unit test
+        inject(function ($injector, $controller, $rootScope) {
+
+            // Create an object &#39;serviceMock&#39; with a property &#39;usersResource&#39;.
+            // We do this so that later on we can use it as a spy for call on the UsersService.usersResource.query()
+            serviceMock = {
+                       usersResource: {}
+                   };
+
+            // Get a new child scope from the root scope which will served in our specs
+            $scope = $rootScope.$new();
+
+            // Get the &#39;UserController&#39; and map its $scope dependency to the one defined above and its
+            // &#39;UsersService&#39; dependency as the &#39;serviceMock&#39; we defined above
+            userController = $controller(&#39;UserController&#39;, {
+                $scope: $scope,
+                UsersService: serviceMock
+            });
+        });
+    });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We now have all our components ready for our test suite. Remember that a test suite is defined with &lt;code&gt;describe&lt;/code&gt; :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; describe(&amp;quot;the user controller&amp;quot;, function () { ... }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Inside of this test suite we can write our specs :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Check that initialization is correct
+it(&amp;quot;should have empty users collection when initialized&amp;quot;, function () {
+        // assert that $scope.users exists
+        expect($scope.users).toBeDefined();
+        // assert it is empty
+        expect($scope.users.length).toEqual(0);
+});
+
+// Unit test the adduser() method
+it(&amp;quot;should be able to add items to the users collection&amp;quot;, function () {
+       $scope.firstName = &#39;Robert&#39;;
+       $scope.lastName = &#39;SMITH&#39;;
+
+       $scope.addUser();
+
+       expect($scope.users.length).toEqual(1);
+       expect($scope.users).toContain({
+           id: &#39;1&#39;,
+           firstName: &#39;Robert&#39;,
+           lastName: &#39;SMITH&#39;
+       });
+   });
+
+// Unit test the clearUsers() method
+it(&amp;quot;should be able to clear the users collection&amp;quot;, function () {
+        $scope.users.push({
+            id: &#39;1&#39;,
+            firstName: &#39;Robert&#39;,
+            lastName: &#39;SMITH&#39;
+        });
+        expect($scope.users.length).toEqual(1);
+
+        $scope.clearUsers();
+
+        expect($scope.users.length).toEqual(0);
+    });
+
+// Unit test the loadUsers() method
+it(&amp;quot;should be able to load data to the users collection&amp;quot;, function () {
+
+        // We are going to turn query() into a dummy function;
+        // The .andCallFake() specify what the call to query()
+        // should do. We created a spy. Then we test it (with loadUsers())
+        //
+        serviceMock.usersResource.query = jasmine.createSpy().andCallFake(function (callback) {
+            callback([
+                {
+                    id: &#39;1&#39;,
+                    firstName: &#39;Robert&#39;,
+                    lastName: &#39;SMITH&#39;
+                }
+            ]);
+        });
+
+        // loadUsers() will trigger a call to usersService.usersResource.query
+        // which is mocked by serviceMock.usersResource.query
+        $scope.loadUsers();
+
+        expect($scope.users.length).toEqual(1);
+        expect($scope.users).toContain({
+            id: &#39;1&#39;,
+            firstName: &#39;Robert&#39;,
+            lastName: &#39;SMITH&#39;
+        });
+
+        $scope.firstName = &#39;Anna&#39;;
+        $scope.lastName = &#39;O\&#39;HARA&#39;;
+        $scope.addUser();
+
+        expect($scope.users.length).toEqual(2);
+        expect($scope.users).toContain({
+            id: &#39;1&#39;,
+            firstName: &#39;Robert&#39;,
+            lastName: &#39;SMITH&#39;
+        }, {
+            id: &#39;2&#39;,
+            firstName: &#39;Anna&#39;,
+            lastName: &#39;O\&#39;HARA&#39;
+        });
+    });
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;full-code&#34;&gt;Full code&lt;/h1&gt;
+
+&lt;p&gt;To conclude here is the entire user.test.js file :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;define([
+    &#39;{angular}/angular&#39;,
+    &#39;{angular-mocks}/angular-mocks&#39;
+    &#39;{my-fragment}/modules/user&#39;
+], function(angular) {
+    var userController, $scope;
+
+    beforeEach(function () {
+        module(&#39;user&#39;);
+        inject(function ($injector, $controller, $rootScope) {
+            serviceMock = {
+                usersResource: {}
+            };
+
+            $scope = $rootScope.$new();
+
+            userController = $controller(&#39;UserController&#39;, {
+                $scope: $scope,
+                UsersService: serviceMock
+            });
+        });
+    });
+
+    describe(&amp;quot;the user controller&amp;quot;, function () {
+        it(&amp;quot;should have empty users collection when initialized&amp;quot;, function () {
+            expect($scope.users).toBeDefined();
+            expect($scope.users.length).toEqual(0);
+        });
+
+        it(&amp;quot;should be able to add items to the users collection&amp;quot;, function () {
+            $scope.firstName = &#39;Robert&#39;;
+            $scope.lastName = &#39;SMITH&#39;;
+            $scope.addUser();
+
+            expect($scope.users.length).toEqual(1);
+            expect($scope.users).toContain({
+                id: &#39;1&#39;,
+                firstName: &#39;Robert&#39;,
+                lastName: &#39;SMITH&#39;
+            });
+        });
+
+        it(&amp;quot;should be able to clear the users collection&amp;quot;, function () {
+            $scope.users.push({
+                id: &#39;1&#39;,
+                firstName: &#39;Robert&#39;,
+                lastName: &#39;SMITH&#39;
+            });
+
+            expect($scope.users.length).toEqual(1);
+            $scope.clearUsers();
+            expect($scope.users.length).toEqual(0);
+        });
+
+        it(&amp;quot;should be able to load data to the users collection&amp;quot;, function () {
+            serviceMock.usersResource.query = jasmine.createSpy().andCallFake(function (callback) {
+                callback([
+                    {
+                        id: &#39;1&#39;,
+                        firstName: &#39;Robert&#39;,
+                        lastName: &#39;SMITH&#39;
+                    }
+                ]);
+            });
+            $scope.loadUsers();
+
+            expect($scope.users.length).toEqual(1);
+            expect($scope.users).toContain({
+                id: &#39;1&#39;,
+                firstName: &#39;Robert&#39;,
+                lastName: &#39;SMITH&#39;
+            });
+
+            $scope.firstName = &#39;Anna&#39;;
+            $scope.lastName = &#39;O\&#39;HARA&#39;;
+            $scope.addUser();
+
+            expect($scope.users.length).toEqual(2);
+            expect($scope.users).toContain({
+                id: &#39;1&#39;,
+                firstName: &#39;Robert&#39;,
+                lastName: &#39;SMITH&#39;
+            }, {
+                id: &#39;2&#39;,
+                firstName: &#39;Anna&#39;,
+                lastName: &#39;O\&#39;HARA&#39;
+            });
+        });
+    });
+});
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AngularJS dependency injection</title>
+      <link>http://seedstack.org/archives/16.7/guides/angularjs-dependency-injection/</link>
+      <pubDate>Mon, 24 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/guides/angularjs-dependency-injection/</guid>
+      <description>&lt;p&gt;Dependency injection in AngularJS is supremely useful, and the key to making easily testable components. This article
+explains how AngularJS dependency injection system works.&lt;/p&gt;
+
+&lt;h1 id=&#34;the-provider-provide&#34;&gt;The Provider ($provide)&lt;/h1&gt;
+
+&lt;p&gt;The $provide service is responsible for telling Angular how to create new injectable things; these things are called
+services. Services are defined by things called providers, which is what you&amp;rsquo;re creating when you use $provide.
+Defining a provider is done via the provider method on the $provide service, and you can get hold of the $provide
+service by asking for it to be injected into an application&amp;rsquo;s config function. An example might be something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;myMod.config(function($provide) {
+  $provide.provider(&#39;greeting&#39;, function() {
+    this.$get = function() {
+      return function(name) {
+        alert(&amp;quot;Hello, &amp;quot; + name);
+      };
+    };
+  });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here we&amp;rsquo;ve defined a new provider for a service called greeting; we can inject a variable named greeting into any
+injectable function (like controllers, more on that later) and Angular will call the provider&amp;rsquo;s $get function in order
+to return a new instance of the service. In this case, the thing that will be injected is a function that takes a name
+parameter and alerts a message based on the name. We might use it like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;myMod.controller(&#39;MainController&#39;, function($scope, greeting) {
+  $scope.onClick = function() {
+    greeting(&#39;Ford Prefect&#39;);
+  };
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now here&amp;rsquo;s the trick. factory, service, and value are all just shortcuts to define various parts of a provider&amp;ndash;that is,
+they provide a means of defining a provider without having to type all that stuff out. For example, you could write that
+exact same provider just like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;myMod.config(function($provide) {
+  $provide.factory(&#39;greeting&#39;, function() {
+    return function(name) {
+      alert(&amp;quot;Hello, &amp;quot; + name);
+    };
+  });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It&amp;rsquo;s important to understand, so I&amp;rsquo;ll rephrase: under the hood, AngularJS is calling the exact same code that we wrote
+above (the $provide.provider version) for us. There is literally, 100% no difference in the two versions. value works
+just the same way&amp;ndash;if whatever we would return from our $get function (aka our factory function) is always exactly the
+same, we can write even less code using value. For example, since we always return the same function for our greeting
+service, we can use value to define it, too:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;myMod.config(function($provide) {
+  $provide.value(&#39;greeting&#39;, function(name) {
+    alert(&amp;quot;Hello, &amp;quot; + name);
+  });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Again, this is 100% identical to the other two methods we&amp;rsquo;ve used to define this function&amp;ndash;it&amp;rsquo;s just a way to save
+some typing.&lt;/p&gt;
+
+&lt;p&gt;Now you probably noticed this annoying myMod.config(function($provide) { &amp;hellip; }) thing I&amp;rsquo;ve been using. Since defining
+new providers (via any of the given methods above) is so common, AngularJS exposes the $provider methods directly on the
+module object, to save even more typing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var myMod = angular.module(&#39;myModule&#39;, []);
+
+myMod.provider(&amp;quot;greeting&amp;quot;, ...);
+myMod.factory(&amp;quot;greeting&amp;quot;, ...);
+myMod.value(&amp;quot;greeting&amp;quot;, ...);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;These all do the same thing as the more verbose app.config(&amp;hellip;) versions we used previously.&lt;/p&gt;
+
+&lt;p&gt;The one injectable I&amp;rsquo;ve skipped so far is constant. For now, it&amp;rsquo;s easy enough to say that it works just like value.
+We&amp;rsquo;ll see there&amp;rsquo;s one difference later.&lt;/p&gt;
+
+&lt;p&gt;To review, all these pieces of code are doing the exact same thing:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;myMod.provider(&#39;greeting&#39;, function() {
+  this.$get = function() {
+    return function(name) {
+      alert(&amp;quot;Hello, &amp;quot; + name);
+    };
+  };
+});
+
+myMod.factory(&#39;greeting&#39;, function() {
+  return function(name) {
+    alert(&amp;quot;Hello, &amp;quot; + name);
+  };
+});
+
+myMod.value(&#39;greeting&#39;, function(name) {
+  alert(&amp;quot;Hello, &amp;quot; + name);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;the-injector-injector&#34;&gt;The Injector ($injector)&lt;/h1&gt;
+
+&lt;p&gt;The injector is responsible for actually creating instances of our services using the code we provided via $provide
+(no pun intended). Any time you write a function that takes injected arguments, you&amp;rsquo;re seeing the injector at work. Each
+AngularJS application has a single $injector that gets created when the application first starts; you can get a hold of
+it by injecting $injector into any injectable function (yes, $injector knows how to inject itself!)&lt;/p&gt;
+
+&lt;p&gt;Once you have $injector, you can get an instance of a defined service by calling get on it with the name of the service.
+For example,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var greeting = $injector.get(&#39;greeting&#39;);
+greeting(&#39;Ford Prefect&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The injector is also responsible for injecting services into functions; for example, you can magically inject services
+into any function you have using the injector&amp;rsquo;s invoke method;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;var myFunction = function(greeting) {
+  greeting(&#39;Ford Prefect&#39;);
+};
+$injector.invoke(myFunction);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Its worth noting that the injector will only create an instance of a service once. It then caches whatever the provider
+returns by the service&amp;rsquo;s name; the next time you ask for the service, you&amp;rsquo;ll actually get the exact same object.&lt;/p&gt;
+
+&lt;p&gt;So, it stands to reason that you can inject services into any function that is called with $injector.invoke. This
+includes:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;controller definition functions&lt;/li&gt;
+&lt;li&gt;directive definition functions&lt;/li&gt;
+&lt;li&gt;filter definition functions&lt;/li&gt;
+&lt;li&gt;the $get methods of providers (aka the factory definition functions)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Since constants and values always return a static value, they are not invoked via the injector, and thus you cannot
+inject them with anything.&lt;/p&gt;
+
+&lt;h1 id=&#34;configuring-providers&#34;&gt;Configuring Providers&lt;/h1&gt;
+
+&lt;p&gt;You may be wondering why anyone would bother to set up a full-fledged provider with the provide method if factory,
+value, etc. are so much easier. The answer is that providers allow a lot of configuration. We&amp;rsquo;ve already mentioned
+that when you create a service via the provider (or any of the shortcuts Angular gives you), you create a new provider
+that defines how that service is constructed. What I didn&amp;rsquo;t mention is that these providers can be injected into config
+sections of your application so you can interact with them!&lt;/p&gt;
+
+&lt;p&gt;First, Angular runs your application in two-phases&amp;ndash;the config and run phases. The config phase, as we&amp;rsquo;ve seen, is where
+you can set up any providers as necessary. This is also where directives, controllers, filters, and the like get set up.
+The run phase, as you might guess, is where Angular actually compiles your DOM and starts up your app.&lt;/p&gt;
+
+&lt;p&gt;You can add additional code to be run in these phases with the myMod.config and myMod.run functions&amp;ndash;each take a
+function to run during that specific phase. As we saw in the first section, these functions are injectable&amp;ndash;we injected
+the built-in $provide service in our very first code sample. However, what&amp;rsquo;s worth noting is that during the config
+phase, only providers can be injected (with the exception of the services in the AUTO module&amp;ndash;$provide and $injector).&lt;/p&gt;
+
+&lt;p&gt;For example, the following is not allowed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;myMod.config(function(greeting) {
+  // WON&#39;T WORK -- greeting is an *instance* of a service.
+  // Only providers for services can be injected in config blocks.
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What you do have access to are any providers for services you&amp;rsquo;ve made:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;myMod.config(function(greetingProvider) {
+  // a-ok!
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is one important exception: constants, since they cannot be changed, are allowed to be injected inside config
+blocks (this is how they differ from values). They are accessed by their name alone (no Provider suffix necessary).&lt;/p&gt;
+
+&lt;p&gt;Whenever you defined a provider for a service, that provider gets named serviceProvider, where service is the name of
+the service. Now we can use the power of providers to do some more complicated stuff!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;myMod.provider(&#39;greeting&#39;, function() {
+  var text = &#39;Hello, &#39;;
+
+  this.setText = function(value) {
+    text = value;
+  };
+
+  this.$get = function() {
+    return function(name) {
+      alert(text + name);
+    };
+  };
+});
+
+myMod.config(function(greetingProvider) {
+  greetingProvider.setText(&amp;quot;Howdy there, &amp;quot;);
+});
+
+myMod.run(function(greeting) {
+  greeting(&#39;Ford Prefect&#39;);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we have a function on our provider called setText that we can use to customize our alert; we can get access to this
+provider in a config block to call this method and customize the service. When we finally run our app, we can grab the
+greeting service, and try it out to see that our customization took effect.&lt;/p&gt;
+
+&lt;p&gt;Since this is a more complex example, here&amp;rsquo;s a working demonstration: &lt;a href=&#34;http://jsfiddle.net/BinaryMuse/9GjYg/&#34;&gt;http://jsfiddle.net/BinaryMuse/9GjYg/&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;controllers-controller&#34;&gt;Controllers ($controller)&lt;/h1&gt;
+
+&lt;p&gt;You can inject things into controllers, but you can&amp;rsquo;t inject controllers into things. That&amp;rsquo;s because controllers aren&amp;rsquo;t
+created via the provider. Instead, there is a built-in Angular service called $controller that is responsible for setting
+up your controllers. When you call myMod.controller(&amp;hellip;), you&amp;rsquo;re actually accessing this service&amp;rsquo;s provider, just like
+in the last section.&lt;/p&gt;
+
+&lt;p&gt;For example, when you define a controller like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;myMod.controller(&#39;MainController&#39;, function($scope) {
+  // ...
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What you&amp;rsquo;re actually doing is this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;myMod.config(function($controllerProvider) {
+  $controllerProvider.register(&#39;MainController&#39;, function($scope) {
+    // ...
+  });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Later, when Angular needs to create an instance of your controller, it uses the $controller service (which in turn uses
+the $injector to invoke your controller function so it gets its dependencies injected too).&lt;/p&gt;
+
+&lt;p&gt;Filters and Directives&lt;/p&gt;
+
+&lt;p&gt;filter and directive work exactly the same way as controller; filter uses a service called $filter and its provider
+$filterProvider, while directive uses a service called $compile and its provider $compileProvider. Some links:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;$filter: &lt;a href=&#34;http://docs.angularjs.org/api/ng.$filter&#34;&gt;http://docs.angularjs.org/api/ng.$filter&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;$filterProvider: &lt;a href=&#34;http://docs.angularjs.org/api/ng.$filterProvider&#34;&gt;http://docs.angularjs.org/api/ng.$filterProvider&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;$compile: &lt;a href=&#34;http://docs.angularjs.org/api/ng.$compile&#34;&gt;http://docs.angularjs.org/api/ng.$compile&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;$compileProvider: &lt;a href=&#34;http://docs.angularjs.org/api/ng.$compileProvider&#34;&gt;http://docs.angularjs.org/api/ng.$compileProvider&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As per the other examples, myMod.filter and myMod.directive are shortcuts to configuring these services.&lt;/p&gt;
+
+&lt;h1 id=&#34;summary&#34;&gt;Summary&lt;/h1&gt;
+
+&lt;p&gt;So, to summarize, any function that gets called with $injector.invoke can be injected into. This includes, but is not
+limited to:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;controller,&lt;/li&gt;
+&lt;li&gt;directive,&lt;/li&gt;
+&lt;li&gt;factory,&lt;/li&gt;
+&lt;li&gt;filter,&lt;/li&gt;
+&lt;li&gt;provider $get (when defining provider as an object),&lt;/li&gt;
+&lt;li&gt;provider function (when defining provider as a constructor function),&lt;/li&gt;
+&lt;li&gt;service.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The provider creates new services that can be injected into things. This includes:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;constant,&lt;/li&gt;
+&lt;li&gt;factory,&lt;/li&gt;
+&lt;li&gt;provider,&lt;/li&gt;
+&lt;li&gt;service,&lt;/li&gt;
+&lt;li&gt;value.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;That said, built-in services like $controller and $filter can be injected, and you can use those service to get hold of
+the new filters and controllers you defined with those methods (even though the things you defined aren&amp;rsquo;t, by
+themselves, able to be injected into things).&lt;/p&gt;
+
+&lt;p&gt;Other than that, any injector-invoked function can be injected with any provider-provided service&amp;ndash;there is no restriction
+(other than the config and run differences listed herein).&lt;/p&gt;
+
+&lt;h1 id=&#34;source-article&#34;&gt;Source article&lt;/h1&gt;
+
+&lt;p&gt;Article copied from &lt;a href=&#34;https://github.com/angular/angular.js/wiki/Understanding-Dependency-Injection&#34;&gt;https://github.com/angular/angular.js/wiki/Understanding-Dependency-Injection&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>AngularJS directive design</title>
+      <link>http://seedstack.org/archives/16.7/guides/angularjs-directive-design/</link>
+      <pubDate>Mon, 24 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/guides/angularjs-directive-design/</guid>
+      <description>&lt;p&gt;AngularJS is a web application framework that makes creating complicated web applications much simpler. One of its best
+features is the ability to create directives, or reusable web components. It gives you the ability to create new HTML
+tags and attributes, which can dynamically display content in response to data changes, as well as update the data when
+appropriate.&lt;/p&gt;
+
+&lt;p&gt;They’re a big productivity booster because they let you wrap up a complicated interaction with the DOM in a nice,
+reusable package.&lt;/p&gt;
+
+&lt;h1 id=&#34;making-directives-can-be-confusing-at-first&#34;&gt;Making directives can be confusing at first&lt;/h1&gt;
+
+&lt;p&gt;It doesn’t take long to realize that directives are useful, and the ones that are bundled with AngularJS are well
+designed, but making directives can feel overwhelming at first. The Angular team has done a good job making directives
+extremely powerful and flexible, but all that power comes with some complexity.&lt;/p&gt;
+
+&lt;p&gt;Specifically, it’s difficult to understand how to create a directive that responds to data changes, updates data,
+responds to events, or exposes events. Basically it boils down to this:&lt;/p&gt;
+
+&lt;blockquote&gt;How do I talk to a directive?&lt;/blockquote&gt;
+
+&lt;p&gt;This article aims to explain and simplify some of the most common problems you will run in to when creating directives.&lt;/p&gt;
+
+&lt;h1 id=&#34;directive-design-principles&#34;&gt;Directive design principles&lt;/h1&gt;
+
+&lt;p&gt;Directives make our lives easier when you can reuse them without needing to read or edit the source code. Then we can
+forget how they work, and just remember what they do.&lt;/p&gt;
+
+&lt;p&gt;If you’re coming from a view-centric framework, you may be tempted to separate your application into view-like directive
+chunks. For example, if you want to display a list of users, you might create a directive that reads $scope.users and
+prints them all out:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;user-list/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;user-list&lt;/code&gt; directive works. I mean, look how DRY it is! However, contrast it with ng-repeat, which handles only the
+repetition. Which one could be used in more places? What if you need to display users differently in two places?&lt;/p&gt;
+
+&lt;blockquote&gt;A good directive only does one job&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code&gt;ng-repeat&lt;/code&gt; is better than &lt;code&gt;user-list&lt;/code&gt; because it does only one job: It only does the repetition part, so you can reuse
+it many more situations. It’s job is easy to understand. Instead of making one directive that solves everything, split
+it up into several focused directives and glue them together.&lt;/p&gt;
+
+&lt;blockquote&gt;A good directive is not application specific&lt;/blockquote&gt;
+
+&lt;p&gt;Directives are more widely useful the fewer assumptions they make about your application. A directive that allows the
+user to say which property to observe, like ng-model is more useful than one that assumes that $scope.users exists.
+As a general rule, if your directive could be useful in a completely different application, it’s more likely to be well
+designed and useful even if you never publish it.&lt;/p&gt;
+
+&lt;p&gt;That’s enough theory for now. Let’s dive in to some specific examples of common ways you can interact with directives.&lt;/p&gt;
+
+&lt;h1 id=&#34;how-to-display-bindings&#34;&gt;How to display bindings&lt;/h1&gt;
+
+&lt;p&gt;The first thing to learn is how to make a directive that respects a binding: the ones with double curly braces. For
+example, let’s make a directive that displays a photo and a caption.&lt;/p&gt;
+
+&lt;p&gt;The first step in any directive design is to choose the names of the attributes that will make up your interface.
+I’ve chosen to use photo-src for the image src, and caption for the text. Be careful not to use names that other
+directives use, like ng-src unless you know how they work.&lt;/p&gt;
+
+&lt;p&gt;Secondly, decide if you want to support only attributes and class names, or elements too. In this case we decide we
+want photo to be an element.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;photo photo-src=&amp;quot;{{photo.url}}&amp;quot;
+         caption=&amp;quot;Taken on: {{photo.date}}&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that I did not give the directive the whole photo object. It’s better design to allow the directive to work with
+any data structure.&lt;/p&gt;
+
+&lt;p&gt;To read a binding, use &lt;code&gt;attrs.$observe&lt;/code&gt;. This will call your callback any time the binding changes. We then use element
+to make changes to the DOM.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;app.directive(&#39;photo&#39;, function() {
+    return {
+        // required to make it work as an element
+        restrict: &#39;E&#39;,
+
+        // replace &amp;lt;photo&amp;gt; with this html
+        template: &#39;&amp;lt;figure&amp;gt;&amp;lt;img/&amp;gt;&amp;lt;figcaption/&amp;gt;&amp;lt;/figure&amp;gt;&#39;,
+        replace: true,
+
+        // observe and manipulate the DOM
+        link: function($scope, element, attrs) {
+            attrs.$observe(&#39;caption&#39;, function(value) {
+                element.find(&#39;figcaption&#39;).text(value)
+            })
+
+            // attribute names change to camel case
+            attrs.$observe(&#39;photoSrc&#39;, function(value) {
+                element.find(&#39;img&#39;).attr(&#39;src&#39;, value)
+            })
+        }
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Alternatively, if your component has its own template, you can do all of this with an isolate scope.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;app.directive(&#39;photo&#39;, function() {
+    return {
+        restrict: &#39;E&#39;,
+        templateUrl: &#39;photo.html&#39;,
+        replace: true,
+        // pass these two names from attrs into the template scope
+        scope: {
+            caption: &#39;@&#39;,
+            photoSrc: &#39;@&#39;
+        }
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;HTML:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;figure&amp;gt;
+    &amp;lt;img ng-src=&amp;quot;{{photoSrc}}&amp;quot;/&amp;gt;
+    &amp;lt;figcaption&amp;gt;{{caption}}&amp;lt;/figcaption&amp;gt;
+&amp;lt;/figure&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;how-to-read-and-write-data&#34;&gt;How to read and write data&lt;/h1&gt;
+
+&lt;p&gt;Some directives need to write data too, like &lt;code&gt;ng-model&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s make a button toggle directive. This directive will automatically set its toggle state based on some boolean in
+the scope, and when clicked, it will set the boolean.&lt;/p&gt;
+
+&lt;p&gt;When passing data this way, you don’t use curly braces, you use an “Expression”. An Expression is any JS code that would
+run if it were on the scope. Use expressions whenever you need to write data, or when passing in an Object or Array
+into the directive instead of a string.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!-- no double curly braces here --&amp;gt;
+&amp;lt;button toggle=&amp;quot;preferences.showDetails&amp;quot;&amp;gt;Show Details&amp;lt;/button&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;First we use &lt;code&gt;=&lt;/code&gt; on the &lt;code&gt;scope:&lt;/code&gt; settings to make &lt;code&gt;scope.toggle&lt;/code&gt; available within our directive. Anywhere in our directive,
+&lt;code&gt;scope.toggle&lt;/code&gt; reads and writes to whatever the user set in the attribute.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;app.directive(&#39;toggle&#39;, function() {
+    return {
+        scope: {
+            toggle: &#39;=&#39;,
+        },
+        link: function($scope, element, attrs) {
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next we use scope.$watch, which calls your function whenever the expression changes. We’ll add and remove the active css
+class whenever it changes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;            $scope.$watch(&amp;quot;toggle&amp;quot;, function(value) {
+                element.toggleClass(&#39;active&#39;, value)
+            })
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally, let’s listen to the jQuery click event and update the scope. We need to use &lt;code&gt;scope.$apply&lt;/code&gt; any time we respond
+to changes from outside of Angular.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;            element.click(function() {
+                $scope.$apply(function() {
+                    $scope.toggle = !$scope.toggle
+                })
+            })
+        }
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;how-to-expose-events&#34;&gt;How to expose events&lt;/h1&gt;
+
+&lt;p&gt;Sometimes you want to allow a controller to respond to events from within a directive, like ng-click. Let’s make a
+scroll directive, that can call a function whenever a user scrolls that element. In addition, let’s expose the scroll
+offset too.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;textarea scroll=&amp;quot;onScroll(offset)&amp;quot;&amp;gt;...&amp;lt;/textarea&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Similar to the toggle button, we map whatever function they specify in the attribute to &lt;code&gt;scroll&lt;/code&gt; in our directive’s scope.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;app.directive(&#39;scroll&#39;, function() {
+    return {
+        scope: {
+            scroll: &amp;quot;&amp;amp;&amp;quot;
+        },
+        link: function($scope, element, attrs) {
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We’ll use jQuery’s scroll event to get what we need. We still need to call &lt;code&gt;scope.$apply&lt;/code&gt; here, because even though it
+calls the handler either way, the handler on the controller might set data.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;            element.scroll(function() {
+                $scope.apply(function() {
+                    var offset = element.scrollTop()
+                    $scope.scroll({offset:offset})
+                })
+            })
+        }
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Notice that we don’t pass the offset in as the first parameter, we pass a hash of available parameters, and make them
+available to the expression &lt;code&gt;onScroll(offset)&lt;/code&gt; that they passed in to the attribute. This is much more flexible than
+passing parameters directly, because they can pass other scope variables into their functions, like the current
+item in an &lt;code&gt;ng-repeat&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;how-to-have-html-content&#34;&gt;How to have HTML content&lt;/h1&gt;
+
+&lt;p&gt;Directives can have html content by default, but the minute you specify a template the content is replaced by the
+template.&lt;/p&gt;
+
+&lt;p&gt;Let’s make a &lt;code&gt;modal&lt;/code&gt; component: a popup window with a close button, and we would like to set the body as html.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;modal&amp;gt;
+  &amp;lt;p&amp;gt;Some contents&amp;lt;/p&amp;gt;
+  &amp;lt;p&amp;gt;Put whatever you want in here&amp;lt;/p&amp;gt;
+&amp;lt;/modal&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Our modal is more than just one element though. When we make the template, we include everything we need, then we put a
+special ng-transclude directive in the div that is supposed to take back over and get all the contents.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;div class=&amp;quot;modal&amp;quot;&amp;gt;
+    &amp;lt;header&amp;gt;
+        &amp;lt;button&amp;gt;Close&amp;lt;/button&amp;gt;
+        &amp;lt;h2&amp;gt;Modal&amp;lt;/h2&amp;gt;
+    &amp;lt;/header&amp;gt;
+    &amp;lt;div class=&amp;quot;body&amp;quot; ng-transclude&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Wiring things up is pretty simple. Just set transclude: true to get this to work:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;app.directive(&#39;modal&#39;, function() {
+    return {
+        restrict: &#39;E&#39;,
+        templateUrl: &#39;modal.html&#39;,
+        replace: true,
+        transclude: true,
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can combine this with any of the other techniques in this article to make something more complicated.&lt;/p&gt;
+
+&lt;h1 id=&#34;how-to-respond-to-events&#34;&gt;How to respond to events&lt;/h1&gt;
+
+&lt;p&gt;Sometimes you might want to call a function on your directive, in response to an event in your scope. For example, you
+might want to close the open modal if the user hits the escape key.&lt;/p&gt;
+
+&lt;p&gt;This is almost always an indication that you are stuck on events, when you should be thinking about data flow.
+Controllers don’t just contain data, they hold view state too. It’s totally fine to have a windowShown boolean on
+your controller, and use ng-show or pass a boolean into your directive as described above.&lt;/p&gt;
+
+&lt;p&gt;There are cases where it does make sense to use &lt;code&gt;$scope.$on&lt;/code&gt; in a directive, but for beginners, try to think about the
+problem in terms of changing state instead. Things get much easier in Angular if you focus on data and state instead of
+events.&lt;/p&gt;
+
+&lt;h1 id=&#34;more-information&#34;&gt;More Information&lt;/h1&gt;
+
+&lt;p&gt;There is a lot more to directives. This article doesn’t nearly cover everything they can do. Please visit the &lt;a href=&#34;http://docs.angularjs.org/guide/directive&#34;&gt;directive
+documentation&lt;/a&gt; page for more information.&lt;/p&gt;
+
+&lt;h1 id=&#34;source-article&#34;&gt;Source article&lt;/h1&gt;
+
+&lt;p&gt;Article copied from &lt;a href=&#34;http://seanhess.github.io/2013/10/14/angularjs-directive-design.html&#34;&gt;http://seanhess.github.io/2013/10/14/angularjs-directive-design.html&lt;/a&gt;.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Introduction</title>
+      <link>http://seedstack.org/archives/16.7/guides/make-configurable-application/</link>
+      <pubDate>Fri, 25 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/guides/make-configurable-application/</guid>
+      <description>
+
+&lt;p&gt;Configuration is a crucial part of an application that can be difficult to get right. It encompasses multiple aspects,
+like logging, internal configuration or externalisation and should be treated with the same care that code.&lt;/p&gt;
+
+&lt;h1 id=&#34;configuration-files&#34;&gt;Configuration files&lt;/h1&gt;
+
+&lt;h2 id=&#34;unified-configuration&#34;&gt;Unified configuration&lt;/h2&gt;
+
+&lt;p&gt;Seed provides an unified configuration that is consolidated from multiple classpath locations and is available throughout
+the whole application. This configuration is sourced from two kind of files:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Props files (with the &lt;code&gt;.props&lt;/code&gt; extension) placed under &lt;code&gt;META-INF/configuration&lt;/code&gt;,&lt;/li&gt;
+&lt;li&gt;Properties files (with the &lt;code&gt;.properties&lt;/code&gt; extension) placed under &lt;code&gt;META-INF/configuration&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If possible, every configurable value should be placed in the unified configuration, preferably in props files (because
+of their better expressiveness). Some of these files can then be externalized if necessary. Since the unified configuration
+is aggregated from all classpath locations, one can only externalize necessary values, not whole files.&lt;/p&gt;
+
+&lt;h2 id=&#34;other-configuration-files&#34;&gt;Other configuration files&lt;/h2&gt;
+
+&lt;p&gt;All other files are NOT participating in this unified configuration but can still be needed to configure various components
+like the LDAP component or the logging subsystem for instance. These files can also be externalized if necessary but are
+outside of Seed control, so they cannot be aggregated. It means that they must be externalized a whole file at a time.&lt;/p&gt;
+
+&lt;h1 id=&#34;jndi&#34;&gt;JNDI&lt;/h1&gt;
+
+&lt;p&gt;Another aspect of application configuration is the use of JNDI resources which can be provided by the runtime environment
+and configured administratively. The JNDI name is used inside the application as an alias to an externally defined resource.&lt;/p&gt;
+
+&lt;h1 id=&#34;about-this-guide&#34;&gt;About this guide&lt;/h1&gt;
+
+&lt;p&gt;This guide will help you define which configuration aspects should be externalized (and which shouldn&amp;rsquo;t) and the
+best practices for each one.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Aggregate design</title>
+      <link>http://seedstack.org/archives/16.7/guides/ddd-pitfalls-and-tips/aggregate-design/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/guides/ddd-pitfalls-and-tips/aggregate-design/</guid>
+      <description>&lt;p&gt;Most business domains have very interconnected Entities, sometimes up to the point where there is always a path going
+from any Entity to any other. We can try to minimize the number of associations in our design, and this is a good practice
+but it can lead to a translation loss between business and software. In a typical object model, it is difficult to
+clearly see the boundaries of a change. This is particularly acute in systems with concurrent access such as Web
+applications.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;It is difficult to guarantee the consistency of changes to objects in a model with complex associations and no clear
+boundaries between objects. Considering every object as independent from each other is not a valid approach, but on the
+other side, refreshing every object because of a change is not practical. A balanced solution must be found.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;To help us with this delicate problem, the Aggregate pattern can be applied. It is a cluster of associated objects that
+are considered as a unit for the purpose of data changes. Each Aggregate has root and a boundary which determines what
+is inside the Aggregate. The Aggregate root is a specific Entity contained in the Aggregate. It is the only entry-point
+of the Aggregate, meaning that it is the only Aggregate Entity that client objects can hold references to. Other objects
+of the Aggregate are only accessible through the context of the Aggregate root.&lt;/p&gt;
+
+&lt;h1 id=&#34;characteristics&#34;&gt;Characteristics&lt;/h1&gt;
+
+&lt;p&gt;The following rules apply to Aggregates:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The Aggregate root has a global identity and is responsible for checking invariants within the Aggregate.&lt;/li&gt;
+&lt;li&gt;Non-root Entities inside the Aggregate have a local identity that is only unique within the Aggregate.&lt;/li&gt;
+&lt;li&gt;Code outside the Aggregate can only hold references to the Aggregate root. The root can hand references to internal
+entities but they must only use them transiently and not hold to the reference. Value Objects can be handed without
+any concern because they are immutable and side-effect free.&lt;/li&gt;
+&lt;li&gt;Only Aggregate roots can be loaded directly from the persistence. All other objects must be found by traversal of
+associations.&lt;/li&gt;
+&lt;li&gt;Any change within the Aggregate boundary must satisfy all the Aggregate invariants.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;typologies&#34;&gt;Typologies&lt;/h1&gt;
+
+&lt;p&gt;There are almost infinite ways to design a model for a specific business domain. Each of these ways will have its own
+characteristics in terms of performance, consistency, simplicity, etc&amp;hellip;. Good Aggregate design is crucial to build a
+system that will have the desired qualities.&lt;/p&gt;
+
+&lt;p&gt;Consistency must be ensured at the Aggregate level. This means that an Aggregate root is responsible to check that
+business invariants (i.e. business rules that must be valid at all times) are satisfied. This also means that a properly
+designed system &lt;strong&gt;modifies only one Aggregate instance per transaction in all cases&lt;/strong&gt;. This may sound strict but it should
+be a goal to strive for in most cases. This is the main reason behind modeling with Aggregates.&lt;/p&gt;
+
+&lt;p&gt;Consider the following aggregate typologies:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/aggregate-typologies.png&#34; alt=&#34;aggregate-typologies&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The left topology is not expressive in terms of business and could often lead to glorified database editors. The right
+topology is an object graph which is too big to scale well when modified concurrently. The middle typology is the one to
+strive for but it is often difficult to get it right on first try. Try to use Value Objects where possible to limit the
+complexity associated to dealing with entities. Aggregate design is an &lt;strong&gt;iterative process&lt;/strong&gt; where Aggregates may start
+relatively big and then refined, iteration after iteration, as measure as business domain knowledge is gained.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Aggregates should be designed with a consistency boundaries in mind, meaning that a change (i.e. a transaction) should
+only impact one Aggregate instance if possible.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;references&#34;&gt;References&lt;/h1&gt;
+
+&lt;p&gt;As we saw above, references between Aggregates should always be done through the Aggregate roots. But there is another
+rule that must be obeyed: only reference other Aggregates through their identities instead of a direct reference. This
+will help tremendously in limiting the scope of persistence operations (remember that we don&amp;rsquo;t want to change more than
+one aggregate instance at the time).&lt;/p&gt;
+
+&lt;p&gt;Model navigation is not completely prevented by only referencing identities. A Repository or Domain Service could be
+used to lookup needed objects ahead of invoking the Aggregate behavior. Those objects would be handed as parameters to
+the operation. An Application Service can encapsulate this logic.&lt;/p&gt;
+
+&lt;p&gt;Only using reference by identity may limit the ability to serve complex User Interface views where multiple calls to
+repositories may be needed. One solution is to use &lt;a href=&#34;https://en.wikipedia.org/wiki/Relational_algebra#.CE.B8-join_and_equijoin&#34;&gt;theta joins&lt;/a&gt;
+to assemble referentially associated Aggregates in a single join query.&lt;/p&gt;
+
+&lt;h1 id=&#34;consistency&#34;&gt;Consistency&lt;/h1&gt;
+
+&lt;p&gt;If immediate consistency (or transactional consistency) should be applied when changing one Aggregate, one cannot expect
+this to be the case for changes that spans multiple Aggregates. In this case, eventual consistency can be applied
+instead, where consistency will be attained after a specified amount of time. Technical mechanisms, such as event
+processing, batch processing or other update mechanisms can be used to this effect. But the invariants applied within
+an Aggregate must always be satisfied with the completion of each transaction.&lt;/p&gt;
+
+&lt;p&gt;Developers are usually reticent to depart from the idea that the model should be consistent at all times. But often, the
+business rules are not that strict and eventual consistency can be used without breaking them. It is something that
+need to be discussed with domain experts. This not always possible however.&lt;/p&gt;
+
+&lt;h1 id=&#34;performance&#34;&gt;Performance&lt;/h1&gt;
+
+&lt;p&gt;Performance is one of the top reasons why we would like to break those rules, especially the one which states that Aggregates
+should only reference other Aggregates by identity. It is especially apparent in systems where the persistence mechanism
+is not as versatile as we would like and imposes its constraints upon queries that can be made or not.&lt;/p&gt;
+
+&lt;p&gt;If the system is required to provide a lot of complex and different sets of data to the end-user while being able to be
+changed transactionally, consider using a read-model that is different from the domain model and is optimized to answer
+those data sets. Such a read-model could even be implemented with another persistence technology, like full-text indexing,
+kept in sync with &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/business/manual/events/&#34;&gt;domain events&lt;/a&gt;. It may be worth the cost.&lt;/p&gt;
+
+&lt;p&gt;If only a few queries must be specifically optimized, it could be best to hold direct object references to other Aggregates.
+This must be well considered before being attempted in the light of potential performance trade-offs this could incur to
+other parts of the system. This should be viewed as a strong indication that they may be some issues with Aggregate
+boundaries and only used as a last resort.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Anemic Domain Model</title>
+      <link>http://seedstack.org/archives/16.7/guides/ddd-pitfalls-and-tips/anemic-domain-model/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/guides/ddd-pitfalls-and-tips/anemic-domain-model/</guid>
+      <description>&lt;p&gt;An Anemic Domain Model is something that can be found a lot of projects and, astonishingly, is often viewed as a good
+practice. But as you may already have deduced from its name, it doesn&amp;rsquo;t sound like something desirable and certainly not
+in DDD-oriented software.&lt;/p&gt;
+
+&lt;p&gt;And indeed it isn&amp;rsquo;t. An Anemic Domain Model is the result of having all, or almost all, the behavior of the Domain in
+separate classes (often called Services) that are directly changing the internal state of entities through setters. In
+that case the entities are merely a data model (often projected from a relational model through an ORM) with no
+behavior at all. To recognize if your software suffers from the Anemic Domain Model anti-pattern, consider the following
+questions:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Do all the classes of your model have mostly public getters and setters and no, or almost no business logic ?&lt;/li&gt;
+&lt;li&gt;Do the classes that use your model contain the business logic of the system ?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you answered &amp;laquo;No&amp;raquo; to both questions, no worry, your project doesn&amp;rsquo;t seem to suffer this problem. If you answered &amp;laquo;Yes&amp;raquo;
+to both questions, read-on, we will analyze the situation. As you may have guessed, there is no other valid answer
+combination.&lt;/p&gt;
+
+&lt;h1 id=&#34;disadvantages-of-an-anemic-domain-model&#34;&gt;Disadvantages of an Anemic Domain Model&lt;/h1&gt;
+
+&lt;p&gt;The main disadvantage of an Anemic Domain Model is that it costs you the same as a Rich Domain Model to build and you
+get little to no benefit in return:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The encapsulation OOP principle, which is very important to create and maintain complex systems is violated. You allow
+any code to change your model internal state without any sanity check and as such cannot ensure that the model is in a
+correct and valid state.&lt;/li&gt;
+&lt;li&gt;The model is a lot less expressive since all behavior has been stripped out of it.&lt;/li&gt;
+&lt;li&gt;The model is completely untestable because we cannot ensure that the model doesn&amp;rsquo;t get invalid at some point.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Business logic is wholly implemented in a procedural-style separate layer, which mixes domain logic and application
+logic.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The greatest irony comes when you still use an Object/Relational mapping, with its often heavy associated cost, and finally
+end up with procedures altering data holders. Put bluntly, this is simply bad design.&lt;/p&gt;
+
+&lt;h1 id=&#34;bad-example&#34;&gt;Bad example&lt;/h1&gt;
+
+&lt;p&gt;Consider a &lt;code&gt;Customer&lt;/code&gt; class which only has public getters and setters for a few attributes. Then consider the following
+example service that is client of an Anemic Domain Model:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class CustomerServiceImpl implements CustomerService {
+    @Inject
+    private Repository&amp;lt;Customer&amp;gt; customerRepository;
+
+    @Inject
+    private Factory&amp;lt;Customer&amp;gt; customerFactory;
+
+    @Transactional
+    public void saveCustomer(
+            String id,
+            String firstName,
+            String lastName,
+            String street,
+            String city,
+            String postalCode,
+            String String phone,
+            String email) {
+        Customer customer = customerRepository.load(id);
+
+        if (customer == null) {
+            customer = customerFactory.create(customerId);
+            customerRepository.persist(customer);
+        }
+
+        customer.setFirstName(firstName);
+        customer.setLastName(lastName);
+        customer.setStreet(street);
+        customer.setCity(city);
+        customer.setPostCode(postalCode);
+        customer.setPhone(phone);
+        if (email != null) {
+            customer.setEmail(email);
+        }
+
+        customerRepository.save(customer);
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This service operation can be used in dozen of different business circumstances, like changing its address, updating
+its phone number, or even creating a new customer. This may seem awesome at first sight but this method can work in
+various invalid ways and the model cannot prevent it. It also has a number of additional problems:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;No business intention is revealed by the &lt;code&gt;saveCustomer()&lt;/code&gt; interface.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;Customer&lt;/code&gt; domain object is just a data holder, not an object.&lt;/li&gt;
+&lt;li&gt;Even if the service operation contains additional validation logic and checks, it cannot be guaranteed that there
+is no other badly implemented service which will potentially corrupt the model.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;refactoring-to-goodness&#34;&gt;Refactoring to goodness&lt;/h1&gt;
+
+&lt;p&gt;The first thing we could do is to create intention-revealing operations on the &lt;code&gt;Customer&lt;/code&gt; class itself, that draw their
+names from the &lt;a href=&#39;http://seedstack.org/archives/16.7/glossary#ubiquitous-language&#39;&gt;Ubiquitous Language&lt;/a&gt;, and implement business behavior in them:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Customer {
+
+    public void changePersonalName(String firstName, String lastName) { ... }
+    public void relocateTo(PostalAddress newPostalAddress) { ... }
+    public void changeTelephone(Telephone newTelephone) { ... }
+    public void disconnectTelephone() { ... }
+    public void changeEmail(EmailAddress newEmailAddress) { ... }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can immediately see that the business intentions are clearly apparent here and that additional behavior linked to
+these intentions can now be easily implemented &lt;em&gt;and enforced&lt;/em&gt; in the &lt;code&gt;Customer&lt;/code&gt; class itself. This logic is testable
+and those tests will ensure that &lt;code&gt;Customer&lt;/code&gt; objects will behave correctly. Furthermore, we can now ensure that no &lt;code&gt;Customer&lt;/code&gt;
+object can be used invalidly by its clients.&lt;/p&gt;
+
+&lt;p&gt;This is perhaps not the best design for a &lt;code&gt;Customer&lt;/code&gt; but as it reveals its intentions and capabilities, this design can
+then be improved upon, instead of being kept implicit and dependent of its callers. Note that in our quest of
+expressiveness, we also introduced some Value Objects like &lt;code&gt;Telephone&lt;/code&gt;, &lt;code&gt;PostalAddress&lt;/code&gt; or &lt;code&gt;EmailAddress&lt;/code&gt; which will
+contain additional encapsulated business logic about them.&lt;/p&gt;
+
+&lt;p&gt;The service will also be refactored to reflect explicit business intentions:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class CustomerServiceImpl implements CustomerService {
+    @Inject
+    private Repository&amp;lt;Customer&amp;gt; customerRepository;
+
+    @Transactional
+    public void changeCustomerName(
+                    String customerId, 
+                    String newFirstName, 
+                    String newLastName) {
+
+        Customer customer = customerRepository.load(customerId);
+
+        if (customer == null) {
+            throw new IllegalStateException(&amp;quot;Customer doesn&#39;t exist&amp;quot;);
+        }
+
+        customer.changePersonalName(newFirstName, newLastName);
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now this method can only be used in a well-defined business case that everyone can understand by reading the code. The
+terms coming from the Ubiquitous Language are now clearly apparent and as they are shared across the
+team (including business experts), there is little to no possible misunderstanding about what this really does.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The result is a software design that not only is fully functional and correct, but also directly relates to and reflect
+business knowledge.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Behavior and services</title>
+      <link>http://seedstack.org/archives/16.7/guides/ddd-pitfalls-and-tips/behavior-and-services/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/guides/ddd-pitfalls-and-tips/behavior-and-services/</guid>
+      <description>&lt;p&gt;Sometimes behavior doesn&amp;rsquo;t fit into Entities or Value Objects. Pure operations may exist in the domain and should therefore
+be modeled as such. Domain-Driven-Design propose the Service pattern to model these operations.&lt;/p&gt;
+
+&lt;p&gt;It is important to strike a balance between modeling all behavior inside objects and modeling all behavior as Services.
+Complex operations can easily muddle the conceptual clarity of simple objects and, when applying on many different domain
+objects at once, blur the responsibility between them. On the other hand, using Services exclusively can lead to an
+&lt;a href=&#34;http://seedstack.org/archives/16.7/guides/ddd-pitfalls-and-tips/anemic-domain-model/&#34;&gt;Anemic Domain Model&lt;/a&gt;, which is equally something to avoid.&lt;/p&gt;
+
+&lt;h1 id=&#34;characteristics&#34;&gt;Characteristics&lt;/h1&gt;
+
+&lt;p&gt;A domain Service should have the following characteristics:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The operation relates to a domain concept that don&amp;rsquo;t fit naturally in an Entity or a Value Object.&lt;/li&gt;
+&lt;li&gt;The interface is defined by other elements of the model (parameters and returns values are domain model objects).&lt;/li&gt;
+&lt;li&gt;The operation is stateless.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Stateless operation doesn&amp;rsquo;t mean that the Service cannot change the system global state. In fact it can have side effects,
+such as persisting an object. But it doesn&amp;rsquo;t maintain a state on its own that could affect its behavior.&lt;/p&gt;
+
+&lt;h1 id=&#34;other-types-of-services&#34;&gt;Other types of services&lt;/h1&gt;
+
+&lt;p&gt;There are other types of Services as well, addressing different purposes in the system:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Application Services orchestrate domain operations to realize the system use cases.&lt;/li&gt;
+&lt;li&gt;Interface Service contain presentation logic.&lt;/li&gt;
+&lt;li&gt;Infrastructure Services encapsulate technical operations.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These types of Services also model stateless operations but in other parts (layers) of the application.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Entities and Value Objects</title>
+      <link>http://seedstack.org/archives/16.7/guides/ddd-pitfalls-and-tips/entities-and-value-objects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/guides/ddd-pitfalls-and-tips/entities-and-value-objects/</guid>
+      <description>&lt;p&gt;Modeling business concepts with objects may seem very intuitive at first sight but there are a lot of difficulties
+awaiting us in the details. To clarify the meaning of model elements and propose a set of design practices, Domain-Driven
+Design defines three patterns that express the model: Entities, Value Objects and Services. This chapter will focus
+on Entities and Value Objects, leaving Services for their &lt;a href=&#34;http://seedstack.org/archives/16.7/guides/ddd-pitfalls-and-tips/behavior-and-services/&#34;&gt;own chapter&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;entities&#34;&gt;Entities&lt;/h1&gt;
+
+&lt;p&gt;An object having a specific identity and defined primarily by it is called an Entity. We model a domain concept as an
+Entity when its individuality is primordial and it must be distinguished from other objects in the system. There is a
+notion of continuity in Entities, as they can change drastically throughout their lifecycle, yet they remain uniquely
+identified.&lt;/p&gt;
+
+&lt;p&gt;Entities don&amp;rsquo;t need to be tied to an identifiable real-world concept, as their name could imply. They can be anything
+that need to be tracked in the system, regardless of their attributes.&lt;/p&gt;
+
+&lt;h2 id=&#34;identity&#34;&gt;Identity&lt;/h2&gt;
+
+&lt;p&gt;When designing an Entity, the focus should be put first on its primary attributes and behaviors that contribute to
+its identity. There is a tendency, especially for DDD beginners, to focus on data and define all the attributes
+of a domain object. This should be delayed until all the aspects of the Entity identity have been considered and
+settled. One should first consider how the identity is obtained.&lt;/p&gt;
+
+&lt;h3 id=&#34;user-provided-identity&#34;&gt;User-provided identity&lt;/h3&gt;
+
+&lt;p&gt;The user could input one or more unique values into the application to be used as an identity, which in turn should
+ensure that they have the required qualities:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Correctness. The provided values should adequately identify the Entity without ambiguity.&lt;/li&gt;
+&lt;li&gt;Uniqueness. The provided values should be unique among all the entities of the same type.&lt;/li&gt;
+&lt;li&gt;Immutable. Most of the time the identity must be immutable because the cost of changing an identity may be very high.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;application-generated-identity&#34;&gt;Application-generated identity&lt;/h3&gt;
+
+&lt;p&gt;The application could internally generate an identity using an algorithm that provide unique values. The Business
+framework provides an API that can delegate the identity generation to any specified implementation at Entity creation.
+This is called &lt;strong&gt;early identity generation&lt;/strong&gt; because identity is assigned &lt;em&gt;before&lt;/em&gt; the Entity can be used in the
+application. This requires the Entity identity attribute to be annotated with &lt;code&gt;@Identity&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyEntity extends BaseEntity&amp;lt;Long&amp;gt; {
+
+    @Identity(handler = SequenceHandler.class)
+    private Long id;
+
+    // ... other attributes and methods
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The factory method which create the entity must be annotated with &lt;code&gt;@Create&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Create
+MyEntity createMyEntity() {
+    return new MyEntity();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here, the specified handler class (&lt;code&gt;SequenceHandler&lt;/code&gt;) is an interface so configuration is required to specify the qualifier
+of the implementation (it could be &lt;code&gt;oracle-sequence&lt;/code&gt; for instance) and the additional implementation properties (like a
+sequence name). For more information, refer to the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/business/manual/factories/#identity&#34;&gt;documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;This mechanism can be used to delegate the identity generation to a specific technology without tainting your domain (by
+keeping the handler implementation in the infrastructure). But it also can be used to simply reuse a pure domain generation
+logic across multiple Entity types.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;persistence-generated-identity&#34;&gt;Persistence-generated identity&lt;/h3&gt;
+
+&lt;p&gt;The application waits until a persistence mechanism affects an identity to the persisted Entity. This is called &lt;strong&gt;late
+identity generation&lt;/strong&gt; and is &lt;strong&gt;less than ideal&lt;/strong&gt; because an Entity won&amp;rsquo;t have any identity and, as such, will be invalid
+until it is persisted. It is strongly recommended to use the business framework identity generation mechanism instead,
+which can delegate the generation to the persistence without compromising entity validity.&lt;/p&gt;
+
+&lt;h3 id=&#34;externally-generated-identity&#34;&gt;Externally-generated identity&lt;/h3&gt;
+
+&lt;p&gt;Another &lt;a href=&#39;http://seedstack.org/archives/16.7/glossary#bounded-context&#39;&gt;Bounded Context&lt;/a&gt; (like another application) has already an identity or a list of identities which
+the user can choose from. This is the most complex identity creation strategy as it involves one or more external systems.
+The Business framework identity generation mechanism can help by allowing to encapsulate this complex logic into a custom
+&lt;code&gt;IdentityHandler&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;surrogate-identity&#34;&gt;Surrogate identity&lt;/h3&gt;
+
+&lt;p&gt;It is sometimes necessary to define a surrogate identity, mainly for certain persistence mechanisms that do not deal
+with complex identities. In this case, we need to use two identities: one for the persistence tool which should be hidden
+from the rest of the domain and one for the domain which is used throughout the system. The surrogate identity can often
+be hidden by using a &lt;code&gt;private&lt;/code&gt; or &lt;code&gt;protected&lt;/code&gt; visibility as most persistence tools are able to deal with it.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-warn&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;A surrogate identity is not something desirable and should only be used in last resort.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;equality&#34;&gt;Equality&lt;/h2&gt;
+
+&lt;p&gt;Entity equality should &lt;strong&gt;always&lt;/strong&gt; be based on the comparison of the type and the identity only. The Business framework
+&lt;code&gt;BaseEntity&lt;/code&gt; base class already implements this equality mechanism. If you choose to implement the &lt;code&gt;Entity&lt;/code&gt; interface
+directly or just annotate you class with &lt;code&gt;DomainEntity&lt;/code&gt; instead, be sure to implement compliant &lt;code&gt;equals()&lt;/code&gt; and &lt;code&gt;hashCode()&lt;/code&gt;
+methods.&lt;/p&gt;
+
+&lt;h1 id=&#34;value-objects&#34;&gt;Value Objects&lt;/h1&gt;
+
+&lt;p&gt;An object that don&amp;rsquo;t have a conceptual identity but is just describing some characteristics of a thing is called a
+Value Object. Because the most visible objects in a model are usually Entities, there is a natural tendency to assign
+an identity to every domain object. But this tendency should be refrained. Here are the main characteristics of a
+Value Object:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It measures, quantifies or describes a thing in the domain.&lt;/li&gt;
+&lt;li&gt;It is immutable, meaning that its state cannot be changed after creation.&lt;/li&gt;
+&lt;li&gt;It describes a conceptual whole. Its attributes are related to each other and are all participating to the description.
+This means that all the required values should be assigned upon creation (i.e. in the constructor).&lt;/li&gt;
+&lt;li&gt;It is comparable to others using value equality.&lt;/li&gt;
+&lt;li&gt;Its behavior is side-effect free.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;As an example, consider the following class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MonetaryValue {
+    private final BigDecimal amount;
+    private final String currency;
+
+    public MonetaryValue(BigDecimal amount, String currency) {
+        this.amount = amount;
+        this.currency = currency;
+    }
+
+    // ... behavior methods         
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A monetary value consists at least in an amount of money and the currency this amount is expressed in. These two
+attributes cannot be separated without losing the meaning of this domain object. Moreover, if a thing would be worth
+1000$, we would &lt;em&gt;not&lt;/em&gt; expect it to have these two separate attributes, as it would muddle the model and its client would
+have to know when and how to use &lt;code&gt;amount&lt;/code&gt; and &lt;code&gt;currency&lt;/code&gt; together. It would be vastly better to describe the worth as
+a whole and only have an attribute of type &lt;code&gt;MonetaryValue&lt;/code&gt;, especially if it can provide additional behavior to manipulate
+it.&lt;/p&gt;
+
+&lt;h2 id=&#34;immutability&#34;&gt;Immutability&lt;/h2&gt;
+
+&lt;p&gt;One of the most important constraint of a Value Object is immutability. The object state cannot change after it has been
+created. When a change is required a new instance of the Value Object is created, either from scratch or derived from
+an existing instance. In this latter case, the object itself can provide methods to derive itself:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public MonetaryValue add(MonetaryValue other) {
+    if (!currency.equals(other.currency)) {
+        throw new IllegalArgumentException(&amp;quot;Cannot add two monetary values of different currency&amp;quot;);
+    }
+
+    return new MonetaryValue(amount.add(other.amount), currency);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This method is said to be side-effect-free as it produces an output but without modifying its own state. This kind of
+design allows to share any Value Object by reference throughout the system, improving performance without compromising
+model integrity.&lt;/p&gt;
+
+&lt;h2 id=&#34;simple-value-as-value-object&#34;&gt;Simple value as Value Object&lt;/h2&gt;
+
+&lt;p&gt;Very often, we resort to primitive data types and Strings to describe a lot of the model attributes. This is sound when
+these attributes are secondary to the model. But when considering attributes of first importance, they are better modeled
+as Value Objects with only one attribute. For instance an email could be modeled as a String but it would be able to
+provide a real meaning to it nor any behavior. Moreover, it would leak a vague concept in the model client code instead
+of a clear, valid and useful one.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Since identities are of crucial importance in the model, they can be modeled as Value Objects with great success.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;equality-1&#34;&gt;Equality&lt;/h2&gt;
+
+&lt;p&gt;Value Object equality should &lt;strong&gt;always&lt;/strong&gt; be based on the comparison of the type and the attributes values. The Business
+framework &lt;code&gt;BaseValueObject&lt;/code&gt; already implement this equality mechanism. If you choose to implement the &lt;code&gt;ValueObject&lt;/code&gt;
+interface directly or just annotate you class with &lt;code&gt;DomainValueObject&lt;/code&gt; instead, be sure to implement compliant
+&lt;code&gt;equals()&lt;/code&gt; and &lt;code&gt;hashCode()&lt;/code&gt; methods.&lt;/p&gt;
+
+&lt;h2 id=&#34;persistence&#34;&gt;Persistence&lt;/h2&gt;
+
+&lt;p&gt;Persisting Value Objects as part of referencing Entities can pose its challenges, especially with relational databases
+and ORM.&lt;/p&gt;
+
+&lt;h3 id=&#34;simple-references&#34;&gt;Simple references&lt;/h3&gt;
+
+&lt;p&gt;When an entity holds a reference to a Value Object, there is basically two choices:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The Value Object can be serialized in a format such as JSON or XML to a column of the Entity table. The inability to
+execute queries referring to the contents of the Value Object can pose problem though.&lt;/li&gt;
+&lt;li&gt;The Value Object attributes can be stored independently as columns of the holding Entity table by using a mechanism
+such as JPA &lt;code&gt;@Embeddable/@Embedded&lt;/code&gt;. This is the preferred way because it preserves the ability to query the Value Object
+attributes.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In this case, whatever the method, the persistence of Value Objects is clean and optimized. No persistence store specifics
+leaks in the model.&lt;/p&gt;
+
+&lt;h3 id=&#34;collections&#34;&gt;Collections&lt;/h3&gt;
+
+&lt;p&gt;Persisting a collection of Value Objects hold by an Entity is more difficult. Like in the single Value Object case, the
+whole collection can still be serialized in a specific column although column-size problems can arise in addition to the
+inability to query the collection contents. This mechanism may also require custom ORM code to handle the
+serialization/deserialization process.&lt;/p&gt;
+
+&lt;p&gt;An alternative would to treat such Value Objects as Entities in the data model, by giving them an identity and their own
+table. It would be crucial to hide this persistence-only identity from the rest of the domain and the system by using
+visibility restrictions (private attribute) or other techniques.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Logging</title>
+      <link>http://seedstack.org/archives/16.7/guides/make-configurable-application/logging/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/guides/make-configurable-application/logging/</guid>
+      <description>
+
+&lt;p&gt;Logging configuration is a very good candidate for externalisation, since it will allow to change the log level of
+various components after deployment and even when the application is running if configured properly. Logging configuration
+is often centralized in one file which can be wholly externalised without any risks. Logging is a purely technical
+aspect of applications and can be entirely managed by the people in charge of the runtime environment.&lt;/p&gt;
+
+&lt;p&gt;Note that Seed applications are using the SLF4J logging API but are not usually dependant of a specific implementation.
+Nonetheless, we recommend using the Logback implementation because of its powerful configuration options and good
+runtime performance.&lt;/p&gt;
+
+&lt;h1 id=&#34;logback&#34;&gt;Logback&lt;/h1&gt;
+
+&lt;p&gt;The recommended SLF4J implementation for Seed applications is Logback. It is mainly configurable through an XML file
+named &lt;code&gt;logback.xml&lt;/code&gt; that must present in the classpath in the default package (e.g. as a top-level resource).&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;We strongly recommend that you include Seed default configuration for Logback by adding the following line in your
+&lt;code&gt;logback.xml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;include resource=&amp;quot;org/seedstack/logback-defaults.xml&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;To properly externalise your &lt;code&gt;logback.xml&lt;/code&gt; file, you have three options:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Add a &lt;code&gt;logback.xml&lt;/code&gt; file in a directory that will be added to the classpath BEFORE other classpath entries and as
+such will override any internal version of the file. This option is &lt;strong&gt;RECOMMENDED in production&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Exclude &lt;code&gt;logback.xml&lt;/code&gt; from being packaged in the application. As such the application will only log if you add a
+&lt;code&gt;logback.xml&lt;/code&gt; file to the classpath whatever the position of this classpath entry. The main drawback is that the
+application won&amp;rsquo;t log anything without an external logback configuration file, so it is &lt;strong&gt;NOT RECOMMENDED in production&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;Set the system property &lt;code&gt;logback.configurationFile&lt;/code&gt; to the path of the &lt;code&gt;logback.xml&lt;/code&gt; file. This will override any
+classpath version of the file. This property also accepts a classpath resource path (if you want to place your file
+elsewhere in the classpath) or to an accessible URL. While this option can be useful for testing purposes and temporary
+overrides, it is &lt;strong&gt;NOT RECOMMENDED in production&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Be sure that you have no &lt;code&gt;logback-test.xml&lt;/code&gt; file in your main classpath or it will be picked by Logback instead
+of the &lt;code&gt;logback.xml&lt;/code&gt; file. It can happen if you placed the test file in the main sources of your project instead
+of keeping it in the test folders.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You can find the full documentation about Logback configuration &lt;a href=&#34;http://logback.qos.ch/manual/configuration.html&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Other resources</title>
+      <link>http://seedstack.org/archives/16.7/guides/make-configurable-application/other-resources/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/guides/make-configurable-application/other-resources/</guid>
+      <description>
+
+&lt;p&gt;Although props files can be used to externalise a lot an application configuration, you will often need to externalise
+additional resources as well. This section will lead you to a better understanding of all frequently encountered resources
+and if they need to be externalised.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If you need to externalise props files, please have a look at &lt;a href=&#34;http://seedstack.org/archives/16.7/guides/make-configurable-application/props/&#34;&gt;this page&lt;/a&gt; instead.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;jpa-persistence-xml&#34;&gt;JPA persistence.xml&lt;/h1&gt;
+
+&lt;p&gt;Seed JPA persistence support allows you to completely avoid &lt;code&gt;persistence.xml&lt;/code&gt; usage and use classpath scanning instead
+to discover JPA entities. But you can still use the explicit &lt;code&gt;persistence.xml&lt;/code&gt; file if you wish.&lt;/p&gt;
+
+&lt;p&gt;This file is located in the &lt;code&gt;META-INF&lt;/code&gt; directory of the classpath. This file is purely internal to the application and
+shouldn&amp;rsquo;t be externalised at all. To externalise the database configuration, you have two options:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Configure JPA to retrieve the data source through JNDI using a well defined name. You can find more information on
+JPA JNDI configuration &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/jpa/#datasource-via-jndi&#34;&gt;here&lt;/a&gt;. It is strongly discouraged to externalise the
+JNDI name of the data source since this name can be used internally by the application. The JPA unit name(s) shouldn&amp;rsquo;t
+be externalised at all.&lt;/li&gt;
+&lt;li&gt;Use the Seed unified configuration to specify the data source properties. Those can then be externalised using the
+props externalisation mechanism described &lt;a href=&#34;http://seedstack.org/archives/16.7/guides/make-configurable-application/props/&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Props and properties</title>
+      <link>http://seedstack.org/archives/16.7/guides/make-configurable-application/props/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/guides/make-configurable-application/props/</guid>
+      <description>
+
+&lt;p&gt;Props files are the recommended way to specify key/value pairs for the Seed unified configuration. Properties files can
+also be used as a compatible alternative but with far less expressive power. Full props documentation is available
+&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/#configuration&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;location&#34;&gt;Location&lt;/h1&gt;
+
+&lt;p&gt;To be recognized by Seed, props files must end with the &lt;code&gt;.props&lt;/code&gt; extension and be located under the &lt;code&gt;META-INF/configuration&lt;/code&gt;
+location in the classpath. For a JAR file, it means having at least this top level inner directory structure:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(archive.jar)               &amp;lt;-- the JAR file
+    |-META-INF
+        |-configuration
+            |-*.props       &amp;lt;-- put all relevant props files here
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The same directory structure should be used when adding a filesystem directory in the classpath. The added directory
+must &lt;strong&gt;contain&lt;/strong&gt; this directory structure:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;(/local/directory)          &amp;lt;-- the local directory added to the classpath
+    |-META-INF
+        |-configuration
+            |-*.props       &amp;lt;-- put all relevant props files here
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Please note that when multiple files with the same name and in the same classpath location (&lt;code&gt;META-INF/configuration&lt;/code&gt; in
+this case) are present, only one file is visible from Java code, which one depending on the classpath entries order.&lt;/p&gt;
+
+&lt;p&gt;To avoid this situation please be sure to name each props files differently, denoting its purpose in the same (for instance
+you can name them &lt;code&gt;org.myorganization.myproject-security.props&lt;/code&gt; and &lt;code&gt;org.myorganization.myproject-app.props&lt;/code&gt; and both of
+them will be picked).&lt;/p&gt;
+
+&lt;p&gt;It is sometimes desirable to use this characteristic to override a whole props file. In that case, be sure to put the
+location with the overriding file BEFORE the location with the overridden file.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;props-files-content&#34;&gt;Props files content&lt;/h1&gt;
+
+&lt;p&gt;You can use sections to help you write smaller props files. A section is a brackets-enclosed key name on its own line.
+Every line after it will be prefixed with the section name. To revert back to the global section (without prefix) use
+the empty section &lt;code&gt;[]&lt;/code&gt; syntax.&lt;/p&gt;
+
+&lt;p&gt;Another trick of props files is that you can use macros. Macros are &lt;code&gt;${}&lt;/code&gt; enclosed key names which are replaced by the
+corresponding value if found anywhere in the unified configuration (even if in another file of another classpath
+location). The macros can be used to externalize only a part of a value to another key/value pair located elsewhere.&lt;/p&gt;
+
+&lt;h1 id=&#34;system-properties&#34;&gt;System properties&lt;/h1&gt;
+
+&lt;p&gt;Props files can use system properties directly using the &lt;code&gt;${sys:name-of-system-property}&lt;/code&gt; syntax. This can be used to
+externalize values or parts of values as something that can be changed at every execution of the application (by just
+passing a different &lt;code&gt;-Dname-of-system-property=value&lt;/code&gt; argument to the JVM). The system property variable lookup is case
+sensitive.&lt;/p&gt;
+
+&lt;p&gt;The JVM has several &lt;a href=&#34;http://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html&#34;&gt;predefined system properties&lt;/a&gt;
+which can also be used. It is notably useful for defining paths using platform-dependent separator or use the home or the
+temporary directory.&lt;/p&gt;
+
+&lt;h1 id=&#34;environment-variables&#34;&gt;Environment variables&lt;/h1&gt;
+
+&lt;p&gt;Props files can also use environment variables directly using the &lt;code&gt;${env:NAME_OF_ENV_VARIABLE}&lt;/code&gt; syntax. Please note that
+the environment variable lookup is case-sensitive.&lt;/p&gt;
+
+&lt;h1 id=&#34;externalisation&#34;&gt;Externalisation&lt;/h1&gt;
+
+&lt;p&gt;As a best-practice we recommend to use a controlled externalisation of application configuration. It must be seen as a
+contract between the application and its runtime environment, and as such, between the people that own each. To establish
+this contract, you can follow this process:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;For each props configuration file, asks yourself if it needs to be externalised at all.&lt;/li&gt;
+&lt;li&gt;If some keys or some value parts need to be externalised, only externalise those using macros: replace the entire value
+or the part of the value by a macro referencing a key that you will externalise. By limiting the configuration externalisation
+to the necessary parts you will improve the encapsulation and the modularity of your application. You can view it as providing
+well-defined setters for your internal configuration instead of making everything public.&lt;/li&gt;
+&lt;li&gt;If some keys or some value parts are better suited for externalisation via system properties or environment variables,
+use the mechanisms described above to achieve this goal.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You will end with:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;One or more internal configuration props file(s),&lt;/li&gt;
+&lt;li&gt;Exactly one externalisation file per environment containing only the externalised key/value pairs,&lt;/li&gt;
+&lt;li&gt;Optionally some system properties or environment variables that should be defined in the environment.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;As an alternative to the per-environment externalisation files, you can use a unique props externalisation file valued
+through a deployment-specific process.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

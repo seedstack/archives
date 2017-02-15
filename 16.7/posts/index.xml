@@ -1,0 +1,970 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts-rsses on </title>
+    <link>http://seedstack.org/archives/16.7/posts/index.xml</link>
+    <description>Recent content in Posts-rsses on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 29 Jul 2016 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://seedstack.org/archives/16.7/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>16.7 release notes</title>
+      <link>http://seedstack.org/archives/16.7/posts/16-7-release-notes/</link>
+      <pubDate>Fri, 29 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/posts/16-7-release-notes/</guid>
+      <description>&lt;p&gt;We are happy to announce the release of SeedStack 16.7 «Jasmine», a maintenance release.&lt;/p&gt;
+
+&lt;h1 id=&#34;new-features&#34;&gt;New features&lt;/h1&gt;
+
+&lt;h2 id=&#34;functional-additions&#34;&gt;Functional additions&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;There is no new functional addition.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;java&#34;&gt;Java&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;There is no new Java addition.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;business&#34;&gt;Business&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;There is no new Business Framework addition.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;web&#34;&gt;Web&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;There is no new web framework additions.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;fixes&#34;&gt;Fixes&lt;/h1&gt;
+
+&lt;p&gt;A sizable amount of fixes have been applied to various modules. Please check the detailed change logs of each component
+on &lt;a href=&#34;https://github.com/seedstack&#34;&gt;GitHub&lt;/a&gt;, in their release section.&lt;/p&gt;
+
+&lt;h1 id=&#34;breaking-changes&#34;&gt;Breaking changes&lt;/h1&gt;
+
+&lt;p&gt;This version has no breaking changes.&lt;/p&gt;
+
+&lt;h1 id=&#34;component-versions&#34;&gt;Component versions&lt;/h1&gt;
+
+&lt;p&gt;Updated components are highlighted in &lt;strong&gt;bold&lt;/strong&gt; characters (with a link to the detailed change log).&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;poms: &lt;a href=&#34;https://github.com/seedstack/poms/releases/tag/v2.4.0&#34;&gt;2.4.0&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;core&#34;&gt;Core&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;seed: &lt;a href=&#34;https://github.com/seedstack/seed/releases/tag/v2.3.0&#34;&gt;2.3.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;business: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/business/releases/tag/v2.3.1&#34;&gt;2.3.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;w20: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20/releases/tag/v2.3.1&#34;&gt;2.3.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;add-ons&#34;&gt;Add-ons&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;audit-addon: &lt;a href=&#34;https://github.com/seedstack/audit-addon/releases/tag/v2.1.1&#34;&gt;2.1.1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;elasticsearch-addon: &lt;a href=&#34;https://github.com/seedstack/elasticsearch-addon/releases/tag/v2.1.1&#34;&gt;2.1.1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;i18n-addon: &lt;a href=&#34;https://github.com/seedstack/i18n-addon/releases/tag/v2.2.2&#34;&gt;2.2.2&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;io-addon: &lt;a href=&#34;https://github.com/seedstack/io-addon/releases/tag/v2.1.1&#34;&gt;2.1.1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;javamail-addon: &lt;a href=&#34;https://github.com/seedstack/javamail-addon/releases/tag/v2.1.1&#34;&gt;2.1.1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;jcache-addon: &lt;a href=&#34;https://github.com/seedstack/jcache-addon/releases/tag/v2.1.1&#34;&gt;2.1.1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;jdbc-addon: &lt;a href=&#34;https://github.com/seedstack/jdbc-addon/releases/tag/v2.1.3&#34;&gt;2.1.3&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;jms-addon: &lt;a href=&#34;https://github.com/seedstack/jms-addon/releases/tag/v2.1.2&#34;&gt;2.1.2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;jpa-addon: &lt;a href=&#34;https://github.com/seedstack/jpa-addon/releases/tag/v2.1.3&#34;&gt;2.1.3&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;ldap-addon: &lt;a href=&#34;https://github.com/seedstack/ldap-addon/releases/tag/v2.1.1&#34;&gt;2.1.1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;mongodb-addon: &lt;a href=&#34;https://github.com/seedstack/mongodb-addon/releases/tag/v1.1.0&#34;&gt;1.1.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;monitoring-addon: &lt;a href=&#34;https://github.com/seedstack/monitoring-addon/releases/tag/v2.1.1&#34;&gt;2.1.1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;mqtt-addon: &lt;a href=&#34;https://github.com/seedstack/mqtt-addon/releases/tag/v1.1.0&#34;&gt;1.1.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;neo4j-addon: &lt;a href=&#34;https://github.com/seedstack/neo4j-addon/releases/tag/v1.0.2&#34;&gt;1.0.2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;redis-addon: &lt;a href=&#34;https://github.com/seedstack/redis-addon/releases/tag/v1.0.2&#34;&gt;1.0.2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;scheduling-addon: &lt;a href=&#34;https://github.com/seedstack/scheduling-addon/releases/tag/v2.1.1&#34;&gt;2.1.1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;solr-addon: &lt;a href=&#34;https://github.com/seedstack/solr-addon/releases/tag/v1.0.2&#34;&gt;1.0.2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;spring-bridge-addon: &lt;a href=&#34;https://github.com/seedstack/spring-bridge-addon/releases/tag/v2.2.1&#34;&gt;2.2.1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;swagger-addon: &lt;a href=&#34;https://github.com/seedstack/swagger-addon/releases/tag/v1.0.1&#34;&gt;1.0.1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;validation-addon: &lt;a href=&#34;https://github.com/seedstack/validation-addon/releases/tag/v2.3.0&#34;&gt;2.3.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;w20-bridge-addon: &lt;a href=&#34;https://github.com/seedstack/w20-bridge-addon/releases/tag/v2.3.2&#34;&gt;2.3.2&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;web-services-addon: &lt;a href=&#34;https://github.com/seedstack/web-services-addon/releases/tag/v2.2.2&#34;&gt;2.2.2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;w20-extras: &lt;a href=&#34;https://github.com/seedstack/w20-extras/releases/tag/v2.2.0&#34;&gt;24.2.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;w20-dataviz: &lt;a href=&#34;https://github.com/seedstack/w20-dataviz/releases/tag/v2.2.0&#34;&gt;2.2.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;w20-material: &lt;a href=&#34;https://github.com/seedstack/w20-material/releases/tag/v2.1.5&#34;&gt;2.1.5&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;w20-components: &lt;a href=&#34;https://github.com/seedstack/w20-components/releases/tag/v2.2.1&#34;&gt;2.2.1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;w20-bootstrap-3: &lt;a href=&#34;https://github.com/seedstack/w20-bootstrap-3/releases/tag/v2.2.0&#34;&gt;2.2.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;w20-bootstrap-2: 2.1.2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;themes&#34;&gt;Themes&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;w20-business-theme: &lt;a href=&#34;https://github.com/seedstack/w20-business-theme/releases/tag/v1.2.0&#34;&gt;1.2.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;w20-simple-theme: &lt;a href=&#34;https://github.com/seedstack/w20-simple-theme/releases/tag/v3.2.0&#34;&gt;3.2.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;w20-material-theme: &lt;a href=&#34;https://github.com/seedstack/w20-material-theme/releases/tag/v1.0.0&#34;&gt;1.0.0&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>16.4 release notes</title>
+      <link>http://seedstack.org/archives/16.7/posts/16-4-release-notes/</link>
+      <pubDate>Thu, 28 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/posts/16-4-release-notes/</guid>
+      <description>&lt;p&gt;We are happy to announce the release of SeedStack 16.4, the first major release of 2016. Building on the recently introduced
+add-on architecture, this releases brings several new components and features. A lot of improvements have also been done
+under-the-hood to keep SeedStack up-to-date with current technologies and standards.&lt;/p&gt;
+
+&lt;h1 id=&#34;new-features&#34;&gt;New features&lt;/h1&gt;
+
+&lt;h2 id=&#34;functional-additions&#34;&gt;Functional additions&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The new MQTT add-on provides an easy-to-use integration of the &lt;a href=&#34;http://mqtt.org/&#34;&gt;MQTT communication protocol&lt;/a&gt; through
+the &lt;a href=&#34;http://www.eclipse.org/paho/&#34;&gt;Eclipse Paho&lt;/a&gt; library.&lt;/li&gt;
+&lt;li&gt;A new &lt;a href=&#34;http://seedstack.org/themes/material/&#34;&gt;W20 theme for Angular-material&lt;/a&gt; has been contributed by &lt;a href=&#34;https://github.com/magador/&#34;&gt;Jean-Baptise LENGLET&lt;/a&gt;.
+Many thanks to him!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;java&#34;&gt;Java&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Full support of Java 8 (along with an upgrade to Guice 4.0).&lt;/li&gt;
+&lt;li&gt;Support of JAX-RS 2 asynchronous resources, enabling the building of reactive Web applications.&lt;/li&gt;
+&lt;li&gt;Fully injectable and interceptable servlets, filters and listeners.&lt;/li&gt;
+&lt;li&gt;Support for standard &lt;code&gt;@WebServlet&lt;/code&gt;, &lt;code&gt;@WebFilter&lt;/code&gt; and &lt;code&gt;@WebListener&lt;/code&gt; annotations as well as programmatic registration.&lt;/li&gt;
+&lt;li&gt;Automatic configuration of Logback when in use and no explicit configuration is present in the classpath.&lt;/li&gt;
+&lt;li&gt;Best-effort detection of console color capabilities to enhance log readability.&lt;/li&gt;
+&lt;li&gt;Ability to print a startup banner for applications by adding a &lt;code&gt;banner.txt&lt;/code&gt; file in the default package.&lt;/li&gt;
+&lt;li&gt;Support of Expression Language 3.&lt;/li&gt;
+&lt;li&gt;Better Hypermedia support with completely automatic link creation.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;business&#34;&gt;Business&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;New methods &lt;code&gt;exists()&lt;/code&gt;, &lt;code&gt;count()&lt;/code&gt; and &lt;code&gt;clear()&lt;/code&gt; on repositories with their default implementation in JPA and MongoDb.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;web&#34;&gt;Web&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;New visualization for huge data-sets based on &lt;a href=&#34;http://dygraphs.com/&#34;&gt;dygraphs&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Support for pretty URLs in W20 application with transparent backend support in W20 bridge (no configuration needed).&lt;/li&gt;
+&lt;li&gt;Support for optional fragments which don&amp;rsquo;t prevent application startup when not available.&lt;/li&gt;
+&lt;li&gt;Best-effort cleanup of Basic Authentication credentials in browsers, allowing to effectively logout without closing the browser.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;mongodb-add-on&#34;&gt;MongoDb add-on&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Automatic support for Bean Validation at pre-persist when using Morphia.&lt;/li&gt;
+&lt;li&gt;Automatic building of full-text indexes at startup.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;fixes&#34;&gt;Fixes&lt;/h1&gt;
+
+&lt;p&gt;A sizable amount of fixes have been applied to various modules. Please check the detailed change logs of each component
+on &lt;a href=&#34;https://github.com/seedstack&#34;&gt;GitHub&lt;/a&gt;, in their release section.&lt;/p&gt;
+
+&lt;h1 id=&#34;breaking-changes&#34;&gt;Breaking changes&lt;/h1&gt;
+
+&lt;p&gt;This version has only minor breaking changes that should not impact most projects. The most notable ones are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The dropping of Servlet 2.5 compatibility. SeedStack now requires a Servlet 3+ compliant server.&lt;/li&gt;
+&lt;li&gt;The dropping of custom &lt;code&gt;@WebServlet&lt;/code&gt; and &lt;code&gt;@WebFilter&lt;/code&gt; annotations for the standard ones. Note that the standard annotation
+&lt;code&gt;@WebListener&lt;/code&gt; is also supported now.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;Comparable&lt;/code&gt; interface on Business framework value objects has been removed and must be implemented by the project if
+needed. This allows to implement a custom natural order on value objects.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;do*()&lt;/code&gt; methods on Business framework &lt;code&gt;BaseRepository&lt;/code&gt; have been removed. This only has an impact if you have
+implemented repositories for custom persistence technologies (outside of JPA and MongoDb).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The detail of breaking changes is available in the detailed change logs of each component on &lt;a href=&#34;https://github.com/seedstack&#34;&gt;GitHub&lt;/a&gt;,
+in their release section.&lt;/p&gt;
+
+&lt;h1 id=&#34;component-versions&#34;&gt;Component versions&lt;/h1&gt;
+
+&lt;p&gt;Updated components are highlighted in &lt;strong&gt;bold&lt;/strong&gt; characters (with a link to the detailed change log).&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;poms: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/poms/releases/tag/v2.4.0&#34;&gt;2.4.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;core&#34;&gt;Core&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;seed: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/seed/releases/tag/v2.3.0&#34;&gt;2.3.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;business: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/business/releases/tag/v2.3.0&#34;&gt;2.3.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;w20: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20/releases/tag/v2.3.0&#34;&gt;2.3.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;add-ons&#34;&gt;Add-ons&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;audit-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/audit-addon/releases/tag/v2.1.1&#34;&gt;2.1.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;elasticsearch-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/elasticsearch-addon/releases/tag/v2.1.1&#34;&gt;2.1.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;i18n-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/i18n-addon/releases/tag/v2.2.1&#34;&gt;2.2.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;io-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/io-addon/releases/tag/v2.1.1&#34;&gt;2.1.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;javamail-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/javamail-addon/releases/tag/v2.1.1&#34;&gt;2.1.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;jcache-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/jcache-addon/releases/tag/v2.1.1&#34;&gt;2.1.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;jdbc-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/jdbc-addon/releases/tag/v2.1.3&#34;&gt;2.1.3&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;jms-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/jms-addon/releases/tag/v2.1.2&#34;&gt;2.1.2&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;jpa-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/jpa-addon/releases/tag/v2.1.3&#34;&gt;2.1.3&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;ldap-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/ldap-addon/releases/tag/v2.1.1&#34;&gt;2.1.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;mongodb-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/mongodb-addon/releases/tag/v1.1.0&#34;&gt;1.1.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;monitoring-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/monitoring-addon/releases/tag/v2.1.1&#34;&gt;2.1.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;mqtt-addon: &lt;a href=&#34;https://github.com/seedstack/mqtt-addon/releases/tag/v1.0.0&#34;&gt;1.0.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;neo4j-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/neo4j-addon/releases/tag/v1.0.2&#34;&gt;1.0.2&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;redis-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/redis-addon/releases/tag/v1.0.2&#34;&gt;1.0.2&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;scheduling-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/scheduling-addon/releases/tag/v2.1.1&#34;&gt;2.1.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;solr-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/solr-addon/releases/tag/v1.0.2&#34;&gt;1.0.2&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;spring-bridge-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/spring-bridge-addon/releases/tag/v2.2.1&#34;&gt;2.2.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;swagger-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/swagger-addon/releases/tag/v1.0.1&#34;&gt;1.0.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;validation-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/validation-addon/releases/tag/v2.3.0&#34;&gt;2.3.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;w20-bridge-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20-bridge-addon/releases/tag/v2.3.0&#34;&gt;2.3.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;web-services-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/web-services-addon/releases/tag/v2.2.2&#34;&gt;2.2.2&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;w20-extras: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20-extras/releases/tag/v2.2.0&#34;&gt;2.2.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;w20-dataviz: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20-dataviz/releases/tag/v2.2.0&#34;&gt;2.2.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;w20-material: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20-material/releases/tag/v2.1.5&#34;&gt;2.1.5&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;w20-components: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20-components/releases/tag/v2.2.1&#34;&gt;2.2.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;w20-bootstrap-3: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20-bootstrap-3/releases/tag/v2.2.0&#34;&gt;2.2.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;w20-bootstrap-2: 2.1.2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;themes&#34;&gt;Themes&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;w20-business-theme: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20-business-theme/releases/tag/v1.2.0&#34;&gt;1.2.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;w20-simple-theme: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20-simple-theme/releases/tag/v3.2.0&#34;&gt;3.2.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;w20-material-theme: &lt;a href=&#34;https://github.com/seedstack/w20-material-theme/releases/tag/v1.0.0&#34;&gt;1.0.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>15.11.2 release notes</title>
+      <link>http://seedstack.org/archives/16.7/posts/15-11-2-release-notes/</link>
+      <pubDate>Wed, 10 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/posts/15-11-2-release-notes/</guid>
+      <description>&lt;p&gt;We are happy to announce the release of SeedStack 15.11.2, the second incremental update of SeedStack 15.11.&lt;/p&gt;
+
+&lt;h1 id=&#34;fixes&#34;&gt;Fixes&lt;/h1&gt;
+
+&lt;p&gt;This mainly fixes the MongoDB, Neo4J, Redis and Solr add-ons which were not released correctly and therefore not
+usable at all. A minor fix is also present in W20.&lt;/p&gt;
+
+&lt;h1 id=&#34;component-versions&#34;&gt;Component versions&lt;/h1&gt;
+
+&lt;p&gt;Updated components are highlighted in &lt;strong&gt;bold&lt;/strong&gt; characters (with a link to the detailed change log).&lt;/p&gt;
+
+&lt;h2 id=&#34;base&#34;&gt;Base&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;poms: 2.3.0&lt;/li&gt;
+&lt;li&gt;seed: 2.2.0&lt;/li&gt;
+&lt;li&gt;business: 2.2.0&lt;/li&gt;
+&lt;li&gt;w20: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20/releases/tag/v2.2.1&#34;&gt;2.2.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;add-ons&#34;&gt;Add-ons&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;audit-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;monitoring-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;elasticsearch-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;i18n-addon: 2.2.0&lt;/li&gt;
+&lt;li&gt;io-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;javamail-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;jcache-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;jdbc-addon: 2.1.2&lt;/li&gt;
+&lt;li&gt;jms-addon: 2.1.1&lt;/li&gt;
+&lt;li&gt;jpa-addon: 2.1.2&lt;/li&gt;
+&lt;li&gt;ldap-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;mongodb-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/mongodb-addon/releases/tag/v1.0.1&#34;&gt;1.0.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;neo4j-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/neo4j-addon/releases/tag/v1.0.1&#34;&gt;1.0.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;redis-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/redis-addon/releases/tag/v1.0.1&#34;&gt;1.0.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;scheduling-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;solr-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/solr-addon/releases/tag/v1.0.1&#34;&gt;1.0.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;spring-bridge-addon: 2.2.0&lt;/li&gt;
+&lt;li&gt;swagger-addon: 1.0.0&lt;/li&gt;
+&lt;li&gt;validation-addon: 2.2.0&lt;/li&gt;
+&lt;li&gt;w20-bridge-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20-bridge-addon/releases/tag/v2.2.1&#34;&gt;2.2.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;web-services-addon: 2.1.1&lt;/li&gt;
+&lt;li&gt;w20-extras: 2.1.1&lt;/li&gt;
+&lt;li&gt;w20-dataviz: 2.1.1&lt;/li&gt;
+&lt;li&gt;w20-material: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20-material/releases/tag/v2.1.4&#34;&gt;2.1.4&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;w20-components: 2.2.0&lt;/li&gt;
+&lt;li&gt;w20-bootstrap-2: 2.1.2&lt;/li&gt;
+&lt;li&gt;w20-bootstrap-3: 2.1.2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;themes&#34;&gt;Themes&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;w20-simple-theme: 3.1.1&lt;/li&gt;
+&lt;li&gt;w20-business-theme: 1.1.3&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>I18n-addon 2.2.0</title>
+      <link>http://seedstack.org/archives/16.7/posts/i18n-addon-2-2-0/</link>
+      <pubDate>Thu, 28 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/posts/i18n-addon-2-2-0/</guid>
+      <description>&lt;p&gt;The 2.2.0 version of the i18n add-on has been released with fixes and improved performance. This version will be integrated
+in an upcoming distribution version. For now you have to define this dependency management manually in your parent
+POM:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.i18n&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;i18n-specs&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;2.2.0&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.i18n&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;i18n-rest&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;2.2.0&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.i18n&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;i18n-core&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;2.2.0&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.i18n&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;i18n-web&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;2.2.0&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;fixes&#34;&gt;Fixes&lt;/h1&gt;
+
+&lt;p&gt;CSV import will no longer add null translations (no more NullPointerException on import).&lt;/p&gt;
+
+&lt;h1 id=&#34;changes&#34;&gt;Changes&lt;/h1&gt;
+
+&lt;h2 id=&#34;performance&#34;&gt;Performance&lt;/h2&gt;
+
+&lt;p&gt;The translation mechanism has been rewritten in order to provide vastly better performance on the first load
+and in subsequent uses. However this refactoring had some impact on the database model.&lt;/p&gt;
+
+&lt;p&gt;So in order to upgrade to this new version, you will have to backup your data using the CSV import/export.
+Then regenerate the SQL schema with the new structure. You can use JPA to generate it for you, or you can use
+the following &lt;a href=&#34;https://github.com/seedstack/i18n-addon/tree/master/scripts&#34;&gt;scripts&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;addon-translations&#34;&gt;Addon translations&lt;/h2&gt;
+
+&lt;p&gt;The i18n addon UI has always been internationalized. But it doesn&amp;rsquo;t make sense to pollute your translations with
+translations comming from the addon itself. That is why we decided to move all the addon translations into json files
+using the W20 i18n mechanism.&lt;/p&gt;
+
+&lt;h2 id=&#34;documentation&#34;&gt;Documentation&lt;/h2&gt;
+
+&lt;p&gt;The &lt;a href=&#34;http://seedstack.org/addons/i18n/&#34;&gt;documentation&lt;/a&gt; has also been rewritten in order to be more simple and straightforward.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>15.11.1 release notes</title>
+      <link>http://seedstack.org/archives/16.7/posts/15-11-1-release-notes/</link>
+      <pubDate>Fri, 22 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/posts/15-11-1-release-notes/</guid>
+      <description>&lt;p&gt;We are happy to announce the release of SeedStack 15.11.1, an incremental update of SeedStack 15.11.&lt;/p&gt;
+
+&lt;h1 id=&#34;changes&#34;&gt;Changes&lt;/h1&gt;
+
+&lt;h2 id=&#34;validation&#34;&gt;Validation&lt;/h2&gt;
+
+&lt;p&gt;The &lt;a href=&#34;http://seedstack.org/addons/validation&#34;&gt;validation add-on&lt;/a&gt; has been improved to better conform with the Bean
+Validation specification. The custom &lt;code&gt;ValidationService&lt;/code&gt; is deprecated and should be replaced by the class &lt;code&gt;Validator&lt;/code&gt;
+(which can be injected or obtained through the injectable &lt;code&gt;ValidatorFactory&lt;/code&gt;).&lt;/p&gt;
+
+&lt;h2 id=&#34;jdbc-jpa-jms&#34;&gt;JDBC, JPA, JMS&lt;/h2&gt;
+
+&lt;p&gt;Minor fixes of error messages which referenced outdated information.&lt;/p&gt;
+
+&lt;h2 id=&#34;i18n&#34;&gt;I18n&lt;/h2&gt;
+
+&lt;p&gt;The &lt;a href=&#34;http://seedstack.org/addons/i18n&#34;&gt;i18n add-on&lt;/a&gt; performance has been vastly improved, both for translation initial
+loading and during heavy use (better caching implementation). The translations of the add-on itself have been moved
+to static files in its W20 frontend instead of being automatically populated backend keys. The CSV import throwing
+exceptions has been fixed.&lt;/p&gt;
+
+&lt;p&gt;Beware that this version uses a different database mapping which is incompatible with tables from previous versions. The upgrade
+procedure is:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Export your keys and translations to a CSV file with your current version,&lt;/li&gt;
+&lt;li&gt;Drop old i18n tables,&lt;/li&gt;
+&lt;li&gt;Upgrade to the latest i18n version and let it recreate the tables,&lt;/li&gt;
+&lt;li&gt;Import your keys and translation.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A detailed blog post will soon be published with the procedure details.&lt;/p&gt;
+
+&lt;h2 id=&#34;w20-bridge&#34;&gt;W20 bridge&lt;/h2&gt;
+
+&lt;p&gt;The &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/w20-bridge/&#34;&gt;W20 bridge add-on&lt;/a&gt; contains minor fixes and the latest version of W20 and
+it add-ons. The main evolution of W20 is the upgrade to AngularJS 1.4.8 and Bootstrap 3.3.6.&lt;/p&gt;
+
+&lt;h1 id=&#34;new-features&#34;&gt;New features&lt;/h1&gt;
+
+&lt;h2 id=&#34;servlet-3-1-no-more-web-xml&#34;&gt;Servlet 3.1: no more web.xml&lt;/h2&gt;
+
+&lt;p&gt;Seed Web 2.2.0 comes with a support for &lt;a href=&#34;https://java.net/downloads/servlet-spec/Final/servlet-3_1-final.pdf&#34;&gt;Servlet 3.1&lt;/a&gt;,
+but Servlet 2.5 is still supported. If your servlet container supports servlet 3+, &lt;strong&gt;remove all your &lt;code&gt;web.xml&lt;/code&gt; files and
+according tests configuration&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    @Deployment
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class)
+                   .setWebXML(&amp;quot;WEB-INF/web.xml&amp;quot;); // TODO remove the web.xml configuration
+    }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;jax-rs-2&#34;&gt;JAX-RS 2&lt;/h2&gt;
+
+&lt;p&gt;The version 2 of JAX-RS standard has been integrated in the Java framework through the Jersey 2 library. You can now
+benefits of all the improvements of the JAX-RS 2 specification such as:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Bean validation of parameters and return values,&lt;/li&gt;
+&lt;li&gt;The ability to group parameters in reusable &amp;laquo;BeanParam&amp;raquo; classes,&lt;/li&gt;
+&lt;li&gt;Asynchronous resources.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The JAX-RS 2 specification is backwards-compatible with JAX-RS 1 so you can easily upgrade by replacing your &lt;code&gt;seed-rest-jersey1&lt;/code&gt;
+dependency with &lt;code&gt;seed-rest-jersey2&lt;/code&gt;. The configuration options are unchanged, except if you happened to have specified
+custom Jersey properties. In that case, replace them with their &lt;a href=&#34;https://jersey.java.net/documentation/latest/appendix-properties.html&#34;&gt;Jersey 2 equivalent&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;swagger&#34;&gt;Swagger&lt;/h2&gt;
+
+&lt;p&gt;A new &lt;a href=&#34;http://swagger.io/&#34;&gt;Swagger&lt;/a&gt; add-on has been released and can be used to expose JSON information about your
+application API. This can be used by Swagger clients to display and document your REST API automatically. Some devices
+(like API-management tools) can also autoconfigure themselves by using this Swagger description.&lt;/p&gt;
+
+&lt;p&gt;To enable the Swagger add-on, simply add it to your project dependencies:&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-swagger-swagger-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-swagger-swagger-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-swagger-swagger-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.swagger&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;swagger&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-swagger-swagger-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;1.0.1&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-swagger-swagger-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-swagger-swagger-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-swagger-swagger-version, #org-seedstack-addons-swagger-swagger-warn&#39;).show(); $(&#39;#org-seedstack-addons-swagger-swagger-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-swagger-swagger-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.swagger:swagger:1.0.1&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;The Swagger description will then be available on:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;http://myserver.org/swagger.json&lt;/code&gt; for the JSON format,&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;http://myserver.org/swagger.yaml&lt;/code&gt; for the YAML format.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;component-versions&#34;&gt;Component versions&lt;/h1&gt;
+
+&lt;p&gt;Updated components are highlighted in &lt;strong&gt;bold&lt;/strong&gt; characters.&lt;/p&gt;
+
+&lt;h2 id=&#34;base&#34;&gt;Base&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;poms: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/poms/releases/tag/v2.3.0&#34;&gt;2.3.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;seed: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/seed/releases/tag/v2.2.0&#34;&gt;2.2.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;business: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/business/releases/tag/v2.2.0&#34;&gt;2.2.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;w20: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20/releases/tag/v2.2.0&#34;&gt;2.2.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;add-ons&#34;&gt;Add-ons&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;audit-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;monitoring-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;elasticsearch-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;i18n-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/i18n-addon/releases/tag/v2.2.0&#34;&gt;2.2.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;io-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;javamail-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;jcache-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;jdbc-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/jdbc-addon/releases/tag/v2.1.2&#34;&gt;2.1.2&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;jms-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/jms-addon/releases/tag/v2.1.1&#34;&gt;2.1.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;jpa-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/jpa-addon/releases/tag/v2.1.2&#34;&gt;2.1.2&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;ldap-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;mongodb-addon: 1.0.0&lt;/li&gt;
+&lt;li&gt;neo4j-addon: 1.0.0&lt;/li&gt;
+&lt;li&gt;redis-addon: 1.0.0&lt;/li&gt;
+&lt;li&gt;scheduling-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;solr-addon: 1.0.0&lt;/li&gt;
+&lt;li&gt;spring-bridge-addon: 2.2.0&lt;/li&gt;
+&lt;li&gt;swagger-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/swagger-addon/releases/tag/v1.0.0&#34;&gt;1.0.0&lt;/a&gt;&lt;/strong&gt; (new)&lt;/li&gt;
+&lt;li&gt;validation-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/validation-addon/releases/tag/v2.2.0&#34;&gt;2.2.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;w20-bridge-addon: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20-bridge-addon/releases/tag/v2.2.0&#34;&gt;2.2.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;web-services-addon: 2.1.1&lt;/li&gt;
+&lt;li&gt;w20-extras: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20-extras/releases/tag/v2.1.1&#34;&gt;2.1.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;w20-dataviz: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20-dataviz/releases/tag/v2.1.1&#34;&gt;2.1.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;w20-material: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20-material/releases/tag/v2.1.3&#34;&gt;2.1.3&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;w20-components: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20-components/releases/tag/v2.2.0&#34;&gt;2.2.0&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;w20-bootstrap-2: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20-bootstrap-2/releases/tag/v2.1.2&#34;&gt;2.1.2&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;w20-bootstrap-3: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20-bootstrap-3/releases/tag/v2.1.2&#34;&gt;2.1.2&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;themes&#34;&gt;Themes&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;w20-simple-theme: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20-simple-theme/releases/tag/v3.1.1&#34;&gt;3.1.1&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;w20-business-theme: &lt;strong&gt;&lt;a href=&#34;https://github.com/seedstack/w20-business-theme/releases/tag/v1.1.3&#34;&gt;1.1.3&lt;/a&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>I18n-addon 2.1.1</title>
+      <link>http://seedstack.org/archives/16.7/posts/i18n-addon-2-1-1/</link>
+      <pubDate>Fri, 04 Dec 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/posts/i18n-addon-2-1-1/</guid>
+      <description>&lt;p&gt;The 2.1.1 version of the i18n add-on has been released with fixes and minor new features. This version will be integrated
+in an upcoming distribution version. For now you have to define this dependency management manually in your parent
+POM:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.i18n&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;i18n-specs&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;2.1.1&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.i18n&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;i18n-rest&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;2.1.1&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.i18n&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;i18n-core&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;2.1.1&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.i18n&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;i18n-web&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;2.1.1&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;fixes&#34;&gt;Fixes&lt;/h1&gt;
+
+&lt;h2 id=&#34;regional-locales-fixes&#34;&gt;Regional locales fixes&lt;/h2&gt;
+
+&lt;p&gt;First we have fixed the localization issues which appeared when regional locales (like es-AR) were used. This was due
+to a mismatch between standard locale codes (es-AR) and Java locale codes (es-AR). It is now possible to use regional
+locales without any issue but you will have to alter your i18n data: &lt;strong&gt;replace underscores (_) by dashes (-) in the
+locale codes&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;import-fixes&#34;&gt;Import fixes&lt;/h2&gt;
+
+&lt;p&gt;The CSV import feature has also been fixed. It is now possible to import multiple translation files.&lt;/p&gt;
+
+&lt;h1 id=&#34;new-features&#34;&gt;New features&lt;/h1&gt;
+
+&lt;h2 id=&#34;mixing-frontend-and-backend-translations&#34;&gt;Mixing frontend and backend translations&lt;/h2&gt;
+
+&lt;p&gt;By default when a translation is missing for a given locale the i18n-addon doesn&amp;rsquo;t return a translation to the frontend.
+In this case W20 fallback to the default locale. This can be useful as it maximize the amount of translated keys even if
+some translations are missing in a language, but it can lead to pages with mixed languages.&lt;/p&gt;
+
+&lt;p&gt;To avoid this mix, a strict mode can now be enabled. When it is enabled the i18n add-on will the return the key name
+between brackets for the missing translations. You can enable it by add the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.seedstack.i18n.allow-missing-translation = false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In that case the W20 frontend will display the untranslated keys between brackets instead of fallback to the default language,
+making it easier to spot the lacking translations.&lt;/p&gt;
+
+&lt;h2 id=&#34;custom-locales&#34;&gt;Custom locales&lt;/h2&gt;
+
+&lt;p&gt;Declaring custom locales previously required specifying three properties. It is now simpler as you just have to declare
+one:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.seedstack.i18n.additional-locales = br-FR, ca-ES
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The names of the custom locales will be automatically derived from the codes.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>15.11 release notes</title>
+      <link>http://seedstack.org/archives/16.7/posts/15-11-release-notes/</link>
+      <pubDate>Fri, 27 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/posts/15-11-release-notes/</guid>
+      <description>&lt;p&gt;We are happy to announce the release of SeedStack 15.11, codenamed &amp;laquo;Hibiscus&amp;raquo;. This new version comes with a new
+add-on architecture and several new features like business framework improvements, a full-featured cryptography
+module and support for several NoSQL technologies.&lt;/p&gt;
+
+&lt;h1 id=&#34;automatic-upgrade&#34;&gt;Automatic upgrade&lt;/h1&gt;
+
+&lt;p&gt;The vast majority of upgrade tasks can be carried-on by our automatic upgrade tool. To automatically upgrade your project
+download the tool executable available &lt;a href=&#34;https://github.com/seedstack/tools/releases&#34;&gt;here&lt;/a&gt;, go to your project root directory
+and execute the following command line:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;seed -t https://raw.githubusercontent.com/seedstack/distribution/master/upgrades/15.7-to-15.11-upgrade.toml fix
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that a small amount of tasks cannot be done automatically by the upgrade tool and must be applied manually. The rest
+of this post describes all changes made by the tool but also details the eventual changes you need to apply.&lt;/p&gt;
+
+&lt;h1 id=&#34;changes&#34;&gt;Changes&lt;/h1&gt;
+
+&lt;h2 id=&#34;add-on-architecture&#34;&gt;Add-on architecture&lt;/h2&gt;
+
+&lt;p&gt;A lot of modules have been extracted as add-ons. As such the foundation frameworks are lighter and simpler to understand.
+The full list of available add-ons is available &lt;a href=&#34;http://seedstack.org/archives/16.7/addons&#34;&gt;here&lt;/a&gt;. Click on the add-on title to access
+its documentation.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The refactoring into add-ons doesn&amp;rsquo;t induce any behavior breaking change. These changes are automatically done by the upgrade
+tool but some cleanup may be required:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Some previous dependencies have been merged into a unique dependency and the tool is currently unable to eliminate the
+leftover duplicates. &lt;strong&gt;Please check your POM files for duplicate dependencies.&lt;/strong&gt; Don&amp;rsquo;t forget that some dependencies can
+be duplicated through inheritance.&lt;/li&gt;
+&lt;li&gt;Business framework JPA-specific classes have been moved to the JPA add-on. As such the tool will convert any &lt;code&gt;business-jpa&lt;/code&gt;
+dependency into a &lt;code&gt;jpa&lt;/code&gt; add-on dependency. If you did not also have the &lt;code&gt;business-core&lt;/code&gt; dependency in the first place, it
+will be missing: add it manually if you&amp;rsquo;re in that case.&lt;/li&gt;
+&lt;/ul&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;simplified-packaging&#34;&gt;Simplified packaging&lt;/h2&gt;
+
+&lt;p&gt;We have also simplified our package naming conventions. All the APIs of a module are under the package &lt;code&gt;org.seedstack.[modulename]&lt;/code&gt;.
+For instance &lt;code&gt;org.seedstack.jpa&lt;/code&gt; for the JPA add-on or &lt;code&gt;org.seedstack.business&lt;/code&gt; for the business framework. The &lt;code&gt;api&lt;/code&gt;
+sub-package has been merged into the module top-level package. When an SPI is provided, it is still located under
+&lt;code&gt;org.seedstack.[modulename].spi&lt;/code&gt;. Finally all internal classes are located under &lt;code&gt;org.seedstack.[modulename].internal&lt;/code&gt;.
+&lt;strong&gt;No compatibility is guaranteed for internal classes so your code should never rely on them.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The simplified packaging doesn&amp;rsquo;t induce any behavior breaking change. These changes are automatically done by the upgrade
+tool.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;As the package layout is simpler, we decided to aggregate the Javadoc for the whole distribution (foundation frameworks
+and official add-ons) into a &lt;a href=&#34;http://seedstack.org/archives/16.7/javadoc&#34;&gt;unique aggregated Javadoc&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;simplified-configuration&#34;&gt;Simplified configuration&lt;/h2&gt;
+
+&lt;p&gt;The configuration prefixes have also been updated to reflect these changes. This:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.seed.persistence.jpa.units
+org.seedstack.seed.persistence.jdbc.datasources
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Becomes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.jpa.units
+org.seedstack.jdbc.datasources
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;These changes are automatically done by the upgrade tool but some cleanup may be required. If a part of a key is defined
+as a section, the upgrade tool may not recognize it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.persistence]
+jpa.units
+jdbc.datasources
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this case, as the keys are broken apart, the tool cannot recognize the whole key and will not replace it. Please
+review your configuration files for any occurence of this case.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;dependency-management&#34;&gt;Dependency management&lt;/h2&gt;
+
+&lt;p&gt;To avoid leaking dependency management in your projects, we have removed it all from SeedStack modules. Of course, the
+distribution BOM still exists but importing it will not manage dependencies outside the SeedStack itself.&lt;/p&gt;
+
+&lt;p&gt;In the same reduction spirit, we have removed a lot of libraries bring by Seed. If you rely on some of them for your
+project add their version explicitly in your &lt;code&gt;pom.xml&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;h2 id=&#34;dependency-reduction&#34;&gt;Dependency reduction&lt;/h2&gt;
+
+&lt;p&gt;To reduce the footprint of SeedStack we removed dependencies that were not strictly necessary. Please add the required
+one(s) back to your &lt;code&gt;pom.xml&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;Compile scope:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;commons-beanutils:commons-beanutils:1.8.3
+org.json:json:20140107
+commons-lang:commons-lang:2.6
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Test scope:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;commons-io:commons-io:2.4
+pl.pragmatists:JUnitParams:1.0.3
+org.easytesting:fest-reflect:1.4.1
+org.json:json:20140107
+org.jukito:jukito:1.1
+org.hamcrest:hamcrest-core:1.3
+org.hamcrest:hamcrest-library:1.3
+org.powermock:powermock-core:1.6.2
+org.powermock:powermock-api-mockito:1.6.2
+org.powermock:powermock-module-junit4:1.6.2
+org.skyscreamer:jsonassert:1.2.3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;w20-fragments-refactoring&#34;&gt;W20 fragments refactoring&lt;/h2&gt;
+
+&lt;p&gt;The W20 framework has been further modularized:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Every fragment has become an addon to the exception of the core fragment which is mandatory.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;w20-ui&lt;/code&gt; fragment has been &lt;strong&gt;removed&lt;/strong&gt; and its rich components (UI-Grid and UI-Select) have been moved to a new &lt;code&gt;w20-components&lt;/code&gt;
+fragment. Its CSS framework-independent code has been merged into &lt;code&gt;w20-core&lt;/code&gt;. Bootstrap 3 and UI-Bootstrap have been
+moved to a new &lt;code&gt;w20-bootstrap-3&lt;/code&gt; fragment.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;w20-components&lt;/code&gt; fragment is new and contains the UI-Grid and UI-Select rich components previously found in the &lt;code&gt;w20-ui&lt;/code&gt;
+fragment.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;w20-bootstrap-3&lt;/code&gt; fragment is new and contains the Bootstrap 3 CSS framework with its corresponding UI-Bootstrap helper.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;w20-bootstrap-2&lt;/code&gt; fragment is new and contains the Bootstrap 2 CSS framework with its corresponding UI-Bootstrap helper.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;w20-material&lt;/code&gt; fragment is new and contains the Angular Material CSS framework.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This allows to use alternative CSS frameworks with W20 such as the older Bootstrap 2 for compatibility purposes or
+&lt;a href=&#34;https://material.angularjs.org/&#34;&gt;Angular Material&lt;/a&gt; to easily implement &lt;a href=&#34;https://www.google.com/design/spec/material-design/introduction.html&#34;&gt;material design&lt;/a&gt;.
+Bootstrap 4 support will be introduced as a fragment when released.&lt;/p&gt;
+
+&lt;p&gt;For &lt;code&gt;w20-bridge-addon&lt;/code&gt; user, it is necessary to include the additional fragments which was all previously distributed by the &lt;code&gt;w20-bridge-web&lt;/code&gt;artifact. For instance, this is the declaration necessary for including the w20-core, w20-dataviz, w20-bootstrap-3 and w20-business-theme fragments in maven:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.w20&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;w20-bridge-web&amp;lt;/artifactId&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.w20&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;w20-bridge-web-dataviz&amp;lt;/artifactId&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.w20&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;w20-bridge-web-bootstrap-3&amp;lt;/artifactId&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.w20&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;w20-bridge-web-business-theme&amp;lt;/artifactId&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;new-features&#34;&gt;New features&lt;/h1&gt;
+
+&lt;h2 id=&#34;cryptography&#34;&gt;Cryptography&lt;/h2&gt;
+
+&lt;p&gt;Seed provides a new &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/crypto/&#34;&gt;cryptography module&lt;/a&gt; which allow you to easily configure and use keystores.
+It also provides a simpler API to encrypt and decrypt data.&lt;/p&gt;
+
+&lt;h2 id=&#34;domain-registry&#34;&gt;Domain registry&lt;/h2&gt;
+
+&lt;p&gt;A domain registry has been added to the Business framework. It allows to dynamically retrieve a domain object instance.
+This is particularly useful when you have multiple implementations for the same interface and you need to programatically
+choose a specific implementation. The is often the case for policies. For instance, if you want to choose a tax policy
+according the user&amp;rsquo;s locale, you can do it as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;TaxPolicy taxPolicy = domainRegistry.getPolicy(TaxPolicy.class, userLocale);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A static equivalent would be limited to an hard-coded locale value:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+@Named(&amp;quot;fr&amp;quot;)
+TaxPolicy taxPolicy;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;This new registry can be used for factories, policies, repositories and services.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;spring-managed-jpa-transactions&#34;&gt;Spring-managed JPA transactions&lt;/h2&gt;
+
+&lt;p&gt;When using the Spring-bridge add-on, you can now let Spring manage the JPA transactions across framework boundaries.
+In this case, Seed code will be injected with a Spring-managed JPA entity manager instead of the Seed-managed one. This
+is particularly useful in Spring batch jobs where there are clear performance benefits to let Spring batch manage the
+transactions. More information about this feature &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/spring-bridge/transactions/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;nosql-add-ons&#34;&gt;NoSQL add-ons&lt;/h2&gt;
+
+&lt;p&gt;Three new add-ons are now provided to use popular NoSQL databases:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/addons/mongodb/&#34;&gt;MongoDB add-on&lt;/a&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/addons/redis/&#34;&gt;Redis add-on&lt;/a&gt;,&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/addons/neo4j/&#34;&gt;Neo4J add-on&lt;/a&gt;,&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;solr-add-on&#34;&gt;Solr add-on&lt;/h2&gt;
+
+&lt;p&gt;A &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/solr/&#34;&gt;Solr add-on&lt;/a&gt; is now provided to access Solr indexing servers.&lt;/p&gt;
+
+&lt;h1 id=&#34;component-versions&#34;&gt;Component versions&lt;/h1&gt;
+
+&lt;h2 id=&#34;base&#34;&gt;Base&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;poms: 2.1.1&lt;/li&gt;
+&lt;li&gt;seed: 2.1.0&lt;/li&gt;
+&lt;li&gt;business: 2.1.0&lt;/li&gt;
+&lt;li&gt;w20: 2.1.1&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;add-ons&#34;&gt;Add-ons&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;audit-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;monitoring-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;elasticsearch-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;i18n-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;io-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;javamail-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;jcache-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;jdbc-addon: 2.1.1&lt;/li&gt;
+&lt;li&gt;jms-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;jpa-addon: 2.1.1&lt;/li&gt;
+&lt;li&gt;ldap-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;mongodb-addon: 1.0.0&lt;/li&gt;
+&lt;li&gt;neo4j-addon: 1.0.0&lt;/li&gt;
+&lt;li&gt;redis-addon: 1.0.0&lt;/li&gt;
+&lt;li&gt;scheduling-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;solr-addon: 1.0.0&lt;/li&gt;
+&lt;li&gt;spring-bridge-addon: 2.2.0&lt;/li&gt;
+&lt;li&gt;validation-addon: 2.1.0&lt;/li&gt;
+&lt;li&gt;w20-bridge-addon: 2.1.1&lt;/li&gt;
+&lt;li&gt;web-services-addon: 2.1.1&lt;/li&gt;
+&lt;li&gt;w20-extras: 2.1.0&lt;/li&gt;
+&lt;li&gt;w20-dataviz: 2.1.0&lt;/li&gt;
+&lt;li&gt;w20-material: 2.1.1&lt;/li&gt;
+&lt;li&gt;w20-components: 2.1.1&lt;/li&gt;
+&lt;li&gt;w20-bootstrap-2: 2.1.1&lt;/li&gt;
+&lt;li&gt;w20-bootstrap-3: 2.1.1&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;themes&#34;&gt;Themes&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;w20-simple-theme: 3.1.0&lt;/li&gt;
+&lt;li&gt;w20-business-theme: 1.1.0&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+    <item>
+      <title>Welcome to SeedStack</title>
+      <link>http://seedstack.org/archives/16.7/posts/welcome-to-seedstack/</link>
+      <pubDate>Sat, 02 May 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/posts/welcome-to-seedstack/</guid>
+      <description>&lt;p&gt;Welcome to SeedStack, an Open-Source enterprise-class development stack for building modern and robust applications.
+SeedStack has been derived from a &lt;a href=&#34;http://www.psa-peugeot-citroen.com/&#34;&gt;PSA Peugeot Citroën&lt;/a&gt; internal development
+stack.&lt;/p&gt;
+
+&lt;p&gt;It was created fully in-house, starting at the beginning of 2013, and is now used by more than 40 projects, with more than
+20 projects in production.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

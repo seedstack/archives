@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/listener/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/listener/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Receiving messages</title>
+      <link>http://seedstack.org/archives/16.7/addons/jms/receiving/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/jms/receiving/</guid>
+      <description>
+
+&lt;p&gt;To receive JMS messages, create a listener class which implements the &lt;code&gt;javax.jms.MessageListener&lt;/code&gt; interface and is
+annotated with &lt;code&gt;@JMSMessageListener&lt;/code&gt;. This annotation takes the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;connection&lt;/code&gt; parameter specifying the connection that will be used to receive the messages.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;destinationType&lt;/code&gt; parameter specifying what kind of destination the class will listen to (queue or topic).&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;destinationName&lt;/code&gt; parameter specifying the name of the destination.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;poller&lt;/code&gt; parameter is optional and is used to enable polling on this listener.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;polling&#34;&gt;Polling&lt;/h1&gt;
+
+&lt;p&gt;When a &lt;code&gt;poller&lt;/code&gt; parameter is specified, no asynchronous message reception (driven by the JMS provider after a
+setMessageListener() call) takes place. Polling behavior is delegated to the specified class (which must implement
+&lt;code&gt;org.seedstack.jms.spi.MessagePoller&lt;/code&gt;).&lt;/p&gt;
+
+&lt;h2 id=&#34;simple-message-poller&#34;&gt;Simple message poller&lt;/h2&gt;
+
+&lt;p&gt;If polling is needed on a particular listener you may use the &lt;code&gt;org.seedstack.jms.SimpleMessagePoller&lt;/code&gt; class for
+basic polling needs. It spawns a thread which calls to &lt;code&gt;receive()&lt;/code&gt; in a loop, dispatching the message to the
+&lt;code&gt;onMessage()&lt;/code&gt; method when a message is received. If an exception occurs during &lt;code&gt;receive()&lt;/code&gt;, the exception is dispatched
+to the connection exception listener if any.&lt;/p&gt;
+
+&lt;p&gt;If an exception is thrown during the reception or message handling, the polling thread is shutdown and scheduled to
+restart 10 seconds later. When used in conjunction with the automatic reconnection, the exception also triggers a
+connection refresh. In that case, the poller may retry to receive messages several times before the connection is up again,
+depending on the configured connection refresh timeout.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Receiving messages</title>
+      <link>http://seedstack.org/archives/16.7/addons/mqtt/listener/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/mqtt/listener/</guid>
+      <description>&lt;p&gt;To receive MQTT messages, create a listener class which implements the &lt;code&gt;org.eclipse.paho.client.mqttv3.MqttCallback&lt;/code&gt; interface and is
+annotated with &lt;code&gt;@MqttListener&lt;/code&gt;. This annotation takes the following parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;clients&lt;/code&gt; parameter specifying the client that will be used to receive the messages.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;topics&lt;/code&gt; parameter specifying which topic it will listen to.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;qos&lt;/code&gt; parameter specifying which topic it will listen to (for the topicFilter defined).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The 2 lists &lt;code&gt;topics&lt;/code&gt; and &lt;code&gt;qos&lt;/code&gt; should have the same size. They are linked together.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

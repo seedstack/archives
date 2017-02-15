@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/maven/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/maven/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Generate goal</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/generate/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/generate/</guid>
+      <description>&lt;p&gt;To create a SeedStack project from scratch you can use &lt;code&gt;generate&lt;/code&gt; goal from the SeedStack Maven Plugin.
+This goal is invoked from the command line.&lt;/p&gt;
+
+&lt;h1 id=&#34;parameters&#34;&gt;Parameters&lt;/h1&gt;
+
+&lt;p&gt;Parameters should be given as system properties (&lt;code&gt;-DparameterName=parameterValue&lt;/code&gt;):&lt;/p&gt;
+
+&lt;table class=&#34;table table-striped table-bordered table-condensed&#34;&gt;
+    &lt;thead&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Type&lt;/th&gt;
+        &lt;th&gt;Mandatory&lt;/th&gt;
+        &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td&gt;groupId&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;Yes&lt;/td&gt;
+        &lt;td&gt;The group identifier of your generated project. &lt;strong&gt;Required.&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;artifactId&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;Yes&lt;/td&gt;
+        &lt;td&gt;The artifact identifier of your generated project. &lt;strong&gt;Required.&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;version&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;The version of your generated project. Defaults to &lt;code&gt;1.0.0-SNAPSHOT&lt;/code&gt;.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;type&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;Specifies the archetype type to use for project generation. Needed if &lt;code&gt;archetypeArtifactId&lt;/code&gt; is
+        not specified explicitly. No default value. &lt;strong&gt;Available types are: web, rest, domain and batch.&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;allowSnapshots&lt;/td&gt;
+        &lt;td&gt;Boolean&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;Allow to use archetype snapshots. Defaults to &lt;code&gt;false&lt;/code&gt;.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;archetypeGroupId&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;Allow to explicitly specify the archetype group identifier. Defaults to &lt;code&gt;com.inetpsa.fnd.tools&lt;/code&gt;.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;archetypeArtifactId&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;Allow to explicitly specify the archetype artifact identifier. Needed if &lt;code&gt;type&lt;/code&gt; is not specified. Defaults to &lt;code&gt;seed-{type}-archetype&lt;/code&gt;.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;archetypeVersion&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;Allow to explicitly specify the archetype version. Defaults to latest release version available or to the latest snapshot available
+        if &lt;code&gt;allowSnapshots&lt;/code&gt; is also specified.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&#34;examples&#34;&gt;Examples&lt;/h1&gt;
+
+&lt;p&gt;Interactive mode:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mvn org.seedstack:seedstack-maven-plugin:generate
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Batch mode:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mvn org.seedstack:seedstack-maven-plugin:generate -DgroupId=org.myorganization -DartifactId=myproject -Dtype=web
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;type&lt;/code&gt; property can be any of the archetype names provided by the distribution (i.e.: web, rest, domain, &amp;hellip;).&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Maven tools</title>
+      <link>http://seedstack.org/archives/16.7/addons/web-services/maven-tools/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/web-services/maven-tools/</guid>
+      <description>
+
+&lt;h1 id=&#34;source-folder&#34;&gt;Source folder&lt;/h1&gt;
+
+&lt;p&gt;The WSDL file must be placed in the &lt;code&gt;META-INF/ws&lt;/code&gt; directory of the classpath.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;src
+    |-it
+        |-java
+        |-resources
+            |-META-INF
+                |-ws
+    |-main
+        |-java
+        |-resources
+            |-META-INF
+                |-ws
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;ws-import&#34;&gt;WS-import&lt;/h1&gt;
+
+&lt;p&gt;WS-import is a tool which generates JAX-WS artifact from WSDL such as:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Service Endpoint Interface (SEI)&lt;/li&gt;
+&lt;li&gt;Client Service&lt;/li&gt;
+&lt;li&gt;Exception class mapped from wsdl:fault&lt;/li&gt;
+&lt;li&gt;JAXB generated value types (mapped java classes from schema types)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You have to use the &lt;code&gt;jaxws-maven-plugin&lt;/code&gt;. The following code is a sample of WS-import configuration.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;build&amp;gt;
+    &amp;lt;plugins&amp;gt;
+        &amp;lt;plugin&amp;gt;
+            &amp;lt;groupId&amp;gt;org.jvnet.jax-ws-commons&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;jaxws-maven-plugin&amp;lt;/artifactId&amp;gt;
+            &amp;lt;version&amp;gt;2.3&amp;lt;/version&amp;gt;
+            &amp;lt;executions&amp;gt;
+                &amp;lt;execution&amp;gt;
+                    &amp;lt;id&amp;gt;wsimport&amp;lt;/id&amp;gt;
+                    &amp;lt;goals&amp;gt;
+                        &amp;lt;goal&amp;gt;wsimport&amp;lt;/goal&amp;gt;
+                    &amp;lt;/goals&amp;gt;
+                    &amp;lt;phase&amp;gt;generate-sources&amp;lt;/phase&amp;gt;
+                    &amp;lt;configuration&amp;gt;
+                        &amp;lt;verbose&amp;gt;true&amp;lt;/verbose&amp;gt;
+                        &amp;lt;packageName&amp;gt;org.myorganization.ws.hello&amp;lt;/packageName&amp;gt; &amp;lt;!-- only if you want all of this WS classes in the same package --&amp;gt;
+                        &amp;lt;wsdlDirectory&amp;gt;src/main/resources/META-INF/ws&amp;lt;/wsdlDirectory&amp;gt;
+                        &amp;lt;wsdlLocation&amp;gt;META-INF/ws/Hello.wsdl&amp;lt;/wsdlLocation&amp;gt;
+                        &amp;lt;wsdlFiles&amp;gt;
+                            &amp;lt;wsdlFile&amp;gt;Hello.wsdl&amp;lt;/wsdlFile&amp;gt;
+                        &amp;lt;/wsdlFiles&amp;gt;
+                        &amp;lt;extension&amp;gt;true&amp;lt;/extension&amp;gt; &amp;lt;!-- this flag is needed to use JMS transport --&amp;gt;
+                        &amp;lt;target&amp;gt;2.1&amp;lt;/target&amp;gt;
+                        &amp;lt;genJWS&amp;gt;false&amp;lt;/genJWS&amp;gt;
+                    &amp;lt;/configuration&amp;gt;
+                &amp;lt;/execution&amp;gt;
+            &amp;lt;/executions&amp;gt;
+        &amp;lt;/plugin&amp;gt;
+    &amp;lt;/plugins&amp;gt;
+&amp;lt;/build&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can find more information about jaxws-maven-plugin &lt;a href=&#34;https://jax-ws-commons.java.net/jaxws-maven-plugin/wsimport-mojo.html&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Overview</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/</guid>
+      <description>&lt;p&gt;The SeedStack Maven plugin provides goals to manage SeedStack-based artifacts. To invoke the plugin, use the following
+command line:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mvn org.seedstack:seedstack-maven-plugin:&amp;lt;goal&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If you add (or already have) the groupId &lt;code&gt;org.seedstack&lt;/code&gt; in the &lt;code&gt;&amp;lt;pluginGroups&amp;gt;&lt;/code&gt; list of
+your maven &lt;code&gt;settings.xml&lt;/code&gt; file, you can use a shorter command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mvn seedstack:&amp;lt;goal&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;More information about Maven plugin prefix mapping &lt;a href=&#34;http://maven.apache.org/guides/introduction/introduction-to-plugin-prefix-mapping.html&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Package goal</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/package/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/package/</guid>
+      <description>&lt;p&gt;The &lt;code&gt;package&lt;/code&gt; goal packages any self-executable SeedStack application in a &lt;a href=&#34;http://www.capsule.io/&#34;&gt;Capsule&lt;/a&gt;.
+A Capsule is a way of packaging and running any application with all its dependencies from a unique plain executable JAR.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Self-executable SeedStack application are applications that contains one and only one implementation of the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;spi.&amp;amp;#8203;SeedLauncher&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/spi/SeedLauncher.html&#39;&gt;SeedLauncher&lt;/a&gt;&lt;/code&gt;
+interface in their classpath, like the one provided by the &lt;code&gt;seed-cli&lt;/code&gt; module (for command-line application) or the &lt;code&gt;seed-web-undertow&lt;/code&gt;
+module (for embedded Web applications).&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;parameters&#34;&gt;Parameters&lt;/h1&gt;
+
+&lt;p&gt;Parameters can be given as system properties (&lt;code&gt;-DparameterName=parameterValue&lt;/code&gt;) or specified in the &lt;code&gt;pom.xml&lt;/code&gt; plugin declaration:&lt;/p&gt;
+
+&lt;table class=&#34;table table-striped table-bordered table-condensed&#34;&gt;
+    &lt;thead&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Type&lt;/th&gt;
+        &lt;th&gt;Mandatory&lt;/th&gt;
+        &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td&gt;capsuleVersion&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;The capsule version to be used. If not given, the latest version discoverable is automatically used.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;classpathEntries&lt;/td&gt;
+        &lt;td&gt;List of strings&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;The classpath entries to add to the application classpath. Relative paths are resolved to the location of the capsule JAR. The current user home path (~) can be used.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;systemProperties&lt;/td&gt;
+        &lt;td&gt;List of strings&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;The system properties to set when launching the application.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;environmentVariables&lt;/td&gt;
+        &lt;td&gt;List of strings&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;The environment variables to set when launching the application.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;jvmArgs&lt;/td&gt;
+        &lt;td&gt;List of strings&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;The JVM arguments to apply when launching the application.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;allowSnapshots&lt;/td&gt;
+        &lt;td&gt;-&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;If specified, the Capsule will allow SNAPSHOT dependencies to be used.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&#34;examples&#34;&gt;Examples&lt;/h1&gt;
+
+&lt;h2 id=&#34;standalone-capsule&#34;&gt;Standalone Capsule&lt;/h2&gt;
+
+&lt;p&gt;A standalone Capsule packs all its dependencies and is completely self-contained. It is the default mode of operation. To
+build such a Capsule, use the following command:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mvn org.seedstack:seedstack-maven-plugin:package
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;running-a-capsule&#34;&gt;Running a capsule&lt;/h1&gt;
+
+&lt;p&gt;To run a capsule, you simply execute it as a plain executable JAR:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;java [jvm-args] -jar my-capsule.jar [args...]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In addition to any argument already specified in the capsule manifest (with the plugin parameters described above), you can specify any argument to the JVM or to the program as usual.&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;A lot of options can be specified to alter the default behavior of the Capsule itself. Please refer to the &lt;a href=&#34;http://www.capsule.io/user-guide/&#34;&gt;Capsule user-guide&lt;/a&gt;
+for more information.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Run goal</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/run/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/maven-plugin/run/</guid>
+      <description>&lt;p&gt;The &lt;code&gt;run&lt;/code&gt; goal runs any self-executable SeedStack application directly from the command line.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Self-executable SeedStack application are applications that contains one and only one implementation of the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;spi.&amp;amp;#8203;SeedLauncher&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/spi/SeedLauncher.html&#39;&gt;SeedLauncher&lt;/a&gt;&lt;/code&gt;
+interface in their classpath, like the one provided by the &lt;code&gt;seed-cli&lt;/code&gt; module (for command-line application) or the &lt;code&gt;seed-web-undertow&lt;/code&gt;
+module (for embedded Web applications).&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;parameters&#34;&gt;Parameters&lt;/h1&gt;
+
+&lt;p&gt;Parameters should be given as system properties (&lt;code&gt;-DparameterName=parameterValue&lt;/code&gt;):&lt;/p&gt;
+
+&lt;table class=&#34;table table-striped table-bordered table-condensed&#34;&gt;
+    &lt;thead&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Name&lt;/th&gt;
+        &lt;th&gt;Type&lt;/th&gt;
+        &lt;th&gt;Mandatory&lt;/th&gt;
+        &lt;th&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td&gt;args&lt;/td&gt;
+        &lt;td&gt;String&lt;/td&gt;
+        &lt;td&gt;No&lt;/td&gt;
+        &lt;td&gt;The string of all arguments used to run the Seed application. &lt;strong&gt;Required.&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&#34;examples&#34;&gt;Examples&lt;/h1&gt;
+
+&lt;h2 id=&#34;web-application&#34;&gt;Web application&lt;/h2&gt;
+
+&lt;p&gt;By running the following command on a SeedStack application containing the &lt;code&gt;seed-web-undertow&lt;/code&gt; dependency (like the
+&lt;a href=&#34;https://github.com/seedstack/catalog-microservice-sample&#34;&gt;catalog micro-service sample&lt;/a&gt;), you will startup the application
+with its embedded &lt;a href=&#34;http://undertow.io/&#34;&gt;Undertow Web server&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mvn org.seedstack:seedstack-maven-plugin:run
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;cli-application&#34;&gt;CLI application&lt;/h2&gt;
+
+&lt;p&gt;By running the following command on a SeedStack application containing the &lt;code&gt;seed-cli&lt;/code&gt; dependency (like the
+&lt;a href=&#34;https://github.com/seedstack/samples/tree/master/batch&#34;&gt;batch sample&lt;/a&gt;), you will startup the application with the
+corresponding arguments:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;mvn seedstack:run -Dargs=&amp;quot;run-job --job helloWorldJob&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that a SeedStack CLI application needs at least one &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;cli.&amp;amp;#8203;CommandLineHandler&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/cli/CommandLineHandler.html&#39;&gt;CommandLineHandler&lt;/a&gt;&lt;/code&gt; in the
+classpath which name must be specified as an argument. In this example we assume that the &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/spring-bridge/batch/&#34;&gt;SeedStack Spring bridge add-on&lt;/a&gt;
+&lt;code&gt;run-job&lt;/code&gt; command-line handler is also present in the classpath.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

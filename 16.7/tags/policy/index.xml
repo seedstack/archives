@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/policy/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/policy/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Policies</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/manual/policies/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/manual/policies/</guid>
+      <description>&lt;p&gt;A policy is a variant of the Strategy pattern to encapsulate one or more business rules.&lt;/p&gt;
+
+&lt;h1 id=&#34;definition&#34;&gt;Definition&lt;/h1&gt;
+
+&lt;p&gt;Creating a Policy with the Business Framework, consists in:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Creating a policy interface in the domain,&lt;/li&gt;
+&lt;li&gt;Creating a policy implementation, located either in the domain or in the infrastructure if it depends upon any
+specific technology.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Business Framework Policies are POJOs, there is no mandated interface. Just annotate your policy interface with the
+&lt;code&gt;@DomainPolicy&lt;/code&gt; annotation.&lt;/p&gt;
+
+&lt;h1 id=&#34;usage&#34;&gt;Usage&lt;/h1&gt;
+
+&lt;p&gt;To use a policy, simply inject it in your code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+MyPolicy myPolicy;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;example&#34;&gt;Example&lt;/h1&gt;
+
+&lt;p&gt;Let&amp;rsquo;s consider a bonus policy for car sellers according to the sales they&amp;rsquo;ve done.
+This policy could allow the sellers - and their manager - to know what the amount of their bonus is at a given time in
+the current month.&lt;/p&gt;
+
+&lt;h2 id=&#34;bonuspolicy-interface&#34;&gt;BonusPolicy interface&lt;/h2&gt;
+
+&lt;p&gt;In &lt;code&gt;org.mycompany.myapp.policy&lt;/code&gt; package&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.mycompany.myapp.policy;
+
+import org.mycompany.myapp.domain.model.carsold.CarSold;
+import org.mycompany.myapp.domain.shared.vo.Price;
+import org.seedstack.business.domain.DomainPolicy;
+
+import java.util.List;
+
+@DomainPolicy
+public interface BonusPolicy {
+	Price computeBonus(List&amp;lt;CarSold&amp;gt; carSolds);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;bonuspolicy-implementation&#34;&gt;BonusPolicy implementation&lt;/h2&gt;
+
+&lt;p&gt;Below is an implementation example.&lt;/p&gt;
+
+&lt;p&gt;In &lt;code&gt;org.mycompany.myapp.policy.internal&lt;/code&gt; package&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.mycompany.myapp.policy.internal;
+
+import ...
+
+public class BonusPolicyInternal implements BonusPolicy{
+
+    @Override
+	public Price computeBonus(List&amp;lt;CarSold&amp;gt; soldCarsList) {
+        ...
+		return finalBonus;
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;bonuspolicy-usage&#34;&gt;BonusPolicy usage&lt;/h2&gt;
+
+&lt;p&gt;Wherever the policy is used to compute the bonus of a particular employee, just retrieve the cars sold by this employee
+(through the sold cars repository) and call the policy:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Interface&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.mycompany.myapp.application.service;
+
+import org.mycompany.myapp.domain.model.employee.Employee;
+import org.seedstack.business.Service;
+
+@Service
+public interface SalesBonusService {
+    double calculateCurrentBonusFor(Employee employee);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Implementation&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;package org.mycompany.myapp.application.service.internal;
+
+import ...
+
+public class SalesBonusServiceInternal implements SalesBonusService {
+	
+	@Inject
+	CarSoldRepository carSoldRepository;
+	
+	@Inject
+	CarForSaleRepository carForSaleRepository;
+	
+	@Inject
+	BonusPolicy bonusPolicy;
+	
+	@Override
+	public double calculateCurrentBonusFor(Employee employee) {
+		List&amp;lt;CarSold&amp;gt; findByEmployee = carSoldRepository
+             .findByEmployee(employee.getEntityId());
+		Price bonus = bonusPolicy.computeBonus(findByEmployee);
+		return bonus.getPriceValue();
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then, one can just inject the service and compute a bonus whenever an &lt;code&gt;Employee&lt;/code&gt; entity is at reach (eg. while building
+an employee profile page).&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

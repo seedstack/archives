@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/cache/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/cache/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/jcache/</link>
+      <pubDate>Tue, 17 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/jcache/</guid>
+      <description>
+
+&lt;p&gt;The JCache add-on integrates the JCache API (a.k.a. JSR 107) which allows to interact with compliant caching providers
+in a declarative or a programmatic way.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Implementations are not provided by this add-on and must be configured depending on your caching solution&lt;/strong&gt;.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-jcache-jcache-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-jcache-jcache-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-jcache-jcache-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.jcache&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;jcache&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-jcache-jcache-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.1.1&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-jcache-jcache-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-jcache-jcache-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-jcache-jcache-version, #org-seedstack-addons-jcache-jcache-warn&#39;).show(); $(&#39;#org-seedstack-addons-jcache-jcache-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-jcache-jcache-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.jcache:jcache:2.1.1&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;JCache specification jar dependency is required as well:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;javax.cache&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;cache-api&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;1.0.0&amp;lt;/version&amp;gt;
+    &amp;lt;scope&amp;gt;provided&amp;lt;/scope&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The full specification PDF can be found &lt;a href=&#34;http://download.oracle.com/otn-pub/jcp/jcache-1_0-fr-eval-spec/JSR107FinalSpecification.pdf&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;You must define the cache(s) you will use in your application in the configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jcache]
+caches = myCache1, myCache2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can then further configure each cache specifically by using the &lt;code&gt;org.seedstack.jcache.cache&lt;/code&gt; prefix followed by
+the cache name:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jcache.cache.myCache1]
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;cache-provider&#34;&gt;Cache provider&lt;/h2&gt;
+
+&lt;p&gt;If you have exactly one compliant cache provider in the classpath, it will be automatically picked by the cache support.
+Otherwise you must specify which provider to use for each cache:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jcache.cache.myCache1]
+provider = fully.qualified.classname.of.caching.Provider
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can also specify a global default provider, which will be picked for every cache without an explicitly specified
+provider:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jcache]
+default-provider = fully.qualified.classname.of.default.caching.Provider
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;expiry-policy-factory&#34;&gt;Expiry policy factory&lt;/h2&gt;
+
+&lt;p&gt;You can specify a custom expiry policy factory for each cache:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jcache]
+expiry-policy-factory = fully.qualified.classname.of.expiry.policy.Factory
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;An expiry policy factory must implement &lt;code&gt;javax.cache.configuration.Factory&amp;lt;javax.cache.expiry.ExpiryPolicy&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;usage&#34;&gt;Usage&lt;/h1&gt;
+
+&lt;p&gt;The JCache specification provides an annotation-based declarative API and a programmatic API.&lt;/p&gt;
+
+&lt;h2 id=&#34;declarative-api&#34;&gt;Declarative API&lt;/h2&gt;
+
+&lt;p&gt;The declarative API is annotation-based and can be used on methods. When the method will be invoked, the corresponding
+cache operation will take place.&lt;/p&gt;
+
+&lt;h3 id=&#34;cache-a-return-value&#34;&gt;Cache a return value&lt;/h3&gt;
+
+&lt;p&gt;The following code caches the return value of the method, using its arguments as a key:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@CacheResult(cacheName = &amp;quot;things&amp;quot;)
+public Thing getThing(String scope, String name) {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Keys generation can be customized using the &lt;code&gt;CacheKeyGenerator&lt;/code&gt; interface. If no specific implementation is specified,
+the default implementation, per spec, takes all parameters unless one or more parameters are annotated with the @CacheKey
+annotation, in which case only those are used:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@CacheResult(cacheName = &amp;quot;things&amp;quot;)
+public Thing getThing(@CacheKey String scope, @CacheKey String name, Date timestamp) {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;@CacheResult&lt;/code&gt; brings the concept of exception cache: whenever a method execution failed, it is possible to cache the
+exception that was raised to prevent calling the method again.&lt;/p&gt;
+
+&lt;p&gt;JCache has the notion of &lt;code&gt;CacheResolver&lt;/code&gt; which permits to resolve the cache to use at runtime.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@CacheResult(cacheName = &amp;quot;things&amp;quot;, cacheResolverFactory = MyCacheResolverFactory.class)
+public Thing getThing(@CacheKey String scope, @CacheKey String name, Date timestamp) {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally, &lt;code&gt;@CacheResult&lt;/code&gt; has a skipGet attribute that can be enabled to always invoke the method regardless of the status
+of the cache. This is useful for create or update methods that should always be executed and have their returned value
+placed in the cache.&lt;/p&gt;
+
+&lt;h3 id=&#34;put-a-value&#34;&gt;Put a value&lt;/h3&gt;
+
+&lt;p&gt;The following code add &lt;code&gt;updatedThing&lt;/code&gt; to the &lt;code&gt;things&lt;/code&gt; cache with the &lt;code&gt;scope&lt;/code&gt; and &lt;code&gt;name&lt;/code&gt; arguments as the key:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@CachePut(cacheName = &amp;quot;things&amp;quot;)
+public void updateThing(String scope, String name, @CacheValue updatedThing) {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;@CacheValue&lt;/code&gt; annotated parameters are automatically excluded from key generation.&lt;/p&gt;
+
+&lt;p&gt;As for &lt;code&gt;@CacheResult&lt;/code&gt;, &lt;code&gt;@CachePut&lt;/code&gt; allows to manage any exception that is thrown while executing the method, preventing the
+put operation to happen if the thrown exception matches the filter specified on the annotation.&lt;/p&gt;
+
+&lt;p&gt;Finally, it is possible to control if the cache is updated before or after the invocation of the annotated method. Of
+course, if it is updated before, no exception handling takes place.&lt;/p&gt;
+
+&lt;h3 id=&#34;remove-a-value&#34;&gt;Remove a value&lt;/h3&gt;
+
+&lt;p&gt;The following code remove the entry with the &lt;code&gt;scope&lt;/code&gt; and &lt;code&gt;name&lt;/code&gt; arguments as the key from the &lt;code&gt;things&lt;/code&gt; cache:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@CacheRemove(cacheName = &amp;quot;things&amp;quot;)
+public void deleteThing(String scope, String name) {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;@CacheRemove&lt;/code&gt; has a special exception handling to prevent the eviction if the annotated method throws an exception that
+matches the filter specified on the annotation.&lt;/p&gt;
+
+&lt;h3 id=&#34;remove-all-values&#34;&gt;Remove all values&lt;/h3&gt;
+
+&lt;p&gt;The following code remove all entries from the &lt;code&gt;things&lt;/code&gt; cache:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@CacheRemoveAll(cacheName = &amp;quot;things&amp;quot;)
+public void clearAllThings() {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;cache-defaults&#34;&gt;Cache defaults&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;@CacheDefaults&lt;/code&gt; is a class-level annotation that allows you to share common settings on any caching operation defined
+on the class. These are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The name of the cache&lt;/li&gt;
+&lt;li&gt;The custom CacheResolverFactory&lt;/li&gt;
+&lt;li&gt;The custom CacheKeyGenerator
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;programmatic-api&#34;&gt;Programmatic API&lt;/h2&gt;
+
+&lt;p&gt;If you need a more fine-grained control of your caches, you can also use the programmatic API. You just need to inject
+the needed &lt;code&gt;Cache&lt;/code&gt; object(s):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject @Named(&amp;quot;things&amp;quot;)
+private Cache thingsCache;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Please check the JavaDoc of the &lt;code&gt;javax.cache.Cache&lt;/code&gt; interface for more information.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

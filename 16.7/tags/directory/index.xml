@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/directory/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/directory/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/ldap/</link>
+      <pubDate>Tue, 09 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/ldap/</guid>
+      <description>
+
+&lt;p&gt;Seed ldap addon enables your application to connect to a LDAP to identify, autentify and authorize users.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-ldap-ldap-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-ldap-ldap-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-ldap-ldap-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.ldap&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;ldap&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-ldap-ldap-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;PUT_LATEST_VERSION_HERE&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-ldap-ldap-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-ldap-ldap-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-ldap-ldap-version, #org-seedstack-addons-ldap-ldap-warn&#39;).show(); $(&#39;#org-seedstack-addons-ldap-ldap-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-ldap-ldap-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.ldap:ldap:PUT_LATEST_VERSION_HERE&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;In your properties file, you can add the following properties to configure the connection to the LDAP&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.ldap]
+server-host = ldaphost
+server-port = 53800
+account-dn = cn=admin, ou=people, dc=example,dc=com
+account-password = admin
+user-base = ou=people, dc=example,dc=com
+user-identity-attribute = sn
+group-base = ou=groups, dc=example,dc=com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;server-host: the hostname where the ldap is&lt;/li&gt;
+&lt;li&gt;server-port: the port to use&lt;/li&gt;
+&lt;li&gt;account-dn: the dn of the account that will make the requests. If none, requests will be anonymous&lt;/li&gt;
+&lt;li&gt;account-password: password of the above account&lt;/li&gt;
+&lt;li&gt;user-base: base dn where the users can be found in the LDAP&lt;/li&gt;
+&lt;li&gt;user-identity-attribute: name of the attribute that is used to identify the user&lt;/li&gt;
+&lt;li&gt;group-base: base dn where groups can be found in the LDAP&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Then you can configure SEED security so it uses the LDAP Realm&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.security]
+realms = LdapRealm
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can map the LDAP groups to your application functional roles&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.security.roles]
+jedi = SEED.JEDI
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And associate permissions to those roles&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;jedi = lightSaber:*, academy:*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With this configuration, the LDAP realm will be able to authenticate your user with their id and password, and retrieve the groups through the LDAP.&lt;/p&gt;
+
+&lt;h1 id=&#34;retrieving-attributes&#34;&gt;Retrieving attributes&lt;/h1&gt;
+
+&lt;h2 id=&#34;from-the-current-user&#34;&gt;From the current user&lt;/h2&gt;
+
+&lt;p&gt;When authenticating the user, the LDAP Realm also puts in the user principals an entry point to the user LDAP attributes: &lt;em&gt;LdapUserContext&lt;/em&gt;. You can then call the LdapService to retrieve attributes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class SomeClass {
+    @Inject
+    private SecuritySupport securitySupport;
+    @Inject
+    private LdapService ldapService;
+    
+    public void someMethod() {
+        LdapUserContext userContext = securitySupport
+                                        .getPrincipalsByType(LdapUserContext.class)
+                                        .iterator()
+                                        .next()
+                                        .getPrincipal();
+        String cn = ldapService.getAttributeValue(userContext, &amp;quot;cn&amp;quot;)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;for-any-user&#34;&gt;For any user&lt;/h2&gt;
+
+&lt;p&gt;You can also use the LdapService and LdapUserContext to retrieve user attributes from any user that you know the id&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class SomeClass {
+    @Inject
+    private LdapService ldapService;
+    
+    public void someMethod() {
+        LdapUserContext userContext = ldapService.findUser(userId);
+        String cn = userContext.getAttributeValue(userContext, &amp;quot;cn&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;list-a-user-groups&#34;&gt;List a user groups&lt;/h1&gt;
+
+&lt;p&gt;Once you have the user context you can also retrieve the list of the user groups&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class SomeClass {
+    @Inject
+    private LdapService ldapService;
+    
+    public void someMethod() {
+        LdapUserContext userContext = ldapService.findUser(userId);
+        Set&amp;lt;String&amp;gt; groups  = userContext.retrieveUserGroups(userContext);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;going-further&#34;&gt;Going further&lt;/h1&gt;
+
+&lt;p&gt;Seed uses &lt;a href=&#34;https://www.unboundid.com/&#34;&gt;unboundid&lt;/a&gt; library to connect to the ldap. You can inject its core component into your class to use it. Note that the connections you take from the pool are already configured and ready to be used.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class SomeClass {
+    @Inject
+    private LDAPConnectionPool ldapConnectionPool;
+    
+    public void someMethod() {
+        ldapConnectionPool.search(...);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/metro/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/metro/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/web-services/</link>
+      <pubDate>Wed, 09 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/web-services/</guid>
+      <description>
+
+&lt;p&gt;SeedStack Web-Services add-on provides a JAX-WS integration. JAX-WS offers facilities to create and connect to web services.
+To enable Web-Services standalone add-on (without a Web environment) use the following dependency snippet in your module.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-ws-web-services-core-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-ws-web-services-core-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-ws-web-services-core-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.ws&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;web-services-core&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-ws-web-services-core-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.2.2&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-ws-web-services-core-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-ws-web-services-core-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-ws-web-services-core-version, #org-seedstack-addons-ws-web-services-core-warn&#39;).show(); $(&#39;#org-seedstack-addons-ws-web-services-core-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-ws-web-services-core-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.ws:web-services-core:2.2.2&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;In a Web environment you must use the following dependency snippet instead:&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-ws-web-services-web-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-ws-web-services-web-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-ws-web-services-web-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.ws&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;web-services-web&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-ws-web-services-web-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.2.2&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-ws-web-services-web-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-ws-web-services-web-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-ws-web-services-web-version, #org-seedstack-addons-ws-web-services-web-warn&#39;).show(); $(&#39;#org-seedstack-addons-ws-web-services-web-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-ws-web-services-web-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.ws:web-services-web:2.2.2&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h1 id=&#34;best-practices&#34;&gt;Best practices&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Since classes &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/web-services/maven-tools/&#34;&gt;generated&lt;/a&gt; from WSDL are both for client and server side, this logic should belong to a shared module.
+This module can then be used as a dependency both on client and server side.&lt;/li&gt;
+&lt;li&gt;Keep one source WSDL per Web Service and use &lt;code&gt;copy-resources&lt;/code&gt; of &lt;code&gt;maven-resources-plugin&lt;/code&gt; just after generating classes from WSDL. Reasons are:
+
+&lt;ul&gt;
+&lt;li&gt;successful code generation means the WSDL is probably valid and generated code match that WSDL&lt;/li&gt;
+&lt;li&gt;a copy of last valid WSDL is copied everywhere it is required (eg. published to &lt;code&gt;META-INF/ws&lt;/code&gt;)
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;endorsement&#34;&gt;Endorsement&lt;/h1&gt;
+
+&lt;h2 id=&#34;jdk-6&#34;&gt;JDK 6&lt;/h2&gt;
+
+&lt;p&gt;JDK 6 contains an older version of the JAX-WS specifications than the one used in WS add-on.
+Therefore the endorsed mechanism has to be used with required version of &lt;code&gt;webservices-api.jar&lt;/code&gt; available
+&lt;a href=&#34;http://search.maven.org/remotecontent?filepath=org/glassfish/metro/webservices-api/2.3/webservices-api-2.3.jar&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;endorse-ws-api&#34;&gt;Endorse WS API&lt;/h3&gt;
+
+&lt;p&gt;There are two options:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Java Endorsed Standards Override Mechanism&lt;/strong&gt; applies to all projects using the JDK with endorsed library:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Copy &lt;code&gt;webservices-api.jar&lt;/code&gt; into &lt;strong&gt;&amp;laquo;JDK6 folder&amp;raquo;\jre\lib\endorsed&lt;/strong&gt; (create &lt;strong&gt;endorsed&lt;/strong&gt; directory if it does not exist).&lt;/li&gt;
+&lt;li&gt;Alternative: set the &lt;code&gt;java.endorsed.dirs&lt;/code&gt; system property to the directory containing &lt;code&gt;webservices-api.jar&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Documentation is available &lt;a href=&#34;http://docs.oracle.com/javase/6/docs/technotes/guides/standards/&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;IDE classpath override. This method must be applied per-project:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Add the &lt;code&gt;webservices-api.jar&lt;/code&gt; library to the &lt;strong&gt;bootstrap classpath&lt;/strong&gt; of your project. This ensures that this library
+overrides the one in the JRE.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;endorse-the-web-server&#34;&gt;Endorse the Web server&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;To use the WS add-on in a Web application, the server JRE has to endorse the library as well. Add the &lt;strong&gt;webservices-api.jar&lt;/strong&gt;
+JAR to the server &lt;code&gt;endorsed&lt;/code&gt; directory or to server buildpath.&lt;/li&gt;
+&lt;li&gt;As described in &lt;strong&gt;Java Endorsed Standards Override Mechanism&lt;/strong&gt;, you can check endorsed directories through &lt;code&gt;java.endorsed.dirs&lt;/code&gt; java System property.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;jdk-7&#34;&gt;JDK 7&lt;/h2&gt;
+
+&lt;p&gt;JDK 7 works out of the box as required version of JAX-Ws is already embedded.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Consuming</title>
+      <link>http://seedstack.org/archives/16.7/addons/web-services/consume_hello_webservice/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/web-services/consume_hello_webservice/</guid>
+      <description>&lt;p&gt;The goal of this page is to detail the consumption of an Hello World SOAP based Web Service. Configure the &lt;code&gt;jaxws-maven-plugin&lt;/code&gt;
+and use &lt;code&gt;wsimport&lt;/code&gt; to generate web service client java from &lt;code&gt;wsdl&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can then use the &lt;code&gt;wsimport&lt;/code&gt; generated class in your application code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;HelloService helloService = new HelloService();
+Hello helloServicePort = helloService.getHelloServicePort();
+((BindingProvider) helloServicePort).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, &amp;quot;http://localhost:&amp;quot; + wsPort + &amp;quot;/ws/hello&amp;quot;);
+helloServicePort.sayHello(&amp;quot;World&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Maven tools</title>
+      <link>http://seedstack.org/archives/16.7/addons/web-services/maven-tools/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/web-services/maven-tools/</guid>
+      <description>
+
+&lt;h1 id=&#34;source-folder&#34;&gt;Source folder&lt;/h1&gt;
+
+&lt;p&gt;The WSDL file must be placed in the &lt;code&gt;META-INF/ws&lt;/code&gt; directory of the classpath.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;src
+    |-it
+        |-java
+        |-resources
+            |-META-INF
+                |-ws
+    |-main
+        |-java
+        |-resources
+            |-META-INF
+                |-ws
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;ws-import&#34;&gt;WS-import&lt;/h1&gt;
+
+&lt;p&gt;WS-import is a tool which generates JAX-WS artifact from WSDL such as:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Service Endpoint Interface (SEI)&lt;/li&gt;
+&lt;li&gt;Client Service&lt;/li&gt;
+&lt;li&gt;Exception class mapped from wsdl:fault&lt;/li&gt;
+&lt;li&gt;JAXB generated value types (mapped java classes from schema types)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You have to use the &lt;code&gt;jaxws-maven-plugin&lt;/code&gt;. The following code is a sample of WS-import configuration.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;build&amp;gt;
+    &amp;lt;plugins&amp;gt;
+        &amp;lt;plugin&amp;gt;
+            &amp;lt;groupId&amp;gt;org.jvnet.jax-ws-commons&amp;lt;/groupId&amp;gt;
+            &amp;lt;artifactId&amp;gt;jaxws-maven-plugin&amp;lt;/artifactId&amp;gt;
+            &amp;lt;version&amp;gt;2.3&amp;lt;/version&amp;gt;
+            &amp;lt;executions&amp;gt;
+                &amp;lt;execution&amp;gt;
+                    &amp;lt;id&amp;gt;wsimport&amp;lt;/id&amp;gt;
+                    &amp;lt;goals&amp;gt;
+                        &amp;lt;goal&amp;gt;wsimport&amp;lt;/goal&amp;gt;
+                    &amp;lt;/goals&amp;gt;
+                    &amp;lt;phase&amp;gt;generate-sources&amp;lt;/phase&amp;gt;
+                    &amp;lt;configuration&amp;gt;
+                        &amp;lt;verbose&amp;gt;true&amp;lt;/verbose&amp;gt;
+                        &amp;lt;packageName&amp;gt;org.myorganization.ws.hello&amp;lt;/packageName&amp;gt; &amp;lt;!-- only if you want all of this WS classes in the same package --&amp;gt;
+                        &amp;lt;wsdlDirectory&amp;gt;src/main/resources/META-INF/ws&amp;lt;/wsdlDirectory&amp;gt;
+                        &amp;lt;wsdlLocation&amp;gt;META-INF/ws/Hello.wsdl&amp;lt;/wsdlLocation&amp;gt;
+                        &amp;lt;wsdlFiles&amp;gt;
+                            &amp;lt;wsdlFile&amp;gt;Hello.wsdl&amp;lt;/wsdlFile&amp;gt;
+                        &amp;lt;/wsdlFiles&amp;gt;
+                        &amp;lt;extension&amp;gt;true&amp;lt;/extension&amp;gt; &amp;lt;!-- this flag is needed to use JMS transport --&amp;gt;
+                        &amp;lt;target&amp;gt;2.1&amp;lt;/target&amp;gt;
+                        &amp;lt;genJWS&amp;gt;false&amp;lt;/genJWS&amp;gt;
+                    &amp;lt;/configuration&amp;gt;
+                &amp;lt;/execution&amp;gt;
+            &amp;lt;/executions&amp;gt;
+        &amp;lt;/plugin&amp;gt;
+    &amp;lt;/plugins&amp;gt;
+&amp;lt;/build&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can find more information about jaxws-maven-plugin &lt;a href=&#34;https://jax-ws-commons.java.net/jaxws-maven-plugin/wsimport-mojo.html&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Publishing</title>
+      <link>http://seedstack.org/archives/16.7/addons/web-services/publish_hello_webservice/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/web-services/publish_hello_webservice/</guid>
+      <description>
+
+&lt;p&gt;The goal of this page is to detail the creation of an Hello World soap based Web Service.&lt;/p&gt;
+
+&lt;h1 id=&#34;wsdl&#34;&gt;WSDL&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;wsdl:definitions
+        xmlns=&amp;quot;http://schemas.xmlsoap.org/wsdl/&amp;quot;
+        xmlns:xsd=&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot;
+        xmlns:soap=&amp;quot;http://schemas.xmlsoap.org/wsdl/soap/&amp;quot;
+        xmlns:wsdl=&amp;quot;http://schemas.xmlsoap.org/wsdl/&amp;quot;
+        targetNamespace=&amp;quot;http://myproject.myorganization.org/wsdl/seed/hello/&amp;quot;
+        xmlns:tns=&amp;quot;http://myproject.myorganization.org/wsdl/seed/hello/&amp;quot;
+        name=&amp;quot;HelloService&amp;quot;&amp;gt;
+
+    &amp;lt;wsdl:types&amp;gt;&amp;lt;/wsdl:types&amp;gt;
+
+    &amp;lt;wsdl:message name=&amp;quot;sayHello&amp;quot;&amp;gt;
+        &amp;lt;wsdl:part name=&amp;quot;firstName&amp;quot; type=&amp;quot;xsd:string&amp;quot;/&amp;gt;
+    &amp;lt;/wsdl:message&amp;gt;
+    &amp;lt;wsdl:message name=&amp;quot;sayHelloResponse&amp;quot;&amp;gt;
+        &amp;lt;wsdl:part name=&amp;quot;return&amp;quot; type=&amp;quot;xsd:string&amp;quot;/&amp;gt;
+    &amp;lt;/wsdl:message&amp;gt;
+
+    &amp;lt;wsdl:portType name=&amp;quot;Hello&amp;quot;&amp;gt;
+        &amp;lt;wsdl:operation name=&amp;quot;sayHello&amp;quot;&amp;gt;
+            &amp;lt;wsdl:input message=&amp;quot;tns:sayHello&amp;quot;/&amp;gt;
+            &amp;lt;wsdl:output message=&amp;quot;tns:sayHelloResponse&amp;quot;/&amp;gt;
+        &amp;lt;/wsdl:operation&amp;gt;
+    &amp;lt;/wsdl:portType&amp;gt;
+
+    &amp;lt;wsdl:binding name=&amp;quot;HelloServicePortBinding&amp;quot; type=&amp;quot;tns:Hello&amp;quot;&amp;gt;
+        &amp;lt;soap:binding style=&amp;quot;rpc&amp;quot;   transport=&amp;quot;http://schemas.xmlsoap.org/soap/http&amp;quot;/&amp;gt;
+        &amp;lt;wsdl:operation name=&amp;quot;sayHello&amp;quot;&amp;gt;
+            &amp;lt;soap:operation soapAction=&amp;quot;&amp;quot;/&amp;gt;
+            &amp;lt;wsdl:input&amp;gt;
+                &amp;lt;soap:body
+                        namespace=&amp;quot;http://myproject.myorganization.org/wsdl/seed/hello/&amp;quot;
+                        use=&amp;quot;literal&amp;quot;/&amp;gt;
+            &amp;lt;/wsdl:input&amp;gt;
+            &amp;lt;wsdl:output&amp;gt;
+                &amp;lt;soap:body
+                        namespace=&amp;quot;http://myproject.myorganization.org/wsdl/seed/hello/&amp;quot;
+                        use=&amp;quot;literal&amp;quot;/&amp;gt;
+            &amp;lt;/wsdl:output&amp;gt;
+        &amp;lt;/wsdl:operation&amp;gt;
+    &amp;lt;/wsdl:binding&amp;gt;
+    &amp;lt;wsdl:service name=&amp;quot;HelloService&amp;quot;&amp;gt;
+
+        &amp;lt;wsdl:port name=&amp;quot;HelloServicePort&amp;quot; binding=&amp;quot;tns:HelloServicePortBinding&amp;quot;&amp;gt;
+            &amp;lt;wsdl:documentation&amp;gt;Hello World&amp;lt;/wsdl:documentation&amp;gt;
+            &amp;lt;soap:address location=&amp;quot;http://localhost:8080/ws/hello&amp;quot;&amp;gt;&amp;lt;/soap:address&amp;gt;
+        &amp;lt;/wsdl:port&amp;gt;
+    &amp;lt;/wsdl:service&amp;gt;
+&amp;lt;/wsdl:definitions&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;java-code&#34;&gt;Java code&lt;/h1&gt;
+
+&lt;p&gt;Configure the &lt;code&gt;jaxws-maven-plugin&lt;/code&gt; and use the &lt;code&gt;wsimport&lt;/code&gt; goal to generate web service java interface.&lt;/p&gt;
+
+&lt;p&gt;Then create a class which implement the generated interface by ws-import.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@WebService(
+    endpointInterface = &amp;quot;org.myorganization.myproject.wsdl.seed.hello.HelloService&amp;quot;,
+    targetNamespace = &amp;quot;http://myproject.myorganization.org/wsdl/seed/hello/&amp;quot;,
+    serviceName = &amp;quot;HelloService&amp;quot;,
+    portName = &amp;quot;HelloServicePort&amp;quot;
+)
+public class HelloServiceTest implements HelloService {
+    public String sayHello(String param) {
+        return &amp;quot;Hello &amp;quot; + param;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;To configure your endpoint, just add the following properties to your configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.ws]
+endpoints = HelloService
+
+endpoint.HelloService.implementation = fully.qualified.package.name.HelloServiceTest
+endpoint.HelloService.wsdl = Hello.wsdl
+endpoint.HelloService.url = /ws/hello
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that the WSDL location is relative to &lt;code&gt;META-INF/ws&lt;/code&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Testing</title>
+      <link>http://seedstack.org/archives/16.7/addons/web-services/testing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/web-services/testing/</guid>
+      <description>&lt;p&gt;Web Services can be tested in Seed managed integration tests. You can find more about these kind of tests
+&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/testing/#integration-tests&#34;&gt;here&lt;/a&gt; and &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/testing/#web-integration-tests&#34;&gt;here&lt;/a&gt;.
+You&amp;rsquo;ll find a Web black box example below:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class HelloWSIT extends AbstractSeedWebIT {
+    @Deployment
+    public static WebArchive createDeployment() {
+        return ShrinkWrap.create(WebArchive.class).setWebXML(&amp;quot;WEB-INF/web.xml&amp;quot;);
+    }
+
+    @Test
+    @RunAsClient
+    public void webservice_is_working_correctly(@ArquillianResource URL baseURL)
+    throws Exception {
+    
+        HelloService helloServiceClient = new HelloService();
+        Hello helloServicePort = helloServiceClient.getHelloServicePort();
+        ((BindingProvider)helloServicePort).getRequestContext()
+            .put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, baseURL + &amp;quot;ws/hello&amp;quot;);
+        
+        String response = helloServicePort.sayHello(&amp;quot;World&amp;quot;);
+        Assertions.assertThat(response).isEqualTo(&amp;quot;Hello World&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You have to specify the endpoint using &lt;code&gt;@ArquillianResource URL baseURL&lt;/code&gt;, because Arquillian generates
+a different base URL for each run. You may also create standalone integration tests (outside a Web environment and as such,
+without Arquillian).&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If you need to do manual testing, you can access the WSDL via HTTP at &lt;code&gt;http://{server}:{port}/ws/hello?wsdl&lt;/code&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Transports</title>
+      <link>http://seedstack.org/archives/16.7/addons/web-services/transports/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/web-services/transports/</guid>
+      <description>
+
+&lt;p&gt;The WS add-on supports HTTP and JMS transports. Each URL syntax described below.&lt;/p&gt;
+
+&lt;h1 id=&#34;standalone-http&#34;&gt;Standalone HTTP&lt;/h1&gt;
+
+&lt;p&gt;In a standalone environment you need to specify the full URL with the binding address and the port:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;http://localhost:4578/ws/hello
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;web-server-http&#34;&gt;Web server HTTP&lt;/h1&gt;
+
+&lt;p&gt;In a Web server environment you only need to specify the URL pattern:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/ws/hello
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;jms&#34;&gt;JMS&lt;/h1&gt;
+
+&lt;p&gt;JMS URIs are unchanged whatever the environment. They conform to the &lt;a href=&#34;http://www.w3.org/TR/soapjms/&#34;&gt;SOAP JMS specification&lt;/a&gt;.
+There are three lookup variants to retrieve connection factories and destinations:&lt;/p&gt;
+
+&lt;h2 id=&#34;jndi-lookup&#34;&gt;JNDI lookup&lt;/h2&gt;
+
+&lt;p&gt;This variant allows to retrieve the connection factory and the destination from JNDI:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;jms:jndi:lookupNameForDestination?jndiConnectionFactoryName=lookupNameForConnectionFactory
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is the minimal required URI where:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;lookupNameForDestination&lt;/code&gt; is the configured JNDI name of the JMS destination listened on.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;lookupNameForConnectionFactory&lt;/code&gt; is the configured JNDI name of the Connection Factory&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;jndiInitialContextFactory=fully.qualified.classname.of.jndi.initial.context.factory&amp;amp;jndiURL=url://to/jndi/context&amp;amp;jndiConnectionFactoryName=lookupNameForConnectionFactory&amp;amp;replyToName=REPLY.DESTINATION.NAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;replyToName&lt;/code&gt; parameter can be omitted in which case the implementation will create a temporary queue for the response.&lt;/p&gt;
+
+&lt;h2 id=&#34;queue-lookup&#34;&gt;Queue lookup&lt;/h2&gt;
+
+&lt;p&gt;This variant allows to directly specify a queue name using a connection factory from the one(s) configured via the Seed JMS plugin:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;jms:queue:QUEUE.NAME?connectionFactoryName=nameOfConfiguredConnectionFactory&amp;amp;replyToName=REPLY.QUEUE.NAME
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;replyToName&lt;/code&gt; can be omitted in which case the implementation will create a temporary queue for the response.&lt;/p&gt;
+
+&lt;h2 id=&#34;topic-lookup&#34;&gt;Topic lookup&lt;/h2&gt;
+
+&lt;p&gt;This variant allows to directly specify a queue name using a connection factory from the one(s) configured via the Seed JMS plugin:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;jms:topic:TOPIC.NAME?connectionFactoryName=nameOfConfiguredConnectionFactory
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;topicReplyToName&lt;/code&gt; can be omitted in which case the implementation will create a temporary queue for the response (not a temporary topic).&lt;/p&gt;
+
+&lt;h2 id=&#34;message-type&#34;&gt;Message type&lt;/h2&gt;
+
+&lt;p&gt;The Web-Services add-on uses binary JMS messages by default as &lt;a href=&#34;https://www.w3.org/TR/soapjms/#textmessage-considerations&#34;&gt;they have a number of advantages over text messages&lt;/a&gt;.
+In case you want to force the use of text messages, you can do so by specifying the &lt;code&gt;messageType&lt;/code&gt; parameter in the URI, as in this example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;jms:queue:QUEUE.NAME?connectionFactoryName=nameOfConfiguredConnectionFactory&amp;amp;messageType=text
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

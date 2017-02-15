@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/subscribe/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/subscribe/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Domain events</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/manual/events/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/manual/events/</guid>
+      <description>&lt;p&gt;Seed Business Framework contains an API to manage domain events. The &lt;code&gt;EventService&lt;/code&gt; service is used to fire events. Events
+must be immutable and extend &lt;code&gt;DomainEvent&lt;/code&gt; (which extends &lt;code&gt;BaseValueObject&lt;/code&gt;).&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;&lt;strong&gt;Notice:&lt;/strong&gt; Events can also be defined by implementing the &lt;code&gt;Event&lt;/code&gt; interface. Nevertheless, this requires to
+implement &lt;code&gt;equals()&lt;/code&gt; and &lt;code&gt;hashCode()&lt;/code&gt; methods. Otherwise event test fixtures and call cycle detection will not work.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;For instance this event&amp;hellip;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class MyEvent extends DomainEvent {
+	...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&amp;hellip;could be fired as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private EventService
+
+@Inject
+private MyEventFactory eventFactory;
+
+eventService.fire(eventFactory.createMyEvent());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;handling-events&#34;&gt;Handling events&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;EventHandlers&lt;/strong&gt; must implement &lt;code&gt;EventHandler&lt;/code&gt; in order to receive fired events:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class MyHandler implements EventHandler&amp;lt;MyEvent&amp;gt; {
+    @Override
+    public void handle(MyEvent event) {
+        ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;MyHandler&lt;/code&gt; implements &lt;code&gt;EventHandler&amp;lt;MyEvent&amp;gt;&lt;/code&gt; which means it listens to events of &lt;code&gt;MyEvent&lt;/code&gt; type.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;handle&lt;/code&gt; method has to be implemented to define the handler&amp;rsquo;s behaviour.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;synchronous-behavior&#34;&gt;Synchronous behavior&lt;/h2&gt;
+
+&lt;p&gt;Events are fired synchronously and &lt;strong&gt;belong to current transaction&lt;/strong&gt;. Depending on &lt;code&gt;Exception&lt;/code&gt; management, a fired exception might rollback the transaction.&lt;/p&gt;
+
+&lt;h2 id=&#34;event-inheritance&#34;&gt;Event inheritance&lt;/h2&gt;
+
+&lt;p&gt;If a triggered event is assignable to &lt;code&gt;MyEvent&lt;/code&gt; (by inheritance), it will also be handled - consequently, a handler that &lt;code&gt;implements EventHandler&amp;lt;DomainEvent&amp;gt;&lt;/code&gt; will be called on any event implementing &lt;code&gt;DomainEvent&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;testing-events&#34;&gt;Testing events&lt;/h1&gt;
+
+&lt;p&gt;The &lt;strong&gt;seed-business-core-test&lt;/strong&gt; module provides an &lt;code&gt;EventFixture&lt;/code&gt; class for integration tests on events.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Test that a given event was handled by an expected &lt;code&gt;EventHandler&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private EventFixture fixture;
+...
+fixture.given(eventFactory.createMyEvent())
+    .whenFired()
+    .wasHandledBy(MyHandler.class);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Test that a given event was handled by exactly a provided list of &lt;code&gt;EventHandler&lt;/code&gt;s:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private EventFixture fixture;
+...
+fixture.given(eventFactory.createMyEvent())
+    .whenFired()
+    .wasHandledExactlyBy(MyHandler.class, MyHandler2.class);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Test that a given event was not handled by an expected  &lt;code&gt;EventHandler&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private EventFixture fixture;
+...
+fixture.given(eventFactory.createMyEvent())
+    .whenFired()
+    .wasNotHandledBy(MyHandler3.class);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Test that a given event was generated from an expected &lt;code&gt;method()&lt;/code&gt; with appropriate &lt;em&gt;parameters&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private EventFixture fixture;
+...
+MyEvent myEvent = eventFactory.createMyEvent(SOME_EVENT_PARAM);
+fixtures.given(MyService.class)
+     .whenCalled(&amp;quot;doSomething&amp;quot;, SOME_METHOD_PARAM)
+     .eventWasHandledBy(myEvent, MyHandler.class);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Test if &lt;code&gt;MyHandler&lt;/code&gt; handler received &lt;code&gt;myEvent&lt;/code&gt; event when &lt;code&gt;doSomething()&lt;/code&gt; method of &lt;code&gt;MyService&lt;/code&gt; is called.&lt;/p&gt;
+
+&lt;h1 id=&#34;provided-events&#34;&gt;Provided events&lt;/h1&gt;
+
+&lt;h2 id=&#34;aggregate-events&#34;&gt;Aggregate events&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Seed Business Framework&lt;/strong&gt; provides following events:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;AggregateReadEvent&lt;/code&gt;: triggered when reading an aggregate - eg. repository &lt;code&gt;load()&lt;/code&gt; method&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;AggregatePersistedEvent&lt;/code&gt;: triggered when persisting an aggregate - eg. repository &lt;code&gt;save()&lt;/code&gt; method&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;AggregateDeletedEvent&lt;/code&gt;: triggered when deleting an aggregate - eg. repository &lt;code&gt;delete()&lt;/code&gt; method&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Above behaviour is defined by method annotations, respectively: &lt;code&gt;@Read&lt;/code&gt;, &lt;code&gt;@Persist&lt;/code&gt; and &lt;code&gt;@Delete&lt;/code&gt;.
+These annotations are only intercepted (and functional) within a repository class implementing &lt;code&gt;GenericRepository&lt;/code&gt; (read &lt;a href=&#34;#!/business-doc/hands-on-domain/repository&#34;&gt;more&lt;/a&gt; on repositories).&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;This mechanism is disabled by default.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;To enable this feature, use following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.business.event]
+domain.watch=true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Handle aggregate read events:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Define a custom read method:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;public interface MyRepository extends GenericRepository&amp;lt;AgregateRoot, AggregateIdKey&amp;gt; {
+    ...
+    @Read
+    AgregateRoot loadByName(String name);
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;GenericRepository&lt;/code&gt; methods (load, delete, persist, save) are already annotated with appropriate annotations.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The repository reading method is called, triggering an &lt;code&gt;AggregateReadEvent&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;// fire an AggregateReadEvent for the AgregateRoot
+productRepository.loadByName(aggregateName);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;MyHandler&lt;/code&gt; handles the triggered &lt;code&gt;AggregateReadEvent&lt;/code&gt; event:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;// handle an AggregateReadEvent
+class MyHandler implements EventHandler&amp;lt;AggregateReadEvent&amp;gt; {
+    public void handle(BaseRepositoryEvent event) {
+        ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;&lt;strong&gt;IMPORTANT:&lt;/strong&gt; Above handler receives all &lt;code&gt;AggregateReadEvent&lt;/code&gt; from any repository
+&lt;code&gt;@Read&lt;/code&gt; annotated method. Since &lt;code&gt;AggregateReadEvent&lt;/code&gt; events contain the aggregate root
+class and a context with the called method and its arguments, the handler behaviour can be defined accordingly.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Since all &amp;laquo;aggregate events&amp;raquo; extend &lt;code&gt;BaseAggregateEvent&lt;/code&gt;, it is possible to intercept them all in one handler:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// handle an BaseAggregateEvent
+class MyHandler implements EventHandler&amp;lt;BaseAggregateEvent&amp;gt; {
+    public void handle(BaseRepositoryEvent event) {
+        // if &amp;quot;event&amp;quot; depends on Product aggregate
+        if (Product.class.isAssignableFrom(event.getAggregateRoot())) {
+            ...
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;See above &lt;a href=&#34;#!/business-doc/hands-on-domain/events#handling-events&#34;&gt;handlers&lt;/a&gt; documentation for more detail about their generic behaviour.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

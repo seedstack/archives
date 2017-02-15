@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/transaction/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/transaction/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Sending messages</title>
+      <link>http://seedstack.org/archives/16.7/addons/jms/sending/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/jms/sending/</guid>
+      <description>
+
+&lt;h1 id=&#34;seed-managed-session&#34;&gt;Seed Managed Session&lt;/h1&gt;
+
+&lt;p&gt;Using a managed session consists in the following steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Inject a Session (note that a session is &lt;em&gt;transactional&lt;/em&gt;).&lt;/li&gt;
+&lt;li&gt;Specify the connection to use with the &lt;code&gt;@JmsConnection&lt;/code&gt; annotation.&lt;/li&gt;
+&lt;li&gt;Use the session to create the destination Queue or Topic.&lt;/li&gt;
+&lt;li&gt;Transaction will be automatically committed or rolled back according to your &lt;code&gt;@Transactional&lt;/code&gt; annotation.&lt;/li&gt;
+&lt;li&gt;Session object is managed by Seed. There is no need to care about thread-safe usage or closing it.&lt;/li&gt;
+&lt;li&gt;To fine tune the Transaction, please refer to the transaction support documentation.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Below is an example using a session to create a queue and send a TextMessage:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class ClassWithJMSSending {
+    @Inject
+    private Session session;
+
+    @Transactional
+    @JmsConnection(&amp;quot;connection-1&amp;quot;)
+    public void send(String stringMessage) throws JMSException {
+        Destination queue = session.createQueue(&amp;quot;queue1&amp;quot;);
+        TextMessage message1 = session.createTextMessage();
+        message1.setText(stringMessage);
+
+        MessageProducer producer = session.createProducer(queue);
+        producer.send(message1);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;manually-created-session&#34;&gt;Manually Created Session&lt;/h1&gt;
+
+&lt;p&gt;A connection can be injected directly inject and used to manually create all needed objects to send a message.
+In this case, except for the connection, nothing is managed by Seed. &lt;strong&gt;Objects life cycles have to be dealt with (creation, closing, etc.).&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyUnManagedMessageSender {
+    @Inject
+    @Named(&amp;quot;connection-1&amp;quot;)
+    private Connection connection;
+
+    public void send(String stringMessage) throws JMSException {
+        Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+        Destination queue = session.createQueue(&amp;quot;queue2&amp;quot;);
+        TextMessage message = session.createTextMessage();
+        message.setText(stringMessage);
+        message.setJMSExpiration(1000);
+        message.setJMSReplyTo(queue);
+        MessageProducer producer = session.createProducer(queue);
+        producer.send(message);
+        session.close();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;automatic-reconnection&#34;&gt;Automatic reconnection&lt;/h1&gt;
+
+&lt;p&gt;When you inject a session or a connection and automatic reconnection is enabled, Seed provides managed objects which
+embed a reconnection mechanism. When the connection is down, creating a producer or sending a message will throw a
+JMSException. But when the underlying connection is up again, &lt;strong&gt;the connection and the session will be refreshed&lt;/strong&gt;.
+So you won&amp;rsquo;t need to get new connection or session. By default Seed attempt to reconnect every 30 seconds, but this is
+configurable (see &lt;a href=&#34;#automatic-reconnection&#34;&gt;here&lt;/a&gt;).&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Notice that it is still up to you to handle the retry policy of the sent message.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Transactions</title>
+      <link>http://seedstack.org/archives/16.7/addons/spring-bridge/transactions/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/spring-bridge/transactions/</guid>
+      <description>
+
+&lt;p&gt;When using Spring framework along SeedStack, you might need to trigger transactions accross framework boundaries. The Spring bridge add-on provides a solution that goes both ways and lets you choose beteween either:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Managing Spring transactions from Seed code,&lt;/li&gt;
+&lt;li&gt;Managing Seed transactions from Spring code.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;seed-managed-transactions&#34;&gt;Seed-managed transactions&lt;/h1&gt;
+
+&lt;p&gt;You can specify a Spring-based transaction handler in your Seed transaction demarcation by adding the
+&lt;code&gt;@SpringTransactionManager&lt;/code&gt; annotation besides the &lt;code&gt;@Transactional&lt;/code&gt; one.&lt;/p&gt;
+
+&lt;p&gt;You can define any valid Spring transaction manager in any Spring context known by Seed Spring support. Example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;bean id=&amp;quot;transactionManager&amp;quot; class=&amp;quot;org.springframework.orm.hibernate3.HibernateTransactionManager&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;sessionFactory&amp;quot; ref=&amp;quot;sessionFactory&amp;quot; /&amp;gt;
+&amp;lt;/bean&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The value of the &lt;code&gt;@SpringTransactionManager&lt;/code&gt; annotation is used to choose the right transaction manager. Its default
+value is &lt;code&gt;transactionManager&lt;/code&gt;. Example of use in an integration test:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@RunWith(SeedITRunner.class)
+public class SpringTransactionHandlerIT {
+
+    @Inject
+    @Named(&amp;quot;customerDao&amp;quot;)
+    CustomerDao customerDao;
+
+    @Test
+    @Transactional
+    @SpringTransactionManager(&amp;quot;myTransactionManager&amp;quot;)
+    public void testTransactional() {
+        Assertions.assertThat(customerDao).isNotNull();
+        Customer customer = new Customer(&amp;quot;john&amp;quot;, &amp;quot;doe&amp;quot;, &amp;quot;john.doe@gmail.com&amp;quot;,
+                null);
+        customerDao.save(customer);
+        customerDao.delete(customer);
+        Assertions.assertThat(customer).isNotNull();
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;spring-managed-transactions&#34;&gt;Spring-managed transactions&lt;/h1&gt;
+
+&lt;p&gt;Seed has the ability to inject a Spring-configured &lt;strong&gt;JPA EntityManger&lt;/strong&gt;  in your Seed components. In that case, Spring will be managing all the JPA transactions. Seed code will be executed whithin Spring transactions. This feature can be very useful in batch jobs, when you need to let Spring manage transactions for performance reasons.&lt;/p&gt;
+
+&lt;h2 id=&#34;spring-configuration&#34;&gt;Spring configuration&lt;/h2&gt;
+
+&lt;p&gt;As stated above Spring will be the one that will manage all JPA features (mapping, transaction &amp;hellip;). As such, your Spring context files need to be configured explicitly with JPA context (JPA Datasources, TransactionManagers, EntityManagerFactories).&lt;/p&gt;
+
+&lt;h2 id=&#34;seed-configuration&#34;&gt;Seed configuration&lt;/h2&gt;
+
+&lt;p&gt;Seed JPA add-on can be removed if possible or at least left unconfigured. Add the following configuration for Spring bridge add-on instead:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.spring]
+manage-transactions = true
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/sections/seedruntime/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/sections/seedruntime/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Runtime</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/runtime/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/runtime/</guid>
+      <description>&lt;p&gt;The SeedStack Java framework is designed to work equally well and provide the same level of features in a standalone or
+a managed environment.&lt;/p&gt;
+
+&lt;h1 id=&#34;java&#34;&gt;Java&lt;/h1&gt;
+
+&lt;p&gt;The Java framework is tested and compatible with the following versions of Java:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Java 6 (minimum required version),&lt;/li&gt;
+&lt;li&gt;Java 7,&lt;/li&gt;
+&lt;li&gt;Java 8.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Please note that some add-ons may require a minimum version of greater than Java 6.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;web&#34;&gt;Web&lt;/h1&gt;
+
+&lt;p&gt;When used in a Web environment, the Java framework only requires a &lt;strong&gt;standard Servlet 3+ container&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;embedded-servlet-container&#34;&gt;Embedded Servlet container&lt;/h2&gt;
+
+&lt;p&gt;An embedded Servlet container, based upon &lt;a href=&#34;http://undertow.io&#34;&gt;Undertow&lt;/a&gt;, is provided with the following dependency:&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-web-undertow-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-web-undertow-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-seed-seed-web-undertow-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;seed-web-undertow&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-seed-seed-web-undertow-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-seed-seed-web-undertow-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-seed-seed-web-undertow-show&#34; onclick=&#34;$(&#39;#org-seedstack-seed-seed-web-undertow-version, #org-seedstack-seed-seed-web-undertow-warn&#39;).show(); $(&#39;#org-seedstack-seed-seed-web-undertow-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-seed-seed-web-undertow-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.seed:seed-web-undertow:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;It is lightweight, robust, very fast and can be used to produce full-fledged Web applications packaged in &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/maven-plugin/package&#34;&gt;standalone
+executable JARs&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;external-servlet-container&#34;&gt;External Servlet container&lt;/h2&gt;
+
+&lt;p&gt;Should you require the usage of an external Servlet container like Tomcat, the Java framework is automatically tested and
+fully compatible with several popular Servlet containers, listed below.&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;A JEE container is &lt;strong&gt;NOT&lt;/strong&gt; necessary for running SeedStack Java applications but can be used if needed.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

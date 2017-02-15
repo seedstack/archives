@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+<head>
+
+    
+
+<title>
+    Assemblers
+</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="robots" content="noindex,nofollow">
+
+
+
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,700,300,400" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Bitter:700" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/css/style.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/plugins/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/css/style.css">
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "SoftwareApplication",
+  "name" : "SeedStack",
+  "image" : "http://www.seedstack.org/img/logos/seedstack-logo-round.svg",
+  "publisher" : {
+    "@type" : "Organization",
+    "name" : "Open-Source Software"
+  },
+  "applicationCategory" : "development stack"
+}
+</script>
+
+
+
+<meta property="og:title" content="Assemblers" />
+<meta property="og:description" content="The assembler pattern is used to transfer a representation of the state of Aggregates to DTO/Representation objects.
+The Business Framework provides a interface and few base classes to ease the development of assemblers." />
+<meta property="og:url" content="http://seedstack.org/archives/16.7/docs/business/manual/assemblers/" />
+<meta property="og:site_name" content="SeedStack" />
+<meta property="og:image" content="http://seedstack.org/archives/16.7/img/opengraph-default.png" />
+
+
+
+<link rel="search" type="application/opensearchdescription+xml" href="http://seedstack.org/archives/16.7/opensearch.xml" title="SeedStack" />
+
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="http://seedstack.org/archives/16.7/img/favicons/manifest.json">
+<meta name="apple-mobile-web-app-title" content="SeedStack">
+<meta name="application-name" content="SeedStack">
+<meta name="msapplication-TileColor" content="#00a300">
+<meta name="msapplication-TileImage" content="/img/favicons/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<script type="text/javascript">
+    window.seedstack = {
+        baseUrl: "http:\/\/seedstack.org\/archives\/16.7\/",
+        state: {}
+    };
+</script>
+
+
+</head>
+<body class="homepage">
+    
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5R5FP9"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5R5FP9');</script>
+
+
+    <div id="header">
+        <div class="header">
+    <div class="container">
+        <a class="logo" href="http://seedstack.org/archives/16.7/">SeedStack</a>
+        <div class="topbar hidden-xs hidden-sm">
+            <ul class="loginbar pull-right">
+                <li><i class="fa fa-stack-overflow"></i> <a style="color: orange;" target="_blank" href="http://stackoverflow.com/questions/ask?tags=seedstack">Ask a question</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-comments"></i> <a target="_blank" href="https://kiwiirc.com/client/irc.freenode.net#seedstack">Discuss on IRC</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-github"></i> <a target="_blank" href="https://github.com/seedstack">GitHub</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-keyboard-o"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openHelp();">Shortcuts</a></li>
+            </ul>
+        </div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="fa fa-bars"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse navbar-responsive-collapse" data-role="navigation" style="pointer-events: none;">
+        <div class="container">
+            <ul class="nav navbar-nav" style="pointer-events: auto;">
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/getting-started">Getting started</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        Documentation
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://seedstack.org/archives/16.7/docs/seed">Java framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/w20">Web framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/business">Business framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/guides">Guides</a></li>
+                        <li><a target="_blank" href="https://github.com/seedstack/samples">Samples</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/addons">Add-ons</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/themes">Themes</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/posts">Blog</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        More
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="http://seedstack.org/archives/16.7/project/community">Community</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/roadmap">Roadmap</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/faq">FAQ</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/glossary">Glossary</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/tags">Tags</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <i class="search fa fa-search search-btn"></i>
+                    <div class="search-open">
+                        <form method="GET" action="/search">
+                            <div class="input-group animated fadeInDown">
+                                <input id="search-field" type="text" class="form-control" placeholder="Search" name="q">
+                                <span class="input-group-btn">
+                                    <button class="btn-u" type="submit">Go</button>
+                                </span>
+                            </div>
+                        </form>
+                        
+                            
+                        
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+        
+<div class="title-header small">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-12">
+                <h2>Business framework</h2>
+                <p class="hidden-xs">Based on the Domain-Driven-Design methodology, the business framework will help you structure and implement your business code cleanly and efficiently.</p>
+            </div>
+            <div class="col-md-3 hidden-sm hidden-xs">
+                <div class="header-image-wrapper">
+                    <img class="header-image" src="http://seedstack.org/archives/16.7/img/logos/business-logo.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="title-subheader">
+    <div class="container">
+        <ul>
+            <li><h3 class=''><i class="fa fa-play-circle"></i> <a href="http://seedstack.org/archives/16.7/docs/business">Introduction</a></h3></li>
+            <li><h3 class='active'><i class="fa fa-book"></i> <a href="http://seedstack.org/archives/16.7/docs/business/manual">Manual</a></h3></li>
+            <li><h3><i class="fa fa-info-circle"></i> <a href="http://seedstack.org/archives/16.7/javadoc" target="_blank">Javadoc</a></h3></li>
+            <li><h3><i class="fa fa-tag"></i> <a href="https://github.com/seedstack/business/releases" target="_blank">Releases</a></h3></li>
+            <li><h3><i class="fa fa-github"></i> <a href="https://github.com/seedstack/business" target="_blank">Source</a></h3></li>
+        </ul>
+    </div>
+</div>
+
+    </div>
+    <div id="content" class="container">
+        <div class="row">
+    <div class="col-md-9">
+        <div class="content-wrapper">
+            <div class="doc-content">
+                <p>The assembler pattern is used to transfer a representation of the state of <em>Aggregates</em> to <em>DTO/Representation</em> objects.
+The Business Framework provides a interface and few base classes to ease the development of assemblers.</p>
+
+<h1 id="default-assembler">Default assembler</h1>
+
+<p>By default, if your mapping is obvious, you don&rsquo;t have to create an explicit assembler. You just add the <code>@DtoOf</code> annotation
+on your DTO class to link them to their related Aggregate root:</p>
+
+<pre><code>@DtoOf(Product.class)
+class ProductRepresentation {
+    ...
+}
+</code></pre>
+
+<p>You can then inject a ModelMapper-based assembler with the <code>@ModelMapper</code> annotation:</p>
+
+<pre><code>@Inject
+@ModelMapper
+Assembler&lt;Product, ProductRepresentation&gt; productAssembler;
+</code></pre>
+
+<p>This assembler uses the default settings of the <a href="http://modelmapper.org/">ModelMapper library</a>.</p>
+
+<div class="callout callout-warning">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+            
+                <i class="fa fa-exclamation-triangle icon-2x"></i>
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>It is strongly recommended to always have a DTO. <strong>Never serialize domain objects to your clients.</strong> Even with the default
+assembler you can define a DTO that is a flat and/or partial mapping of your domain Aggregate. ModelMapper will
+automatically figure out the field mapping if you respect <a href="http://modelmapper.org/getting-started/#mapping">their conventions</a>.
+Besides, you should always have integration tests that checks that the automatic mapping is correct.</p>
+
+        </div>
+    </div>
+</div>
+
+<h1 id="explicit-assembler">Explicit assembler</h1>
+
+<p>Create an assembler extending <code>BaseAssembler</code> class. It will contains
+the logic of the copy between aggregate and DTO. Then, inject your
+assembler in your class.</p>
+
+<p>There are two methods to implement:</p>
+
+<ul>
+<li><code>doAssembleDtoFromAggregate(dto, aggregate)</code></li>
+<li><code>doMergeAggregateWithDto(aggregate, dto)</code></li>
+</ul>
+
+<p>The first method creates a DTO from an aggregate root. The second
+merge the mutable fields of an <strong>existing</strong> aggregate with the data
+from the dto.</p>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>Note that the aggregate identity should never be updated by the DTO.</p>
+
+        </div>
+    </div>
+</div>
+
+<h1 id="example">Example</h1>
+
+<p>An assembler assembling a representation of a product.</p>
+
+<pre><code>public class ProductAssembler extends BaseAssembler&lt;Product,ProductRepresentation&gt; {
+
+    @Override
+    protected void doAssembleDtoFromAggregate(ProductRepresentation targetDto, 
+	         Product sourceAggregate) {
+        // Flatten the id
+        targetDto.setStoreId(sourceAggregate.getAggregateId().getStoreId());
+        targetDto.setProductCode(sourceAggregate.getAggregateId().getProductCode());
+         
+        targetDto.setName(sourceAggregate.getName());
+        targetDto.setDescription(sourceAggregate.getDescription());
+    }
+	 
+    @Override
+    protected void doMergeAggregateWithDto(Product targetAggregate, 
+	        ProductRepresentation sourceDto) {
+        // The id is not modified
+        targetAggregate.setName(sourceDto.getName());
+        targetAggregate.setDescription(sourceDto.getDescription());
+    }
+}
+</code></pre>
+
+<p>You can inject the assembler via its interface or directly via the
+implementation class. Both way are acceptable, but the first way
+provides a more encapsulated interface to the developer using it.</p>
+
+<pre><code>@Inject
+Assembler&lt;Product, ProductRepresentation&gt; productAssembler;
+
+@Inject
+ProductAssembler productAssembler;
+</code></pre>
+
+<p>Then,</p>
+
+<pre><code>// assemble a representation
+representation = productAssembler.assembleDtoFromAggregate(product);
+
+// merge an aggregate
+Product productToMerge = catalog.retrieve(productId);
+productAssembler.mergeAggregateWithDto(productToMerge, productRepresentationSource);
+catalog.update(productToMerge);
+</code></pre>
+
+<h1 id="domain-specific-language">Domain-Specific Language</h1>
+
+<p>Assembler implementations remains simple, but its usage can become
+tedious when using lists or complexe worflows. To simplify this use
+cases the Business Framework provides a DSL throught
+<code>FluentAssembler</code>.</p>
+
+<h2 id="lists">Lists</h2>
+
+<p>Replace common boilerplate code:</p>
+
+<pre><code>List&lt;ProductRepresentation&gt; representations = new ArrayList&lt;&gt;();
+for (Product product : products {
+    representations.add(productAssembler.assembleDtoFromAggregate(product))
+}
+</code></pre>
+
+<p>by oneliners:</p>
+
+<pre><code>fluentAssembler.assemble(products).to(ProductRepresentation.class)
+</code></pre>
+
+<h2 id="tuples">Tuples</h2>
+
+<pre><code>fluentAssembler.assemble(product, order).to(RecipeRepresentation.class)
+</code></pre>
+
+<h2 id="qualified-assemblers">Qualified assemblers</h2>
+
+<p>You can specify the assembler the DSL should use by specifying a
+qualifier.
+For instance, the following example use the <strong>default ModelMapper
+assembler</strong>.
+So in this case you don&rsquo;t even have to create an assembler class.</p>
+
+<pre><code>fluently.assemble(products).with(AssemblerTypes.MODEL_MAPPER).to(MyDto.class)
+</code></pre>
+
+<h2 id="advanced-usage">Advanced usage</h2>
+
+<p>When we merge a representation to an aggregate, the assembler expects
+an existing aggregate root instance. Normally you have to retreive
+this instance from a repository or to create it from a factory. This
+can become a little tedious when you have to do it a lot. Or by adding
+few metadata to your DTO, you can have the DSL doing it for you.</p>
+
+<h3 id="get-an-aggregate-from-its-factory">Get an aggregate from its factory</h3>
+
+<p>If the aggregate root to merge doesn&rsquo;t exists, you can tell the DSL to
+create it from its factory.</p>
+
+<pre><code>fluentAssembler.merge(repr).into(Product.class).fromFactory();
+</code></pre>
+
+<p>It will search the aggregate root&rsquo;s factory
+(<code>GenericFactory&lt;Product&gt;</code>). Then it will search the appropriate
+method to call. In order to indicate to the DSL which method should be called,
+annotate the DTO&rsquo;s getters matching the factory method&rsquo;s parameters
+with <code>@MatchingFactoryParameter(index=0)</code>. The index represents the
+position of the parameters in the factory method.</p>
+
+<pre><code>public class ProductRepesentation {
+
+    private Short storeId;
+    private Short productCode;
+    private String name;
+    private String description
+
+    @MatchingFactoryParameter(index=0)
+    public Short getStoreId() { ... }
+
+    @MatchingFactoryParameter(index=1)
+    public Short getProductCode() { ... }
+
+    @MatchingFactoryParameter(index=2)
+    public Short getName() { ... }
+
+    public Short getDescription() { ... }
+}
+</code></pre>
+
+<pre><code>public interface ProductFactory extends GenericFactory&lt;Product&gt; {
+
+	Product createProduct(Short storeId, Short productCode, String name);
+}
+</code></pre>
+
+<h3 id="get-an-aggregate-from-its-repository">Get an aggregate from its repository</h3>
+
+<p>If the aggregate root to merge already exists, you can tell the DSL to
+get it from its repository. If the DSL doesn&rsquo;t find the aggregate root
+from the repository, two strategies are possible. The first throw an
+exception, the second fall back to the <code>fromFactory()</code> method.</p>
+
+<pre><code>try {
+    product = fluentAssembler.merge(representation).into(Product.class)
+        .fromRepository().orFail();
+
+} catch (AggregateNotFoundException e) {
+    return Response.status(Response.Status.NOT_FOUND).build();
+}
+</code></pre>
+
+<pre><code>product = fluentAssembler.merge(repr).into(Product.class)
+    .fromRepository().thenFromFactory();
+</code></pre>
+
+<p>It will search the aggregate root&rsquo;s repository
+(<code>GenericRepository&lt;Product&gt;</code>). Then it will call its <code>load()</code>
+method.
+In order to indicate to the DSL how to find the ID,
+annotate the DTO getter matching the aggregate root ID with
+<code>@MatchingEntityId</code>.</p>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>If the ID is composite annotate the getter
+methods matching the ID constructor parameters with
+<code>@MatchingEntityId(index=0)</code>. In this case, the index is mandatory and
+represents the position of the parameters in the constructor method.</p>
+
+        </div>
+    </div>
+</div>
+
+<pre><code>public class ProductRepesentation {
+
+    private Short storeId;
+    private Short productCode;
+    private String name;
+    private String description
+
+    @MatchingEntityId(index=0)
+    public Short getStoreId() { ... }
+
+    @MatchingEntityId(index=1)
+    public Short getProductCode() { ... }
+
+    public Short getName() { ... }
+
+    public Short getDescription() { ... }
+}
+</code></pre>
+
+<pre><code>public class ProductId extends BaseValueObject {
+
+	private Short storeId;
+	private Short productCode;
+
+	public ProductId(Short storeId, Short productCode) {
+		this.storeId = storeId;
+		this.productCode = productCode;
+	}
+
+    // Getters ...
+}
+</code></pre>
+
+<h1 id="automation-with-modelmapper">Automation with ModelMapper</h1>
+
+<p>DTOs are meant to expose domain objects or a part of these objects.
+So there are often similarities between the DTOs and the domain
+object.
+This can lead to a lot of boilerplate code when the assembler doesn&rsquo;t
+hold complex logic but just populates objects.</p>
+
+<p>For this use case, you can now <strong>use a default</strong> assembler based on
+<a href="http://modelmapper.org/">ModelMapper</a>. It&rsquo;s an <em>automatic assembler</em>
+which provides an <strong>intelligent mapping</strong>.</p>
+
+<h2 id="how-to-use-it">How to use it ?</h2>
+
+<p>The only thing you have to do is to annotate the DTO with
+<code>@DtoOf(MyAggregate.class)</code>. It tells the framework to bind a default
+assembler for assembling <code>MyAggregate</code> into the annotated DTO.
+After you can inject the assembler as follows, and use it as usual.</p>
+
+<pre><code>@DtoOf(MyProduct.class)
+public class MyDto { ... }
+</code></pre>
+
+<pre><code>@Inject
+@ModelMapper
+private Assembler&lt;MyAggregate,MyDto&gt; myDtoAssemebler;
+</code></pre>
+
+<h2 id="how-does-it-work">How does it work ?</h2>
+
+<p>It uses a intelligent mapping provided by the ModelMapper library.
+You can find the detailed explanation here
+<a href="http://modelmapper.org/user-manual/how-it-works/">matching documentation</a>.</p>
+
+<h2 id="can-i-customize-it">Can I customize it ?</h2>
+
+<p>Yes. If there are ambiguities, or if you only want to change the mapping of
+one field, you don&rsquo;t need to fall back to the old assembler. You can
+just create an assembler extending the <code>ModelMapperAssembler</code> class and
+implement the methods returning a <code>ModelMapper</code> instance.</p>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>See here <a href="http://modelmapper.org/user-manual/property-mapping/">how to override the mapping</a>.</p>
+
+        </div>
+    </div>
+</div>
+
+<p>It supports:</p>
+
+<ul>
+<li>Deep mapping</li>
+<li>Skipping properties</li>
+<li>Providers</li>
+<li>Conditional mapping</li>
+<li>String mapping</li>
+</ul>
+
+<h3 id="can-i-see-some-code">Can I see some code ?</h3>
+
+<p>Below is an example from the <a href="https://github.com/seedstack/store-webapp-sample">Web application sample</a>.
+The Product contains a field <code>entityId</code> and a field <code>categoryId</code>, but the representation only contains a field
+<code>id</code>. So ModelMapper doesn&rsquo;t know which field match.</p>
+
+<p>To fix this, extend <code>ModelMapperAssembler</code> and add a <code>PropertyMap</code> to the <code>modelMapper</code>.</p>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>Note that, as you implemented an assembler, you don&rsquo;t use the default
+assembler anymore. So remove the <code>@DtoOf</code> annotation on the DTO.</p>
+
+        </div>
+    </div>
+</div>
+
+<pre><code>public class ProductModelMapperAssembler extends ModelMapperAssembler&lt;Product, ProductRepresentation&gt; {
+
+    @Override
+    protected void configureAssembly(ModelMapper modelMapper) {
+        modelMapper.addMappings(new PropertyMap&lt;Product, ProductRepresentation&gt;() {
+            @Override
+            protected void configure() {
+                // Required due to the ambiguity with the categoryId field
+                map().setId(source.getEntityId());
+            }
+        });
+    }
+
+    @Override
+    protected void configureMerge(ModelMapper modelMapper) {
+    }
+}
+</code></pre>
+
+<p>Then use it as usual.</p>
+
+<pre><code>@Inject
+private Assembler&lt;Product, ProductRepresentation&gt; assembler;
+</code></pre>
+
+<pre><code>assembler.assembleDtoFromAggregate(aProduct);
+</code></pre>
+
+<hr />
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        
+<div class="side-menu">
+    
+        
+        <div class="list-group">
+            <ul class="nav">
+                
+                
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/" class="list-group-item ">
+                            Business framework basics
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/model/" class="list-group-item ">
+                            Domain model
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/aggregates/" class="list-group-item ">
+                            Aggregates
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/repositories/" class="list-group-item ">
+                            Repositories
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/factories/" class="list-group-item ">
+                            Factories
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/events/" class="list-group-item ">
+                            Domain events
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/policies/" class="list-group-item ">
+                            Policies
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/assemblers/" class="list-group-item  active ">
+                            Assemblers
+                        </a>
+                        
+                        
+                            <nav id="TableOfContents">
+<ul>
+<li><a href="#default-assembler">Default assembler</a></li>
+<li><a href="#explicit-assembler">Explicit assembler</a></li>
+<li><a href="#example">Example</a></li>
+<li><a href="#domain-specific-language">Domain-Specific Language</a>
+<ul>
+<li><a href="#lists">Lists</a></li>
+<li><a href="#tuples">Tuples</a></li>
+<li><a href="#qualified-assemblers">Qualified assemblers</a></li>
+<li><a href="#advanced-usage">Advanced usage</a>
+<ul>
+<li><a href="#get-an-aggregate-from-its-factory">Get an aggregate from its factory</a></li>
+<li><a href="#get-an-aggregate-from-its-repository">Get an aggregate from its repository</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#automation-with-modelmapper">Automation with ModelMapper</a>
+<ul>
+<li><a href="#how-to-use-it">How to use it ?</a></li>
+<li><a href="#how-does-it-work">How does it work ?</a></li>
+<li><a href="#can-i-customize-it">Can I customize it ?</a>
+<ul>
+<li><a href="#can-i-see-some-code">Can I see some code ?</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                            <script>
+                                seedstack.state.previousPage = '\/archives\/16.7\/docs\/business\/manual\/policies\/';
+                            </script>
+                            
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/finders/" class="list-group-item ">
+                            Finders
+                        </a>
+                        
+                            <script>
+                                seedstack.state.nextPage = '\/archives\/16.7\/docs\/business\/manual\/finders\/';
+                            </script>
+                            
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/pagination/" class="list-group-item ">
+                            Pagination
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+            </ul>
+        </div>
+        
+    
+    
+    <div class="list-group">
+        <ul class="nav">
+            <li class="list-group-item"><div style="margin-bottom: 10px;"><i class="fa fa-tag"></i> Tags</div>
+                <div class="tags">
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/dto">Dto</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/pattern">Pattern</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/mapping">Mapping</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/object">Object</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/aggregate">Aggregate</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/factory">Factory</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/repository">Repository</a>
+                    
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="list-group">
+        <ul class="nav">
+            
+                <li><a class="list-group-item" href="https://github.com/seedstack/website/edit/master/content/docs/business/manual/assemblers.md" target="_blank"><i class="fa fa-edit"></i> Contribute to this page</a></li>
+            
+        </ul>
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+    <div id="footer">
+        <div class="footer-v3">
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="headline"><h2>About</h2></div>
+                    <p class="margin-bottom-25 md-margin-bottom-40">SeedStack is an Open-Source enterprise-class development stack for building modern and robust applications.</p>
+                </div>
+
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="posts">
+                        <div class="headline"><h2>License</h2></div>
+                        <p>
+                            Code licensed under the <a href="https://www.mozilla.org/MPL/2.0" target="_blank">Mozilla Public License 2.0</a>.
+                            <br/>
+                            Documentation licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 map-img">
+                    <div class="headline"><h2>Contact us</h2></div>
+                    <address>
+                        <p>
+                            IRC channel <a href="irc://chat.freenode.net/seedstack">#seedstack on Freenode community</a>
+                            <br/>
+                            Google group <a href="https://groups.google.com/forum/#!forum/seedstack">seedstack@googlegroups.com</a>
+                        </p>
+                    </address>
+
+                    <div class="headline"><h2>Stay in touch</h2></div>
+                    <div style="margin-bottom: 20px;">
+                        <a class="twitter-follow-button"
+                           href="https://twitter.com/seedstack"
+                           data-show-count="false"
+                           data-lang="en">
+                            Follow @seedstack
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+    <div id="hotkeys-modal" class="modal">
+    <div class="modal-dialog" style="min-width: 960px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Keyboard shortcuts <a id="show-all-shortcuts" style="cursor: pointer;" onclick="seedstack.ui.showAllShortcuts();">(Show all)</a></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Global shortcuts</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>?</kbd>
+                                </td>
+                                <td>Show this help dialog</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>/</kbd>
+                                </td>
+                                <td>Focus the search field</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↑</kbd>
+                                </td>
+                                <td>Go to previous menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↓</kbd>
+                                </td>
+                                <td>Go to next menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>S</kbd>
+                                </td>
+                                <td>Go to Seed framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>W</kbd>
+                                </td>
+                                <td>Go to W20 framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>B</kbd>
+                                </td>
+                                <td>Go to Business framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>A</kbd>
+                                </td>
+                                <td>Go to add-ons</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>G</kbd>
+                                </td>
+                                <td>Go to guides</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Seed framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>t</kbd>
+                                </td>
+                                <td>Go to testing</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to cryptography</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>w</kbd>
+                                </td>
+                                <td>Go to Web</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>r</kbd>
+                                </td>
+                                <td>Go to REST</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>o</kbd>
+                                </td>
+                                <td>Go to operations</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>T</kbd>
+                                </td>
+                                <td>Go to transactions</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Business framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>m</kbd>
+                                </td>
+                                <td>Go to model</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>l</kbd>
+                                </td>
+                                <td>Go to lifecycle</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>e</kbd>
+                                </td>
+                                <td>Go to events</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>p</kbd>
+                                </td>
+                                <td>Go to policies</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>a</kbd>
+                                </td>
+                                <td>Go to assemblers</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>f</kbd>
+                                </td>
+                                <td>Go to finders</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>P</kbd>
+                                </td>
+                                <td>Go to pagination</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>W20 framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to culture</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>h</kbd>
+                                </td>
+                                <td>Go to hypermedia</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>u</kbd>
+                                </td>
+                                <td>Go to UI</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="versions-modal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 id="versions-title" class="modal-title">Fetching components...</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="versions-table" class="table table-striped table-hover table-bordered">
+                            <tr>
+                                <th>Component</th>
+                                <th>Version</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/github.min.css">
+
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mousetrap/1.4.6/mousetrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lunr.js/0.5.9/lunr.min.js"></script>
+<script src="/assets/unify/plugins/smoothScroll.js"></script>
+<script src="/js/xml2json.js"></script>
+<script src="/js/jquery.highlight.js"></script>
+<script src="/js/seedstack.js"></script>
+<script>
+    $(document).ready(function () {
+        var $search = $('.search-btn');
+
+        $('.search').click(function () {
+            if ($search.hasClass('fa-search')) {
+                seedstack.ui.openSearch();
+            } else {
+                seedstack.ui.closeSearch();
+            }
+        });
+
+        $('pre code').each(function (i, block) {
+            hljs.highlightBlock(block);
+        });
+
+        $('.side-menu').affix({
+            offset: {
+                top: $('#header').height() + 20,
+                bottom: $('#footer').height() + 40
+            }
+        });
+
+        Mousetrap.bind('/', function () {
+            seedstack.ui.openSearch();
+            return false;
+        });
+
+        Mousetrap.bind('alt+up', function () {
+            if (seedstack.state.previousPage) {
+                window.location = seedstack.state.previousPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('alt+down', function () {
+            if (seedstack.state.nextPage) {
+                window.location = seedstack.state.nextPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('?', function () {
+            seedstack.ui.openHelp();
+            return false;
+        });
+
+        Mousetrap.bind('esc', function () {
+            seedstack.ui.closeHelp();
+            seedstack.ui.closeSearch();
+            return false;
+        });
+
+        var originalCallback = Mousetrap.stopCallback;
+        Mousetrap.stopCallback = function (e, element, combo) {
+            if (combo === 'esc') {
+                return false;
+            }
+
+            return originalCallback(e, element, combo);
+        };
+
+        function bindShortcuts(value) {
+            $.each(value, function (sequence, item) {
+                if (typeof item === 'string') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item;
+                        return false;
+                    });
+                } else if (typeof item === 'object') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item.path;
+                        return false;
+                    });
+                    if (item.shortcuts && location.pathname.indexOf(item.path) === 0) {
+                        bindShortcuts(item.shortcuts);
+                    }
+                }
+            });
+        }
+
+        function resolveVersions() {
+            var $versionsTitle = $('#versions-title');
+            if (!seedstack.versions) {
+                $.ajax({
+                    dataType: 'text',
+                    url: '/distribution.pom.xml'
+                }).done(function (data) {
+                    var pom = new X2JS().xml_str2json(data);
+
+                    if (pom.project && pom.project.properties && pom.project.version) {
+                        var $versions = $('#versions-table');
+                        var blackList = ['seedstack-maven-plugin', 'java-compiler', 'maven-failsafe-plugin', 'logback'];
+                        var versions = {};
+
+                        $versionsTitle.text("SeedStack " + pom.project.version);
+
+                        $.each(pom.project.properties, function (name, value) {
+                            if (/\.version$/.test(name)) {
+                                var shortName = name.substr(0, name.indexOf('.version'));
+                                if ($.inArray(shortName, blackList) === -1) {
+                                    versions[shortName] = value;
+                                    $versions.append(
+                                            '<tr>' +
+                                            '<td>' +
+                                            shortName.substr(0, 1).toUpperCase() + shortName.substr(1, shortName.length - 1).replace(/-/g, ' ') +
+                                            '</td>' +
+                                            '<td>' + value + '</td>' +
+                                            '</tr>');
+                                }
+                            }
+                        });
+
+                        $('.loginbar').prepend(
+                                '<li class="hidden-xs hidden-sm"><i class="fa fa-tag"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openVersions();">Latest version: ' + pom.project.version + '</a></li>' +
+                                '<li class="topbar-devider"></li>'
+                        );
+
+                        seedstack.versions = versions;
+                    }
+                }).error(function () {
+                    console.error("SeedStack version could not be resolved");
+                });
+            }
+        }
+
+        bindShortcuts(seedstack.ui.shortcuts);
+
+        resolveVersions();
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $('#hotkeys-modal, #versions-modal').bind('hidden.bs.modal', function () {
+            $("html").css("margin-right", "0px");
+        }).bind('show.bs.modal', function () {
+            $("html").css("margin-right", "-15px");
+        });
+
+        var query = seedstack.strings.parseQueryString(location);
+        if (query.h && query.h.length > 0) {
+            $('.doc-content').highlight(query.h);
+            if (query.scroll) {
+                $('html, body').animate({
+                    scrollTop: $('span[class=highlight]:first').offset().top - 20
+                }, 250);
+            }
+        }
+    });
+</script>
+<script>window.twttr = (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+    if (d.getElementById(id))return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    t._e = [];
+    t.ready = function (f) {
+        t._e.push(f);
+    };
+    return t;
+}(document, "script", "twitter-wjs"));</script>
+
+</body>
+</html>

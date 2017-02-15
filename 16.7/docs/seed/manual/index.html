@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+<head>
+
+    
+
+<title>
+    Java framework basics
+</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="robots" content="noindex,nofollow">
+
+
+
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,700,300,400" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Bitter:700" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/css/style.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/plugins/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/css/style.css">
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "SoftwareApplication",
+  "name" : "SeedStack",
+  "image" : "http://www.seedstack.org/img/logos/seedstack-logo-round.svg",
+  "publisher" : {
+    "@type" : "Organization",
+    "name" : "Open-Source Software"
+  },
+  "applicationCategory" : "development stack"
+}
+</script>
+
+
+
+<meta property="og:title" content="Java framework basics" />
+<meta property="og:description" content="SeedStack Java framework (or simply Seed) is a solution for building Java applications, no matter how simple or advanced,
+without pain. It does so by providing a simple yet highly modular architecture and by taking charge of various technical
+aspects frequently encountered in enterprise applications. It accommodates any kind of Java 1.6&#43; runtime and offers the
+same level of features from command-line standalone JVMs to full-fledged Web application servers." />
+<meta property="og:url" content="http://seedstack.org/archives/16.7/docs/seed/manual/" />
+<meta property="og:site_name" content="SeedStack" />
+<meta property="og:image" content="http://seedstack.org/archives/16.7/img/opengraph-default.png" />
+
+
+
+<link rel="search" type="application/opensearchdescription+xml" href="http://seedstack.org/archives/16.7/opensearch.xml" title="SeedStack" />
+
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="http://seedstack.org/archives/16.7/img/favicons/manifest.json">
+<meta name="apple-mobile-web-app-title" content="SeedStack">
+<meta name="application-name" content="SeedStack">
+<meta name="msapplication-TileColor" content="#00a300">
+<meta name="msapplication-TileImage" content="/img/favicons/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<script type="text/javascript">
+    window.seedstack = {
+        baseUrl: "http:\/\/seedstack.org\/archives\/16.7\/",
+        state: {}
+    };
+</script>
+
+
+</head>
+<body class="homepage">
+    
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5R5FP9"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5R5FP9');</script>
+
+
+    <div id="header">
+        <div class="header">
+    <div class="container">
+        <a class="logo" href="http://seedstack.org/archives/16.7/">SeedStack</a>
+        <div class="topbar hidden-xs hidden-sm">
+            <ul class="loginbar pull-right">
+                <li><i class="fa fa-stack-overflow"></i> <a style="color: orange;" target="_blank" href="http://stackoverflow.com/questions/ask?tags=seedstack">Ask a question</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-comments"></i> <a target="_blank" href="https://kiwiirc.com/client/irc.freenode.net#seedstack">Discuss on IRC</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-github"></i> <a target="_blank" href="https://github.com/seedstack">GitHub</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-keyboard-o"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openHelp();">Shortcuts</a></li>
+            </ul>
+        </div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="fa fa-bars"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse navbar-responsive-collapse" data-role="navigation" style="pointer-events: none;">
+        <div class="container">
+            <ul class="nav navbar-nav" style="pointer-events: auto;">
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/getting-started">Getting started</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        Documentation
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://seedstack.org/archives/16.7/docs/seed">Java framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/w20">Web framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/business">Business framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/guides">Guides</a></li>
+                        <li><a target="_blank" href="https://github.com/seedstack/samples">Samples</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/addons">Add-ons</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/themes">Themes</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/posts">Blog</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        More
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="http://seedstack.org/archives/16.7/project/community">Community</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/roadmap">Roadmap</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/faq">FAQ</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/glossary">Glossary</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/tags">Tags</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <i class="search fa fa-search search-btn"></i>
+                    <div class="search-open">
+                        <form method="GET" action="/search">
+                            <div class="input-group animated fadeInDown">
+                                <input id="search-field" type="text" class="form-control" placeholder="Search" name="q">
+                                <span class="input-group-btn">
+                                    <button class="btn-u" type="submit">Go</button>
+                                </span>
+                            </div>
+                        </form>
+                        
+                            
+                        
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+        
+<div class="title-header small">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-12">
+                <h2>Java framework</h2>
+                <p class="hidden-xs">Also known as Seed, the Java framework provides support for a large range of technologies and standards from the Java world.</p>
+            </div>
+            <div class="col-md-3 hidden-sm hidden-xs">
+                <div class="header-image-wrapper">
+                    <img class="header-image" src="http://seedstack.org/archives/16.7/img/logos/seed-logo.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="title-subheader">
+    <div class="container">
+        <ul>
+            <li><h3 class=''><i class="fa fa-play-circle"></i> <a href="http://seedstack.org/archives/16.7/docs/seed">Introduction</a></h3></li>
+            <li><h3 class='active'><i class="fa fa-book"></i> <a href="http://seedstack.org/archives/16.7/docs/seed/manual">Manual</a></h3></li>
+            <li><h3 class=''><i class="fa fa-server"></i> <a href="http://seedstack.org/archives/16.7/docs/seed/runtime">Runtime</a></h3></li>
+            <li><h3 class=''><i class="fa fa-cogs"></i> <a href="http://seedstack.org/archives/16.7/docs/seed/maven-plugin">Maven plugin</a></h3></li>
+            <li><h3><i class="fa fa-info-circle"></i> <a href="http://seedstack.org/archives/16.7/javadoc" target="_blank">Javadoc</a></h3></li>
+            <li><h3><i class="fa fa-tag"></i> <a href="https://github.com/seedstack/seed/releases" target="_blank">Releases</a></h3></li>
+            <li><h3><i class="fa fa-github"></i> <a href="https://github.com/seedstack/seed" target="_blank">Source</a></h3></li>
+        </ul>
+    </div>
+</div>
+
+    </div>
+    <div id="content" class="container">
+        <div class="row">
+    <div class="col-md-9">
+        <div class="content-wrapper">
+            <div class="doc-content">
+                <p>SeedStack Java framework (or simply Seed) is a solution for building Java applications, no matter how simple or advanced,
+without pain. It does so by providing a simple yet highly modular architecture and by taking charge of various technical
+aspects frequently encountered in enterprise applications. It accommodates any kind of Java 1.6+ runtime and offers the
+same level of features from command-line standalone JVMs to full-fledged Web application servers.</p>
+
+<h1 id="dependencies">Dependencies</h1>
+
+<p>A minimal Seed-based project only requires the <code>seed-core</code> module and its dependencies in the classpath. This module
+provides basic Seed functionality to your application like lifecycle management, configuration, dependency injection,
+logging or error diagnostics. To include <code>seed-core</code> in your application you have two main options:</p>
+
+<ul>
+<li>Using a dependency manager like <a href="http://maven.apache.org">Maven</a> or <a href="http://gradle.io">Gradle</a>. <strong>This is the recommended
+solution.</strong></li>
+<li>Add <code>seed.jar</code> manually to your application. This JAR contains all Seed code and the required dependencies in a single,
+convenient yet big, library.<br /></li>
+</ul>
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+<div class="tab-v2">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab-org-seedstack-seed-seed-core-maven" data-toggle="tab" aria-expanded="true">Maven</a></li>
+        <li class=""><a href="#tab-org-seedstack-seed-seed-core-gradle" data-toggle="tab" aria-expanded="true">Gradle</a></li>
+    </ul>
+    <span class="tabs-icon fa-2x fa fa-cubes pull-right"></span>
+    <div class="clear-both"></div>
+    <div class="tab-content">
+        <div class="tab-pane in active" id="tab-org-seedstack-seed-seed-core-maven">
+            <pre style="margin-top: 0;"><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.seedstack.seed&lt;/groupId&gt;
+    &lt;artifactId&gt;seed-core&lt;/artifactId&gt;<span id="org-seedstack-seed-seed-core-version" style="display: none;">
+    &lt;version&gt;2.3.0&lt;/version&gt;</span>
+&lt;/dependency&gt;</code></pre>
+            <small class="pull-right" style="color: #aaa; margin-top: -20px; margin-right: 5px;">
+                <span id="org-seedstack-seed-seed-core-warn" style="display: none;"><i class="fa fa-warning" style="color: orange;"></i> Specifying versions manually is error-prone, use the <a href="http://seedstack.org/archives/16.7/getting-started/distribution">distribution</a> instead.</span>
+                <a style="cursor: pointer;" id="org-seedstack-seed-seed-core-show" onclick="$('#org-seedstack-seed-seed-core-version, #org-seedstack-seed-seed-core-warn').show(); $('#org-seedstack-seed-seed-core-show').hide();">Show version</a>
+            </small>
+        </div>
+        <div class="tab-pane in" id="tab-org-seedstack-seed-seed-core-gradle">
+            <pre style="margin-bottom: 0;"><code class="java">dependencies {
+    compile("org.seedstack.seed:seed-core:2.3.0")
+}</code></pre>
+        </div>
+    </div>
+</div>
+
+
+<div class="callout callout-tips">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+                <i class="fa fa-lightbulb-o icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>If you&rsquo;re using Maven, SeedStack provides comprehensive dependency management in its distribution, whether by inheriting
+from its parent or by importing its BOM. We recommend doing so to ensure that versions of Seed dependencies are consistent
+across the project. Additionally you won&rsquo;t have to specify the version tag of any Seed dependency. Check the
+<a href="http://seedstack.org/archives/16.7/getting-started/distribution/">distribution documentation page</a> for more information.</p>
+
+        </div>
+    </div>
+</div>
+
+<h1 id="startup-and-shutdown">Startup and shutdown</h1>
+
+<p>Starting a Seed application consists in creating a Kernel instance and invoking its startup logic. Later, the
+application can be cleanly stopped by invoking the kernel stopping logic. All these steps are already encapsulated by Seed
+for two main runtime environments:</p>
+
+<ul>
+<li>The command line,</li>
+<li>The external servlet-based Web application server.</li>
+</ul>
+
+<h2 id="command-line">Command line</h2>
+
+<h3 id="launch-from-command-line">Launch from command line</h3>
+
+<p>This is the simplest way to launch a Seed application. You do so by executing the <code><a data-toggle="tooltip" data-html="true" title='org.&amp;#8203;seedstack.&amp;#8203;core.&amp;#8203;SeedMain' href='http://seedstack.org/javadoc/org/seedstack/core/SeedMain.html'>SeedMain</a></code> class with
+the JVM:</p>
+
+<pre><code>java [jvm-args] -cp ... org.seedstack.core.SeedMain [app-args]
+</code></pre>
+
+<p>The <code>SeedMain</code> class will search the classpath for an implementation of the <code><a data-toggle="tooltip" data-html="true" title='org.&amp;#8203;seedstack.&amp;#8203;core.&amp;#8203;spi.&amp;#8203;SeedLauncher' href='http://seedstack.org/javadoc/org/seedstack/core/spi/SeedLauncher.html'>SeedLauncher</a></code> interface
+and execute its <code>launch()</code> method with the application arguments. Exactly one launcher must be present in the classpath or
+an exception will be thrown.</p>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>Launchers live in various Seed modules such as the <a href="http://seedstack.org/archives/16.7/getting-started/project-templates/cli/">CLI module</a>, handling command-line-interface (CLI) applications
+or the <code>seed-web-undertow</code> module, providing an <a href="http://undertow.io/">Undertow</a> embedded Web server. Without such module
+containing a launcher in classpath an exception will be thrown. If you have more than one launcher in the classpath an
+exception will also be thrown.</p>
+
+        </div>
+    </div>
+</div>
+
+<div class="callout callout-tips">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+                <i class="fa fa-lightbulb-o icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>One difficulty of running a Java application from the command line is to properly set its classpath. As such, launching
+a Seed application from the command line is often used in combination with über-JAR packaging where a unique JAR contains
+all the necessary classes and dependencies to run the application. With this kind of packaging, launching the application
+becomes as simple as:</p>
+
+<pre><code>java [jvm-args] -jar app.jar [app-args]
+</code></pre>
+
+<p>Check the <a href="http://seedstack.org/archives/16.7/docs/seed/maven-plugin/">SeedStack Maven plugin</a> for more information about how to easily package such a JAR.</p>
+
+        </div>
+    </div>
+</div>
+
+<h3 id="shutdown-from-command-line">Shutdown from command line</h3>
+
+<p>To shutdown a Seed application from the command line, you simply have to gracefully stop the JVM. You can do this on any
+operating system this by hitting <code>CTRL+C</code> if the JVM is a foreground process. You can also do this under UNIX systems if
+the JVM is a background process by issuing a <code>SIGINT</code> signal to the JVM process:</p>
+
+<pre><code>kill -2 pid
+</code></pre>
+
+<p>In any case, the shutdown logic of the Seed application will be invoked.</p>
+
+<div class="callout callout-warning">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+            
+                <i class="fa fa-exclamation-triangle icon-2x"></i>
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>Warning! If you abruptly terminate or kill the JVM process, the application will NOT gracefully shutdown.</p>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="launch-in-web-application-server">Launch in Web application server</h2>
+
+<p>A servlet-based Web application server directly manages the lifecycle of an application. If your server is at least at
+the Servlet 3.0 level of Servlet API, the <code>seed-web-core</code> module already contains the necessary classes to trigger Seed
+startup and shutdown in response to server events.</p>
+
+<div class="callout callout-tips">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+                <i class="fa fa-lightbulb-o icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>If your Servlet API level is lower than 3.0, please check <a href="http://seedstack.org/archives/16.7/docs/seed/manual/web/">this page</a> for the required configuration of your application.</p>
+
+        </div>
+    </div>
+</div>
+
+<h1 id="logging">Logging</h1>
+
+<p>Logging is a necessity in almost any application. Seed is built upon the popular <a href="http://www.slf4j.org">SLF4J logging facade</a>
+and provides its Java Commons Logging bridge and Java Util Logging bridge out-of-the-box. The choice of the SLF4J
+implementation is left to you but we recommend <a href="http://logback.qos.ch/">Logback</a>. Seed provides sensible defaults for
+Logback in the <code>org/seedstack/seed/core/logging/logback-defaults.xml</code> resource which can be imported in any Logback
+configuration file:</p>
+
+<pre><code>&lt;include resource=&quot;org/seedstack/seed/core/logging/logback-defaults.xml&quot;/&gt;
+</code></pre>
+
+<div class="callout callout-tips">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+                <i class="fa fa-lightbulb-o icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>These defaults include two <code>stdout</code> console appenders called <code>STDOUT</code> for a monochrome output or <code>STDOUT-COLOR</code> for a
+colorized output. You can use these appenders in any of your configured loggers at your discretion.</p>
+
+        </div>
+    </div>
+</div>
+
+<p>You can inject a logger in any class by annotating an SLF4J logger field with <code>@Logging</code>:</p>
+
+<pre><code>@Logging
+private Logger logger;
+</code></pre>
+
+<p>This will automatically inject a logger for the enclosing class. This also works on static fields although if you need
+your logger fields to be final, you must use the traditional SLF4J syntax instead.</p>
+
+<h1 id="configuration">Configuration</h1>
+
+<p>Seed provides an unified configuration mechanism that is simple to use, thanks to its strict key/value paradigm, but also
+very powerful.</p>
+
+<p>Classpath scanning is used to discover all application configuration files present in the <code>META-INF/configuration</code>
+locations of the classpath, which are aggregated in a global configuration available from anywhere in the application. Seed
+supports two configuration file formats:</p>
+
+<ul>
+<li>The recommended <strong>Props format</strong> which is a superset of the classic Java Properties format providing a more concise and
+expressive configuration language. Props files must have the <code>props</code> extension.</li>
+<li>The legacy <strong>Properties format</strong> which is described <a href="http://docs.oracle.com/javase/6/docs/api/java/util/Properties.html#load(java.io.Reader.md">here</a>.</li>
+</ul>
+
+<p>All files must be located under the <code>META-INF/configuration</code> directory:</p>
+
+<pre><code class="language-plain">META-INF/configuration
+    |
+    |- my-app.props
+    |- security.props
+    |- legacy.properties
+    |- ...
+</code></pre>
+
+<div class="callout callout-tips">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+                <i class="fa fa-lightbulb-o icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>Lots of configuration features, such as profiles, sections, appending, etc. are only supported with the Props format.
+Try to avoid the legacy Properties format if possible.</p>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="bootstrap-configuration">Bootstrap configuration</h2>
+
+<p>A few configuration values must be configured in a special configuration file that <strong>must</strong> be named <code>seed.props</code> (or
+<code>seed.properties</code>). This file must also be put in the <code>META-INF/configuration</code> folder. The most frequent usage of this
+file is to define the base package(s) that Seed must scan. You can do so with the following :</p>
+
+<pre><code class="language-ini">[org.seedstack.seed]
+base-packages = org.my.package, com.my.other.package, ...
+</code></pre>
+
+<div class="callout callout-warning">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+            
+                <i class="fa fa-exclamation-triangle icon-2x"></i>
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>It is important to set the <code>org.seedstack.seed.base-packages</code> property of bootstrap configuration for Seed to scan your classes. If you omit to do so, Seed will only scan <code>org.seedstack</code> and its sub-packages by default.</p>
+
+        </div>
+    </div>
+</div>
+
+<div class="callout callout-tips">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+                <i class="fa fa-lightbulb-o icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>Note that the bootstrap configuration contents will also be available as normal application configuration. As such, you can choose to put all your configuration (bootstrap or not) in this file.</p>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="props-format">Props format</h2>
+
+<h3 id="base-characteristics">Base characteristics</h3>
+
+<ul>
+<li>By default, props files are UTF-8 encoded, but can be encoded in any encoding.</li>
+<li>Leading and trailing spaces will be trimmed from section names, property names.</li>
+<li>Either equal sign (=) or colon (:) are used to assign property values.</li>
+<li>Comments begin with either a semicolon (;), or a sharp sign (#) and extend to the end of line. It doesn&rsquo;t have to be
+the first character.</li>
+<li>A backslash (<code>\</code>) escapes the next character (e.g., <code>\#</code> is a literal <code>#</code>, <code>\\</code> is a literal <code>\</code>).</li>
+<li>\uXXXX is encoded as character. Also <code>\t</code>, <code>\r</code> and <code>\f</code> are encoded as characters.</li>
+</ul>
+
+<h3 id="sections">Sections</h3>
+
+<p>Sections looks very much like Windows INI file sections. In props files, a section simply represents a key prefix for
+following keys, until the section end or end of file.</p>
+
+<ul>
+<li>Section names are enclosed between <code>[</code> and <code>]</code>.</li>
+<li>Properties following a section header belong to that section.</li>
+<li>Section name is added as a prefix to section properties.</li>
+<li>Section ends with empty section definition <code>[]</code> or with new section start or end of file.</li>
+</ul>
+
+<p>The following example:</p>
+
+<pre><code>[users.data]
+weight = 49.5
+height = 87.7
+age = 63
+
+[]
+comment=this is base property
+</code></pre>
+
+<p>is equivalent to this one:</p>
+
+<pre><code>users.data.weight = 49.5
+users.data.height = 87.7
+users.data.age = 63
+comment=this is base property
+</code></pre>
+
+<h3 id="profiles">Profiles</h3>
+
+<p>Seed provides a configuration profile concept which is activated via the <code>org.seedstack.seed.profiles</code> system property.
+Profiles are determined at application initialization and cannot be changed afterwards. You can activate several profiles
+simultaneously by using <strong>a comma separated list</strong>. For example, following JVM argument activates both <code>dev</code> and <code>debug</code>
+profiles:</p>
+
+<pre><code>-Dorg.seedstack.seed.profiles=dev,debug
+</code></pre>
+
+<ul>
+<li>Profile names are enclosed between <code>&lt;</code> and <code>&gt;</code>.</li>
+<li>They can be used as a part of a property key.</li>
+<li>One key can contain one or more profile name.</li>
+<li><strong>A good practice</strong> consists in keeping them at the end but they could be used anywhere in a key.</li>
+<li>Properties without a profile are base properties and are available without providing any profile.</li>
+</ul>
+
+<p>For example :</p>
+
+<pre><code>db.port=3086
+
+db.url&lt;dev&gt;=localhost
+db.username&lt;dev&gt;=root
+
+db.url&lt;prod&gt;=productionmachine.myorganization.org
+db.username&lt;prod&gt;=securedaccount
+</code></pre>
+
+<p>In above example, <code>db.port</code> key provides a base property that will always be available whereas other keys are dependant
+on a profile name (<code>dev</code> or <code>prod</code>). Therefore, these values would be available only if the corresponding profiles
+(environments here) are requested through JVM <code>org.seedstack.seed.profiles</code> argument.</p>
+
+<p>Since profiles can be anywhere in the key name, section names can contain profile definitions as well. The above example
+can also be written as follows:</p>
+
+<pre><code>db.port=3086
+
+[db&lt;dev&gt;]
+url=localhost
+username=root
+
+[db&lt;prod&gt;]
+url=productionmachine.myorganization.org
+username=securedaccount
+</code></pre>
+
+<p>There are cases where two ore more profiles share most of their configuration and only few properties are
+different or specific to one profile. To avoid repeating shared properties for each profile, it is possible to define
+different/specific properties assigned to inner profiles only. Props will first lookup keys in inner profiles, then go
+up to the base level. For example :</p>
+
+<pre><code>key1&lt;one&gt;=Hi!
+key2&lt;one&gt;=...
+....
+key100&lt;one&gt;=...
+
+key1&lt;one.two&gt;=Hola!
+</code></pre>
+
+<p>This example defines two profiles. First one is named &lsquo;one&rsquo; and contains 100 properties. Second profile is an inner
+property named &lsquo;one.two&rsquo;. It contains only 1 property (key1) - but all properties from its parent profile are available.</p>
+
+<h3 id="macros">Macros</h3>
+
+<p>A macro is a reference to some keys&rsquo; value inside the value of another key. Macros are enclosed between <code>${</code> and <code>}</code>. Here is a
+simple example:</p>
+
+<pre><code>key1=Something ${foo}
+...
+foo=nice
+</code></pre>
+
+<p>Value of key1 is &lsquo;Something nice&rsquo;. Macros can refer to any existing property key, no matter where it is defined. Therefore,
+nested macros are also supported as in following example:</p>
+
+<pre><code>key1=**${key${key3}}**
+key3=2
+key2=foo
+</code></pre>
+
+<p>Value of key1 is &lsquo;<strong>foo</strong>&rsquo;.</p>
+
+<h3 id="multi-line-values">Multi-line values</h3>
+
+<p>Multi-lines values are defined with triple-quotes. Everything in-between is considered as a value. For example:</p>
+
+<pre><code>email.body='''
+    Hello $n,
+
+    welcome!
+'''
+</code></pre>
+
+<p>Note that multi-line values are NOT trimmed. Therefore, the value from the example will consist of 5 lines. There is no
+need to escape new lines in multi-line values.</p>
+
+<h3 id="value-appending">Value appending</h3>
+
+<p>Values with the same key name are automatically appended to each other with a comma (<code>,</code>) separator. With the following
+configuration:</p>
+
+<pre><code>org.myorganization.myproject.toto = val1
+org.myorganization.myproject.toto = val2
+</code></pre>
+
+<p>The <code>org.myorganization.myproject.toto</code> value evaluates to <code>val1,val2</code>. You can then retrieve this kind of value as a
+normal string or as a string array.</p>
+
+<h3 id="copy-operator">Copy operator</h3>
+
+<p>The copy operator can be used to share a set of properties in different sections by copying them. Consider the following
+example:</p>
+
+<pre><code>org.myorganization.myproject1.action1=value1
+org.myorganization.myproject1.action2=value2
+...
+org.myorganization.myproject2.action1=value1
+org.myorganization.myproject2.action2=value2
+...
+org.myorganization.myproject3.... # etc
+</code></pre>
+
+<p>Props allows you to use copy operator: <code>&lt;=</code> in order to minimize and clarify the declarations required. Above props can
+be written as follows instead:</p>
+
+<pre><code>[actions]
+action1=value1
+action2=value2
+...
+
+[]
+org.myorganization.myproject1 &lt;= actions
+
+[org]
+myorganization.prd2 &lt;= actions
+
+[org.myorganization.myproject3]
+&lt;= actions
+</code></pre>
+
+<p>The above example shows 3 different but equivalent ways to use copy operator:</p>
+
+<ul>
+<li>without sections</li>
+<li>with partial section</li>
+<li>with full section</li>
+</ul>
+
+<p>Note that copied values are set as macros, so all above copied properties are identical to:</p>
+
+<pre><code>org.myorganization.myproject1.action1=${actions.action1}
+org.myorganization.myproject1.action2=${actions.action2}
+org.myorganization.myproject2.action1=${actions.action1}
+....
+</code></pre>
+
+<p>All rules for resolving macros apply.</p>
+
+<h2 id="environment-variables">Environment variables</h2>
+
+<p>System environment variables are provided through configuration, using a macro prefixed by <code>env:</code>. For example:</p>
+
+<pre><code>[db]
+url = jdbc:mysql://${env:MYSQL_SERVER}/test
+</code></pre>
+
+<p><strong>Please note that the environment variable lookup is case-sensitive</strong>, contrary to the <code>System.getenv(variableName)</code> java
+method. Its behavior is equivalent to <code>System.getenv().get(variableName)</code>.</p>
+
+<h2 id="system-properties">System properties</h2>
+
+<p>JVM system properties are provided through configuration, using a macro prefixed by <code>sys:</code>. For example:</p>
+
+<pre><code>[indexer]
+path = ${sys:java.io.tmpdir}${sys:file.separator}my-index
+</code></pre>
+
+<p>The system property lookup is case-sensitive, just as <code>System.getProperty(propertyName)</code> java method.</p>
+
+<h2 id="constant-values">Constant values</h2>
+
+<p>Class constant values (i.e. <code>static final</code> fields) are available in props configuration with <code>const:</code> prefix.
+For example:</p>
+
+<pre><code>[action1]
+key = ${const:java.awt.event.KeyEvent.VK_CANCEL}
+</code></pre>
+
+<p>The value of <code>action1.key</code> is the value of <code>VK_CANCEL</code> constant retrieved from <code>java.awt.event.KeyEvent</code> class.</p>
+
+<h2 id="override">Override</h2>
+
+<p>Nominal configuration can be overridden explicitly using resources names ending with <code>*.override.properties</code> and
+<code>*.override.props</code>. Nominal and override configuration are loaded completely separately and cannot interact with each
+other except in the following ways:</p>
+
+<ul>
+<li>If a key is present both in nominal and override configuration, the override value completely replaces the nominal one.</li>
+<li>If a key is present in override configuration but not in nominal configuration, it is added to the nominal configuration.</li>
+<li>If a key is present both in nominal and override configuration but prefixed by a dash (<code>-</code>) in override configuration it
+is removed from nominal configuration.</li>
+</ul>
+
+<p>As an example, with this nominal configuration:</p>
+
+<pre><code>overriddenValue = I'm overridden
+removedValue = I'm removed
+emptiedValue = I'm emptied
+</code></pre>
+
+<p>And this override configuration:</p>
+
+<pre><code>overriddenValue = I'm overriding
+-removedValue =
+emptiedValue =
+-removedNonExistentValue =
+</code></pre>
+
+<p>You end with the following:</p>
+
+<ul>
+<li><code>overriddenValue</code> evaluates to <code>'I'm overriding'</code>.</li>
+<li><code>emptiedValue</code> evaluates to an empty string.</li>
+<li><code>removedValue</code> evaluates to <code>null</code> as if it was never declared in the first place.</li>
+</ul>
+
+<div class="callout callout-tips">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+                <i class="fa fa-lightbulb-o icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>Please note that as the nominal and the override configurations are completely separate, no macro resolution can take
+place between the two. Also note that the whole property name is used for the dash prefix check, so you can&rsquo;t add the
+dash character in a categorized property:</p>
+
+<pre><code>[category]
+-property1 =
+</code></pre>
+
+<p>This will NOT be removed since the full property name will be <code>category.-property1</code>. Instead use the following form (outside
+any category block):</p>
+
+<pre><code>-category.property1 =
+</code></pre>
+
+<p>You can use this particularity to remove several keys from the same category:</p>
+
+<pre><code>[-category]
+property1 =
+property2 =
+</code></pre>
+
+<p>This will remove <code>category.property1</code> and <code>category.property2</code> from the nominal configuration.</p>
+
+        </div>
+    </div>
+</div>
+
+<h1 id="dependency-injection">Dependency injection</h1>
+
+<p>In a Seed application, the dependency injection is provided by a Guice injector, created by the kernel in its
+starting phase. The injector is configured in explicit mode, meaning that all the application injection points
+are checked during application startup and must be resolvable. This mode ensures that injection errors are detected as
+soon as possible in the development process.</p>
+
+<p>Although Guice is operating behind the scenes, it is invisible for the application which only needs to rely on JSR 330
+annotations for defining injection points.</p>
+
+<h2 id="injection-points">Injection points</h2>
+
+<p>When applying the dependency injection pattern, the dependencies are passed in instead of being requested directly or
+by calling factories. The process of setting dependencies into an object is called injection. In SeedStack the injections
+are explicit and almost always marked with the <code>@Inject</code> annotation. The element marked with the <code>@Inject</code> annotation
+is called the <strong>injection point</strong>.</p>
+
+<p>There are multiple injection styles, described below, and they all can be used simultaneously.</p>
+
+<h3 id="constructor-injection">Constructor injection</h3>
+
+<p>Constructor injection combines instantiation with injection. To use it, annotate the constructor with the <code>@Inject</code>
+annotation. This constructor should accept class dependencies as parameters. It is then recommended to assign the
+parameters to final fields in the constructor.</p>
+
+<pre><code>public class MyServiceImpl implements MyService {
+    private final OtherService otherService;
+
+    @Inject
+    public MyServiceImpl(OtherService otherService) {
+        this.otherService = otherService;
+    }
+}
+</code></pre>
+
+<p>If your class has no <code>@Inject</code>-annotated constructor, a public, no-arguments constructor will be used if it exists,
+otherwise an exception will be thrown upon application startup.</p>
+
+<p>The constructor injection style has two main benefits:</p>
+
+<ul>
+<li>The ability to construct injected immutable instances,</li>
+<li>The explicit constructor arguments will make unit testing easier: when you construct a test instance manually, you
+are still required by compiler to provide all the dependencies.<br />
+
+<br /></li>
+</ul>
+
+<h3 id="field-injection">Field injection</h3>
+
+<p>Fields injection points are fields annotated with <code>@Inject</code> and are injected just after instance creation.</p>
+
+<pre><code>public class MyServiceImpl implements MyService {
+    @Inject 
+    private OtherService otherService;
+}
+</code></pre>
+
+<p>Avoid using field injection with final fields, which are not guaranteed to succeed in some contexts.</p>
+
+<h3 id="method-injection">Method injection</h3>
+
+<p>Method injection points are methods annotated with <code>@Inject</code> are called just after field injections. Dependencies take
+the form of parameters, which the injector resolves before invoking the method. Injected methods may have any number of
+parameters, and the method name does not impact injection.</p>
+
+<pre><code>public class MyServiceImpl implements MyService {
+    private OtherService otherService;
+
+    @Inject
+    public void doInjection(OtherService otherService) {
+        this.otherService = otherService;
+    }
+}
+</code></pre>
+
+<h2 id="injection-scopes">Injection scopes</h2>
+
+<p>By default, the injector returns a new instance each time it supplies a value. This behavior can be altered by applying
+a scope to the implementation class. Scopes allow to reuse instances like the <code>@Singleton</code> scope which will make the
+injector always return the same instance for the lifetime of the application. Annotations are used to identify scopes.
+Specify the scope for a type by applying the scope annotation to the implementation class:</p>
+
+<pre><code>@Singleton
+public class MyServiceStatefulImpl implements MyService {
+    /* everything here should be thread safe! */
+}
+</code></pre>
+
+<p>By default in SeedStack, almost every class managed by the injector has no scope associated, which means that a new
+instance is created for each injection. This is a desirable behavior because it minimizes the mutability of your code and, as
+such, minimizes the need to use concurrency protection (synchronized, ThreadLocal, &hellip;). In the end, all the bugs associated
+with such techniques are avoided.</p>
+
+<p>In some cases, you&rsquo;ll need to specify a scope though:</p>
+
+<ul>
+<li>If an object is inherently stateful (like a counter or a cache),</li>
+<li>If an object is expensive to create,</li>
+<li>If an object is tied up to external resource.</li>
+</ul>
+
+<p>Note that since the technical aspects that are often the motivation to implement a singleton are already handled by
+the framework, it is unlikely that you will need to apply this scope yourself. Remember that by keeping your <strong>application
+code as stateless and immutable as possible</strong> you will:</p>
+
+<ul>
+<li>Reduce the probability of bugs,</li>
+<li>Improve its scalability,</li>
+<li>Improve its testability.</li>
+</ul>
+
+<h2 id="static-injections">Static injections</h2>
+
+<p>Injection on static fields is a specific case of injection that requires an explicit binding that is very rarely used
+in SeedStack internal code and never in application code. It means that, by default, injection on static fields of your
+classes won&rsquo;t be enabled. This is a good thing because static injections are difficult to test, make dependencies opaque
+and rely on global state.</p>
+
+<h2 id="custom-injections">Custom injections</h2>
+
+<p>Custom injections can be used for advanced injection behavior that is not possible to achieve through the standard
+<code>@Inject</code> injection points. They rely instead on specific annotations to trigger the injection. The <code>@Logging</code> annotation
+described <a href="#logging">here</a> is an example of custom injection. SeedStack doesn&rsquo;t rely heavily on custom injection, using
+standard injection when possible.</p>
+
+<h2 id="method-interception">Method interception</h2>
+
+<p>To complement dependency injection, method interception is sometimes used in SeedStack. It allows to execute code each
+time a <em>matching</em> method is invoked. It is suitable for cross cutting concerns (&laquo;aspects&raquo;) and is notably used, among
+other things, for transaction and security.</p>
+
+<p>Method interception is transparent for the application code but its implementation (which works by dynamically sub-classing
+and overriding matching methods) impose some limitations that you should know:</p>
+
+<ul>
+<li>Classes must be public or package-private,</li>
+<li>Classes must be non-final,</li>
+<li>Methods must be public, package-private or protected,</li>
+<li>Methods must be non-final,</li>
+<li>Instances must be created by the injector. It is not possible to use method interception on instances that aren&rsquo;t
+constructed by the injector.</li>
+</ul>
+
+<h2 id="more-information">More information</h2>
+
+<p>For more information about the injector used in the Java framework, you can look at the
+<a href="https://github.com/google/guice/wiki">Guice documentation wiki</a>. Please note that some Guice features described
+in this documentation are not available in SeedStack or implemented differently. A knowledge of Guice is <strong>NOT</strong>
+necessary to develop a Seed-based application.</p>
+
+<h1 id="error-diagnostic">Error diagnostic</h1>
+
+<p>Seed can dump diagnostic information when an exception is catched at key application locations. Core support dumps
+diagnostic information when an uncaught exception occurs in a thread but other supports can trigger dumps in various
+conditions.</p>
+
+<p>Diagnostic information is an aggregation of values gathered from various diagnostic collectors in a single map. This map
+is then handled by the diagnostic reporter.</p>
+
+<h2 id="diagnostic-collectors">Diagnostic collectors</h2>
+
+<p>A diagnostic collector is a class implementing the <code><a data-toggle="tooltip" data-html="true" title='org.&amp;#8203;seedstack.&amp;#8203;seed.&amp;#8203;core.&amp;#8203;spi.&amp;#8203;diagnostic.&amp;#8203;DiagnosticInfoCollector' href='http://seedstack.org/javadoc/org/seedstack/seed/core/spi/diagnostic/DiagnosticInfoCollector.html'>DiagnosticInfoCollector</a></code>
+interface and annotated with <code><a data-toggle="tooltip" data-html="true" title='org.&amp;#8203;seedstack.&amp;#8203;seed.&amp;#8203;core.&amp;#8203;spi.&amp;#8203;diagnostic.&amp;#8203;DiagnosticDomain' href='http://seedstack.org/javadoc/org/seedstack/seed/core/spi/diagnostic/DiagnosticDomain.html'>@DiagnosticDomain</a></code>:</p>
+
+<pre><code>@DiagnosticDomain(&quot;org.my-organization.my-project.my-diagnostic-domain&quot;)
+public class MyDiagnosticCollector implements DiagnosticInfoCollector {
+
+    @Override
+    public Map&lt;String, Object&gt; collect() {
+        ...
+    }
+
+}
+</code></pre>
+
+<p>All diagnostic collectors are automatically detected by Seed and will be used in diagnostic information gathering. The
+diagnostic domain uniquely identifies the information of the collector.</p>
+
+<h2 id="diagnostic-reporter">Diagnostic reporter</h2>
+
+<p>The default diagnostic reporter dumps the map as a YAML document in the system temporary directory. The diagnostic
+reporter can be changed by setting the <code>org.seedstack.seed.diagnostic.reporter</code> system property to a class
+implementing <code><a data-toggle="tooltip" data-html="true" title='org.&amp;#8203;seedstack.&amp;#8203;seed.&amp;#8203;core.&amp;#8203;spi.&amp;#8203;diagnostic.&amp;#8203;DiagnosticReporter' href='http://seedstack.org/javadoc/org/seedstack/seed/core/spi/diagnostic/DiagnosticReporter.html'>DiagnosticReporter</a></code>.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        
+<div class="side-menu">
+    
+        
+        <div class="list-group">
+            <ul class="nav">
+                
+                
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/" class="list-group-item  active ">
+                            Java framework basics
+                        </a>
+                        
+                        
+                            <nav id="TableOfContents">
+<ul>
+<li><a href="#dependencies">Dependencies</a></li>
+<li><a href="#startup-and-shutdown">Startup and shutdown</a>
+<ul>
+<li><a href="#command-line">Command line</a>
+<ul>
+<li><a href="#launch-from-command-line">Launch from command line</a></li>
+<li><a href="#shutdown-from-command-line">Shutdown from command line</a></li>
+</ul></li>
+<li><a href="#launch-in-web-application-server">Launch in Web application server</a></li>
+</ul></li>
+<li><a href="#logging">Logging</a></li>
+<li><a href="#configuration">Configuration</a>
+<ul>
+<li><a href="#bootstrap-configuration">Bootstrap configuration</a></li>
+<li><a href="#props-format">Props format</a>
+<ul>
+<li><a href="#base-characteristics">Base characteristics</a></li>
+<li><a href="#sections">Sections</a></li>
+<li><a href="#profiles">Profiles</a></li>
+<li><a href="#macros">Macros</a></li>
+<li><a href="#multi-line-values">Multi-line values</a></li>
+<li><a href="#value-appending">Value appending</a></li>
+<li><a href="#copy-operator">Copy operator</a></li>
+</ul></li>
+<li><a href="#environment-variables">Environment variables</a></li>
+<li><a href="#system-properties">System properties</a></li>
+<li><a href="#constant-values">Constant values</a></li>
+<li><a href="#override">Override</a></li>
+</ul></li>
+<li><a href="#dependency-injection">Dependency injection</a>
+<ul>
+<li><a href="#injection-points">Injection points</a>
+<ul>
+<li><a href="#constructor-injection">Constructor injection</a></li>
+<li><a href="#field-injection">Field injection</a></li>
+<li><a href="#method-injection">Method injection</a></li>
+</ul></li>
+<li><a href="#injection-scopes">Injection scopes</a></li>
+<li><a href="#static-injections">Static injections</a></li>
+<li><a href="#custom-injections">Custom injections</a></li>
+<li><a href="#method-interception">Method interception</a></li>
+<li><a href="#more-information">More information</a></li>
+</ul></li>
+<li><a href="#error-diagnostic">Error diagnostic</a>
+<ul>
+<li><a href="#diagnostic-collectors">Diagnostic collectors</a></li>
+<li><a href="#diagnostic-reporter">Diagnostic reporter</a></li>
+</ul></li>
+</ul>
+</nav>
+                            <script>
+                                seedstack.state.previousPage = '';
+                            </script>
+                            
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/testing/" class="list-group-item ">
+                            Testing
+                        </a>
+                        
+                            <script>
+                                seedstack.state.nextPage = '\/archives\/16.7\/docs\/seed\/manual\/testing\/';
+                            </script>
+                            
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/cli/" class="list-group-item ">
+                            Command-line
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/web/" class="list-group-item ">
+                            Web
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/security/" class="list-group-item ">
+                            Security
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/rest/" class="list-group-item ">
+                            REST
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/transactions/" class="list-group-item ">
+                            Transactions
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/operations/" class="list-group-item ">
+                            Operations
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/crypto/" class="list-group-item ">
+                            Cryptography
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/seed/manual/more/" class="list-group-item ">
+                            More
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+            </ul>
+        </div>
+        
+    
+    
+    <div class="list-group">
+        <ul class="nav">
+            <li class="list-group-item"><div style="margin-bottom: 10px;"><i class="fa fa-tag"></i> Tags</div>
+                <div class="tags">
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/startup">Startup</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/shutdown">Shutdown</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/configuration">Configuration</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/injection">Injection</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/diagnostic">Diagnostic</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/lifecycle">Lifecycle</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/logging">Logging</a>
+                    
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="list-group">
+        <ul class="nav">
+            
+                <li><a class="list-group-item" href="https://github.com/seedstack/website/edit/master/content/docs/seed/manual/index.md" target="_blank"><i class="fa fa-edit"></i> Contribute to this page</a></li>
+            
+        </ul>
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+    <div id="footer">
+        <div class="footer-v3">
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="headline"><h2>About</h2></div>
+                    <p class="margin-bottom-25 md-margin-bottom-40">SeedStack is an Open-Source enterprise-class development stack for building modern and robust applications.</p>
+                </div>
+
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="posts">
+                        <div class="headline"><h2>License</h2></div>
+                        <p>
+                            Code licensed under the <a href="https://www.mozilla.org/MPL/2.0" target="_blank">Mozilla Public License 2.0</a>.
+                            <br/>
+                            Documentation licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 map-img">
+                    <div class="headline"><h2>Contact us</h2></div>
+                    <address>
+                        <p>
+                            IRC channel <a href="irc://chat.freenode.net/seedstack">#seedstack on Freenode community</a>
+                            <br/>
+                            Google group <a href="https://groups.google.com/forum/#!forum/seedstack">seedstack@googlegroups.com</a>
+                        </p>
+                    </address>
+
+                    <div class="headline"><h2>Stay in touch</h2></div>
+                    <div style="margin-bottom: 20px;">
+                        <a class="twitter-follow-button"
+                           href="https://twitter.com/seedstack"
+                           data-show-count="false"
+                           data-lang="en">
+                            Follow @seedstack
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+    <div id="hotkeys-modal" class="modal">
+    <div class="modal-dialog" style="min-width: 960px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Keyboard shortcuts <a id="show-all-shortcuts" style="cursor: pointer;" onclick="seedstack.ui.showAllShortcuts();">(Show all)</a></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Global shortcuts</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>?</kbd>
+                                </td>
+                                <td>Show this help dialog</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>/</kbd>
+                                </td>
+                                <td>Focus the search field</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↑</kbd>
+                                </td>
+                                <td>Go to previous menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↓</kbd>
+                                </td>
+                                <td>Go to next menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>S</kbd>
+                                </td>
+                                <td>Go to Seed framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>W</kbd>
+                                </td>
+                                <td>Go to W20 framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>B</kbd>
+                                </td>
+                                <td>Go to Business framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>A</kbd>
+                                </td>
+                                <td>Go to add-ons</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>G</kbd>
+                                </td>
+                                <td>Go to guides</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Seed framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>t</kbd>
+                                </td>
+                                <td>Go to testing</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to cryptography</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>w</kbd>
+                                </td>
+                                <td>Go to Web</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>r</kbd>
+                                </td>
+                                <td>Go to REST</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>o</kbd>
+                                </td>
+                                <td>Go to operations</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>T</kbd>
+                                </td>
+                                <td>Go to transactions</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Business framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>m</kbd>
+                                </td>
+                                <td>Go to model</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>l</kbd>
+                                </td>
+                                <td>Go to lifecycle</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>e</kbd>
+                                </td>
+                                <td>Go to events</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>p</kbd>
+                                </td>
+                                <td>Go to policies</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>a</kbd>
+                                </td>
+                                <td>Go to assemblers</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>f</kbd>
+                                </td>
+                                <td>Go to finders</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>P</kbd>
+                                </td>
+                                <td>Go to pagination</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>W20 framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to culture</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>h</kbd>
+                                </td>
+                                <td>Go to hypermedia</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>u</kbd>
+                                </td>
+                                <td>Go to UI</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="versions-modal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 id="versions-title" class="modal-title">Fetching components...</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="versions-table" class="table table-striped table-hover table-bordered">
+                            <tr>
+                                <th>Component</th>
+                                <th>Version</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/github.min.css">
+
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mousetrap/1.4.6/mousetrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lunr.js/0.5.9/lunr.min.js"></script>
+<script src="/assets/unify/plugins/smoothScroll.js"></script>
+<script src="/js/xml2json.js"></script>
+<script src="/js/jquery.highlight.js"></script>
+<script src="/js/seedstack.js"></script>
+<script>
+    $(document).ready(function () {
+        var $search = $('.search-btn');
+
+        $('.search').click(function () {
+            if ($search.hasClass('fa-search')) {
+                seedstack.ui.openSearch();
+            } else {
+                seedstack.ui.closeSearch();
+            }
+        });
+
+        $('pre code').each(function (i, block) {
+            hljs.highlightBlock(block);
+        });
+
+        $('.side-menu').affix({
+            offset: {
+                top: $('#header').height() + 20,
+                bottom: $('#footer').height() + 40
+            }
+        });
+
+        Mousetrap.bind('/', function () {
+            seedstack.ui.openSearch();
+            return false;
+        });
+
+        Mousetrap.bind('alt+up', function () {
+            if (seedstack.state.previousPage) {
+                window.location = seedstack.state.previousPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('alt+down', function () {
+            if (seedstack.state.nextPage) {
+                window.location = seedstack.state.nextPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('?', function () {
+            seedstack.ui.openHelp();
+            return false;
+        });
+
+        Mousetrap.bind('esc', function () {
+            seedstack.ui.closeHelp();
+            seedstack.ui.closeSearch();
+            return false;
+        });
+
+        var originalCallback = Mousetrap.stopCallback;
+        Mousetrap.stopCallback = function (e, element, combo) {
+            if (combo === 'esc') {
+                return false;
+            }
+
+            return originalCallback(e, element, combo);
+        };
+
+        function bindShortcuts(value) {
+            $.each(value, function (sequence, item) {
+                if (typeof item === 'string') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item;
+                        return false;
+                    });
+                } else if (typeof item === 'object') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item.path;
+                        return false;
+                    });
+                    if (item.shortcuts && location.pathname.indexOf(item.path) === 0) {
+                        bindShortcuts(item.shortcuts);
+                    }
+                }
+            });
+        }
+
+        function resolveVersions() {
+            var $versionsTitle = $('#versions-title');
+            if (!seedstack.versions) {
+                $.ajax({
+                    dataType: 'text',
+                    url: '/distribution.pom.xml'
+                }).done(function (data) {
+                    var pom = new X2JS().xml_str2json(data);
+
+                    if (pom.project && pom.project.properties && pom.project.version) {
+                        var $versions = $('#versions-table');
+                        var blackList = ['seedstack-maven-plugin', 'java-compiler', 'maven-failsafe-plugin', 'logback'];
+                        var versions = {};
+
+                        $versionsTitle.text("SeedStack " + pom.project.version);
+
+                        $.each(pom.project.properties, function (name, value) {
+                            if (/\.version$/.test(name)) {
+                                var shortName = name.substr(0, name.indexOf('.version'));
+                                if ($.inArray(shortName, blackList) === -1) {
+                                    versions[shortName] = value;
+                                    $versions.append(
+                                            '<tr>' +
+                                            '<td>' +
+                                            shortName.substr(0, 1).toUpperCase() + shortName.substr(1, shortName.length - 1).replace(/-/g, ' ') +
+                                            '</td>' +
+                                            '<td>' + value + '</td>' +
+                                            '</tr>');
+                                }
+                            }
+                        });
+
+                        $('.loginbar').prepend(
+                                '<li class="hidden-xs hidden-sm"><i class="fa fa-tag"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openVersions();">Latest version: ' + pom.project.version + '</a></li>' +
+                                '<li class="topbar-devider"></li>'
+                        );
+
+                        seedstack.versions = versions;
+                    }
+                }).error(function () {
+                    console.error("SeedStack version could not be resolved");
+                });
+            }
+        }
+
+        bindShortcuts(seedstack.ui.shortcuts);
+
+        resolveVersions();
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $('#hotkeys-modal, #versions-modal').bind('hidden.bs.modal', function () {
+            $("html").css("margin-right", "0px");
+        }).bind('show.bs.modal', function () {
+            $("html").css("margin-right", "-15px");
+        });
+
+        var query = seedstack.strings.parseQueryString(location);
+        if (query.h && query.h.length > 0) {
+            $('.doc-content').highlight(query.h);
+            if (query.scroll) {
+                $('html, body').animate({
+                    scrollTop: $('span[class=highlight]:first').offset().top - 20
+                }, 250);
+            }
+        }
+    });
+</script>
+<script>window.twttr = (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+    if (d.getElementById(id))return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    t._e = [];
+    t.ready = function (f) {
+        t._e.push(f);
+    };
+    return t;
+}(document, "script", "twitter-wjs"));</script>
+
+</body>
+</html>

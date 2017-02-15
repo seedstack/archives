@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/xml/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/xml/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Alternate configuration</title>
+      <link>http://seedstack.org/archives/16.7/addons/jpa/alternative/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/jpa/alternative/</guid>
+      <description>
+
+&lt;p&gt;As an alternative to the &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/jpa/#configuration&#34;&gt;automatic configuration&lt;/a&gt; you can let JPA manage its own datasource instead of referencing
+one defined in the JDBC add-on. In this case you must provide a &lt;code&gt;persistence.xml&lt;/code&gt; file. This file has to be placed under
+the &lt;code&gt;META-INF&lt;/code&gt; directory of your classpath (for instance in &lt;code&gt;src/main/resources/META-INF&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;persistence xmlns=&amp;quot;http://xmlns.jcp.org/xml/ns/persistence&amp;quot;
+             xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+             xsi:schemaLocation=&amp;quot;http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd&amp;quot;
+             version=&amp;quot;2.1&amp;quot;&amp;gt;
+
+    &amp;lt;persistence-unit name=&amp;quot;my-jpa-unit&amp;quot; transaction-type=&amp;quot;RESOURCE_LOCAL&amp;quot;&amp;gt;
+        &amp;lt;class&amp;gt;org.seedstack.jpa.sample.Item1&amp;lt;/class&amp;gt;
+    &amp;lt;/persistence-unit&amp;gt;
+
+&amp;lt;/persistence&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the example above you can find:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The JPA version (2.1 in this example)&lt;/li&gt;
+&lt;li&gt;A unit named &lt;code&gt;my-jpa-unit&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A local transaction type (&lt;code&gt;RESOURCE_LOCAL&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;The list of persistence classes to map&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You can declare as many units as required in a &lt;code&gt;persistence.xml&lt;/code&gt; file. You can also add configuration properties directly
+in this file, although it is recommended to specify them in the configuration. When using a &lt;code&gt;persistence.xml&lt;/code&gt; file, you
+must either specify a datasource via properties or via JNDI.&lt;/p&gt;
+
+&lt;h1 id=&#34;option-1-datasource-via-properties&#34;&gt;Option 1: datasource via properties&lt;/h1&gt;
+
+&lt;p&gt;The datasource can be specified through properties, either in the configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.jpa.unit.my-jpa-unit]
+property.javax.persistence.jdbc.driver = ...
+property.javax.persistence.jdbc.url = ...
+property.javax.persistence.jdbc.user = ...
+property.javax.persistence.jdbc.password = ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or in the directly in the &lt;code&gt;persistence.xml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;persistence-unit name=&amp;quot;my-jpa-unit&amp;quot; transaction-type=&amp;quot;RESOURCE_LOCAL&amp;quot;&amp;gt;
+    ...
+
+    &amp;lt;properties&amp;gt;
+        &amp;lt;property name=&amp;quot;...&amp;quot; value=&amp;quot;...&amp;quot;/&amp;gt;
+    &amp;lt;/properties&amp;gt;
+
+    ...
+&amp;lt;/persistence-unit&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The specification of properties in the configuration is recommended as it allows greater flexibility (access to
+environment variables and system properties, usage of configuration profiles, macros, &amp;hellip;).&lt;/p&gt;
+
+&lt;h1 id=&#34;option-2-datasource-via-jndi&#34;&gt;Option 2: datasource via JNDI&lt;/h1&gt;
+
+&lt;p&gt;In some environments like in a Web server, it may be preferable to use JNDI instead of configuration properties. You can
+do so by specifying the JNDI name of the datasource in the &lt;code&gt;persistence.xml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;non-jta-data-source&amp;gt;java:comp/env/jdbc/my-datasource&amp;lt;/non-jta-data-source&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In case of a JTA data source, use following line instead:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;jta-data-source&amp;gt;java:comp/env/jdbc/my-datasource&amp;lt;/jta-data-source&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In case of a Web application, add the following JNDI reference in your &lt;code&gt;web.xml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;resource-ref&amp;gt;
+    &amp;lt;res-ref-name&amp;gt;jdbc/my-datasource&amp;lt;/res-ref-name&amp;gt;
+    &amp;lt;res-type&amp;gt;javax.sql.DataSource&amp;lt;/res-type&amp;gt;
+    &amp;lt;res-auth&amp;gt;Container&amp;lt;/res-auth&amp;gt;
+&amp;lt;/resource-ref&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You may need to add additional files depending on your Web container. Please refer to the the dedicated container
+documentation.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

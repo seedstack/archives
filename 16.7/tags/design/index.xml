@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/design/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/design/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/w20-material/</link>
+      <pubDate>Mon, 08 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/w20-material/</guid>
+      <description>
+
+&lt;p&gt;The W20 Material addon provides the &lt;a href=&#34;https://material.angularjs.org/latest/&#34;&gt;Angular Material&lt;/a&gt; framework.&lt;/p&gt;
+
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;bower install w20-material
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+
+&lt;p&gt;To include the addon, declare it in the application manifest:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;bower_components/w20-material/w20-material.w20.json&amp;quot;: {}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/w20-bootstrap-2/</link>
+      <pubDate>Wed, 20 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/w20-bootstrap-2/</guid>
+      <description>
+
+&lt;p&gt;The W20 Bootstrap 2 addon provides the Twitter Bootstrap framework in its &lt;code&gt;2.3.2&lt;/code&gt; version, the last version of the 2.0 branch.
+It also provides a compatible &lt;code&gt;angular-bootstrap&lt;/code&gt; library and a compatible &lt;code&gt;font-awesome&lt;/code&gt; set of icons.&lt;/p&gt;
+
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;bower install w20-bootstrap-2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+
+&lt;p&gt;To include the addon, declare it in the application manifest:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;bower_components/w20-bootstrap-2/w20-bootstrap-2.w20.json&amp;quot;: {}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/w20-bootstrap-3/</link>
+      <pubDate>Wed, 20 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/w20-bootstrap-3/</guid>
+      <description>
+
+&lt;p&gt;The W20 Bootstrap 3 addon provides the Twitter Bootstrap framework in its latest version.
+It also provides a compatible &lt;code&gt;angular-bootstrap&lt;/code&gt; library and a compatible &lt;code&gt;font-awesome&lt;/code&gt; set of icons.&lt;/p&gt;
+
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;bower install w20-bootstrap-3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+
+&lt;p&gt;To include the addon, declare it in the application manifest:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;bower_components/w20-bootstrap-3/w20-bootstrap-3.w20.json&amp;quot;: {}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Business framework basics</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/manual/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/manual/</guid>
+      <description>&lt;p&gt;This manual will begin by to introducing and explaining all the concepts that you will need to know and master to build
+successful business applications. These concepts come from the DDD software approach which is central to the Business
+framework. You will NOT be presented with in-depth coverage of all the DDD subtleties, so to go beyond the basics you
+should have a look at the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/business/bibliography/&#34;&gt;bibliography&lt;/a&gt;. Moreover, links will be provided in the text when related
+quality content is available.&lt;/p&gt;
+
+&lt;p&gt;Domain-Driven Design is &lt;strong&gt;more about a way of thinking than about code&lt;/strong&gt; but this approach has nonetheless a great
+impact on the way your business will be coded. DDD does not introduce new concepts or design patterns on its own. As
+a matter of fact, you will surely recognize some patterns you already know behind DDD names. It goes beyond design
+patterns though, as it dictates when, where and how to use them to solve real business problems.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;As its name suggest, DDD is focused on the business and its model. This model exists independently of applications and
+specific use cases and should be designed a such. Applications are clients of the model: software that will use this
+model to address enterprise needs. Naturally, particular use cases and UI ideas can be used as inputs for thinking about
+the model as the software is produced. But the model itself should be independent of its clients.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;big-picture&#34;&gt;Big picture&lt;/h1&gt;
+
+&lt;p&gt;The following diagram represents the key concepts of tactical Domain-Driven Design and how they relate to each other.
+This manual will describe all those patterns and how they can be implemented with SeedStack.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/all-domain.png&#34; alt=&#34;Tactical domain-driven design&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;architecture&#34;&gt;Architecture&lt;/h1&gt;
+
+&lt;p&gt;For starters, it is important to know that DDD doesn&amp;rsquo;t require a particular architecture. Since the domain is defined
+and contained inside a &lt;a href=&#39;http://seedstack.org/archives/16.7/glossary#bounded-context&#39;&gt;bounded context&lt;/a&gt;, it doesn&amp;rsquo;t influence the architecture of the whole application
+or system. There are several pertinent architectural styles that you can apply to the surroundings of the domain. Some
+are very broad and tend to define every aspect of the system, others are more focused and try to address a specific
+demand.&lt;/p&gt;
+
+&lt;p&gt;The business framework can itself adapt to several of these architectural styles. In this section we will present
+the &lt;strong&gt;layers architecture pattern&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;layers&#34;&gt;Layers&lt;/h2&gt;
+
+&lt;p&gt;The layers architecture pattern is commonly used in Web, enterprise and desktop applications. In this architecture
+pattern, the concerns are separated into well-defined layers.&lt;/p&gt;
+
+&lt;h3 id=&#34;traditional-definition&#34;&gt;Traditional definition&lt;/h3&gt;
+
+&lt;p&gt;The main rule of this pattern is that each layer may couple only to itself and below. The strict layers architecture
+only allows to couple to the layer directly below. We recommend to use the &lt;strong&gt;relaxed layers architecture&lt;/strong&gt; though, which
+allows any higher-level layer to couple to any layer below it.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/layers.png&#34; alt=&#34;DDD applied to layers architecture&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;dependency-inversion-principle&#34;&gt;Dependency Inversion Principle&lt;/h3&gt;
+
+&lt;p&gt;In the traditional view of the layers architecture, the infrastructure is at the bottom, containing technical
+mechanisms like persistence, messaging or any component dependent on third-party libraries. So every upper-layer must
+couple to the infrastructure layer to use the technical facilities. It is not desirable in DDD where we want to avoid
+any coupling of the domain to the infrastructure. In fact we want to avoid any coupling of any layer to the
+infrastructure. To achieve this independence, we will apply the &lt;strong&gt;&lt;a href=&#39;http://seedstack.org/archives/16.7/glossary#dependency-inversion-principle&#39;&gt;Dependency Inversion Principle&lt;/a&gt;&lt;/strong&gt; which
+states that:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;High-level modules should not depend on low-level modules. Both should depend on abstractions.&lt;/p&gt;
+
+&lt;p&gt;Abstractions should not depend upon details. Details should depend upon abstractions.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;What does it mean in terms of code, is that a low-level component should implement interfaces defined by high components.
+As such, we can move the infrastructure layer to the side.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;img/layers_dip.png&#34; alt=&#34;DDD applied to layers architecture&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As an example of this architecture, we would have a &lt;code&gt;JpaCustomerRepository&lt;/code&gt; implementation class which would belong to
+the infrastructure and which implements the &lt;code&gt;CustomerRepository&lt;/code&gt; interface defined in the domain layer. When injecting
+the repository elsewhere like in services, we would only use the interface. The
+&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/#dependency-injection&#34;&gt;dependency injection mechanism&lt;/a&gt; of the Java framework would provide
+the correct implementation from the infrastructure.&lt;/p&gt;
+
+&lt;h2 id=&#34;interface-layer&#34;&gt;Interface layer&lt;/h2&gt;
+
+&lt;p&gt;The interface layer contains the components that handle &lt;strong&gt;interactions with other systems&lt;/strong&gt;, such as Web application
+views, REST resources, Web-Services, etc&amp;hellip;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It handles the &lt;strong&gt;interpretation&lt;/strong&gt;, &lt;strong&gt;validation&lt;/strong&gt; and &lt;strong&gt;translation&lt;/strong&gt; of the inputs.&lt;/li&gt;
+&lt;li&gt;It handles the &lt;strong&gt;serialization&lt;/strong&gt; of the outputs, such as DTO classes to JSON, XML, etc.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;application-layer&#34;&gt;Application layer&lt;/h2&gt;
+
+&lt;p&gt;The application layer is responsible for &lt;strong&gt;driving the workflow of the application&lt;/strong&gt;, executing the use cases of the system.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;These operations are independent of the interfaces by which they are exposed.&lt;/li&gt;
+&lt;li&gt;This layer is well suited for &lt;strong&gt;spanning transactions&lt;/strong&gt;, high-level &lt;strong&gt;logging&lt;/strong&gt; and &lt;strong&gt;security&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;The application layer is thin in terms of domain logic, it merely &lt;strong&gt;coordinates the domain layer objects&lt;/strong&gt; to perform
+the actual work through &lt;strong&gt;Application Services&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;domain-layer&#34;&gt;Domain layer&lt;/h2&gt;
+
+&lt;p&gt;The Domain Layer is where the &lt;strong&gt;business is expressed&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The domain is independent of the use cases of the system, but is used to achieve their realization,&lt;/li&gt;
+&lt;li&gt;It is a very &lt;strong&gt;behaviour-rich&lt;/strong&gt; and &lt;strong&gt;expressive&lt;/strong&gt; model of the domain, based on entities, values objects and aggregates.&lt;/li&gt;
+&lt;li&gt;It contains additional blocks, such as domain services, repositories, factories, policies, etc&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;infrastructure-layer&#34;&gt;Infrastructure layer&lt;/h2&gt;
+
+&lt;p&gt;The infrastructure layer contains the technology-specific implementations of interfaces defined in other layers.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;It supports all of the three other layers in different ways, facilitating communication between the layers.&lt;/li&gt;
+&lt;li&gt;It consists of everything that would still exist without the application: external libraries, database engine,
+application server, messaging backend and so on.&lt;/li&gt;
+&lt;li&gt;This layer can be completely replaced by another one with other technological choices without altering the system behavior.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We often declare interfaces in &lt;strong&gt;Interfaces&lt;/strong&gt;, &lt;strong&gt;Application&lt;/strong&gt; and &lt;strong&gt;Domain&lt;/strong&gt; layers and implement them in the
+infrastructure Layer. A good example is the repository: interfaces are located in the domain layer but the
+implementation is in the infrastructure.&lt;/p&gt;
+
+&lt;h1 id=&#34;supple-design&#34;&gt;Supple design&lt;/h1&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;The ultimate purpose of software is to serve users. But first, that
+same software has to serve developers. [Eric Evans]&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;A software is not a piece code written in a one shot sprint. It is
+project that evolves. A lot of developers will have to work on it, to
+refactor it or add new features. Supple design is about making it
+a pleasure. It should invite to change and avoid the maintenance hell.&lt;/p&gt;
+
+&lt;p&gt;Complex and monolithic methods make hard to refactor or reuse parts of
+the code. When developers are not confident about what the software
+does, they start duplicating code. When this happens, iterative
+process and refactoring stops.&lt;/p&gt;
+
+&lt;p&gt;A supple design reveals the intent of the design. Side effects should
+contained and easy to predict. Behaviour should be obvious making it
+easy to reason about without having to investigate the implementation.&lt;/p&gt;
+
+&lt;p&gt;There is no one-way to achieve this suppleness but Eric Evans provides
+us some clues with a set of patterns. We will try to define and
+illustrate them.&lt;/p&gt;
+
+&lt;h2 id=&#34;intention-revealing-interface&#34;&gt;Intention-Revealing Interface&lt;/h2&gt;
+
+&lt;p&gt;This concept is all about communication between developers through
+code. Names of classes and methods should describe intents instead of
+means. The &lt;em&gt;ubiquitous language&lt;/em&gt; must be used to define these
+names. It will improves the comprehension of the code by the other
+members of the team.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;If a developer must consider the implementation of a component in
+order to use it, the value of encapsulation is lost.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Implementation changes should not affect the expected behaviour.&lt;/p&gt;
+
+&lt;p&gt;You can also make methods signatures clearer using meaningful Value
+Objects and Entities rather than primitives and associated classes
+(eg. String, long, BigDecimal, etc.). For instance, given the
+following method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;void setAddress(String address)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;How the client developer can know what the address should look like ?
+Does the model allow to change the address or is it just for
+initialization purpose ? Using the concept of &lt;em&gt;Intention-Revealing
+Interface&lt;/em&gt; will leads us to this newer version of the method:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;void changeAddress(Address address)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;side-effect-free-function&#34;&gt;Side-Effect-Free Function&lt;/h2&gt;
+
+&lt;p&gt;We just explained how a good naming can improve the comprehension of a
+model, but this is not always enougth. Complex methods usually call a
+combination of other methods. When all these nested methods have
+side-effects, it become hard to predict the overall behaviour.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;In computer science side-effect means any modification in the state of
+a system.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Lets say we are working on a software managing teams. We had to
+implement a method allowing to merged teams. So we first wrote this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;teamOne.add(teamTwo)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Ok, it takes members of the &lt;em&gt;teamTwo&lt;/em&gt; and add them to the
+&lt;em&gt;teamOne&lt;/em&gt;. It does the job. Wait ! What happens to &lt;em&gt;teamTwo&lt;/em&gt; ? Has it
+been modified also ? We can&amp;rsquo;t be sure whithout looking at the code of
+the &lt;em&gt;add&lt;/em&gt; method because this method is not &lt;em&gt;side-effect-free&lt;/em&gt;. After
+refactoring the code, here is the second version:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Team newTeam = teamOne.mergeWith(teamTwo)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the newer version, &lt;em&gt;teamOne&lt;/em&gt; and &lt;em&gt;teamTwo&lt;/em&gt; are not
+modified. Instead we create a new object, like that developers don&amp;rsquo;t
+have to understand the implementation. The knowledge is capture in the
+newly created team. The idea here is not to remove all the
+side-effects otherwise the code will just allow you to perform
+queries. But side-effects should be contained in small entities
+methods and complex computation isoltated in value objects.&lt;/p&gt;
+
+&lt;h2 id=&#34;assertion&#34;&gt;Assertion&lt;/h2&gt;
+
+&lt;p&gt;In the previous section we talk about limiting side-effects. But some
+of them will remains. The problem is that when they are implicit, it becomes
+impossible to anticipate the changes on the state of the application
+whithout following the execution path. Which breaks the
+encapsulation. So in order to make them explicit use &lt;em&gt;assertions&lt;/em&gt;. It
+can be done using method post-condition (for instance, with &lt;code&gt;@Valid&lt;/code&gt; from the
+Validation JSR) or by using unit tests.&lt;/p&gt;
+
+&lt;h2 id=&#34;going-further&#34;&gt;Going further&lt;/h2&gt;
+
+&lt;p&gt;In this article, we described methods for making intentions explicit
+using &lt;em&gt;Intention-Revealing Interface&lt;/em&gt;, &lt;em&gt;Side-Effect-Free Functions&lt;/em&gt;
+and &lt;em&gt;Assertion&lt;/em&gt;. These methods allow us to communicate intents,
+protecting encapsulation. This is very important if we want to keep
+the advantages of using a &lt;em&gt;Object-oriented-language&lt;/em&gt;. It also allow
+the client developer to focus on his design instead of having
+understand all the inner workings of the API he uses.&lt;/p&gt;
+
+&lt;p&gt;In his book &amp;laquo;Domain Driven Design&amp;raquo;, Eric Evans go further describing
+three additional concepts: &lt;em&gt;Conceptual contour&lt;/em&gt;, &lt;em&gt;Standalone&lt;/em&gt;,
+&lt;em&gt;Closure of Operations&lt;/em&gt;. I invite you to read his book if you want to
+have all the tools to reach the suppleness.&lt;/p&gt;
+
+&lt;h1 id=&#34;package-layout&#34;&gt;Package layout&lt;/h1&gt;
+
+&lt;p&gt;We propose and recommend a well-defined package layout for organizing your business code, which is described in this
+section.&lt;/p&gt;
+
+&lt;h2 id=&#34;the-domain&#34;&gt;The domain&lt;/h2&gt;
+
+&lt;h3 id=&#34;standalone-domain&#34;&gt;Standalone domain&lt;/h3&gt;
+
+&lt;p&gt;If you want to build a reusable domain it must be located in its own project. It is the recommended way to build a domain
+because it allows to reuse it across applications and doesn&amp;rsquo;t cost more than in-application domains. In that case, the
+domain must be named and live in its own package, for instance:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.myorganization.domains.mydomain
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here the domain is named &lt;code&gt;mydomain&lt;/code&gt;. Its prefix would naturally be adapted to your organization rules.&lt;/p&gt;
+
+&lt;h3 id=&#34;in-application-domain&#34;&gt;In-application domain&lt;/h3&gt;
+
+&lt;p&gt;If you plan to place the domain inside to your application (which is not recommended), you can just code it along
+your application packages. In that case it can stay without name and live as a subpackage of your project, for instance:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.myorganization.myproject.domain
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here the domain is not named, as it lives under the domain subpackage of the project. The project package would naturally
+be adapted to your organization rules.&lt;/p&gt;
+
+&lt;h3 id=&#34;package-organization&#34;&gt;Package organization&lt;/h3&gt;
+
+&lt;p&gt;In the DDD approach, entities are grouped in sets called aggregates. Aggregates are represented as a package containing
+an aggregate root and possibly additional entities. This package also contains the factory (interface and implementation),
+the repository interface and the possible value objects or policies related to your aggregate.
+Value objects and policies which may be used by multiple aggregates should be placed in a shared package.
+Services are located in their own package.&lt;/p&gt;
+
+&lt;p&gt;Implementations can be located in the &lt;code&gt;internal&lt;/code&gt; subpackage if they are independent of technical aspects like a third-party
+library. Otherwise they must be located in the infrastructure.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;org.myorganization.domains.mydomain (can also be org.myorganization.myproject.domain for in-application domain)
+    - model
+        - myaggregate1
+            - MyAggregateRoot
+            - MyEntity1
+            - MyEntity2
+            - MyAggregateFactory
+            - MyValueObject
+            - MyRepository
+            - MyPolicy
+            - internal
+                - MyPolicyImpl
+                - MyAggregateFactoryImpl
+        - myaggregate2
+            ...
+
+    - services
+        - MyService1
+        - MyService2
+        - internal
+            - MyService1Impl
+
+    - shared
+        - MySharedValueObject
+        - MySharedPolicy1
+        - internal
+            - MySharedPolicy1Impl
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-warn&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The domain should never depends on specific technical aspects. As such no infrastructure package have a place in a reusable
+domain. The infrastructure for the domain should reside in the client of the domain (the application using the domain) as
+it is specific to it (a same domain can be persisted very differently in different applications).&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;the-application&#34;&gt;The application&lt;/h2&gt;
+
+&lt;p&gt;The application layer contains application services which should be located in the application package. Implementations
+can be in &lt;code&gt;internal&lt;/code&gt; subpackages if they are independent of technical aspects (third-party library). Otherwise, they must
+be located in the infrastructure package.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;org.myorganization.myproject
+    - application
+        - services
+            - MyService3
+            - MyService4
+            - internal
+                - MyService3Impl
+
+    - infrastructure
+        - services
+            - 3rdparty-lib
+                - MyService4Lib
+        - repositories
+            - jpa
+                - MyRepositoryJpa
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that the infrastructure also contains the implementation of domain concepts related to a specific technology, such
+as implementations of repositories or of some services.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;the-interfaces&#34;&gt;The interfaces&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;org.myorganization.myproject
+    - rest
+        - usecase1
+            - UseCase1Assembler
+            - UserCase1Resource
+            - UseCase1Finder
+            - UseCase1Representation
+        - usecase2
+            ...
+
+    - infrastructure
+        - finders
+            - jpa
+                - UseCase1FinderJpa
+                - UseCase2FinderJpa
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;tuples&#34;&gt;Tuples&lt;/h1&gt;
+
+&lt;p&gt;A tuple is a data structure corresponding to a sequence of immutable
+objects. It&amp;rsquo;s just like an array of objects but typed and which can&amp;rsquo;t be changed,
+i.e. tuples are immutable.&lt;/p&gt;
+
+&lt;p&gt;Tuples are commonly used to:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Represent a set of data without creating temparary object
+that have no real meaning.&lt;/li&gt;
+&lt;li&gt;Easy access to, and manipulation of, a data set.&lt;/li&gt;
+&lt;li&gt;Returning mutliple values from a method.&lt;/li&gt;
+&lt;li&gt;Passing multiple values to a method through a single parameter.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In the Business framework, we usually see them in factories and
+assemblers. As implementation for tuples we use
+&lt;a href=&#34;http://javatuples.org&#34;&gt;javatuples.org&lt;/a&gt;. It provides tuple classes
+from one to ten elements:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Unit&amp;lt;A&amp;gt; (1 element)
+Pair&amp;lt;A,B&amp;gt; (2 elements)
+Triplet&amp;lt;A,B,C&amp;gt; (3 elements)
+Quartet&amp;lt;A,B,C,D&amp;gt; (4 elements)
+Quintet&amp;lt;A,B,C,D,E&amp;gt; (5 elements)
+Sextet&amp;lt;A,B,C,D,E,F&amp;gt; (6 elements)
+Septet&amp;lt;A,B,C,D,E,F,G&amp;gt; (7 elements)
+Octet&amp;lt;A,B,C,D,E,F,G,H&amp;gt; (8 elements)
+Ennead&amp;lt;A,B,C,D,E,F,G,H,I&amp;gt; (9 elements)
+Decade&amp;lt;A,B,C,D,E,F,G,H,I,J&amp;gt; (10 elements)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Plus a couple of very common 2-element tuple classes equivalent to
+Pair, just for the sake of code semantics:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;KeyValue&amp;lt;A,B&amp;gt;
+LabelValue&amp;lt;A,B&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All the tuple classes respect the following properties:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Typesafe&lt;/li&gt;
+&lt;li&gt;Immutable&lt;/li&gt;
+&lt;li&gt;Iterable&lt;/li&gt;
+&lt;li&gt;Serializable&lt;/li&gt;
+&lt;li&gt;Comparable (implements Comparable)&lt;/li&gt;
+&lt;li&gt;Implementing equals(&amp;hellip;) and hashCode()&lt;/li&gt;
+&lt;li&gt;Implementing toString()&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Usage:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Pair&amp;lt;Integer, String&amp;gt; pair = new Pair&amp;lt;Integer, String&amp;gt;(10, &amp;quot;foo&amp;quot;);
+Integer value0 = pair.getValue0();
+String value1 = pair.getValue1();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We also provide an helper class to create tuples.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Pair&amp;lt;Integer, String&amp;gt; pair = Tuples.create(10, &amp;quot;foo&amp;quot;);
+Tuple tuple = Tuples.create(10, &amp;quot;foo&amp;quot;, new Customer());
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;qualified-injection&#34;&gt;Qualified injection&lt;/h1&gt;
+
+&lt;p&gt;The Business framework supports the use of qualifiers defined by the JSR 330. This feature provides the ability to
+create multiple implementations for the same interface. This is useful when you have multiple algorithms or implementation
+technologies for an interface.&lt;/p&gt;
+
+&lt;h2 id=&#34;an-example-with-policies&#34;&gt;An example with policies&lt;/h2&gt;
+
+&lt;p&gt;This pattern can be used in various situations but proves itself very useful in the case of DDD policies. To leverage it,
+define a Policy interface as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Policy
+public interface TaxesPolicy {
+
+    Integer computeTaxes(Order order);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then define an implementation annotated by a qualifier. The annotation &lt;code&gt;@Named&lt;/code&gt; allows to qualify an implementation with
+a String.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Named(&amp;quot;FR&amp;quot;)
+public class FranceTaxesPolicy implements TaxesService {
+
+    Integer computeTaxes(Order order){
+        ...
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally you can inject it as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject @Named(&amp;quot;FR&amp;quot;)
+private TaxesPolicy frenchTaxes;
+
+@Inject @Named(&amp;quot;UK&amp;quot;)
+private TaxesPolicy ukTaxes;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or you can select it dynamically using the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;business.&amp;amp;#8203;domain.&amp;amp;#8203;DomainRegistry&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/business/domain/DomainRegistry.html&#39;&gt;DomainRegistry&lt;/a&gt;&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;TaxesPolicy userTaxesPolicy = domainRegistry.getPolicy(TaxesPolicy.class, userLocal);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;use-a-custom-qualifier&#34;&gt;Use a custom qualifier&lt;/h2&gt;
+
+&lt;p&gt;If a qualifier is often used, you can create a custom qualifier annotation as follows.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import javax.inject.Qualifier;
+
+@Qualifier
+@Target({ TYPE, METHOD, FIELD })
+@Retention(RUNTIME)
+public @interface France {
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then you use it like the &lt;code&gt;@Named&lt;/code&gt; annotation.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject @France
+private TaxesService taxesService;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;list-of-concepts-supporting-qualifiers&#34;&gt;List of concepts supporting qualifiers&lt;/h2&gt;
+
+&lt;p&gt;Qualified injection can be used on these concepts out-of-the-box:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Assembler,&lt;/li&gt;
+&lt;li&gt;Repository,&lt;/li&gt;
+&lt;li&gt;Factory,&lt;/li&gt;
+&lt;li&gt;Policy,&lt;/li&gt;
+&lt;li&gt;Service,&lt;/li&gt;
+&lt;li&gt;Finder.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

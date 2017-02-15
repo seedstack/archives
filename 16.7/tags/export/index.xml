@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/export/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/export/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/io/</link>
+      <pubDate>Tue, 17 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/io/</guid>
+      <description>
+
+&lt;p&gt;The IO add-on gives simple way to export and import data in multiple formats. This add-on comes with two modules:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;CSV through &lt;a href=&#34;http://super-csv.github.io/super-csv&#34;&gt;SuperCSV&lt;/a&gt;,&lt;/li&gt;
+&lt;li&gt;JasperReports.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To use the IO add-on, add the module &lt;code&gt;io-supercsv&lt;/code&gt; and/or the module &lt;code&gt;io-jasper&lt;/code&gt; to your project classpath.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-io-io--maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-io-io--gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-io-io--maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.io&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;io-???&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-io-io--version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.1.1&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-io-io--warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-io-io--show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-io-io--version, #org-seedstack-addons-io-io--warn&#39;).show(); $(&#39;#org-seedstack-addons-io-io--show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-io-io--gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.io:io-???:2.1.1&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h1 id=&#34;writing-csv-files&#34;&gt;Writing CSV files&lt;/h1&gt;
+
+&lt;p&gt;To export a POJO to a CSV file, make sure the &lt;code&gt;io-supercsv&lt;/code&gt; module is in your classpath. We will export
+the following POJO:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class CustomerBean {
+
+    private String firstName;
+
+    private String lastName;
+
+    private int age;
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add a &lt;code&gt;customerbean.csv.properties&lt;/code&gt; file in &lt;code&gt;META-INF/templates&lt;/code&gt; directory:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;columns=firstName,lastName,age
+firstName.name=First name
+lastName.name=Last name
+age.name=Age
+age.type=int
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In your code, inject a renderer:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Render(&amp;quot;customerbean&amp;quot;)
+private Renderer renderer;
+
+private List&amp;lt;CustomerBean&amp;gt; customers;
+
+public void exportCustomers(OuputStream os) {
+    renderer.render(os, customers);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or programatically obtain the required renderer:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private Renderers renderers;
+
+public void exportCustomers(OuputStream os, String name) {
+    Renderer renderer = renderers.getRendererFor(name);
+    renderer.render(os, customers);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;reading-csv-files&#34;&gt;Reading CSV files&lt;/h1&gt;
+
+&lt;p&gt;To import the POJO, the configuration is the same as export configuration. Then inject a &lt;code&gt;Parser&lt;/code&gt; with the &lt;code&gt;@Parse&lt;/code&gt; annotation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Parse(&amp;quot;customerbean&amp;quot;)
+private Parser&amp;lt;CustomerBean&amp;gt; parser;
+
+private List&amp;lt;CustomerBean&amp;gt; customers;
+
+public void importCustomers(InputStream is) {
+    customers = parser.parse(is, CustomerBean.class);
+} 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or use &lt;code&gt;Parsers&lt;/code&gt; to programatically obtain the required parser:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private Parsers parsers;
+
+public void importCustomers(InputStream is, String name) {
+    Parser parser = parsers.getParserFor(name);
+    renderer.render(os, customers);
+    customers = parser.parse(is, CustomerBean.class);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;writing-pdf-files&#34;&gt;Writing PDF files&lt;/h1&gt;
+
+&lt;p&gt;PDF files are generated with JasperReports. Make sure to have the &lt;code&gt;io-jasper&lt;/code&gt; module in your classpath and put a JRXML
+file in &lt;code&gt;META-INF/templates&lt;/code&gt; directory. Example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Render(&amp;quot;pdftemplate&amp;quot;)
+Renderer renderer;
+
+List&amp;lt;CustomerBean&amp;gt; customers;
+
+public void exportCustomers(OuputStream os) {
+    renderer.render(os, customers, &amp;quot;application/pdf&amp;quot;, parameters);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can pass any Jasper parameter (like &lt;code&gt;SUBREPORT_DIR&lt;/code&gt;) using the fourth parameter or &lt;code&gt;render()&lt;/code&gt;which is a
+&lt;code&gt;Map&amp;lt;String, Object&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The Jasper module does not provide a parser.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Advanced CSV</title>
+      <link>http://seedstack.org/archives/16.7/addons/io/advanced-csv-export/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/io/advanced-csv-export/</guid>
+      <description>
+
+&lt;p&gt;A CSV template is defined with a &lt;code&gt;*.csv.properties&lt;/code&gt; file. This properties gives you options to change general
+configuration, define format or provide custom validation. The available options are:&lt;/p&gt;
+
+&lt;p&gt;&lt;table class=&#34;table table-bordered&#34;&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th&gt;Key&lt;/th&gt;
+ &lt;th&gt;Default&lt;/th&gt;
+ &lt;th&gt;Description&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+     &lt;tr&gt;
+         &lt;td&gt;charsetName&lt;/td&gt;
+         &lt;td&gt;UTF-8&lt;/td&gt;
+         &lt;td&gt;Option to change the charset name.&lt;/td&gt;
+     &lt;/tr&gt;
+     &lt;tr&gt;
+         &lt;td&gt;quote&lt;/td&gt;
+         &lt;td&gt;&amp;laquo;&lt;/td&gt;
+         &lt;td&gt;The quote character is used when a cell contains special characters, such as the delimiter char, a quote char, or spans multiple lines.&lt;/td&gt;
+     &lt;/tr&gt;
+     &lt;tr&gt;
+         &lt;td&gt;separator&lt;/td&gt;
+         &lt;td&gt;;&lt;/td&gt;
+         &lt;td&gt;The delimiter character separates each cell in a row.&lt;/td&gt;
+     &lt;/tr&gt;
+     &lt;tr&gt;
+         &lt;td&gt;endOfLine&lt;/td&gt;
+         &lt;td&gt;\n&lt;/td&gt;
+         &lt;td&gt;The end of line symbols to use when writing.&lt;/td&gt;
+     &lt;/tr&gt;
+     &lt;tr&gt;
+         &lt;td&gt;showHeader&lt;/td&gt;
+         &lt;td&gt;true&lt;/td&gt;
+         &lt;td&gt;If true, show the column headers.&lt;/td&gt;
+     &lt;/tr&gt;
+     &lt;tr&gt;
+         &lt;td&gt;columns&lt;/td&gt;
+         &lt;td&gt;N/A&lt;/td&gt;
+         &lt;td&gt;&lt;b&gt;Mandatory&lt;/b&gt;. List of the model fields to render.&lt;/td&gt;
+     &lt;/tr&gt;
+     &lt;tr&gt;
+         &lt;td&gt;xxxx.name&lt;/td&gt;
+         &lt;td&gt;N/A&lt;/td&gt;
+         &lt;td&gt;Header name to write. If the name property is not present the header will be the field name&lt;/td&gt;
+     &lt;/tr&gt;
+     &lt;tr&gt;
+         &lt;td&gt;xxxx.type&lt;/td&gt;
+         &lt;td&gt;String&lt;/td&gt;
+         &lt;td&gt;Available types are &amp;laquo;date&amp;raquo;, &amp;laquo;boolean&amp;raquo;, &amp;laquo;int&amp;raquo;,&amp;laquo;double&amp;raquo;, &amp;laquo;long&amp;raquo;, &amp;laquo;bigdecimal&amp;raquo;.&lt;/td&gt;
+     &lt;/tr&gt;
+     &lt;tr&gt;
+         &lt;td&gt;xxxx.format&lt;/td&gt;
+         &lt;td&gt;N/A&lt;/td&gt;
+         &lt;td&gt;Used to format date, boolean and number (ex: &lt;code&gt;birthdate.format=dd/MM/yyyy&lt;/code&gt;). For the boolean type you can specify how to write true or false values by two comma separated values: &lt;code&gt;married.format=Yes,No&lt;/code&gt;.&lt;/td&gt;
+     &lt;/tr&gt;
+     &lt;tr&gt;
+         &lt;td&gt;xxxx.notNull&lt;/td&gt;
+         &lt;td&gt;false&lt;/td&gt;
+         &lt;td&gt;Is used to define if the field is optional or not.&lt;/td&gt;
+     &lt;/tr&gt;
+     &lt;tr&gt;
+         &lt;td&gt;xxxx.unique&lt;/td&gt;
+         &lt;td&gt;false&lt;/td&gt;
+         &lt;td&gt;Is used to define the field must be unique.&lt;/td&gt;
+     &lt;/tr&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/tbody&gt;
+ &lt;/table&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;example&#34;&gt;Example&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code&gt;# General configuration
+quote=&amp;quot;
+separator=;
+endOfLine=\n
+charsetName=UTF-8
+
+columns=customerNo, firstName, lastName, birthDate, mailingAddress, married, numberOfKids, favouriteQuote, email, loyaltyPoints
+
+# customerNo (must be unique)
+customerNo.name=ID
+customerNo.nullable=false
+customerNo.unique=true
+
+# firstName
+firstName.name=First name
+firstName.nullable=false
+
+# lastName
+lastName.name=Last name
+lastName.nullable=false
+
+# birthDate
+birthDate.name=Birth date
+birthDate.nullable=false
+birthDate.type=date
+birthDate.format=dd/MM/yyyy
+
+# mailingAddress
+mailingAddress.name=Mailling address
+mailingAddress.nullable=false
+
+# married
+married.name=Married
+married.nullable=true
+birthDate.type=boolean
+birthDate.format=Yes,No
+
+# numberOfKids
+numberOfKids.name=Number of kids
+numberOfKids.nullable=true
+
+# favouriteQuote
+favouriteQuote.name=Favorite quote
+favouriteQuote.nullable=false
+
+# email
+email.name=Email
+email.nullable=false
+
+# loyaltyPoints
+loyaltyPoints.name=Loyalty points
+loyaltyPoints.nullable=false
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Custom renderers</title>
+      <link>http://seedstack.org/archives/16.7/addons/io/custom-renderers/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/io/custom-renderers/</guid>
+      <description>
+
+&lt;p&gt;If available renderers don&amp;rsquo;t fit your needs, the IO add-on provides an SPI to register your custom renderers. There are
+three options to provide your own renderer: static template, dynamic template or without template.&lt;/p&gt;
+
+&lt;h1 id=&#34;static-template&#34;&gt;Static template&lt;/h1&gt;
+
+&lt;p&gt;In this case, templates are loaded from files within the &lt;code&gt;META-INF/templates&lt;/code&gt; directory. You need to extend three classes:
+&lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;io.&amp;amp;#8203;spi.&amp;amp;#8203;AbstractBaseStaticTemplateLoader&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/io/spi/AbstractBaseStaticTemplateLoader.html&#39;&gt;AbstractBaseStaticTemplateLoader&lt;/a&gt;&lt;/code&gt;, &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;io.&amp;amp;#8203;spi.&amp;amp;#8203;AbstractBaseTemplate&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/io/spi/AbstractBaseTemplate.html&#39;&gt;AbstractBaseTemplate&lt;/a&gt;&lt;/code&gt; and
+&lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;io.&amp;amp;#8203;spi.&amp;amp;#8203;AbstractTemplateRenderer&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/io/spi/AbstractTemplateRenderer.html&#39;&gt;AbstractTemplateRenderer&lt;/a&gt;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The template loader loads the template from the corresponding resource in &lt;code&gt;META-INF/templates&lt;/code&gt; directory.&lt;/li&gt;
+&lt;li&gt;The template have all information necessary to render a model.&lt;/li&gt;
+&lt;li&gt;The renderer is able to render a model into an OutputStream, using the template information.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;dynamic-template&#34;&gt;Dynamic template&lt;/h1&gt;
+
+&lt;p&gt;In the case of a dynamic template, your loader will completely handle the loading logic. Implement the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;io.&amp;amp;#8203;spi.&amp;amp;#8203;TemplateLoader&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/io/spi/TemplateLoader.html&#39;&gt;TemplateLoader&lt;/a&gt;&lt;/code&gt;
+interface:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyDynamicTemplateLoader implements TemplateLoader&amp;lt;MyTemplate&amp;gt; {
+
+    @Override
+    public MyTemplate load(String name) throws Exception {
+        // Gets your template from anywhere
+        return myTemplate
+    }
+
+    @Override
+    Set&amp;lt;String&amp;gt; names() {
+        // Returns all the templates you know
+        return names;
+    }
+
+    @Override
+    boolean contains(String name) {
+        // Checks if you know this template
+        return bool;
+    }
+
+    @Override
+    public String templateRenderer() {
+        // Returns the name of the associated renderer
+        return &amp;quot;MyTemplateRenderer&amp;quot;;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;without-template&#34;&gt;Without template&lt;/h1&gt;
+
+&lt;p&gt;A renderer without template doesn&amp;rsquo;t need any information to render the model. It is often the case of specific renderers
+that are not meant to be reusable. Extend &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;io.&amp;amp;#8203;spi.&amp;amp;#8203;AbstractBaseRenderer&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/io/spi/AbstractBaseRenderer.html&#39;&gt;AbstractBaseRenderer&lt;/a&gt;&lt;/code&gt; and annotate it
+with &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;javax.&amp;amp;#8203;inject.&amp;amp;#8203;Named&#39;&gt;@Named&lt;/span&gt;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Named(&amp;quot;custom&amp;quot;)
+public class CustomRenderer extends AbstractBaseRenderer {
+
+    public CustomRenderer() {
+    }
+
+    @Override
+    public void render(OutputStream outputStream, Object model) {
+        render(outputStream, model, null, null);
+    }
+
+    @Override
+    public void render(OutputStream outputStream, Object model, String mimeType, Map&amp;lt;String, Object&amp;gt; parameters) {
+        try {
+            outputStream.write(&amp;quot;Hello World!&amp;quot;.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can inject it as usual:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Renderer(&amp;quot;custom&amp;quot;)
+Renderer renderer;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

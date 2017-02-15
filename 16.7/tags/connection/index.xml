@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/connection/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/connection/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Configuration</title>
+      <link>http://seedstack.org/archives/16.7/addons/jms/configuration/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/jms/configuration/</guid>
+      <description>
+
+&lt;p&gt;Configuring your messaging solution is mandatory in order to be able to use Seed JMS add-on.&lt;/p&gt;
+
+&lt;h1 id=&#34;connection-factories&#34;&gt;Connection factories&lt;/h1&gt;
+
+&lt;p&gt;The connectionFactory is the base to create connections. Connection factories are declared using the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms]
+connection-factories = connection-factory-1, connection-factory-1, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;direct-instantiation-configuration&#34;&gt;Direct instantiation configuration&lt;/h2&gt;
+
+&lt;p&gt;In direct instantiation mode, Seed will create the connection factory and configure it by setting properties on its
+instance. Use the following property syntax to define the configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms]
+connection-factory.connection-factory-1.vendor.class = fully qualified vendor classname
+connection-factory.connection-factory-1.vendor.property.property1 = value1
+connection-factory.connection-factory-1.vendor.property.property2 = value2
+connection-factory.connection-factory-1.vendor.property.property3 = value3
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Seed will instantiate the specified class and will set each property as defined above.&lt;/p&gt;
+
+&lt;h2 id=&#34;with-jndi&#34;&gt;With JNDI&lt;/h2&gt;
+
+&lt;p&gt;In JNDI mode, Seed will lookup for connection factory instances using the name and optionally the specified context:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms]
+connection-factory.connection-factory-1.jndi.name = name to lookup for
+connection-factory.connection-factory-1.jndi.context = context for lookup  # Optional
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The context must be specified according to the list of JNDI contexts defined in core support (see &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/more/#jndi&#34;&gt;the corresponding
+documentation&lt;/a&gt;). If no context is specified the default context is used.&lt;/p&gt;
+
+&lt;h1 id=&#34;connections&#34;&gt;Connections&lt;/h1&gt;
+
+&lt;p&gt;Multiple connections can be created and managed by Seed. All connections must be listed in the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms]
+connections = connection-1, connection-2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Each connection can then be configured as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms.connection.connection-1]
+connection-factory = connection-factory-1
+user = ...         # Optional
+password = ...     # Optional
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;exception-listener&#34;&gt;Exception listener&lt;/h2&gt;
+
+&lt;p&gt;You can specify an exception listener on a connection with the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms.connection.connection-1]
+exception-listener = fully.qualified.class.of.the.exception.listener
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;automatic-reconnection&#34;&gt;Automatic reconnection&lt;/h2&gt;
+
+&lt;p&gt;Seed-managed JMS connections can automatically reconnect after they go down. This behavior is enabled by default but
+can be disabled by the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms.connection.connection-1]
+managed-connection = false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The delay before automatic reconnection is 30 seconds but it can be changed with the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms.connection.connection-1]
+reconnection-delay = 10000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that the delay is specified in milliseconds.&lt;/p&gt;
+
+&lt;h2 id=&#34;client-id&#34;&gt;Client ID&lt;/h2&gt;
+
+&lt;p&gt;Seed will automatically set the client ID of the connection if not in JEE mode (see below). To disable the setting of
+the client ID, use the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms.connection.connection-1]
+set-client-id = false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The client ID itself can be defined with the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms.connection.connection-1]
+client-id = my-client-id
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If not specified, the default client ID is formed by concatenating the application identifier with the connection name.&lt;/p&gt;
+
+&lt;h2 id=&#34;jee-mode&#34;&gt;JEE mode&lt;/h2&gt;
+
+&lt;p&gt;In a strict JEE environment, some JMS methods are forbidden (refer to the EE.6.7 section of the JavaEE platform specification).
+You can enable the JEE mode on a connection with the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jms.connection.connection-1]
+jee-mode = true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this mode, the forbidden methods are not invoked. It prevents the uses of asynchronous message reception (driven by
+the JMS provider after setMessageListener()) so polling must be used instead.&lt;/p&gt;
+
+&lt;p&gt;Seed allows to still use a MessageListener when in polling mode but a message poller must be specified when registering
+the listener. Having a MessageListener defined without a corresponding message poller while in JEE mode results in an
+error.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

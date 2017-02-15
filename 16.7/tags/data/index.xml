@@ -1,0 +1,2735 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/data/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/data/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/mongodb/</link>
+      <pubDate>Tue, 09 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/mongodb/</guid>
+      <description>
+
+&lt;p&gt;SeedStack MongoDB add-on enables your application to connect with MongoDB instances.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-mongodb-mongodb-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-mongodb-mongodb-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-mongodb-mongodb-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.mongodb&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mongodb&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-mongodb-mongodb-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;1.1.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-mongodb-mongodb-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-mongodb-mongodb-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-mongodb-mongodb-version, #org-seedstack-addons-mongodb-mongodb-warn&#39;).show(); $(&#39;#org-seedstack-addons-mongodb-mongodb-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-mongodb-mongodb-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.mongodb:mongodb:1.1.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;You also need to add the MongoDB Java client:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.mongodb&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mongo-java-driver&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;...&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can choose to use the MongoDB asynchronous client instead (or in addition as you can mix asynchronous and synchronous
+clients in the same application):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.mongodb&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mongodb-driver-async&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;...&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;MongoDB clients are used to access databases and are declared with the following configuration property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb]
+clients = client1, client2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Each client must then be configured separately with the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+# configuration of client1 
+
+[org.seedstack.mongodb.client.client2]
+# configuration of client2
+ 
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;As MongoDB has a different Java driver for synchronous and asynchronous clients, the type of a client will determine how
+it can be configured and used. Clients use the &lt;a href=&#34;http://mongodb.github.io/mongo-java-driver/3.0/driver/&#34;&gt;synchronous driver&lt;/a&gt;
+by default, to switch to the &lt;a href=&#34;http://mongodb.github.io/mongo-java-driver/3.0/driver-async/&#34;&gt;asynchronous driver&lt;/a&gt;, specify
+the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+async = true
+&lt;/code&gt;&lt;/pre&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;uri-connection-string&#34;&gt;URI connection string&lt;/h2&gt;
+
+&lt;p&gt;A client can be configured with an URI:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+uri = mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]      
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;URI allows to directly specify a set of options common to synchronous and asynchronous clients. More information about
+the URI and its options can be found &lt;a href=&#34;http://docs.mongodb.org/manual/reference/connection-string/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;explicit-hosts&#34;&gt;Explicit hosts&lt;/h2&gt;
+
+&lt;p&gt;As an alternative a client can be configured by directly specifying the MongoDB host(s):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+hosts = host1:27017, host2     
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this case, the client options must be specified using additional properties, which a are different for synchronous and
+asynchronous clients. See the &lt;a href=&#34;#synchronous-client-options&#34;&gt;Synchronous client options&lt;/a&gt; and &lt;a href=&#34;#asynchronous-client-options&#34;&gt;Asynchronous client options&lt;/a&gt;
+sections below for more information.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;When no port is specified, whether in the URI or in the hosts property, the default MongoDB port is used (27017).&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When configuring the connection with explicit hosts, connection credentials can be specified as the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...    
+credentials = db1:user1:password1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will authenticate with the username &lt;code&gt;user1&lt;/code&gt; and the password &lt;code&gt;password1&lt;/code&gt;. The user will be lookup up in the &lt;code&gt;db1&lt;/code&gt;
+database. The authentication mechanism will be automatically selected. To force an authentication mechanism use the
+following syntax:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...    
+credentials = mechanism/db1:user1:password1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The available authentication mechanisms are &lt;code&gt;PLAIN&lt;/code&gt;, &lt;code&gt;MONGODB_CR&lt;/code&gt;, &lt;code&gt;SCRAM_SHA_1&lt;/code&gt;, &lt;code&gt;MONGODB_X509&lt;/code&gt; and &lt;code&gt;GSSAPI&lt;/code&gt;. You can
+specify multiple credentials like the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...    
+credentials = mechanism/db1:user1:password1, mechanism/db2:user2:password2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;It is recommended to avoid specifying the authentication mechanism as it will be automatically selected. Also note that
+often, only one credential is enough.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;databases&#34;&gt;Databases&lt;/h2&gt;
+
+&lt;p&gt;You can choose to inject and use the &lt;code&gt;MongoClient&lt;/code&gt; object(s) directly and access the database(s) programatically. As a
+convenience, Seed also allows to inject the &lt;code&gt;MongoDatabase&lt;/code&gt; object(s) with the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...
+databases = db1, db2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Each declared database can then be injected accordingly. See the &lt;a href=&#34;#usage&#34;&gt;usage&lt;/a&gt; section below for more information.&lt;br /&gt;
+Database names must be unique across the application so you can encounter a situation when multiple configured clients
+may need to access databases with the same name. In that case, you can use the alias feature. Consider the following clients:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...    
+databases = db1, db2
+
+[org.seedstack.mongodb.client.client2]
+...    
+databases = db2, db3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can note that a database named &lt;code&gt;db2&lt;/code&gt; exists in MongoDB instances accessed by both &lt;code&gt;client1&lt;/code&gt; and &lt;code&gt;client2&lt;/code&gt;. To resolve
+this ambiguity, one of the &lt;code&gt;db2&lt;/code&gt; databases must be aliased in the application:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client2]
+...    
+databases = db2, db3
+alias.db2 = db2bis
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this example, the &lt;code&gt;db2&lt;/code&gt; database present on the MongoDB instance accessed by &lt;code&gt;client2&lt;/code&gt; will be referred in the
+application by the &lt;code&gt;db2bis&lt;/code&gt; name. Note that you can use this feature even when there are no name collision.&lt;/p&gt;
+
+&lt;h2 id=&#34;synchronous-client-options&#34;&gt;Synchronous client options&lt;/h2&gt;
+
+&lt;p&gt;Additional options can be specified on synchronous clients with the &lt;code&gt;option&lt;/code&gt; prefix:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...
+option.optionName1 = value1
+option.optionName2 = value2
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All the options from the &lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/MongoClientOptions.Builder.html&#34;&gt;MongoClientOptions.Builder&lt;/a&gt;
+class are available. Each method of the builder translates to an option of the same name. Consider the following example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...
+option.connectionsPerHost = 75
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will invoke the &lt;code&gt;connectionsPerHost()&lt;/code&gt; method on the option builder with the value &lt;code&gt;75&lt;/code&gt; converted to an integer.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If you use a URI configuration, you can combine the URI options with the &lt;code&gt;option.*&lt;/code&gt; syntax. The specified option(s)
+will complement their URI counterpart and override them if present in both.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;asynchronous-client-options&#34;&gt;Asynchronous client options&lt;/h2&gt;
+
+&lt;p&gt;Additional options can be specified on asynchronous clients with the &lt;code&gt;setting&lt;/code&gt; prefix:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb.client.client1]
+...
+setting.settingNamespace1.settingName1 = value1
+setting.settingNamespace1.settingName2 = value2
+setting.settingNamespace2.settingName3 = value3
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All the settings from the &lt;code&gt;MongoClientSettings.Builder&lt;/code&gt; builder and its sub-builders are available. Each sub-builder translates
+to a setting namespace and each of the builders method translates to a particular setting. The list of the builders and
+their corresponding namespace is:&lt;/p&gt;
+
+&lt;table class=&#34;table table-striped&#34;&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+    &lt;th&gt;Namespace&lt;/th&gt;
+    &lt;th&gt;Builder&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;cluster&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/connection/ClusterSettings.Builder.html&#34;&gt;ClusterSettings.Builder&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;connectionPool&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/connection/ConnectionPoolSettings.Builder.html&#34;&gt;ConnectionPoolSettings.Builder&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;socket&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/connection/SocketSettings.Builder.html&#34;&gt;SocketSettings.Builder&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;heartbeatSocket&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/connection/SocketSettings.Builder.html&#34;&gt;SocketSettings.Builder&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;server&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/connection/ServerSettings.Builder.html&#34;&gt;ServerSettings.Builder&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;ssl&lt;/td&gt;
+    &lt;td&gt;&lt;a href=&#34;http://api.mongodb.org/java/3.0/com/mongodb/connection/SslSettings.Builder.html&#34;&gt;SslSettings.Builder&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Consider the following example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;setting.connectionPool.maxSize = 75
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will invoke the &lt;code&gt;maxSize()&lt;/code&gt; method on a &lt;code&gt;ConnectionPoolSettings.Builder&lt;/code&gt; instance with the value &lt;code&gt;75&lt;/code&gt; converted to
+an integer. This builder instance will in turn be be set on a &lt;code&gt;MongoClientSettings.Builder&lt;/code&gt; instance via the &lt;code&gt;connectionPoolSettings()&lt;/code&gt;
+method.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;ul&gt;
+&lt;li&gt;The global settings directly available on &lt;code&gt;MongoClientSettings.Builder&lt;/code&gt; can be specified without namespace. More information
+on the global builder &lt;a href=&#34;http://api.mongodb.org/java/current/com/mongodb/async/client/MongoClientSettings.Builder.html&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;cluster.hosts&lt;/code&gt; and &lt;code&gt;credentialList&lt;/code&gt; settings are ignored since they are already mapped from the &lt;code&gt;hosts&lt;/code&gt; and the
+&lt;code&gt;credentials&lt;/code&gt; properties.&lt;/li&gt;
+&lt;/ul&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;usage&#34;&gt;Usage&lt;/h1&gt;
+
+&lt;p&gt;As MongoDB doesn&amp;rsquo;t support transactions, usage simply consists in injecting a &lt;code&gt;MongoClient&lt;/code&gt; or a &lt;code&gt;MongoDatabase&lt;/code&gt; object
+and using it accordingly to the MongoDB documentation. As an example you can inject the client as the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+@Named(&amp;quot;client1&amp;quot;)
+MongoClient client1;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will inject the configured MongoDB client named &lt;code&gt;client1&lt;/code&gt;. You can also inject a database directly as the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+@Named(&amp;quot;db1&amp;quot;)
+MongoDatabase db1;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will inject the configured MongoDB database named &lt;code&gt;db1&lt;/code&gt;. Note that you must use the aliased name instead of the
+real database name if you aliased it in the configuration (see the &lt;a href=&#34;#databases&#34;&gt;databases&lt;/a&gt; section for information
+about aliases).&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If your client or database is configured as synchronous (the default) you must use the &lt;code&gt;com.mongodb.MongoClient&lt;/code&gt; and
+&lt;code&gt;com.mongodb.client.MongoDatabase&lt;/code&gt; classes. If your client or database is configured as asynchronous, you must use the
+&lt;code&gt;com.mongodb.async.client.MongoClient&lt;/code&gt; and &lt;code&gt;com.mongodb.async.client.MongoDatabase&lt;/code&gt; classes instead.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;You can inject a client or a database without any &lt;code&gt;@Named&lt;/code&gt; qualifier as long as there is only one client or only one database
+of the injected type configured.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;morphia&#34;&gt;Morphia&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/mongodb/morphia&#34;&gt;Morphia&lt;/a&gt; is an Object document mapper Api. it Provides Annotation-based Java objects
+mapping, and fluent query/update API&amp;rsquo;s.&lt;/p&gt;
+
+&lt;p&gt;SeedStack Morphia add-on enables your application to connect and interact with MongoDB instances only by injecting and
+using a Morphia &lt;code&gt;Datastore&lt;/code&gt;.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-mongodb-mongodb-morphia-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-mongodb-mongodb-morphia-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-mongodb-mongodb-morphia-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.mongodb&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;mongodb-morphia&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-mongodb-mongodb-morphia-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;1.1.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-mongodb-mongodb-morphia-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-mongodb-mongodb-morphia-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-mongodb-mongodb-morphia-version, #org-seedstack-addons-mongodb-mongodb-morphia-warn&#39;).show(); $(&#39;#org-seedstack-addons-mongodb-mongodb-morphia-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-mongodb-mongodb-morphia-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.mongodb:mongodb-morphia:1.1.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;configuration-1&#34;&gt;Configuration&lt;/h2&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;&lt;strong&gt;Requirements:&lt;/strong&gt;
+Morphia Datastores need synchronous mongodb databases, please refer to mongodb &lt;a href=&#34;#asynchronous-client-options&#34;&gt;synchronous client&lt;/a&gt;
+and &lt;a href=&#34;#Databases&#34;&gt;database&lt;/a&gt; configuration before starting with morphia.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Seed has the ability to create a new Morphia &lt;code&gt;Datastore&lt;/code&gt; linked to single Morphia mapped objects or java packages.
+Two &lt;code&gt;morphia&lt;/code&gt; properties &lt;code&gt;clientName&lt;/code&gt; and &lt;code&gt;dbName&lt;/code&gt; are available and can be set using Seed object props configuration
+as followed:&lt;/p&gt;
+
+&lt;p&gt;Required Mongodb configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb]
+clients = client1
+
+[org.seedstack.mongodb.client.client1]
+hosts = localhost
+option.connectionsPerHost = 50
+databases = db1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Datastore linked to a single Morphia mapped object:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.mycompany.myapp.domain.user.*]
+morphia.clientName = client1
+morphia.dbName = db1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Datastore linked to Morphia mapped objects in a package&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.mycompany.myapp.domain.user.User]
+morphia.clientName = client1
+morphia.dbName = db1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;usage-1&#34;&gt;Usage&lt;/h2&gt;
+
+&lt;p&gt;Configuration for affecting a package to a &lt;code&gt;Datastore&lt;/code&gt; linked to the database &lt;code&gt;db1&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.mongodb]
+clients = client1
+
+[org.seedstack.mongodb.client.client1]
+hosts = localhost
+option.connectionsPerHost = 50
+databases = db1
+
+[org.mycompany.myapp.domain.user.*]
+morphia.clientName = client1
+morphia.dbName = db1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Morphia only support synchronous client, as so the Mongodb database must be synchronous.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Mapping Object under the package defined above:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Entity
+public class User implements AggregateRoot&amp;lt;Long&amp;gt;{
+	@Id
+	private long id;
+	private String name;
+	private String lastname;
+    @Embedded    
+    private Address address;
+    
+	// ...
+}
+@Embedded
+public class Address implements ValueObject{
+	private String country;
+	private String zipcode;
+	private String city;
+	private String street;
+	private Integer number;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A Morphia &lt;code&gt;Datastore&lt;/code&gt; can be injected simply by specifying the associated &lt;code&gt;morphia.clientName&lt;/code&gt; and &lt;code&gt;morphia.dbName&lt;/code&gt; with
+the appropriate binding annotation &lt;code&gt;@MorphiaDatastore&lt;/code&gt; as followed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MorphiaIT extends AbstractSeedIT{
+	@Inject
+	@MorphiaDatastore(clientName = &amp;quot;client1&amp;quot;,dbName=&amp;quot;db1&amp;quot;)
+	private Datastore datastore; 
+	
+	@Test
+	public void datastore_test(){
+		User user = new User(...);
+		Key&amp;lt;User&amp;gt; keyUser = datastore.save(user);
+		Assertions.assertThat(keyUser).isNotNull();
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;repositories&#34;&gt;Repositories&lt;/h2&gt;
+
+&lt;p&gt;The Morphia addon also provides repositories which can be use with the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/business/&#34;&gt;Business Framework&lt;/a&gt;.
+Default repositories can be used by injecting the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;business.&amp;amp;#8203;domain.&amp;amp;#8203;Repository&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/business/domain/Repository.html&#39;&gt;Repository&lt;/a&gt;&lt;/code&gt; interface with
+both the &lt;code&gt;@Inject&lt;/code&gt; and &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;mongodb.&amp;amp;#8203;morphia.&amp;amp;#8203;Morphia&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/mongodb/morphia/Morphia.html&#39;&gt;@Morphia&lt;/a&gt;&lt;/code&gt; annotations as followed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MongodbRepositoryIT extends AbstractSeedIT {
+
+	@Inject
+	@Morphia
+	private Repository&amp;lt;User, Long&amp;gt; userRepository;
+	
+	@Inject
+	Factory&amp;lt;User&amp;gt; myUserFactory; 
+	
+	@Test
+	public void mongodb_repository_test() {
+		userRepository.delete(myUserFactory.create(...));
+		User loadedUser = userRepository.load(user1.getEntityId());
+		Assertions.assertThat(user).isEqualTo(null);
+	}
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Custom repositories can be added simply by extending the class &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;mongodb.&amp;amp;#8203;morphia.&amp;amp;#8203;BaseMongodbRepository&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/mongodb/morphia/BaseMongodbRepository.html&#39;&gt;BaseMongodbRepository&lt;/a&gt;&lt;/code&gt; as followed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public interface UserRepository extends Repository&amp;lt;Activation,String&amp;gt; {}
+public class UserMongodbRepository extends BaseMongodbRepository&amp;lt;User, Long&amp;gt; {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The repository can be injected as followed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+private UserRepository userRepository;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;To use a &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;mongodb.&amp;amp;#8203;morphia.&amp;amp;#8203;Datastore&#39;&gt;Datastore&lt;/span&gt;&lt;/code&gt; inside the repository simply call the method &lt;code&gt;this.getDatastore()&lt;/code&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/neo4j/</link>
+      <pubDate>Tue, 09 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/neo4j/</guid>
+      <description>&lt;p&gt;Coming soon&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/redis/</link>
+      <pubDate>Tue, 09 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/redis/</guid>
+      <description>&lt;p&gt;Coming soon&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/solr/</link>
+      <pubDate>Tue, 09 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/solr/</guid>
+      <description>&lt;p&gt;Coming soon&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/jdbc/</link>
+      <pubDate>Thu, 21 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/jdbc/</guid>
+      <description>
+
+&lt;p&gt;Seed JDBC persistence add-on enables your application to interface with any relational database through the JDBC API.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-jdbc-jdbc-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-jdbc-jdbc-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-jdbc-jdbc-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.jdbc&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;jdbc&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-jdbc-jdbc-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.1.3&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-jdbc-jdbc-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-jdbc-jdbc-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-jdbc-jdbc-version, #org-seedstack-addons-jdbc-jdbc-warn&#39;).show(); $(&#39;#org-seedstack-addons-jdbc-jdbc-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-jdbc-jdbc-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.jdbc:jdbc:2.1.3&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;You can configure the add-on in one or more of your *.props files. Declare you list of data source names you will be
+configuring later:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.seedstack.jdbc.datasources = datasource1, datasource2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Configure each data source separately. Notice the use of the keyword &lt;em&gt;property&lt;/em&gt; to specify any property that will be
+used by the datasource as specific configuration.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jdbc.datasource.datasource1]
+provider = HikariDataSourceProvider
+driver = org.hsqldb.jdbcDriver
+url = jdbc:hsqldb:mem:testdb1
+user = sa
+password =
+property.specific.jdbc.prop = value
+property.prop.for.datasource = value
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Alternatively, if you want to lookup the data source through JNDI you can use this configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.jdbc.datasource.datasource1]
+jndi-name = java:comp/env/jdbc/my-datasource
+context = ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;context&lt;/code&gt; property is optional and can be used to specify a particular context name configured in
+&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/more/#jndi&#34;&gt;core support&lt;/a&gt; to make the lookup. Otherwise the default context (named &lt;code&gt;default&lt;/code&gt;) will be used.&lt;/p&gt;
+
+&lt;h1 id=&#34;usage&#34;&gt;Usage&lt;/h1&gt;
+
+&lt;p&gt;The following examples show how to get a JDBC connection.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyRepository {
+
+    @Inject
+    private Connection connection;
+
+    @Transactional
+    @Jdbc(&amp;quot;datasource1&amp;quot;)
+    public void updateStuff(int id, String bar){
+        try{
+            String sql = &amp;quot;INSERT INTO FOO VALUES(?, ?)&amp;quot;;
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+            statement.setString(2, bar);
+            statement.executeUpdate();
+        } catch(SqlException e){
+            throw new SomeRuntimeException(e, &amp;quot;message&amp;quot;);
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;As seen in the example above, any interaction with this connection have to be done inside a &lt;strong&gt;transaction&lt;/strong&gt;. Refer to the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/transactions/&#34;&gt;transaction support documentation&lt;/a&gt; for more detail.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;data-source-providers&#34;&gt;Data source providers&lt;/h1&gt;
+
+&lt;h2 id=&#34;built-in-providers&#34;&gt;Built-in providers&lt;/h2&gt;
+
+&lt;p&gt;When using a non JNDI data source, we recommend the use of pooled datasource through a DataSourceProvider defined in the
+configuration. Four data source providers can be specified in the &lt;code&gt;provider&lt;/code&gt; property:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://brettwooldridge.github.io/HikariCP/&#34;&gt;HikariCP&lt;/a&gt; with &lt;code&gt;HikariDataSourceProvider&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://commons.apache.org/proper/commons-dbcp/&#34;&gt;Commons DBCP&lt;/a&gt; with &lt;code&gt;DbcpDataSourceProvider&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.mchange.com/projects/c3p0/&#34;&gt;C3P0&lt;/a&gt; with &lt;code&gt;C3p0DataSourceProvider&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A test-only plain data source provider with &lt;code&gt;PlainDataSourceProvider&lt;/code&gt;. &lt;strong&gt;Do not use in production&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;custom-providers&#34;&gt;Custom providers&lt;/h2&gt;
+
+&lt;p&gt;In the case you want to use another data source provider, you can create your own &lt;code&gt;DataSourceProvider&lt;/code&gt; by implementing the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;jdbc.&amp;amp;#8203;spi.&amp;amp;#8203;DataSourceProvider&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/jdbc/spi/DataSourceProvider.html&#39;&gt;DataSourceProvider&lt;/a&gt;&lt;/code&gt; interface:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class SomeDataSourceProvider implements DataSourceProvider {
+
+    @Override
+    public DataSource provideDataSource(String driverClass, String
+            url, String user, String password, Properties jdbcProperties) {
+        SomeDataSource sds = new SomeDataSource();
+        sds.setDriverClass(driverClass);
+        sds.setJdbcUrl(url);
+        sds.setUser(url);
+        sds.setPassword(user);
+        sds.setProperties(jdbcProperties);
+        return sds;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You will be able to declare it in your configuration as &lt;code&gt;SomeDataSourceProvider&lt;/code&gt; (the simple name of your class). Note
+that if you want to use one of the three datasource providers described above, you will have to add the corresponding
+dependency to your project.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/jpa/</link>
+      <pubDate>Thu, 21 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/jpa/</guid>
+      <description>
+
+&lt;p&gt;Seed JPA persistence add-on enables your application to interface with any relational database through a JPA-compliant
+ORM. Note that:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;This version doesn&amp;rsquo;t enforce a specific JPA version. It is currently tested with JPA 1.0, JPA 2.0 and JPA 2.1.&lt;/li&gt;
+&lt;li&gt;This add-on is compatible with any ORM implementation.&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-jpa-jpa-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-jpa-jpa-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-jpa-jpa-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.jpa&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;jpa&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-jpa-jpa-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.1.3&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-jpa-jpa-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-jpa-jpa-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-jpa-jpa-version, #org-seedstack-addons-jpa-jpa-warn&#39;).show(); $(&#39;#org-seedstack-addons-jpa-jpa-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-jpa-jpa-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.jpa:jpa:2.1.3&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;If you want to use the popular &lt;a href=&#34;http://hibernate.org/orm/&#34;&gt;Hibernate ORM&lt;/a&gt;, use the following Maven dependency:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.hibernate&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;hibernate-core&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;...&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.hibernate&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;hibernate-entitymanager&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;...&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Only add the JPA specification to declare entity classes in any module that does not have the hibernate dependency:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.hibernate.javax.persistence&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;hibernate-jpa-2.1-api&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;1.0.0.Final&amp;lt;/version&amp;gt;
+    &amp;lt;scope&amp;gt;provided&amp;lt;/scope&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;The JPA add-on doesn&amp;rsquo;t need any &lt;code&gt;persistence.xml&lt;/code&gt; file in its default mode of operation as it will automatically generate
+persistence unit information. First, declare the list of your persistence units in the configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.jpa]
+units = my-jpa-unit, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The you must reference a JDBC datasource for each JPA unit. To do so, please refer to the &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/jdbc/&#34;&gt;JDBC add-on configuration&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.jpa.unit.my-jpa-unit]
+datasource = my-datasource
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that Seed has no way of knowing to which persistence unit belong each entity class, so you must indicate this with
+the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.myorganization.myapp.domain.*]
+jpa-unit = my-jpa-unit
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will put all the entities scanned in the &lt;code&gt;org.myorganization.myapp.domain&lt;/code&gt; package and its subpackages into the
+&lt;code&gt;my-jpa-unit&lt;/code&gt; persistence unit.&lt;/p&gt;
+
+&lt;h2 id=&#34;options&#34;&gt;Options&lt;/h2&gt;
+
+&lt;p&gt;You can specify the type of transactions by using the following configuration
+(&lt;a href=&#34;http://docs.oracle.com/javaee/6/api/javax/persistence/spi/PersistenceUnitInfo.html#getTransactionType%28%29&#34;&gt;more info&lt;/a&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.jpa.unit.my-jpa-unit]
+transaction-type = JTA | RESOURCE_LOCAL
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you prefer to use XML JPA mapping files instead of annotations you can specify them with the following configuration
+(&lt;a href=&#34;http://docs.oracle.com/javaee/6/api/javax/persistence/spi/PersistenceUnitInfo.html#getMappingFileNames%28%29&#34;&gt;more info&lt;/a&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.jpa.unit.my-jpa-unit]
+mapping-files = path/to/mapping/file1.xml, path/to/mapping/file2.xml, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can specify the validation mode with the following configuration
+(&lt;a href=&#34;http://docs.oracle.com/javaee/6/api/javax/persistence/spi/PersistenceUnitInfo.html#getValidationMode%28%29&#34;&gt;more info&lt;/a&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.jpa.unit.my-jpa-unit]
+validation-mode = path/to/mapping/file1.xml, path/to/mapping/file2.xml, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can specify the shared cache mode with the following configuration
+(&lt;a href=&#34;http://docs.oracle.com/javaee/6/api/javax/persistence/spi/PersistenceUnitInfo.html#getSharedCacheMode%28%29&#34;&gt;more info&lt;/a&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.jpa.unit.my-jpa-unit]
+shared-cache-mode = ALL | NONE | ENABLE_SELECTIVE | DISABLE_SELECTIVE | UNSPECIFIED
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;properties&#34;&gt;Properties&lt;/h2&gt;
+
+&lt;p&gt;If you need to pass any property to the persistence unit, you can do so with the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.jpa.unit.my-jpa-unit]
+property.name.of.the.property1 = value-of-the-property1
+property.name.of.the.property2 = value-of-the-property2
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;using-the-entity-manager&#34;&gt;Using the Entity Manager&lt;/h1&gt;
+
+&lt;p&gt;To use the Entity Manager in your code, simply inject it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MyRepository {
+
+    @Inject
+    private EntityManager entityManager;
+
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All JPA interactions have to be realized inside a transaction. Refer to the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/transactions/&#34;&gt;transaction support
+documentation&lt;/a&gt; for more detail. Below is an example using the annotation-based transaction
+demarcation (notice the &lt;code&gt;persistence.xml&lt;/code&gt; unit name in &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;jpa.&amp;amp;#8203;JpaUnit&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/jpa/JpaUnit.html&#39;&gt;@JpaUnit&lt;/a&gt;&lt;/code&gt; annotation)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class MyService {
+
+    @Inject
+    private MyRepository myRepository;
+
+    @Transactional
+    @JpaUnit(&amp;quot;my-jpa-unit&amp;quot;)
+    public void doSomethingWithMyJpaUnit() {
+
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;jpa.&amp;amp;#8203;JpaUnit&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/jpa/JpaUnit.html&#39;&gt;@JpaUnit&lt;/a&gt;&lt;/code&gt; annotation is NOT optional as the JPA add-on includes the JDBC add-on as a dependency, so the
+conditions that you must have only one type of transactional resources in your application cannot be fulfilled. You can omit the
+name of the unit if you only have one unit in your application, although we recommend you to always specify it explicitly.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/w20-dataviz/</link>
+      <pubDate>Wed, 20 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/w20-dataviz/</guid>
+      <description>
+
+&lt;p&gt;The W20 Dataviz addon provides supports for charts and graphical representation. It proposes an integration of the
+&lt;a href=&#34;http://nvd3.org/&#34;&gt;NVD3&lt;/a&gt; charting library (which itself uses &lt;a href=&#34;http://d3js.org/&#34;&gt;D3&lt;/a&gt;) along with an integration of
+the &lt;a href=&#34;http://dygraphs.com/&#34;&gt;Dygraphs&lt;/a&gt; chart library for large data sets.&lt;/p&gt;
+
+&lt;h1 id=&#34;dataviz-addon&#34;&gt;Dataviz addon&lt;/h1&gt;
+
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;bower install w20-dataviz
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+
+&lt;p&gt;To include the addon, declare it in the application manifest:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;bower_components/w20-dataviz/w20-dataviz.w20.json&amp;quot;: {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If using the w20 bridge you can simply refer to the fragment by its id without specifying the path:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;quot;w20-dataviz&amp;quot;: {}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Additional configuration information can be found in the &lt;a href=&#34;http://seedstack.org/jsdoc/#/dataviz&#34;&gt;Jsdoc&lt;/a&gt; of the addon.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/elasticsearch/</link>
+      <pubDate>Tue, 17 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/elasticsearch/</guid>
+      <description>
+
+&lt;p&gt;The ElasticSearch add-on allows you to configure, inject and use &lt;a href=&#34;https://www.elastic.co&#34;&gt;ElasticSearch&lt;/a&gt; clients.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-elasticsearch-elasticsearch-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-elasticsearch-elasticsearch-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-elasticsearch-elasticsearch-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.elasticsearch&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;elasticsearch&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-elasticsearch-elasticsearch-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.1.1&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-elasticsearch-elasticsearch-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-elasticsearch-elasticsearch-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-elasticsearch-elasticsearch-version, #org-seedstack-addons-elasticsearch-elasticsearch-warn&#39;).show(); $(&#39;#org-seedstack-addons-elasticsearch-elasticsearch-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-elasticsearch-elasticsearch-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.elasticsearch:elasticsearch:2.1.1&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Main features:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Embedded indexes,&lt;/li&gt;
+&lt;li&gt;Remote indexes.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;More information about the ElasticSearch Java API &lt;a href=&#34;https://www.elastic.co/guide/en/elasticsearch/client/java-api/current/index.html&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;To access an ElasticSearch index, you need to declare a client in configuration. Multiple clients can be configured. They
+must be listed in the following property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.elasticsearch.clients = client1, client2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;remote-instance&#34;&gt;Remote instance&lt;/h2&gt;
+
+&lt;p&gt;To access a remote ElasticSearch index, you need to specify the host(s) of one or more node(s) of the ElasticSearch
+cluster:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.elasticsearch.client.client1]
+hosts = host1:port1, host2:port2, ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can omit the port in which case will be set to the ElasticSearch default (9300).&lt;/p&gt;
+
+&lt;h2 id=&#34;embedded-instance&#34;&gt;Embedded instance&lt;/h2&gt;
+
+&lt;p&gt;If you don&amp;rsquo;t specify the &lt;code&gt;hosts&lt;/code&gt; property, a local ElasticSearch node will be created and stored in the &lt;code&gt;persistence-elasticsearch/{client-name}&lt;/code&gt;
+subdirectory of the Seed local storage location, where &lt;code&gt;{client-name}&lt;/code&gt; is the name of the ElasticSearch client.&lt;/p&gt;
+
+&lt;h2 id=&#34;other-options&#34;&gt;Other options&lt;/h2&gt;
+
+&lt;p&gt;You can specify any configuration property of the ElasticSearch client with the following syntax:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.elasticsearch.client.client1]
+property.name.of.elasticsearch.property = value
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;usage&#34;&gt;Usage&lt;/h1&gt;
+
+&lt;p&gt;To use a configured ElasticSearch client, simply inject it where needed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+@Named(&amp;quot;client1&amp;quot;)
+Client client1;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;example&#34;&gt;Example&lt;/h1&gt;
+
+&lt;p&gt;Configuration for an embedded ElasticSearch instance:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.elasticsearch.clients = test
+
+[org.seedstack.elasticsearch.client.test]
+property.cluster.name = test-cluster-1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To inject this configured client, use the following syntax:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;@Inject
+@Named(&amp;quot;test&amp;quot;)
+Client testClient;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Alternate configuration</title>
+      <link>http://seedstack.org/archives/16.7/addons/jpa/alternative/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/jpa/alternative/</guid>
+      <description>
+
+&lt;p&gt;As an alternative to the &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/jpa/#configuration&#34;&gt;automatic configuration&lt;/a&gt; you can let JPA manage its own datasource instead of referencing
+one defined in the JDBC add-on. In this case you must provide a &lt;code&gt;persistence.xml&lt;/code&gt; file. This file has to be placed under
+the &lt;code&gt;META-INF&lt;/code&gt; directory of your classpath (for instance in &lt;code&gt;src/main/resources/META-INF&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;persistence xmlns=&amp;quot;http://xmlns.jcp.org/xml/ns/persistence&amp;quot;
+             xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+             xsi:schemaLocation=&amp;quot;http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd&amp;quot;
+             version=&amp;quot;2.1&amp;quot;&amp;gt;
+
+    &amp;lt;persistence-unit name=&amp;quot;my-jpa-unit&amp;quot; transaction-type=&amp;quot;RESOURCE_LOCAL&amp;quot;&amp;gt;
+        &amp;lt;class&amp;gt;org.seedstack.jpa.sample.Item1&amp;lt;/class&amp;gt;
+    &amp;lt;/persistence-unit&amp;gt;
+
+&amp;lt;/persistence&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the example above you can find:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The JPA version (2.1 in this example)&lt;/li&gt;
+&lt;li&gt;A unit named &lt;code&gt;my-jpa-unit&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;A local transaction type (&lt;code&gt;RESOURCE_LOCAL&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;The list of persistence classes to map&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;You can declare as many units as required in a &lt;code&gt;persistence.xml&lt;/code&gt; file. You can also add configuration properties directly
+in this file, although it is recommended to specify them in the configuration. When using a &lt;code&gt;persistence.xml&lt;/code&gt; file, you
+must either specify a datasource via properties or via JNDI.&lt;/p&gt;
+
+&lt;h1 id=&#34;option-1-datasource-via-properties&#34;&gt;Option 1: datasource via properties&lt;/h1&gt;
+
+&lt;p&gt;The datasource can be specified through properties, either in the configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.jpa.unit.my-jpa-unit]
+property.javax.persistence.jdbc.driver = ...
+property.javax.persistence.jdbc.url = ...
+property.javax.persistence.jdbc.user = ...
+property.javax.persistence.jdbc.password = ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or in the directly in the &lt;code&gt;persistence.xml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;persistence-unit name=&amp;quot;my-jpa-unit&amp;quot; transaction-type=&amp;quot;RESOURCE_LOCAL&amp;quot;&amp;gt;
+    ...
+
+    &amp;lt;properties&amp;gt;
+        &amp;lt;property name=&amp;quot;...&amp;quot; value=&amp;quot;...&amp;quot;/&amp;gt;
+    &amp;lt;/properties&amp;gt;
+
+    ...
+&amp;lt;/persistence-unit&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The specification of properties in the configuration is recommended as it allows greater flexibility (access to
+environment variables and system properties, usage of configuration profiles, macros, &amp;hellip;).&lt;/p&gt;
+
+&lt;h1 id=&#34;option-2-datasource-via-jndi&#34;&gt;Option 2: datasource via JNDI&lt;/h1&gt;
+
+&lt;p&gt;In some environments like in a Web server, it may be preferable to use JNDI instead of configuration properties. You can
+do so by specifying the JNDI name of the datasource in the &lt;code&gt;persistence.xml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;non-jta-data-source&amp;gt;java:comp/env/jdbc/my-datasource&amp;lt;/non-jta-data-source&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In case of a JTA data source, use following line instead:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;jta-data-source&amp;gt;java:comp/env/jdbc/my-datasource&amp;lt;/jta-data-source&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In case of a Web application, add the following JNDI reference in your &lt;code&gt;web.xml&lt;/code&gt; file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;resource-ref&amp;gt;
+    &amp;lt;res-ref-name&amp;gt;jdbc/my-datasource&amp;lt;/res-ref-name&amp;gt;
+    &amp;lt;res-type&amp;gt;javax.sql.DataSource&amp;lt;/res-type&amp;gt;
+    &amp;lt;res-auth&amp;gt;Container&amp;lt;/res-auth&amp;gt;
+&amp;lt;/resource-ref&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You may need to add additional files depending on your Web container. Please refer to the the dedicated container
+documentation.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Finders</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/manual/finders/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/manual/finders/</guid>
+      <description>&lt;p&gt;The role of a finder is to query the persistence layer or any data source to obtain objects specific to an interface of
+the application. It only does &lt;strong&gt;read-only&lt;/strong&gt; operations and is NOT meant to replace the repository as it doesn&amp;rsquo;t produce
+domain objects but interface-specific objects like REST representations.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;A finder shouldn&amp;rsquo;t generally delegate its data retrieval to the domain repository. Instead it should directly issue the most efficient query against the persistence layer and construct DTO objects, completely bypassing the domain. Consider the following implications:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;You should write as many finders as required by your application interfaces.&lt;/li&gt;
+&lt;li&gt;You can query a model completely different from your domain model and optimized for reading purposes (i.e. a read model) or not model at all.&lt;/li&gt;
+&lt;li&gt;You can rely on a completely different technology than the domain persistence, like an high-performance index.&lt;/li&gt;
+&lt;/ul&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Don&amp;rsquo;t create finders needlessly: if your data retrieval needs are simple enough to not require a finder, just use the domain repositories directly in your interface and transform the retrieved domain objects to DTO with assemblers.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Creating a Finder with the Business Framework, consists in:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Creating a finder interface,&lt;/li&gt;
+&lt;li&gt;Creating a finder implementation, located in the infrastructure as it depends upon a persistence technology.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Business Framework Finders are POJOs, there is no mandated interface. Just annotate your finder interface with the
+&lt;code&gt;@Finder&lt;/code&gt; annotation.&lt;/p&gt;
+
+&lt;h1 id=&#34;interface&#34;&gt;Interface&lt;/h1&gt;
+
+&lt;p&gt;Create the interface for your finder. A finder is annotated with &lt;code&gt;@Finder&lt;/code&gt; and is declared as read only.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Finder
+public interface CustomerFinder {
+
+    List&amp;lt;CustomerRepresentation&amp;gt; findAllCustomers();
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;implementation&#34;&gt;Implementation&lt;/h1&gt;
+
+&lt;p&gt;In the infrastructure layer, provide the implementation (here with JPA):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class CustomerJpaFinder implements CustomerFinder {
+
+    @Inject
+    private FluentAssembler assembler;
+
+    @Override
+    public List&amp;lt;CustomerRepresentation&amp;gt; findAllCustomer() {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery&amp;lt;Customer&amp;gt; q = cb.createQuery(Customer.class);
+        q.select(q.from(Customer.class));
+
+        return fluentAssembler
+                   .assemble(entityManager.createQuery(q).getResultList())
+                   .to(CustomerRepresentation.class);
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>More</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/manual/more/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/manual/more/</guid>
+      <description>
+
+&lt;h1 id=&#34;jndi&#34;&gt;JNDI&lt;/h1&gt;
+
+&lt;p&gt;Seed provides the ability to inject external JNDI resources through the &lt;code&gt;@Resource&lt;/code&gt; annotation. Multiple JNDI contexts can
+be used in an application by using the &lt;code&gt;@FromContext&lt;/code&gt; annotation.&lt;/p&gt;
+
+&lt;h2 id=&#34;declaring-jndi-contexts&#34;&gt;Declaring JNDI contexts&lt;/h2&gt;
+
+&lt;p&gt;The default JNDI context is automatically configured by Seed if you provide a &lt;code&gt;jndi.properties&lt;/code&gt; file in &lt;code&gt;META-INF/configuration&lt;/code&gt; classpath-included folder.
+This JNDI context is named &lt;code&gt;default&lt;/code&gt; by Seed.&lt;/p&gt;
+
+&lt;p&gt;Additional JNDI contexts can be specified using the following configuration properties:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;additional-jndi-contexts = additional1, additional2
+additional-jndi-context.additional1 = /jndi-ctx-1.properties
+additional-jndi-context.additional2 = /jndi-ctx-2.properties
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above code defines two additional JNDI contexts, named &lt;code&gt;additional1&lt;/code&gt; and &lt;code&gt;additional2&lt;/code&gt;. The specified properties
+files are &lt;code&gt;jndi.properties&lt;/code&gt;-like files.&lt;/p&gt;
+
+&lt;h2 id=&#34;using-jndi-context&#34;&gt;Using JNDI context&lt;/h2&gt;
+
+&lt;h3 id=&#34;declarative-api&#34;&gt;Declarative API&lt;/h3&gt;
+
+&lt;p&gt;You can inject JNDI resource using the &lt;code&gt;@Resource&lt;/code&gt; annotation from JSR-245:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Holder{
+    @Resource(name = &amp;quot;THE_JNDI_NAME&amp;quot;)
+    private DataSource datasource;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The above lookup for &lt;code&gt;THE_JNDI_NAME&lt;/code&gt; in &lt;code&gt;default&lt;/code&gt; JNDI context is injected into &lt;code&gt;datasource&lt;/code&gt; attribute.&lt;/p&gt;
+
+&lt;p&gt;In case you have several JNDI contexts in your application, you can specify the context name as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Holder{
+    @Resource(name = &amp;quot;THE_JNDI_NAME&amp;quot;)
+    @FromContext(&amp;quot;additional1&amp;quot;)
+    private DataSource datasource;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;programmatic-api&#34;&gt;Programmatic API&lt;/h3&gt;
+
+&lt;p&gt;You can retrieve any context by injecting it into your code. Then you can use the JNDI programmatic API to lookup
+for resources in that context.&lt;/p&gt;
+
+&lt;p&gt;You can inject the &lt;code&gt;default&lt;/code&gt; context as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Holder{
+    @Inject
+    private Context defaultCtx;
+
+    public void m(){
+       MyJNDIResource test = defaultCtx.lookup(&amp;quot;THE_JNDI_NAME&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you need to precise another context, you can specify the context as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class Holder{
+    @Inject
+    @Named(&amp;quot;additional1&amp;quot;)
+    private Context additional1;
+
+    public void m(){
+       MyJNDIResource test = additional1.lookup(&amp;quot;THE_JNDI_NAME&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;data-import-export&#34;&gt;Data import/export&lt;/h1&gt;
+
+&lt;p&gt;Seed provides features to backup and restore data. This could be done through &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/operations/#shell&#34;&gt;Seed Shell&lt;/a&gt;
+or data could be loaded at the application startup. Data can be backed up and restored independently from the type of
+persistence since JSON is used as the pivotal format. Consequently, no SQL script or conversion script is needed. Data
+import can also be used to initialize data for integration tests.&lt;/p&gt;
+
+&lt;h2 id=&#34;data-export&#34;&gt;Data Export&lt;/h2&gt;
+
+&lt;p&gt;Your export class has to implement &lt;code&gt;DataExporter&amp;lt;ClassToExport&amp;gt;&lt;/code&gt;. This interface provides an &lt;code&gt;exportData&lt;/code&gt; method
+returning the data to export. The class implementing &lt;code&gt;DataExporter&lt;/code&gt; should be annotated with &lt;code&gt;@DataSet&lt;/code&gt; which provides
+a functional ID to the data. As below described, &lt;code&gt;@DataSet&lt;/code&gt; takes a &lt;code&gt;group&lt;/code&gt; (eg. application ID) and a &lt;code&gt;name&lt;/code&gt; (eg. the
+type of objects being exported).&lt;/p&gt;
+
+&lt;p&gt;Implementation example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@JpaUnit(&amp;quot;seed-i18n-domain&amp;quot;)
+@Transactional
+@DataSet(group=&amp;quot;seed-i18n&amp;quot;, name=&amp;quot;key&amp;quot;)
+public class KeyDataExporter implements DataExporter&amp;lt;KeyDTO&amp;gt; {
+
+    @Inject
+    private KeyRepository keyRepository;
+
+    @Inject
+    private FluentAssembler fluentAssembler;
+
+    @Override
+    public Iterator&amp;lt;KeyDTO&amp;gt; exportData() {
+        List&amp;lt;Key&amp;gt; keys = keyRepository.loadAll();
+        return fluentAssembler.assemble(keys).to(KeyDTO.class).iterator();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;import-data&#34;&gt;Import data&lt;/h2&gt;
+
+&lt;p&gt;Your export class has to implement &lt;code&gt;DataImporter&amp;lt;ClassToImport&amp;gt;&lt;/code&gt;. This interface provides:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;an &lt;code&gt;isInitialized&lt;/code&gt; method to check before importing data (can be disabled with a property)&lt;/li&gt;
+&lt;li&gt;an &lt;code&gt;importData&lt;/code&gt;  method consuming the data to import (eg. feed a staging collection).&lt;/li&gt;
+&lt;li&gt;a &lt;code&gt;commit&lt;/code&gt; method to commit data after &lt;code&gt;importData&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;a &lt;code&gt;rollback&lt;/code&gt; method to roll back data upon error in prior steps&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The class implementing &lt;code&gt;DataImporter&lt;/code&gt; should be annotated with &lt;code&gt;@DataSet&lt;/code&gt;. As for Export, this annotation provides
+a functional ID to the imported data. As below described, &lt;code&gt;@DataSet&lt;/code&gt; takes a &lt;code&gt;group&lt;/code&gt; (eg. application ID) and a &lt;code&gt;name&lt;/code&gt;
+(eg. the type of objects being imported).&lt;/p&gt;
+
+&lt;p&gt;Implementation example from &lt;strong&gt;seed-i18n-function&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Transactional
+@DataSet(group=&amp;quot;seed-i18n&amp;quot;, name=&amp;quot;key&amp;quot;)
+public class KeyDataImporter implements DataImporter&amp;lt;KeyDTO&amp;gt; {
+
+    @Inject
+    private KeyRepository keyRepository;
+
+    private Set&amp;lt;KeyDTO&amp;gt; staging = new HashSet&amp;lt;KeyDTO&amp;gt;();
+
+    @Inject
+    private Assemblers assemblers;
+
+    @Override
+    public boolean isInitialized() {
+        // check if data are already initialized
+        ...
+        return initialized;
+    }
+
+    @Override
+    public void importData(KeyDTO data) {
+        staging.add(data);
+    }
+
+    @Override
+    public void commit(boolean clear) {
+        if (clear) {
+            // delete data before adding new one
+            ...
+        }
+        for (KeyDTO keyDTO : staging) {
+            // persist data
+            ...
+        }
+        staging.clear();
+    }
+
+    @Override
+    public void rollback() {
+        staging.clear();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;shell-command&#34;&gt;Shell command&lt;/h2&gt;
+
+&lt;p&gt;Seed also provides commands to import and export data. You can invoke this kind of commands through
+&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/operations/#shell&#34;&gt;Seed Shell&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;core:export
+  -g --group : filter on group
+  -s --set   : filter on name
+
+core:import
+  -c --clear : Clear existing data if import is succeeding
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Usage:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;ssh -t admin@localhost -p 2222 &amp;quot;core:export&amp;quot; &amp;gt; data.json
+
+ssh -t admin@localhost -p 2222 &amp;quot;core:import&amp;quot; &amp;lt; data.json
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;datamanager&#34;&gt;DataManager&lt;/h2&gt;
+
+&lt;p&gt;If you want to handle import or export from your code, you can do it by injecting the &lt;code&gt;DataManager&lt;/code&gt; class.&lt;/p&gt;
+
+&lt;h2 id=&#34;auto-initialization&#34;&gt;Auto initialization&lt;/h2&gt;
+
+&lt;p&gt;Data can be automatically loaded at the application startup by adding the exported JSON file(s) in
+&lt;code&gt;META-INF/data/{group}/{name}.json&lt;/code&gt;. These data files will be loaded unless the application is already initialized
+(according to your &lt;code&gt;isInitialized()&lt;/code&gt; method implementation). Initialization can be forced each time this application
+is started by adding this property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.seed.core]
+data-initialization = force
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Data loading can also be disabled by setting the property to &lt;code&gt;none&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[org.seedstack.seed.core]
+data-initialization = none
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Pagination</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/manual/pagination/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/manual/pagination/</guid>
+      <description>&lt;p&gt;The data presentation API helps developers presenting the data from their domain to external actors. Those are
+generally remote REST clients like a browser, web services consumers or RPC/RMI clients. The data presentation API supports
+patterns often used in data restitution: pagination, infinite-scroll, random chunk access.&lt;/p&gt;
+
+&lt;h1 id=&#34;concepts&#34;&gt;Concepts&lt;/h1&gt;
+
+&lt;p&gt;The following describes the API. We&amp;rsquo;ll specialize some concepts already presented like the finder.
+We focus the creation of this API on solving the problem of returning portion result out of very big one.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://seedstack.org/archives/16.7/puml/business/business-api-interfaces-finder.png&#34; alt=&#34;domain aggregates&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A &lt;strong&gt;Range&lt;/strong&gt; is just a class that represents an &lt;strong&gt;offset&lt;/strong&gt; and a &lt;strong&gt;size&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;A &lt;strong&gt;Result&lt;/strong&gt; symbolises a canonical representation of the ranged return of a request made from a persistence. It holds:
+
+&lt;ul&gt;
+&lt;li&gt;the list that contains the result itself,&lt;/li&gt;
+&lt;li&gt;the actual list size,&lt;/li&gt;
+&lt;li&gt;the full size of the whole request.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;A &lt;strong&gt;View&lt;/strong&gt; represents a viewpoint of an already existing list. Its focus is the restitution of a portion of the given
+list.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RangeFinder&amp;lt;Item,Criteria&amp;gt;&lt;/code&gt; is a High level interfaces for finder that sum up the following assertion: Given a
+&lt;strong&gt;Range&lt;/strong&gt; and a &lt;strong&gt;Criteria&lt;/strong&gt; please find the &lt;strong&gt;Result&lt;/strong&gt; for the Item type.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+Notice that &lt;strong&gt;Criteria&lt;/strong&gt; here, is not a type, but a generic to be substituted when subclassing. For
+instance a &lt;code&gt;Map&amp;lt;String, Object&amp;gt;&lt;/code&gt; or a custom class.
+&lt;/div&gt;
+
+&lt;p&gt;In order to &lt;strong&gt;move out the complex computation (page, chunk, ..) away from the RangeFinder&lt;/strong&gt; we only provide him a
+Range. Its first and only objective is to fetch data from persistence according to a given criteria. View management is
+completely orthogonal to the restitution a given list from a criteria.&lt;/p&gt;
+
+&lt;p&gt;The actual &lt;em&gt;Range&lt;/em&gt; can be greater than the needed portion. This way, the result can be reused according that the Criteria
+and the result size has not changed.&lt;/p&gt;
+
+&lt;h1 id=&#34;example&#34;&gt;Example&lt;/h1&gt;
+
+&lt;p&gt;Create a finder by extending the &lt;code&gt;BaseRangeFinder&lt;/code&gt; class. This abstract class needs you to implement two methods.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;computeResultList()&lt;/code&gt; method which should return the list of matching entity with the expected range.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;computeFullRequestSize()&lt;/code&gt; method should return the size of complete list matching the criteria.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For instance create the following interface:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; @Finder
+ public interface Dto1Finder extends RangeFinder&amp;lt;Dto1, Map&amp;lt;String, Object&amp;gt;&amp;gt; {
+
+     PaginatedView&amp;lt;ProductRepresentation&amp;gt; findItemByQuery(Page page, String searchQuery);
+ }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Implement it as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@JpaUnit(&amp;quot;my-unit&amp;quot;)
+@Transactional
+public class Dto1SimpleJpaFinder extends BaseRangeFinder&amp;lt;Dto1, String&amp;gt;
+    implements Dto1Finder {
+
+    @Inject
+    private EntityManager entityManager;
+
+    @Override
+    public PaginatedView&amp;lt;ProductRepresentation&amp;gt; findItemByQuery(Page page, String query) {
+        Range range = Range.rangeFromPageInfo(page.getIndex(), page.getCapacity());
+        Result&amp;lt;Dto1&amp;gt; result = find(range, query);
+        return new PaginatedView&amp;lt;Dto1&amp;gt;(result, page);
+    }
+
+    @Override
+    protected List&amp;lt;Dto1&amp;gt; computeResultList(Range range , String criteria) {
+        CriteriaQuery&amp;lt;AggRoot1&amp;gt; query = getAggRoot1CriteriaQuery(criteria);
+        List&amp;lt;AggRoot1&amp;gt; resultList = entityManager.createQuery(query)
+                .setFirstResult((new BigDecimal(range.getOffset()).intValue()))
+                .setMaxResults(new BigDecimal(range.getSize()).intValue())
+                .getResultList();
+
+        return assemblers.assembleDtoFromAggregate(resultList);
+    }
+
+    @Override
+    protected long computeFullRequestSize(String criteria) {
+        CriteriaQuery&amp;lt;Long&amp;gt; query = getAggRoot1CountCriteriaQuery(criteria);
+        return entityManager.createQuery(query).getSingleResult();
+    }
+
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then, inject the finder with its interface and use it as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+Dto1Finder dto1Finder;
+
+@GET
+@Rel(&amp;quot;search&amp;quot;)
+@Produces(MediaType.APPLICATION_JSON)
+public Response list(@QueryParam(&amp;quot;q&amp;quot;) String searchQuery,
+                     @DefaultValue(&amp;quot;0&amp;quot;) @QueryParam(&amp;quot;pageIndex&amp;quot;) Long pageIndex,
+                     @DefaultValue(&amp;quot;10&amp;quot;) @QueryParam(&amp;quot;pageSize&amp;quot;) Integer pageSize) {
+
+    // Call the finder with the requested page
+    Page page = new Page(pageIndex, pageSize);
+    PaginatedView&amp;lt;Dto1&amp;gt; view = dto1Finder.findItemByQuery(page, searchQuery);
+
+    // Create an HAL representation with the page and the total number of elements
+    Dto1sRepresentation representation = new Dto1sRepresentation(page,
+        view.getResultSize());
+
+    // Add the list of item to the representation
+    representation.embedded(&amp;quot;items&amp;quot;, view.getView());
+
+    // If a next page is available add to link to it
+    if (view.hasNext()) {
+        Page next = view.next();
+
+        representation.link(&amp;quot;next&amp;quot;, relRegistry.uri(&amp;quot;search&amp;quot;)
+                .set(&amp;quot;pageIndex&amp;quot;, next.getIndex())
+                .set(&amp;quot;pageSize&amp;quot;, next.getCapacity()).expand());
+    }
+
+    // If a previous page is available add to link to it
+    if (view.hasPrev()) {
+        Page prev = view.prev();
+
+        representation.link(&amp;quot;prev&amp;quot;, relRegistry.uri(&amp;quot;search&amp;quot;)
+                .set(&amp;quot;pageIndex&amp;quot;, prev.getIndex())
+                .set(&amp;quot;pageSize&amp;quot;, prev.getCapacity()).expand());
+    }
+
+    return Response.ok(representation).build();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The following example uses the HAL media type. For more information about it, read the documentation about
+&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/rest/#restful-api&#34;&gt;hypermedia&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+    <item>
+      <title>Security</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/manual/security/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/manual/security/</guid>
+      <description>&lt;p&gt;Seed provides application security through a powerful security model, which is equally easy to configure and to enforce.
+It takes charge of the following tasks:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Identification (provides the identity of a subject),&lt;/li&gt;
+&lt;li&gt;Authentication (verifies the subject identity),&lt;/li&gt;
+&lt;li&gt;Authorization (defines which roles and permissions a subject can have),&lt;/li&gt;
+&lt;li&gt;Access-control (enforces access restrictions to entry-points and/or to any arbitrary code).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To enable security to your project, you need to add the &lt;code&gt;seed-security-core&lt;/code&gt; module. 
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-security-core-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-security-core-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-seed-seed-security-core-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;seed-security-core&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-seed-seed-security-core-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-seed-seed-security-core-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-seed-seed-security-core-show&#34; onclick=&#34;$(&#39;#org-seedstack-seed-seed-security-core-version, #org-seedstack-seed-seed-security-core-warn&#39;).show(); $(&#39;#org-seedstack-seed-seed-security-core-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-seed-seed-security-core-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.seed:seed-security-core:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;p&gt;In a Web application, you may want to enable HTTP-based security by adding the &lt;code&gt;seed-web-security&lt;/code&gt; module. 
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-web-security-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-web-security-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-seed-seed-web-security-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;seed-web-security&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-seed-seed-web-security-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-seed-seed-web-security-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-seed-seed-web-security-show&#34; onclick=&#34;$(&#39;#org-seedstack-seed-seed-web-security-version, #org-seedstack-seed-seed-web-security-warn&#39;).show(); $(&#39;#org-seedstack-seed-seed-web-security-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-seed-seed-web-security-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.seed:seed-web-security:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The internal security engine is &lt;a href=&#34;http://shiro.apache.org/&#34;&gt;Apache Shiro&lt;/a&gt;. Seed provides additional benefits on top of Shiro
+such as:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Easy, unified configuration.&lt;/li&gt;
+&lt;li&gt;Built-in security realms such as LDAP, X509 certificate or configuration-based.&lt;/li&gt;
+&lt;li&gt;A plugin mechanism to dynamically register additional entry point security.&lt;/li&gt;
+&lt;li&gt;Security scopes which restrict roles and permissions to specified scopes, like a geographical area.&lt;/li&gt;
+&lt;li&gt;Data security which can nullify or obfuscate object attributes based on subject authorizations.&lt;/li&gt;
+&lt;/ul&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;definitions&#34;&gt;Definitions&lt;/h1&gt;
+
+&lt;h2 id=&#34;subject&#34;&gt;Subject&lt;/h2&gt;
+
+&lt;p&gt;A &lt;em&gt;subject&lt;/em&gt; is defined as any entity that request access to an &lt;em&gt;object&lt;/em&gt;. For instance, subject are often end-users which
+request to access a specific resource through a User-Interface. But subjects can really be anything like a remote computer
+or a local program.&lt;/p&gt;
+
+&lt;h2 id=&#34;principal&#34;&gt;Principal&lt;/h2&gt;
+
+&lt;p&gt;A &lt;em&gt;principal&lt;/em&gt; is a defining characteristic of a subject that can be uniquely identified, like an identifier, a name,
+a social-security number, a language, etc&amp;hellip;&lt;/p&gt;
+
+&lt;h2 id=&#34;user&#34;&gt;User&lt;/h2&gt;
+
+&lt;p&gt;A &lt;em&gt;user&lt;/em&gt; is a specific kind of subject that is defined by principals usually referring to a human operator, like a name
+or a user-identifier.&lt;/p&gt;
+
+&lt;h2 id=&#34;identification&#34;&gt;Identification&lt;/h2&gt;
+
+&lt;p&gt;Identification is the process of uniquely tracking a subject across its interactions with the system.&lt;/p&gt;
+
+&lt;h2 id=&#34;authentication&#34;&gt;Authentication&lt;/h2&gt;
+
+&lt;p&gt;Authentication is the process of verifying the subject identity by validating a proof of identity. This is usually done
+by submitting a principal identifying the subject (like a user-identifier) and a proof of identity that the system
+understands and trusts, such as a password, a certificate or any other mean.&lt;/p&gt;
+
+&lt;h2 id=&#34;authorization&#34;&gt;Authorization&lt;/h2&gt;
+
+&lt;p&gt;Authorization is the process of determining an access policy for a subject. This is done by compiling all granted rights
+into an access policy.&lt;/p&gt;
+
+&lt;h2 id=&#34;access-control&#34;&gt;Access control&lt;/h2&gt;
+
+&lt;p&gt;Access control is the process of verifying the authorizations of a subject relative to an object. It enforces the policy
+that is used to determine &lt;em&gt;who&lt;/em&gt; has access to &lt;em&gt;what&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;model&#34;&gt;Model&lt;/h1&gt;
+
+&lt;p&gt;Seed provides a security meta-model that is easy to understand yet powerful enough for the most complex applications. This
+meta-model revolves around three main concepts: permissions, roles and subject. It allows to define a fine-grained and
+modular security policy.&lt;/p&gt;
+
+&lt;h2 id=&#34;permissions&#34;&gt;Permissions&lt;/h2&gt;
+
+&lt;p&gt;Permissions are the most atomic elements of a security policy. They describe concrete actions and represent what can
+be done in an application. A well-formed permission statement describes one or more resource(s) and what actions are
+possible when a subject interacts with those resources. Consider the following examples of permissions:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Open a file,&lt;/li&gt;
+&lt;li&gt;Print a document,&lt;/li&gt;
+&lt;li&gt;Access the &lt;code&gt;/products&lt;/code&gt; Web resource,&lt;/li&gt;
+&lt;li&gt;Delete an order.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;CRUD actions can frequently be found in permissions but any meaningful verb can be used. The fundamental idea is that
+a permission should combine a resource description with an action description.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Permission statements reflect behavior (actions associated with resource types) only. They do &lt;strong&gt;not&lt;/strong&gt; reflect who is able to
+perform such behavior. Defining who (which subject) can do what (which permission) is done by assigning permission to
+subjects.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;simple-usage&#34;&gt;Simple usage&lt;/h3&gt;
+
+&lt;p&gt;The simplest expression of a permission is a single term String:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;printDocument
+deleteDocument
+viewDocument
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;These permissions represent the ability to &lt;code&gt;print&lt;/code&gt;, &lt;code&gt;delete&lt;/code&gt; or &lt;code&gt;view&lt;/code&gt; a document. This very basic form of permission requires
+to be granted one-by-one or with a &lt;code&gt;*&lt;/code&gt; wildcard, which will grant all the permissions of the application. This may work
+in the simplest applications but it is not recommended. The &lt;em&gt;multi-level&lt;/em&gt; permissions should be preferred.&lt;/p&gt;
+
+&lt;h3 id=&#34;multi-level&#34;&gt;Multi-level&lt;/h3&gt;
+
+&lt;p&gt;Instead of expressing the permission as a single term, a multi-level permission can be used:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;document:print
+document:delete
+document:view
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The colon (&lt;code&gt;:&lt;/code&gt;) is a special character that is used to delimit the different parts of a multi-level permission. There
+are no enforced requirements on how a multi-level permission should be organized, but it is recommended to go from the most
+general to the most specific, from left to right. Also, there is no limit to the number of parts.&lt;/p&gt;
+
+&lt;h3 id=&#34;multiple-values&#34;&gt;Multiple values&lt;/h3&gt;
+
+&lt;p&gt;Each part can contain multiple values, separated by commas (&lt;code&gt;,&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;document:print,view
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When assigning this permission to a subject, this grants the ability to &lt;code&gt;print&lt;/code&gt; and &lt;code&gt;view&lt;/code&gt; documents.&lt;/p&gt;
+
+&lt;h3 id=&#34;all-values&#34;&gt;All values&lt;/h3&gt;
+
+&lt;p&gt;To grant all permissions of a specific level, use the &lt;code&gt;*&lt;/code&gt; wildcard character:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;document:*
+*:view
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The first permission, when assigned to a subject, allow to do any action on documents (meaning that any permission check
+of the &lt;code&gt;document:XXX&lt;/code&gt; pattern will be granted). The second permission grants the view action on all application resources
+(meaning that any permission check of the &lt;code&gt;XXX:view&lt;/code&gt; pattern will be granted).&lt;/p&gt;
+
+&lt;h3 id=&#34;instance-level-checks&#34;&gt;Instance-level checks&lt;/h3&gt;
+
+&lt;p&gt;The identifier of a specific instance can be used at the end of a permission:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;document:print:doc273
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This permission allows to print the document identified by the &lt;code&gt;doc273&lt;/code&gt; identifier.&lt;/p&gt;
+
+&lt;h3 id=&#34;missing-parts&#34;&gt;Missing parts&lt;/h3&gt;
+
+&lt;p&gt;Missing parts in permissions imply that the user has access to all values corresponding to that part:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;printer:print
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This permission is equivalent to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;printer:print:*
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that you can only leave off parts from the &lt;em&gt;end&lt;/em&gt; of the permission.&lt;/p&gt;
+
+&lt;h2 id=&#34;roles&#34;&gt;Roles&lt;/h2&gt;
+
+&lt;p&gt;A Role is a named entity that typically represents a set of behaviors or responsibilities. Those behaviors translate to
+things you can or can&amp;rsquo;t do with an application. Roles are typically assigned to subject like user accounts, so by
+association, subjects can &lt;em&gt;do&lt;/em&gt; the things attributed to various roles. There are two kinds of roles that can be used:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Implicit roles&lt;/strong&gt;: nothing is explicitly expressed in the application to assign permissions to implicit roles. The
+allowed behavior is implicitly derived from the role name only. For instance the &lt;code&gt;admin&lt;/code&gt; role can do any administration
+task and those administration task are protected by a checking if the subject has the &lt;code&gt;admin&lt;/code&gt; role. This kind of role,
+while superficially simpler, is &lt;strong&gt;strongly discouraged&lt;/strong&gt;. Adding, removing or redefining such roles later in the life of
+an application will be difficult, costly and may lead to holes in the security model.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Explicit roles&lt;/strong&gt;: they are expressed as a named collection of actual permissions. In this form, the allowed behavior
+is explicitly defined and the code only contains specific permission checks which directly relates to the code behavior.
+Altering the security model later in the life of an application will be easy and won&amp;rsquo;t require to change existing code
+with the potential security implications. This kind of role, is &lt;strong&gt;recommended&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;subjects&#34;&gt;Subjects&lt;/h2&gt;
+
+&lt;p&gt;Subjects represent the entity which executes actions on the application. The most common type of subject is the &lt;code&gt;User&lt;/code&gt;
+type, which represents a human operator interacting with the application. Subjects are allowed to perform certain actions
+in your application through their association with roles or direct permissions. Assigning roles and permissions to subjects
+is done through a &lt;code&gt;Realm&lt;/code&gt; implementation.&lt;/p&gt;
+
+&lt;h2 id=&#34;realms&#34;&gt;Realms&lt;/h2&gt;
+
+&lt;p&gt;A realm implementation role is to translate a specific data-model, like an LDAP directory or a set of database tables,
+into a security policy expressed with the security meta-model described above. Seed provides several predefined realms:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;ConfigurationRealm&lt;/code&gt; which computes the security policy from specific properties in the application configuration.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;X509CertificateRealm&lt;/code&gt; which computes the security policy from an X509 certificate.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;LdapRealm&lt;/code&gt; which computes the security policy from requests to a configured LDAP directory. This realm is available
+in the &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/ldap/&#34;&gt;LDAP add-on&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Custom realms can be implemented to compute any data-model into an enforceable security policy.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;configuration&#34;&gt;Configuration&lt;/h1&gt;
+
+&lt;p&gt;Beyond defining the security model of the application, the security infrastructure must be configured.&lt;/p&gt;
+
+&lt;h2 id=&#34;realm-configuration&#34;&gt;Realm configuration&lt;/h2&gt;
+
+&lt;p&gt;A Realm is a component that can access specific security data such as users, roles, and permissions. The Realm translates
+this specific data into a format that is understood by the security engine. There is usually a 1-to-1 relation between
+a realm and a datasource, such as an LDAP directory, a set of relational tables or configuration properties.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Most of the security datasources usually store both authentication and authorization data, so a realm can perform both
+the authentication and authorization tasks.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;To specify the realm(s) to enable, use the following configuration property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.seed.security.realms = list of realms to use
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The realm name correspond to the simple name of the Java class that implements the realm. For instance to enable the
+LDAP realm (which is implemented in the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;ldap.&amp;amp;#8203;internal.&amp;amp;#8203;realms.&amp;amp;#8203;LDAPRealm&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/ldap/internal/realms/LDAPRealm.html&#39;&gt;LDAPRealm&lt;/a&gt;&lt;/code&gt; Java class), use
+the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.seed.security.realms = LdapRealm
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If the property is not specified, the default realm is &lt;code&gt;ConfigurationRealm&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that you can specify multiple realms. In that case the realms are tried in sequence and if at least one realm
+successfully authenticates the subject, the overall attempt is considered successful. If none authenticate successfully,
+the attempt fails. The data from all the successful realms are merged.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;configuration-realm&#34;&gt;Configuration realm&lt;/h3&gt;
+
+&lt;p&gt;This realm relies on the application configuration to authenticate subject and retrieve their roles. It is mainly intended
+to be used for testing purposes. To declare subjects (called users in this realm), use the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.security.users]
+user1 = password, role1, role2
+user2 = password, role3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will define two subjects, &lt;code&gt;user1&lt;/code&gt; and &lt;code&gt;user2&lt;/code&gt; with their respective passwords and roles.&lt;/p&gt;
+
+&lt;h3 id=&#34;x509-realm&#34;&gt;X509 realm&lt;/h3&gt;
+
+&lt;p&gt;This realm, which is intended to be used in a Web context, uses the certificates authorized by the Web server when an SSL
+connection is in use. It stores the certificates in the user principals as well as the UID declared in the certificate.
+It also uses the CN of the issuer of the certificates to define the basic roles of the user.&lt;/p&gt;
+
+&lt;h3 id=&#34;ldap-realm&#34;&gt;LDAP realm&lt;/h3&gt;
+
+&lt;p&gt;Check the &lt;a href=&#34;http://seedstack.org/archives/16.7/addons/ldap/&#34;&gt;LDAP add-on documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;role-permission-resolver&#34;&gt;Role/permission resolver&lt;/h2&gt;
+
+&lt;p&gt;There is a role/permission resolver component per Realm. It resolves the Permissions assigned to a Role and provides them
+to the Realm. To attach a role/permission resolver to a Realm, use the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.seed.security.&amp;lt;RealmName&amp;gt;.role-permission-resolver = ConfigurationRolePermissionResolver
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Where &lt;code&gt;&amp;lt;RealmName&amp;gt;&lt;/code&gt; corresponds to the name of the Realm this role/permission resolver is mapped to. The value corresponds
+to the simple name of the implementing Java class. When no resolver is specified, the configuration-based role/permission
+resolver is used.&lt;/p&gt;
+
+&lt;h3 id=&#34;configuration-based-role-permission&#34;&gt;Configuration-based role/permission&lt;/h3&gt;
+
+&lt;p&gt;This role/permission resolver uses the application configuration to do resolution. You can assign permissions to roles
+with the following configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.security.permissions]
+role1 = permission1a:permission1b, permission2a:permission2b
+role2 = permission3, permission4a:permission4b
+role3 = permission5
+role4 = permission6
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This configuration assign permissions listed in values to their respective roles as keys. This is the default role/permission
+resolver.&lt;/p&gt;
+
+&lt;h2 id=&#34;role-mapping&#34;&gt;Role mapping&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Optionally&lt;/strong&gt;, roles provided by realms can be mapped to application-specific roles. To do this, a role mapping component
+should be defined in configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;org.seedstack.seed.security.&amp;lt;RealmName&amp;gt;.role-mapping = ConfigurationRoleMapping
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Where &lt;code&gt;&amp;lt;RealmName&amp;gt;&lt;/code&gt; corresponds to the name of the Realm this role mapping component is mapped to. The value corresponds
+to the simple name of the implementing Java class. When no mapping is specified, the configuration-based role mapping
+is used.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;When no role mapping is specified, the roles provided by realms are directly used as application roles.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;configuration-based-role-mapping&#34;&gt;Configuration-based role mapping&lt;/h3&gt;
+
+&lt;p&gt;This role mapping uses the application configuration to do the mapping:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.security.roles]
+role1 = ORG.APP.ROLE1, ORG.GLOBAL.ADMIN
+role2 = ORG.APP.ROLE2
+role3 = ORG.APP.{location}.ROLE3
+role4 = *
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This configuration defines the following mappings:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Application-role &lt;code&gt;role1&lt;/code&gt; is attributed to the subject when the realm provides &lt;code&gt;ORG.APP.ROLE1&lt;/code&gt; &lt;strong&gt;OR&lt;/strong&gt; &lt;code&gt;ORG.GLOBAL.ADMIN&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Application-role &lt;code&gt;role2&lt;/code&gt; is attributed to the subject when the realm provides &lt;code&gt;ORG.APP.ROLE2&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Application-role &lt;code&gt;role3&lt;/code&gt; is attributed to the subject when the realm provides &lt;code&gt;ORG.APP.FR.ROLE3&lt;/code&gt;, where &lt;code&gt;FR&lt;/code&gt; is converted
+into a security scope. As such a scoped &lt;code&gt;role3&lt;/code&gt; is attributed to the subject, which is only valid in &lt;code&gt;FR&lt;/code&gt; location.&lt;/li&gt;
+&lt;li&gt;Application-role &lt;code&gt;role4&lt;/code&gt; is attributed to every subject authenticated.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;example&#34;&gt;Example&lt;/h2&gt;
+
+&lt;p&gt;The following example is based on the defaults: a &lt;code&gt;ConfigurationRealm&lt;/code&gt;, a &lt;code&gt;ConfigurationRolePermissionResolver&lt;/code&gt; and a &lt;code&gt;ConfigurationRoleMapping&lt;/code&gt;. Their declaration is optional but present here for clarity. You may want to replace each by a more suitable component, especially the &lt;code&gt;ConfigurationRealm&lt;/code&gt; which uses the configuration as its users repository.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.security]
+realms = ConfigurationRealm
+ConfigurationRealm.role-mapping = ConfigurationRoleMapping
+ConfigurationRealm.role-permission-resolver = ConfigurationRolePermissionResolver
+
+[org.seedstack.seed.security.users]
+admin = password1, APP.ADMIN
+user1 = password2, APP.FR.MANAGER, APP.UK.MANAGER
+user2 = password3, APP.BASIC
+
+[org.seedstack.seed.security.roles]
+admin = APP.ADMIN
+manager = APP.ADMIN, APP.{location}.MANAGER
+normal = APP.ADMIN, APP.BASIC
+guest = *
+
+[org.seedstack.seed.security.permissions]
+admin = users:clear, cache:invalidate
+manager = users:delete, users:create
+normal = users:list
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Application-roles (&lt;code&gt;admin&lt;/code&gt;, &lt;code&gt;manager&lt;/code&gt;, &lt;code&gt;normal&lt;/code&gt; and &lt;code&gt;guest&lt;/code&gt;) are attributed to a subject if it has &lt;strong&gt;at least one&lt;/strong&gt; of the corresponding realm roles (&lt;code&gt;APP.ADMIN&lt;/code&gt;, &lt;code&gt;APP.FR.MANAGER&lt;/code&gt; , &lt;code&gt;APP.UK.MANAGER&lt;/code&gt;, &lt;code&gt;APP.BASIC&lt;/code&gt;). For instance, having the &lt;code&gt;APP.ADMIN&lt;/code&gt; realm role is enough to have the &lt;code&gt;manager&lt;/code&gt; application-role.&lt;/li&gt;
+&lt;li&gt;Subject &lt;code&gt;user1&lt;/code&gt; will only have the &lt;code&gt;users:delete&lt;/code&gt; and &lt;code&gt;users:create&lt;/code&gt; permissions on &lt;code&gt;FR&lt;/code&gt; and &lt;code&gt;UK&lt;/code&gt; locations.&lt;/li&gt;
+&lt;li&gt;Subject &lt;code&gt;admin&lt;/code&gt; will have the &lt;code&gt;users:delete&lt;/code&gt; and &lt;code&gt;users:create&lt;/code&gt; permissions everywhere (no location restriction).&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;guest&lt;/code&gt; application-role will be attributed to every identified subject.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;usage&#34;&gt;Usage&lt;/h1&gt;
+
+&lt;p&gt;Access policy enforcement is achieved by using the Seed security API to protect specific sections of the application code.
+Any code can be secured, although restrictions may apply in some cases.&lt;/p&gt;
+
+&lt;h2 id=&#34;enforcement-strategy&#34;&gt;Enforcement strategy&lt;/h2&gt;
+
+&lt;p&gt;It is recommended to follow a well-defined strategy in placing security checks in application code. Failing to do so may
+lead to unexpected security holes, as &lt;em&gt;one missing or incomplete check may be enough to compromise the entire application&lt;/em&gt;.
+Any well thought-out strategy will do, but you can consider applying one of the following (or both):&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Entry-point security&lt;/strong&gt;. This strategy consists in only securing the code that allow to interact with the application.
+This includes REST resources, servlets and filters, Web-Services, administrative commands, etc&amp;hellip; Any applicative code
+can theoretically only be reached through one of these entry points, so this strategy may be enough for most
+applications.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;In-depth security&lt;/strong&gt;. This strategy consists in independently securing each application behavior, regardless of its
+depth in the call hierarchy. This includes all the entry points of the previous strategy as well as services, repositories,
+finders, etc&amp;hellip; It ensures that no behavior can be executed without the appropriate authorizations, regardless how it is
+accessed. This strategy provides higher security, especially in applications with a lot of entry points or when entry
+points are often modified, but is costlier to implement. This cost can be mitigated by limiting the checks to critical
+application behavior only.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;annotation-based-checks&#34;&gt;Annotation-based checks&lt;/h2&gt;
+
+&lt;p&gt;There are two annotations that checks for authorizations before allowing method execution:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;@RequiresRoles&lt;/code&gt; which checks that the current subject has one or more role(s) before allowing to execute the method.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;@RequiresPermissions&lt;/code&gt; which checks that the current subject has one or more permission(s) before allowing to execute
+the method.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;When the security check fails, an exception of type &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;security.&amp;amp;#8203;AuthorizationException&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/security/AuthorizationException.html&#39;&gt;AuthorizationException&lt;/a&gt;&lt;/code&gt;
+is thrown.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that these annotation-based security checks are implemented with &lt;strong&gt;method interception&lt;/strong&gt; and are subject to
+&lt;strong&gt;&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/#method-interception&#34;&gt;its limitations&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Examples:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@RequiresRoles(&amp;quot;administrator&amp;quot;)
+public void deleteUser(User user) {
+    // This method is executed only if current subject has role &#39;administrator&#39;
+    // When not, an AuthorizationException is thrown
+}
+
+@RequiresPermissions(&amp;quot;account:create&amp;quot;)
+public void createAccount(Account account) {
+    // This method is executed only if current subject has permission &#39;account:create&#39;
+    // When not, an AuthorizationException is thrown
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;programmatic-checks&#34;&gt;Programmatic checks&lt;/h2&gt;
+
+&lt;p&gt;If annotation-based security checks cannot be used, or if an programmatic style is preferred, the
+&lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;security.&amp;amp;#8203;SecuritySupport&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/security/SecuritySupport.html&#39;&gt;SecuritySupport&lt;/a&gt;&lt;/code&gt; facade can be used. It provides various methods to explicitly check for
+current subject authorizations. It is more versatile than annotation-based checks and it is required when checking
+dynamically generated authorizations. To use it, simply inject it where needed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private SecuritySupport securitySupport;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To check if the current subject, if any, is authenticated:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (securitySupport.isAuthenticated()) {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To check if the current subject, if any, has a specific role:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (securitySupport.hasRole(&amp;quot;jedi&amp;quot;)) {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To check if the current subject, if any, has a specific permission:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (securitySupport.isPermitted(&amp;quot;jediCouncil:attend&amp;quot;)) {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;There are multiple variations for each of these methods, and many more possibilities. Please refer to the
+&lt;a href=&#34;http://seedstack.org/archives/16.7/javadoc/org/seedstack/seed/security/api/SecuritySupport.html&#34;&gt;javadoc&lt;/a&gt; for more information.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;other-checks&#34;&gt;Other checks&lt;/h2&gt;
+
+&lt;p&gt;Seed security can provide additional ways to verify security depending on the technology used to access the application.
+For instance, in a Web application, HTTP requests can be filtered to execute security tasks or checks. For more information
+about applying HTTP security filtering, refer to &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/web/#security&#34;&gt;this documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;access-subject-principals&#34;&gt;Access subject principals&lt;/h2&gt;
+
+&lt;p&gt;Note that &lt;code&gt;SecuritySupport&lt;/code&gt; provides access to current subject Principals:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;// Get current subject id
+securitySupport.getSimplePrincipalByName(Principals.IDENTITY).getValue();
+
+// Get current subject first name, if any
+securitySupport.getSimplePrincipalByName(Principals.FIRST_NAME).getValue();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;extension&#34;&gt;Extension&lt;/h1&gt;
+
+&lt;p&gt;As Seed security is based on &lt;a href=&#34;http://shiro.apache.org&#34;&gt;Apache Shiro&lt;/a&gt;, it can be extended by adding existing Shiro components
+or by writing your own components. Seed also provides SPI to extend its own security features.&lt;/p&gt;
+
+&lt;h2 id=&#34;creating-a-realm&#34;&gt;Creating a Realm&lt;/h2&gt;
+
+&lt;p&gt;You can create a custom Realm by following these steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create a class that implements &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;apache.&amp;amp;#8203;shiro.&amp;amp;#8203;realm.&amp;amp;#8203;Realm&#39;&gt;Realm&lt;/span&gt;&lt;/code&gt; or extends an existing Shiro realm.&lt;/li&gt;
+&lt;li&gt;Use the realm class simple name as the realm name in the application configuration.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;creating-a-rolepermissionresolver&#34;&gt;Creating a RolePermissionResolver&lt;/h2&gt;
+
+&lt;p&gt;You can create a custom Role/Permission resolver by following these steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create a class that implements &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;apache.&amp;amp;#8203;shiro.&amp;amp;#8203;authz.&amp;amp;#8203;permission.&amp;amp;#8203;RolePermissionResolver&#39;&gt;RolePermissionResolver&lt;/span&gt;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Declare you want to use it on a realm in your properties.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;creating-a-rolemapping&#34;&gt;Creating a RoleMapping&lt;/h2&gt;
+
+&lt;p&gt;You can create a custom Role mapping by following these steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create a class that implements &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;support.&amp;amp;#8203;security.&amp;amp;#8203;core.&amp;amp;#8203;authorization.&amp;amp;#8203;RoleMapping&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/support/security/core/authorization/RoleMapping.html&#39;&gt;RoleMapping&lt;/a&gt;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Declare you want to use it on a realm in your properties.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;testing&#34;&gt;Testing&lt;/h1&gt;
+
+&lt;p&gt;Testing the security model and its implementation is crucial to ensure effective security. This can be easily done with
+Seed through specific integration tests. For a general overview of integration testing, please check
+&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/testing/&#34;&gt;this documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;configuration-1&#34;&gt;Configuration&lt;/h2&gt;
+
+&lt;p&gt;You can choose to fully emulate your security infrastructure, for instance by using an LDAP test directory instead of the
+real one. The main benefit of this approach is that it tests the security effectiveness as closely as possible to the
+real environment. A simpler but still adequate approach is to override the security realm configuration to use a
+&lt;code&gt;ConfigurationRealm&lt;/code&gt; and define test users in application configuration:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ini&#34;&gt;[org.seedstack.seed.security.users]
+testUser1 = password, role1, role2
+testUser2 = password, role1
+testUser3 = password, role3
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For more information about the Configuration realm, refer to &lt;a href=&#34;#configuration-realm&#34;&gt;this section&lt;/a&gt;.
+For more information on how to override the configuration for testing, refer to &lt;a href=&#34;#override&#34;&gt;this documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;subject-authentication&#34;&gt;Subject authentication&lt;/h2&gt;
+
+&lt;p&gt;To authenticate a subject before a test method is executed, use the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;security.&amp;amp;#8203;WithUser&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/security/WithUser.html&#39;&gt;@WithUser&lt;/a&gt;&lt;/code&gt; annotation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@RunWith(SeedITRunner.class)
+public class MyITWithSecurity {
+    @Inject
+    private SecuritySupport securitySupport;
+
+    @Inject
+    private MySecuredService mySecuredService;
+
+
+    @Test(expected = AuthorizationException)
+    @WithUser(id = &amp;quot;testUser1&amp;quot;, password = &amp;quot;password&amp;quot;)
+    public void unprivileged_user_cannot_access_secured_service() {
+        mySecuredService.securedMethod();
+        fail(&amp;quot;securedMethod() shouldn&#39;t have been called&amp;quot;);
+    }
+
+    @Test
+    @WithUser(id = &amp;quot;testUser3&amp;quot;, password = &amp;quot;password&amp;quot;)
+    public void admin_user_is_allowed_to_access_secured_service() {
+        mySecuredService.securedMethod();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;data-security&#34;&gt;Data security&lt;/h1&gt;
+
+&lt;p&gt;The goal of the security on data is to protect the data exposed by an application. It has the ability to obfuscate any
+attribute of any object that does not pass the security restriction defined on it. For instance, an account number
+&lt;code&gt;79927391338710&lt;/code&gt; can be transformed into &lt;code&gt;799273******10&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;restriction-annotation&#34;&gt;@Restriction annotation&lt;/h2&gt;
+
+&lt;p&gt;This annotation can be applied on any class attribute. The field value will be obfuscated when data security will be applied:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MySecuredPojo {
+    @Restriction(value = &amp;quot;${ hasRole(&#39;manager&#39;) }&amp;quot;, obfuscation = AccountObfuscationHandler.class)
+    private String accountNumber;
+
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The value of the annotation is a security expression (see &lt;a href=&#34;#security-expressions&#34;&gt;this section&lt;/a&gt; for more details). If it
+evaluates to false against the current Subject the field will be obfuscated according to the &lt;code&gt;DataObfuscationHandler&lt;/code&gt;
+specified (see &lt;a href=&#34;#dataobfuscationhandler&#34;&gt;this section&lt;/a&gt; for more details). The default obfuscation handler nullifies the
+field.&lt;/p&gt;
+
+&lt;h2 id=&#34;data-security-service&#34;&gt;Data security service&lt;/h2&gt;
+
+&lt;p&gt;The security on data can be applied by using the &lt;code&gt;DataSecurityService&lt;/code&gt; as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+private DataSecurityService dataSecurityService;
+
+dataSecurityService.secure(myDto);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This service will go recursively through the object fields and look for restrictions. Each restriction that evaluates to f
+alse against the current Subject will trigger the obfuscation of its associated field.&lt;/p&gt;
+
+&lt;h2 id=&#34;secured-annotation&#34;&gt;@Secured annotation&lt;/h2&gt;
+
+&lt;p&gt;You can add a &lt;code&gt;@Secured&lt;/code&gt; annotation on any method parameter to automatically apply data security on it. You can also
+apply the &lt;code&gt;@Secured&lt;/code&gt; annotation directly on the method to apply data security on the return value:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Secured
+public SecuredPojo1 securedMethod(@Secured SecuredPojo2 securedPojo2) {
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Every method annotated with &lt;code&gt;@Secured&lt;/code&gt; or with the annotation applied to at least one of its parameters will be intercepted
+and the relevant objects will be secured. Note that the
+&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/#dependency-injection&#34;&gt;usual interception limitations&lt;/a&gt; apply.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Please note that the data security interceptor will inspect the whole object graph starting from the secured object, so
+you may encounter some performance penalty depending on its size. It shouldn&amp;rsquo;t be a problem for typical use.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;security-expressions&#34;&gt;Security expressions&lt;/h2&gt;
+
+&lt;p&gt;Security expressions are strings that respect the &lt;a href=&#34;https://uel.java.net/&#34;&gt;Unified Expression Language (UEL)&lt;/a&gt; syntax. The
+following methods are available:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;hasRole(String role)&lt;/code&gt;. Returns true if the current subject has the specified role, false otherwise.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hasOneRole(String... roles)&lt;/code&gt;. Returns true if the current subject has at least one of the specified roles, false otherwise.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hasAllRoles(String... roles)&lt;/code&gt;. Returns true if the current subject has all the specified roles, false otherwise.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hasRole(String role, String... scopes)&lt;/code&gt;. Returns true if the current subject has the specified role for all the specified scopes, false otherwise.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hasPermission(String permission)&lt;/code&gt;. Returns true if the current subject has the specified permission, false otherwise.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hasOnePermission(String... permissions)&lt;/code&gt;. Returns true if the current subject has at least one of the specified permissions, false otherwise.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hasAllPermissions(String... permissions)&lt;/code&gt;. Returns true if the current subject has all the specified permissions, false otherwise.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hasPermission(String permission, String... scopes)&lt;/code&gt;. Returns true if the current subject has the specified permission on the specified scopes, false otherwise.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Examples:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-plain&#34;&gt;${ !hasRole(&#39;manager&#39;) &amp;amp;&amp;amp; hasPermission(&#39;salary:view&#39;) }
+${ hasAllPermissions(&#39;salary:view&#39;, &#39;salary:update&#39;) }
+${ hasPermission(&#39;users:manage&#39;, &#39;FR&#39;) }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;More resources on EL:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://docs.oracle.com/javaee/6/tutorial/doc/gjddd.html&#34;&gt;Oracle tutorial&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://uel.java.net/&#34;&gt;Unified Expression Language&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;dataobfuscationhandler&#34;&gt;DataObfuscationHandler&lt;/h2&gt;
+
+&lt;p&gt;The goal of a &lt;code&gt;DataObfuscationHandler&lt;/code&gt; is to obfuscate data with a specific algorithm.
+For instance, it could take a name, eg. &amp;laquo;Doe&amp;raquo; and return an anonymised name &amp;laquo;D.&amp;raquo;. This would be implemented as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/*
+ * This {@code DataObfuscationHandler} takes a {@code String}, eg. &amp;quot;Doe&amp;quot; and
+ * obfuscate it into &amp;quot;D.&amp;quot;.
+ */
+public static class NameObfuscationHandler implements DataObfuscationHandler&amp;lt;String&amp;gt; {
+    @Override
+    public String obfuscate(String data) {
+        String result = &amp;quot;&amp;quot;;
+        if (data != null &amp;amp;&amp;amp; data.length() &amp;gt; 0) {
+            result = data.charAt(0) + &amp;quot;.&amp;quot;;
+            result = result.toUpperCase();
+        }
+        return result;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;custom-annotations&#34;&gt;Custom annotations&lt;/h2&gt;
+
+&lt;p&gt;Custom restriction annotations can be defined and registered with data security by defining a &lt;code&gt;DataSecurityHandler&lt;/code&gt;. Start
+with defining a custom annotation:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Retention(RetentionPolicy.RUNTIME)
+@Target({ ElementType.FIELD})
+public @interface MyRestriction {
+
+    String expression();
+
+    Todo todo() default Todo.Nullify;
+
+    public enum Todo {
+        Hide, Round, Nullify
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then, define a &lt;code&gt;DataSecurityHandler&lt;/code&gt; which handles the &lt;code&gt;@MyRestriction&lt;/code&gt; annotation.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyDataSecurityHandler implements DataSecurityHandler&amp;lt;MyRestriction&amp;gt; {
+
+    @Override
+    public Object securityExpression(MyRestriction annotation) {
+        return annotation.expression();
+    }
+
+    @Override
+    public Class&amp;lt;? extends DataObfuscationHandler&amp;lt;?&amp;gt;&amp;gt; securityObfuscationHandler(
+                                                                MyRestriction annotation) {    
+        if (annotation.todo() .equals( Todo.Round  )) {
+            // Uses the rounding obfuscation handler defined below
+            return RoundingObfuscationHandler.class;
+        }
+
+        if (annotation.todo() .equals( Todo.Hide  )) {
+            // Uses the name obfuscation handler defined in the previous section
+            return NameObfuscationHandler.class;
+        }
+
+        return null;
+    }
+
+    public static class RoundingObfuscationHandler 
+                        implements DataObfuscationHandler&amp;lt;Integer&amp;gt; {
+
+        @Override
+        public Integer obfuscate(Integer data) {
+            Integer result = 0;
+            if (data != null) {
+                result = (int) (Math.ceil(data / 1000) * 1000);
+            }
+            return result;
+        }           
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then, you can apply the annotation on a POJO:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyPojo {       
+
+    private String firstName;
+
+    @MyRestriction(expression=&amp;quot;${1 == 2}&amp;quot; , todo = Todo.Hide)
+    private String name;
+
+    @MyRestriction(
+        expression=&amp;quot;${ hasRole(&#39;manager&#39;) }&amp;quot;, 
+        todo=Todo.Round
+    )
+    private Integer salary;
+
+    @MyRestriction(expression=&amp;quot;${false}&amp;quot;)
+    private String password;
+
+    public MyPojo(String name, String firstName, String password, Integer salary) {
+        this.name = name;
+        this.firstName = firstName;
+        this.password = password;
+        this.salary = salary;
+    }
+
+    ...     
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

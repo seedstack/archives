@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    
+
+<title>
+    MongoDB - Basics
+</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="robots" content="noindex,nofollow">
+
+
+
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,700,300,400" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Bitter:700" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/css/style.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/plugins/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/css/style.css">
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "SoftwareApplication",
+  "name" : "SeedStack",
+  "image" : "http://www.seedstack.org/img/logos/seedstack-logo-round.svg",
+  "publisher" : {
+    "@type" : "Organization",
+    "name" : "Open-Source Software"
+  },
+  "applicationCategory" : "development stack"
+}
+</script>
+
+
+
+<meta property="og:title" content="Basics" />
+<meta property="og:description" content="SeedStack MongoDB add-on enables your application to connect with MongoDB instances.
+Maven Gradle    &lt;dependency&gt; &lt;groupId&gt;org.seedstack.addons.mongodb&lt;/groupId&gt; &lt;artifactId&gt;mongodb&lt;/artifactId&gt;&lt;version&gt;1.1.0&lt;/version&gt; &lt;/dependency&gt;  Specifying versions manually is error-prone, use the distribution instead. Show version   dependencies { compile(&#34;org.seedstack.addons.mongodb:mongodb:1.1.0&#34;) }    You also need to add the MongoDB Java client:
+&lt;dependency&gt; &lt;groupId&gt;org.mongodb&lt;/groupId&gt; &lt;artifactId&gt;mongo-java-driver&lt;/artifactId&gt; &lt;version&gt;...&lt;/version&gt; &lt;/dependency&gt;  You can choose to use the MongoDB asynchronous client instead (or in addition as you can mix asynchronous and synchronous clients in the same application):" />
+<meta property="og:url" content="http://seedstack.org/archives/16.7/addons/mongodb/" />
+<meta property="og:site_name" content="SeedStack" />
+<meta property="og:image" content="http://seedstack.org/archives/16.7/img/opengraph-default.png" />
+
+
+
+<link rel="search" type="application/opensearchdescription+xml" href="http://seedstack.org/archives/16.7/opensearch.xml" title="SeedStack" />
+
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="http://seedstack.org/archives/16.7/img/favicons/manifest.json">
+<meta name="apple-mobile-web-app-title" content="SeedStack">
+<meta name="application-name" content="SeedStack">
+<meta name="msapplication-TileColor" content="#00a300">
+<meta name="msapplication-TileImage" content="/img/favicons/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<script type="text/javascript">
+    window.seedstack = {
+        baseUrl: "http:\/\/seedstack.org\/archives\/16.7\/",
+        state: {}
+    };
+</script>
+
+
+</head>
+<body>
+
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5R5FP9"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5R5FP9');</script>
+
+
+<div id="header">
+    <div class="header">
+    <div class="container">
+        <a class="logo" href="http://seedstack.org/archives/16.7/">SeedStack</a>
+        <div class="topbar hidden-xs hidden-sm">
+            <ul class="loginbar pull-right">
+                <li><i class="fa fa-stack-overflow"></i> <a style="color: orange;" target="_blank" href="http://stackoverflow.com/questions/ask?tags=seedstack">Ask a question</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-comments"></i> <a target="_blank" href="https://kiwiirc.com/client/irc.freenode.net#seedstack">Discuss on IRC</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-github"></i> <a target="_blank" href="https://github.com/seedstack">GitHub</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-keyboard-o"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openHelp();">Shortcuts</a></li>
+            </ul>
+        </div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="fa fa-bars"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse navbar-responsive-collapse" data-role="navigation" style="pointer-events: none;">
+        <div class="container">
+            <ul class="nav navbar-nav" style="pointer-events: auto;">
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/getting-started">Getting started</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        Documentation
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://seedstack.org/archives/16.7/docs/seed">Java framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/w20">Web framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/business">Business framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/guides">Guides</a></li>
+                        <li><a target="_blank" href="https://github.com/seedstack/samples">Samples</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/addons">Add-ons</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/themes">Themes</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/posts">Blog</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        More
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="http://seedstack.org/archives/16.7/project/community">Community</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/roadmap">Roadmap</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/faq">FAQ</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/glossary">Glossary</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/tags">Tags</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <i class="search fa fa-search search-btn"></i>
+                    <div class="search-open">
+                        <form method="GET" action="/search">
+                            <div class="input-group animated fadeInDown">
+                                <input id="search-field" type="text" class="form-control" placeholder="Search" name="q">
+                                <span class="input-group-btn">
+                                    <button class="btn-u" type="submit">Go</button>
+                                </span>
+                            </div>
+                        </form>
+                        
+                            
+                        
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+    <div class="title-header small">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-12">
+                <h2>Add-ons</h2>
+                <p class="hidden-xs">Ready-to-use modules that extend SeedStack features at the flick of a switch.</p>
+            </div>
+            <div class="col-md-3 hidden-sm hidden-xs">
+                <div class="header-image-wrapper">
+                    <img class="header-image" src="http://seedstack.org/archives/16.7/img/logos/addons-logo.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="title-subheader">
+        <div class="container">
+            <ul>
+                <li><h3><i class="fa fa-list"></i> <a href="http://seedstack.org/archives/16.7/addons">All add-ons</a></h3></li>
+                <li><h3 class="active"><i class="fa fa-plug"></i> <a href="">MongoDB add-on</a></h3></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="content" class="container">
+    <div class="row">
+    <div class="col-md-9">
+        <div class="content-wrapper">
+            <div class="doc-content">
+                
+
+<p>SeedStack MongoDB add-on enables your application to connect with MongoDB instances.</p>
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+<div class="tab-v2">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab-org-seedstack-addons-mongodb-mongodb-maven" data-toggle="tab" aria-expanded="true">Maven</a></li>
+        <li class=""><a href="#tab-org-seedstack-addons-mongodb-mongodb-gradle" data-toggle="tab" aria-expanded="true">Gradle</a></li>
+    </ul>
+    <span class="tabs-icon fa-2x fa fa-cubes pull-right"></span>
+    <div class="clear-both"></div>
+    <div class="tab-content">
+        <div class="tab-pane in active" id="tab-org-seedstack-addons-mongodb-mongodb-maven">
+            <pre style="margin-top: 0;"><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.seedstack.addons.mongodb&lt;/groupId&gt;
+    &lt;artifactId&gt;mongodb&lt;/artifactId&gt;<span id="org-seedstack-addons-mongodb-mongodb-version" style="display: none;">
+    &lt;version&gt;1.1.0&lt;/version&gt;</span>
+&lt;/dependency&gt;</code></pre>
+            <small class="pull-right" style="color: #aaa; margin-top: -20px; margin-right: 5px;">
+                <span id="org-seedstack-addons-mongodb-mongodb-warn" style="display: none;"><i class="fa fa-warning" style="color: orange;"></i> Specifying versions manually is error-prone, use the <a href="http://seedstack.org/archives/16.7/getting-started/distribution">distribution</a> instead.</span>
+                <a style="cursor: pointer;" id="org-seedstack-addons-mongodb-mongodb-show" onclick="$('#org-seedstack-addons-mongodb-mongodb-version, #org-seedstack-addons-mongodb-mongodb-warn').show(); $('#org-seedstack-addons-mongodb-mongodb-show').hide();">Show version</a>
+            </small>
+        </div>
+        <div class="tab-pane in" id="tab-org-seedstack-addons-mongodb-mongodb-gradle">
+            <pre style="margin-bottom: 0;"><code class="java">dependencies {
+    compile("org.seedstack.addons.mongodb:mongodb:1.1.0")
+}</code></pre>
+        </div>
+    </div>
+</div>
+
+
+<p>You also need to add the MongoDB Java client:</p>
+
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.mongodb&lt;/groupId&gt;
+    &lt;artifactId&gt;mongo-java-driver&lt;/artifactId&gt;
+    &lt;version&gt;...&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<p>You can choose to use the MongoDB asynchronous client instead (or in addition as you can mix asynchronous and synchronous
+clients in the same application):</p>
+
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.mongodb&lt;/groupId&gt;
+    &lt;artifactId&gt;mongodb-driver-async&lt;/artifactId&gt;
+    &lt;version&gt;...&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<h1 id="configuration">Configuration</h1>
+
+<p>MongoDB clients are used to access databases and are declared with the following configuration property:</p>
+
+<pre><code class="language-ini">[org.seedstack.mongodb]
+clients = client1, client2, ...
+</code></pre>
+
+<p>Each client must then be configured separately with the following configuration:</p>
+
+<pre><code class="language-ini">[org.seedstack.mongodb.client.client1]
+# configuration of client1 
+
+[org.seedstack.mongodb.client.client2]
+# configuration of client2
+ 
+...
+</code></pre>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>As MongoDB has a different Java driver for synchronous and asynchronous clients, the type of a client will determine how
+it can be configured and used. Clients use the <a href="http://mongodb.github.io/mongo-java-driver/3.0/driver/">synchronous driver</a>
+by default, to switch to the <a href="http://mongodb.github.io/mongo-java-driver/3.0/driver-async/">asynchronous driver</a>, specify
+the following configuration:</p>
+
+<pre><code class="language-ini">[org.seedstack.mongodb.client.client1]
+async = true
+</code></pre>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="uri-connection-string">URI connection string</h2>
+
+<p>A client can be configured with an URI:</p>
+
+<pre><code class="language-ini">[org.seedstack.mongodb.client.client1]
+uri = mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]      
+</code></pre>
+
+<p>URI allows to directly specify a set of options common to synchronous and asynchronous clients. More information about
+the URI and its options can be found <a href="http://docs.mongodb.org/manual/reference/connection-string/">here</a>.</p>
+
+<h2 id="explicit-hosts">Explicit hosts</h2>
+
+<p>As an alternative a client can be configured by directly specifying the MongoDB host(s):</p>
+
+<pre><code class="language-ini">[org.seedstack.mongodb.client.client1]
+hosts = host1:27017, host2     
+</code></pre>
+
+<p>In this case, the client options must be specified using additional properties, which a are different for synchronous and
+asynchronous clients. See the <a href="#synchronous-client-options">Synchronous client options</a> and <a href="#asynchronous-client-options">Asynchronous client options</a>
+sections below for more information.</p>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>When no port is specified, whether in the URI or in the hosts property, the default MongoDB port is used (27017).</p>
+
+        </div>
+    </div>
+</div>
+
+<p>When configuring the connection with explicit hosts, connection credentials can be specified as the following:</p>
+
+<pre><code class="language-ini">[org.seedstack.mongodb.client.client1]
+...    
+credentials = db1:user1:password1
+</code></pre>
+
+<p>This will authenticate with the username <code>user1</code> and the password <code>password1</code>. The user will be lookup up in the <code>db1</code>
+database. The authentication mechanism will be automatically selected. To force an authentication mechanism use the
+following syntax:</p>
+
+<pre><code class="language-ini">[org.seedstack.mongodb.client.client1]
+...    
+credentials = mechanism/db1:user1:password1
+</code></pre>
+
+<p>The available authentication mechanisms are <code>PLAIN</code>, <code>MONGODB_CR</code>, <code>SCRAM_SHA_1</code>, <code>MONGODB_X509</code> and <code>GSSAPI</code>. You can
+specify multiple credentials like the following:</p>
+
+<pre><code class="language-ini">[org.seedstack.mongodb.client.client1]
+...    
+credentials = mechanism/db1:user1:password1, mechanism/db2:user2:password2, ...
+</code></pre>
+
+<div class="callout callout-tips">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+                <i class="fa fa-lightbulb-o icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>It is recommended to avoid specifying the authentication mechanism as it will be automatically selected. Also note that
+often, only one credential is enough.</p>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="databases">Databases</h2>
+
+<p>You can choose to inject and use the <code>MongoClient</code> object(s) directly and access the database(s) programatically. As a
+convenience, Seed also allows to inject the <code>MongoDatabase</code> object(s) with the following configuration:</p>
+
+<pre><code class="language-ini">[org.seedstack.mongodb.client.client1]
+...
+databases = db1, db2, ...
+</code></pre>
+
+<p>Each declared database can then be injected accordingly. See the <a href="#usage">usage</a> section below for more information.<br />
+Database names must be unique across the application so you can encounter a situation when multiple configured clients
+may need to access databases with the same name. In that case, you can use the alias feature. Consider the following clients:</p>
+
+<pre><code class="language-ini">[org.seedstack.mongodb.client.client1]
+...    
+databases = db1, db2
+
+[org.seedstack.mongodb.client.client2]
+...    
+databases = db2, db3
+</code></pre>
+
+<p>You can note that a database named <code>db2</code> exists in MongoDB instances accessed by both <code>client1</code> and <code>client2</code>. To resolve
+this ambiguity, one of the <code>db2</code> databases must be aliased in the application:</p>
+
+<pre><code class="language-ini">[org.seedstack.mongodb.client.client2]
+...    
+databases = db2, db3
+alias.db2 = db2bis
+</code></pre>
+
+<p>In this example, the <code>db2</code> database present on the MongoDB instance accessed by <code>client2</code> will be referred in the
+application by the <code>db2bis</code> name. Note that you can use this feature even when there are no name collision.</p>
+
+<h2 id="synchronous-client-options">Synchronous client options</h2>
+
+<p>Additional options can be specified on synchronous clients with the <code>option</code> prefix:</p>
+
+<pre><code class="language-ini">[org.seedstack.mongodb.client.client1]
+...
+option.optionName1 = value1
+option.optionName2 = value2
+...
+</code></pre>
+
+<p>All the options from the <a href="http://api.mongodb.org/java/3.0/com/mongodb/MongoClientOptions.Builder.html">MongoClientOptions.Builder</a>
+class are available. Each method of the builder translates to an option of the same name. Consider the following example:</p>
+
+<pre><code class="language-ini">[org.seedstack.mongodb.client.client1]
+...
+option.connectionsPerHost = 75
+</code></pre>
+
+<p>This will invoke the <code>connectionsPerHost()</code> method on the option builder with the value <code>75</code> converted to an integer.</p>
+
+<div class="callout callout-tips">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+                <i class="fa fa-lightbulb-o icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>If you use a URI configuration, you can combine the URI options with the <code>option.*</code> syntax. The specified option(s)
+will complement their URI counterpart and override them if present in both.</p>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="asynchronous-client-options">Asynchronous client options</h2>
+
+<p>Additional options can be specified on asynchronous clients with the <code>setting</code> prefix:</p>
+
+<pre><code class="language-ini">[org.seedstack.mongodb.client.client1]
+...
+setting.settingNamespace1.settingName1 = value1
+setting.settingNamespace1.settingName2 = value2
+setting.settingNamespace2.settingName3 = value3
+...
+</code></pre>
+
+<p>All the settings from the <code>MongoClientSettings.Builder</code> builder and its sub-builders are available. Each sub-builder translates
+to a setting namespace and each of the builders method translates to a particular setting. The list of the builders and
+their corresponding namespace is:</p>
+
+<table class="table table-striped">
+<tbody>
+<tr>
+    <th>Namespace</th>
+    <th>Builder</th>
+</tr>
+<tr>
+    <td>cluster</td>
+    <td><a href="http://api.mongodb.org/java/3.0/com/mongodb/connection/ClusterSettings.Builder.html">ClusterSettings.Builder</a></td>
+</tr>
+<tr>
+    <td>connectionPool</td>
+    <td><a href="http://api.mongodb.org/java/3.0/com/mongodb/connection/ConnectionPoolSettings.Builder.html">ConnectionPoolSettings.Builder</a></td>
+</tr>
+<tr>
+    <td>socket</td>
+    <td><a href="http://api.mongodb.org/java/3.0/com/mongodb/connection/SocketSettings.Builder.html">SocketSettings.Builder</a></td>
+</tr>
+<tr>
+    <td>heartbeatSocket</td>
+    <td><a href="http://api.mongodb.org/java/3.0/com/mongodb/connection/SocketSettings.Builder.html">SocketSettings.Builder</a></td>
+</tr>
+<tr>
+    <td>server</td>
+    <td><a href="http://api.mongodb.org/java/3.0/com/mongodb/connection/ServerSettings.Builder.html">ServerSettings.Builder</a></td>
+</tr>
+<tr>
+    <td>ssl</td>
+    <td><a href="http://api.mongodb.org/java/3.0/com/mongodb/connection/SslSettings.Builder.html">SslSettings.Builder</a></td>
+</tr>
+</tbody>
+</table>
+
+<p>Consider the following example:</p>
+
+<pre><code class="language-ini">setting.connectionPool.maxSize = 75
+</code></pre>
+
+<p>This will invoke the <code>maxSize()</code> method on a <code>ConnectionPoolSettings.Builder</code> instance with the value <code>75</code> converted to
+an integer. This builder instance will in turn be be set on a <code>MongoClientSettings.Builder</code> instance via the <code>connectionPoolSettings()</code>
+method.</p>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <ul>
+<li>The global settings directly available on <code>MongoClientSettings.Builder</code> can be specified without namespace. More information
+on the global builder <a href="http://api.mongodb.org/java/current/com/mongodb/async/client/MongoClientSettings.Builder.html">here</a>.</li>
+<li>The <code>cluster.hosts</code> and <code>credentialList</code> settings are ignored since they are already mapped from the <code>hosts</code> and the
+<code>credentials</code> properties.</li>
+</ul>
+
+        </div>
+    </div>
+</div>
+
+<h1 id="usage">Usage</h1>
+
+<p>As MongoDB doesn&rsquo;t support transactions, usage simply consists in injecting a <code>MongoClient</code> or a <code>MongoDatabase</code> object
+and using it accordingly to the MongoDB documentation. As an example you can inject the client as the following:</p>
+
+<pre><code class="language-java">@Inject
+@Named(&quot;client1&quot;)
+MongoClient client1;
+</code></pre>
+
+<p>This will inject the configured MongoDB client named <code>client1</code>. You can also inject a database directly as the following:</p>
+
+<pre><code class="language-java">@Inject
+@Named(&quot;db1&quot;)
+MongoDatabase db1;
+</code></pre>
+
+<p>This will inject the configured MongoDB database named <code>db1</code>. Note that you must use the aliased name instead of the
+real database name if you aliased it in the configuration (see the <a href="#databases">databases</a> section for information
+about aliases).</p>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>If your client or database is configured as synchronous (the default) you must use the <code>com.mongodb.MongoClient</code> and
+<code>com.mongodb.client.MongoDatabase</code> classes. If your client or database is configured as asynchronous, you must use the
+<code>com.mongodb.async.client.MongoClient</code> and <code>com.mongodb.async.client.MongoDatabase</code> classes instead.</p>
+
+        </div>
+    </div>
+</div>
+
+<div class="callout callout-tips">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+                <i class="fa fa-lightbulb-o icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>You can inject a client or a database without any <code>@Named</code> qualifier as long as there is only one client or only one database
+of the injected type configured.</p>
+
+        </div>
+    </div>
+</div>
+
+<h1 id="morphia">Morphia</h1>
+
+<p><a href="https://github.com/mongodb/morphia">Morphia</a> is an Object document mapper Api. it Provides Annotation-based Java objects
+mapping, and fluent query/update API&rsquo;s.</p>
+
+<p>SeedStack Morphia add-on enables your application to connect and interact with MongoDB instances only by injecting and
+using a Morphia <code>Datastore</code>.</p>
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+<div class="tab-v2">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab-org-seedstack-addons-mongodb-mongodb-morphia-maven" data-toggle="tab" aria-expanded="true">Maven</a></li>
+        <li class=""><a href="#tab-org-seedstack-addons-mongodb-mongodb-morphia-gradle" data-toggle="tab" aria-expanded="true">Gradle</a></li>
+    </ul>
+    <span class="tabs-icon fa-2x fa fa-cubes pull-right"></span>
+    <div class="clear-both"></div>
+    <div class="tab-content">
+        <div class="tab-pane in active" id="tab-org-seedstack-addons-mongodb-mongodb-morphia-maven">
+            <pre style="margin-top: 0;"><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.seedstack.addons.mongodb&lt;/groupId&gt;
+    &lt;artifactId&gt;mongodb-morphia&lt;/artifactId&gt;<span id="org-seedstack-addons-mongodb-mongodb-morphia-version" style="display: none;">
+    &lt;version&gt;1.1.0&lt;/version&gt;</span>
+&lt;/dependency&gt;</code></pre>
+            <small class="pull-right" style="color: #aaa; margin-top: -20px; margin-right: 5px;">
+                <span id="org-seedstack-addons-mongodb-mongodb-morphia-warn" style="display: none;"><i class="fa fa-warning" style="color: orange;"></i> Specifying versions manually is error-prone, use the <a href="http://seedstack.org/archives/16.7/getting-started/distribution">distribution</a> instead.</span>
+                <a style="cursor: pointer;" id="org-seedstack-addons-mongodb-mongodb-morphia-show" onclick="$('#org-seedstack-addons-mongodb-mongodb-morphia-version, #org-seedstack-addons-mongodb-mongodb-morphia-warn').show(); $('#org-seedstack-addons-mongodb-mongodb-morphia-show').hide();">Show version</a>
+            </small>
+        </div>
+        <div class="tab-pane in" id="tab-org-seedstack-addons-mongodb-mongodb-morphia-gradle">
+            <pre style="margin-bottom: 0;"><code class="java">dependencies {
+    compile("org.seedstack.addons.mongodb:mongodb-morphia:1.1.0")
+}</code></pre>
+        </div>
+    </div>
+</div>
+
+
+<h2 id="configuration-1">Configuration</h2>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p><strong>Requirements:</strong>
+Morphia Datastores need synchronous mongodb databases, please refer to mongodb <a href="#asynchronous-client-options">synchronous client</a>
+and <a href="#Databases">database</a> configuration before starting with morphia.</p>
+
+        </div>
+    </div>
+</div>
+
+<p>Seed has the ability to create a new Morphia <code>Datastore</code> linked to single Morphia mapped objects or java packages.
+Two <code>morphia</code> properties <code>clientName</code> and <code>dbName</code> are available and can be set using Seed object props configuration
+as followed:</p>
+
+<p>Required Mongodb configuration:</p>
+
+<pre><code class="language-ini">[org.seedstack.mongodb]
+clients = client1
+
+[org.seedstack.mongodb.client.client1]
+hosts = localhost
+option.connectionsPerHost = 50
+databases = db1
+</code></pre>
+
+<p>Datastore linked to a single Morphia mapped object:</p>
+
+<pre><code class="language-ini">[org.mycompany.myapp.domain.user.*]
+morphia.clientName = client1
+morphia.dbName = db1
+</code></pre>
+
+<p>Datastore linked to Morphia mapped objects in a package</p>
+
+<pre><code class="language-ini">[org.mycompany.myapp.domain.user.User]
+morphia.clientName = client1
+morphia.dbName = db1
+</code></pre>
+
+<h2 id="usage-1">Usage</h2>
+
+<p>Configuration for affecting a package to a <code>Datastore</code> linked to the database <code>db1</code>:</p>
+
+<pre><code class="language-ini">[org.seedstack.mongodb]
+clients = client1
+
+[org.seedstack.mongodb.client.client1]
+hosts = localhost
+option.connectionsPerHost = 50
+databases = db1
+
+[org.mycompany.myapp.domain.user.*]
+morphia.clientName = client1
+morphia.dbName = db1
+</code></pre>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>Morphia only support synchronous client, as so the Mongodb database must be synchronous.</p>
+
+        </div>
+    </div>
+</div>
+
+<p>Mapping Object under the package defined above:</p>
+
+<pre><code class="language-java">@Entity
+public class User implements AggregateRoot&lt;Long&gt;{
+	@Id
+	private long id;
+	private String name;
+	private String lastname;
+    @Embedded    
+    private Address address;
+    
+	// ...
+}
+@Embedded
+public class Address implements ValueObject{
+	private String country;
+	private String zipcode;
+	private String city;
+	private String street;
+	private Integer number;
+}
+</code></pre>
+
+<p>A Morphia <code>Datastore</code> can be injected simply by specifying the associated <code>morphia.clientName</code> and <code>morphia.dbName</code> with
+the appropriate binding annotation <code>@MorphiaDatastore</code> as followed:</p>
+
+<pre><code class="language-java">public class MorphiaIT extends AbstractSeedIT{
+	@Inject
+	@MorphiaDatastore(clientName = &quot;client1&quot;,dbName=&quot;db1&quot;)
+	private Datastore datastore; 
+	
+	@Test
+	public void datastore_test(){
+		User user = new User(...);
+		Key&lt;User&gt; keyUser = datastore.save(user);
+		Assertions.assertThat(keyUser).isNotNull();
+	}
+}
+</code></pre>
+
+<h2 id="repositories">Repositories</h2>
+
+<p>The Morphia addon also provides repositories which can be use with the <a href="http://seedstack.org/archives/16.7/docs/business/">Business Framework</a>.
+Default repositories can be used by injecting the <code><a data-toggle="tooltip" data-html="true" title='org.&amp;#8203;seedstack.&amp;#8203;business.&amp;#8203;domain.&amp;#8203;Repository' href='http://seedstack.org/javadoc/org/seedstack/business/domain/Repository.html'>Repository</a></code> interface with
+both the <code>@Inject</code> and <code><a data-toggle="tooltip" data-html="true" title='org.&amp;#8203;seedstack.&amp;#8203;mongodb.&amp;#8203;morphia.&amp;#8203;Morphia' href='http://seedstack.org/javadoc/org/seedstack/mongodb/morphia/Morphia.html'>@Morphia</a></code> annotations as followed:</p>
+
+<pre><code class="language-java">public class MongodbRepositoryIT extends AbstractSeedIT {
+
+	@Inject
+	@Morphia
+	private Repository&lt;User, Long&gt; userRepository;
+	
+	@Inject
+	Factory&lt;User&gt; myUserFactory; 
+	
+	@Test
+	public void mongodb_repository_test() {
+		userRepository.delete(myUserFactory.create(...));
+		User loadedUser = userRepository.load(user1.getEntityId());
+		Assertions.assertThat(user).isEqualTo(null);
+	}
+
+}
+</code></pre>
+
+<p>Custom repositories can be added simply by extending the class <code><a data-toggle="tooltip" data-html="true" title='org.&amp;#8203;seedstack.&amp;#8203;mongodb.&amp;#8203;morphia.&amp;#8203;BaseMongodbRepository' href='http://seedstack.org/javadoc/org/seedstack/mongodb/morphia/BaseMongodbRepository.html'>BaseMongodbRepository</a></code> as followed:</p>
+
+<pre><code class="language-java">public interface UserRepository extends Repository&lt;Activation,String&gt; {}
+public class UserMongodbRepository extends BaseMongodbRepository&lt;User, Long&gt; {}
+</code></pre>
+
+<p>The repository can be injected as followed:</p>
+
+<pre><code class="language-java">@Inject
+private UserRepository userRepository;
+</code></pre>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>To use a <code><span data-toggle="tooltip" data-html="true" title='org.&amp;#8203;mongodb.&amp;#8203;morphia.&amp;#8203;Datastore'>Datastore</span></code> inside the repository simply call the method <code>this.getDatastore()</code>.</p>
+
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        
+<div class="side-menu">
+    
+        
+    
+    
+    <div class="list-group">
+        <ul class="nav">
+            <li class="list-group-item"><div style="margin-bottom: 10px;"><i class="fa fa-tag"></i> Tags</div>
+                <div class="tags">
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/persistence">Persistence</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/nosql">Nosql</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/mongodb">Mongodb</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/data">Data</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/database">Database</a>
+                    
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="list-group">
+        <ul class="nav">
+            
+                
+                    <li><a class="list-group-item" href='https://github.com/seedstack/mongodb-addon/edit/docs/index.md' target="_blank"><i class="fa fa-edit"></i> Contribute to this add-on page</a></li>
+                
+            
+        </ul>
+    </div>
+</div>
+
+    </div>
+</div>
+
+</div>
+<div id="footer">
+    <div class="footer-v3">
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="headline"><h2>About</h2></div>
+                    <p class="margin-bottom-25 md-margin-bottom-40">SeedStack is an Open-Source enterprise-class development stack for building modern and robust applications.</p>
+                </div>
+
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="posts">
+                        <div class="headline"><h2>License</h2></div>
+                        <p>
+                            Code licensed under the <a href="https://www.mozilla.org/MPL/2.0" target="_blank">Mozilla Public License 2.0</a>.
+                            <br/>
+                            Documentation licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 map-img">
+                    <div class="headline"><h2>Contact us</h2></div>
+                    <address>
+                        <p>
+                            IRC channel <a href="irc://chat.freenode.net/seedstack">#seedstack on Freenode community</a>
+                            <br/>
+                            Google group <a href="https://groups.google.com/forum/#!forum/seedstack">seedstack@googlegroups.com</a>
+                        </p>
+                    </address>
+
+                    <div class="headline"><h2>Stay in touch</h2></div>
+                    <div style="margin-bottom: 20px;">
+                        <a class="twitter-follow-button"
+                           href="https://twitter.com/seedstack"
+                           data-show-count="false"
+                           data-lang="en">
+                            Follow @seedstack
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<div id="hotkeys-modal" class="modal">
+    <div class="modal-dialog" style="min-width: 960px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Keyboard shortcuts <a id="show-all-shortcuts" style="cursor: pointer;" onclick="seedstack.ui.showAllShortcuts();">(Show all)</a></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Global shortcuts</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>?</kbd>
+                                </td>
+                                <td>Show this help dialog</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>/</kbd>
+                                </td>
+                                <td>Focus the search field</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↑</kbd>
+                                </td>
+                                <td>Go to previous menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↓</kbd>
+                                </td>
+                                <td>Go to next menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>S</kbd>
+                                </td>
+                                <td>Go to Seed framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>W</kbd>
+                                </td>
+                                <td>Go to W20 framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>B</kbd>
+                                </td>
+                                <td>Go to Business framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>A</kbd>
+                                </td>
+                                <td>Go to add-ons</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>G</kbd>
+                                </td>
+                                <td>Go to guides</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Seed framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>t</kbd>
+                                </td>
+                                <td>Go to testing</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to cryptography</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>w</kbd>
+                                </td>
+                                <td>Go to Web</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>r</kbd>
+                                </td>
+                                <td>Go to REST</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>o</kbd>
+                                </td>
+                                <td>Go to operations</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>T</kbd>
+                                </td>
+                                <td>Go to transactions</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Business framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>m</kbd>
+                                </td>
+                                <td>Go to model</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>l</kbd>
+                                </td>
+                                <td>Go to lifecycle</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>e</kbd>
+                                </td>
+                                <td>Go to events</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>p</kbd>
+                                </td>
+                                <td>Go to policies</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>a</kbd>
+                                </td>
+                                <td>Go to assemblers</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>f</kbd>
+                                </td>
+                                <td>Go to finders</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>P</kbd>
+                                </td>
+                                <td>Go to pagination</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>W20 framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to culture</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>h</kbd>
+                                </td>
+                                <td>Go to hypermedia</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>u</kbd>
+                                </td>
+                                <td>Go to UI</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="versions-modal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 id="versions-title" class="modal-title">Fetching components...</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="versions-table" class="table table-striped table-hover table-bordered">
+                            <tr>
+                                <th>Component</th>
+                                <th>Version</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/github.min.css">
+
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mousetrap/1.4.6/mousetrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lunr.js/0.5.9/lunr.min.js"></script>
+<script src="/assets/unify/plugins/smoothScroll.js"></script>
+<script src="/js/xml2json.js"></script>
+<script src="/js/jquery.highlight.js"></script>
+<script src="/js/seedstack.js"></script>
+<script>
+    $(document).ready(function () {
+        var $search = $('.search-btn');
+
+        $('.search').click(function () {
+            if ($search.hasClass('fa-search')) {
+                seedstack.ui.openSearch();
+            } else {
+                seedstack.ui.closeSearch();
+            }
+        });
+
+        $('pre code').each(function (i, block) {
+            hljs.highlightBlock(block);
+        });
+
+        $('.side-menu').affix({
+            offset: {
+                top: $('#header').height() + 20,
+                bottom: $('#footer').height() + 40
+            }
+        });
+
+        Mousetrap.bind('/', function () {
+            seedstack.ui.openSearch();
+            return false;
+        });
+
+        Mousetrap.bind('alt+up', function () {
+            if (seedstack.state.previousPage) {
+                window.location = seedstack.state.previousPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('alt+down', function () {
+            if (seedstack.state.nextPage) {
+                window.location = seedstack.state.nextPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('?', function () {
+            seedstack.ui.openHelp();
+            return false;
+        });
+
+        Mousetrap.bind('esc', function () {
+            seedstack.ui.closeHelp();
+            seedstack.ui.closeSearch();
+            return false;
+        });
+
+        var originalCallback = Mousetrap.stopCallback;
+        Mousetrap.stopCallback = function (e, element, combo) {
+            if (combo === 'esc') {
+                return false;
+            }
+
+            return originalCallback(e, element, combo);
+        };
+
+        function bindShortcuts(value) {
+            $.each(value, function (sequence, item) {
+                if (typeof item === 'string') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item;
+                        return false;
+                    });
+                } else if (typeof item === 'object') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item.path;
+                        return false;
+                    });
+                    if (item.shortcuts && location.pathname.indexOf(item.path) === 0) {
+                        bindShortcuts(item.shortcuts);
+                    }
+                }
+            });
+        }
+
+        function resolveVersions() {
+            var $versionsTitle = $('#versions-title');
+            if (!seedstack.versions) {
+                $.ajax({
+                    dataType: 'text',
+                    url: '/distribution.pom.xml'
+                }).done(function (data) {
+                    var pom = new X2JS().xml_str2json(data);
+
+                    if (pom.project && pom.project.properties && pom.project.version) {
+                        var $versions = $('#versions-table');
+                        var blackList = ['seedstack-maven-plugin', 'java-compiler', 'maven-failsafe-plugin', 'logback'];
+                        var versions = {};
+
+                        $versionsTitle.text("SeedStack " + pom.project.version);
+
+                        $.each(pom.project.properties, function (name, value) {
+                            if (/\.version$/.test(name)) {
+                                var shortName = name.substr(0, name.indexOf('.version'));
+                                if ($.inArray(shortName, blackList) === -1) {
+                                    versions[shortName] = value;
+                                    $versions.append(
+                                            '<tr>' +
+                                            '<td>' +
+                                            shortName.substr(0, 1).toUpperCase() + shortName.substr(1, shortName.length - 1).replace(/-/g, ' ') +
+                                            '</td>' +
+                                            '<td>' + value + '</td>' +
+                                            '</tr>');
+                                }
+                            }
+                        });
+
+                        $('.loginbar').prepend(
+                                '<li class="hidden-xs hidden-sm"><i class="fa fa-tag"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openVersions();">Latest version: ' + pom.project.version + '</a></li>' +
+                                '<li class="topbar-devider"></li>'
+                        );
+
+                        seedstack.versions = versions;
+                    }
+                }).error(function () {
+                    console.error("SeedStack version could not be resolved");
+                });
+            }
+        }
+
+        bindShortcuts(seedstack.ui.shortcuts);
+
+        resolveVersions();
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $('#hotkeys-modal, #versions-modal').bind('hidden.bs.modal', function () {
+            $("html").css("margin-right", "0px");
+        }).bind('show.bs.modal', function () {
+            $("html").css("margin-right", "-15px");
+        });
+
+        var query = seedstack.strings.parseQueryString(location);
+        if (query.h && query.h.length > 0) {
+            $('.doc-content').highlight(query.h);
+            if (query.scroll) {
+                $('html, body').animate({
+                    scrollTop: $('span[class=highlight]:first').offset().top - 20
+                }, 250);
+            }
+        }
+    });
+</script>
+<script>window.twttr = (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+    if (d.getElementById(id))return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    t._e = [];
+    t.ready = function (f) {
+        t._e.push(f);
+    };
+    return t;
+}(document, "script", "twitter-wjs"));</script>
+
+</body>
+</html>

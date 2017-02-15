@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/web/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/web/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Testing</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/manual/testing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/manual/testing/</guid>
+      <description>&lt;p&gt;Seed offers various tools to facilitate the writing of your tests in the &lt;code&gt;seed-testing&lt;/code&gt; module, notably a JUnit test runner
+for integration testing. This runner handles kernel startup and shutdown as well as injection of test classes. It can also
+detect and activate Seed test plugins which augment the test behavior. For instance the Seed security test plugin can
+login a predefined user based on an annotation.&lt;/p&gt;
+
+&lt;p&gt;To use Seed testing tools, add the &lt;code&gt;seed-testing&lt;/code&gt; module in your test classpath. 
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-testing-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-testing-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-seed-seed-testing-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;seed-testing&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-seed-seed-testing-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+    &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-seed-seed-testing-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-seed-seed-testing-show&#34; onclick=&#34;$(&#39;#org-seedstack-seed-seed-testing-version, #org-seedstack-seed-seed-testing-warn&#39;).show(); $(&#39;#org-seedstack-seed-seed-testing-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-seed-seed-testing-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    testCompile(&#34;org.seedstack.seed:seed-testing:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;/p&gt;
+
+&lt;h1 id=&#34;supported-test-typologies&#34;&gt;Supported test typologies&lt;/h1&gt;
+
+&lt;p&gt;Seed testing tools are based upon the popular &lt;a href=&#34;http://junit.org/&#34;&gt;JUnit&lt;/a&gt; testing framework.&lt;/p&gt;
+
+&lt;h2 id=&#34;unit-tests&#34;&gt;Unit tests&lt;/h2&gt;
+
+&lt;p&gt;The purpose of unit tests is to take a small and testable part of a program, isolate it from any dependency (injection,
+databases, network, file system, &amp;hellip;) by mocking them and check whether it behaves exactly as expected. The main goal is
+to validate code quality and reliability.&lt;/p&gt;
+
+&lt;p&gt;Seed doesn&amp;rsquo;t help much when writing unit tests beyond packaging a few high-quality test libraries, such as
+&lt;a href=&#34;http://joel-costigliola.github.io/assertj/&#34;&gt;AssertJ&lt;/a&gt; or &lt;a href=&#34;http://mockito.org/&#34;&gt;Mockito&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;integration-tests&#34;&gt;Integration tests&lt;/h2&gt;
+
+&lt;p&gt;The purpose of integration tests is to pick multiple components together and test them as a whole. Integration tests can
+range from a testing a simple operation involving two classes to an entire application setup with all its dependencies
+(databases, file system, network, &amp;hellip;).&lt;/p&gt;
+
+&lt;p&gt;Their main goal is to detect issues appearing when components interact with each other. Integration tests can be
+used to validate technical behavior, such as the correct operation of a group of components, or can extend beyond to verify
+the global program behavior in regard to functional expectations. In this latter case, it is often useful to supplement
+Seed testing tools with a framework for Behavior-Driven-Development (BDD) like &lt;a href=&#34;http://jbehave.org/&#34;&gt;JBehave&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;simple-integration-tests&#34;&gt;Simple integration tests&lt;/h1&gt;
+
+&lt;p&gt;When a Web container is not required, you can simply use the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;it.&amp;amp;#8203;SeedITRunner&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/it/SeedITRunner.html&#39;&gt;SeedITRunner&lt;/a&gt;&lt;/code&gt; JUnit runner on your
+test class. Alternatively you can also extend the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;it.&amp;amp;#8203;AbstractSeedIT&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/it/AbstractSeedIT.html&#39;&gt;AbstractSeedIT&lt;/a&gt;&lt;/code&gt; class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyComponentIT extends AbstractSeedIT {
+    @Inject
+    MyService myService;
+
+    @Test
+    public void my_service_is_injectable() {
+        Assertions.assertThat(myService).isNotNull();
+    }       
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this example:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The test class itself is instantiated by Seed injector and benefit from dependency injection and AOP interception.&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;A different kernel is used for each test class. All test methods within a test class are invoked in the context
+of its kernel. After all test methods are completed, the kernel is shutdown. This behavior can be altered manually or
+automatically by test plugins.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Simple integration tests run faster than Web integration tests are simpler to maintain. They should be preferred when
+Web testing is not necessary and be supplemented with the minimal amount of Web integration tests.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;altering-kernel-mode&#34;&gt;Altering kernel mode&lt;/h2&gt;
+
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+
+&lt;h2 id=&#34;testing-with-security&#34;&gt;Testing with security&lt;/h2&gt;
+
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+
+&lt;h2 id=&#34;testing-command-line-applications&#34;&gt;Testing command-line applications&lt;/h2&gt;
+
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+
+&lt;h1 id=&#34;web-integration-tests&#34;&gt;Web integration tests&lt;/h1&gt;
+
+&lt;p&gt;Seed provides an &lt;a href=&#34;http://arquillian.org/&#34;&gt;Arquillian&lt;/a&gt; integration for Web application testing. These kind of integration
+tests allow to programmatically define the deployed Web archive (WAR) and test it either from server-side or from client-side.
+You can use the &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;jboss.&amp;amp;#8203;arquillian.&amp;amp;#8203;junit.&amp;amp;#8203;Arquillian&#39;&gt;Arquillian&lt;/span&gt;&lt;/code&gt; runner directly on your test class. Alternatively you can extend
+the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;it.&amp;amp;#8203;AbstractSeedWebIT&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/it/AbstractSeedWebIT.html&#39;&gt;AbstractSeedWebIT&lt;/a&gt;&lt;/code&gt; class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class MyComponentIT extends AbstractSeedWebIT {
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To specify the deployed artifact, declare a public static method annotated with &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;jboss.&amp;amp;#8203;arquillian.&amp;amp;#8203;container.&amp;amp;#8203;test.&amp;amp;#8203;api.&amp;amp;#8203;Deployment&#39;&gt;@Deployment&lt;/span&gt;&lt;/code&gt;
+that returns a &lt;code&gt;&lt;span data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;jboss.&amp;amp;#8203;shrinkwrap.&amp;amp;#8203;api.&amp;amp;#8203;spec.&amp;amp;#8203;WebArchive&#39;&gt;WebArchive&lt;/span&gt;&lt;/code&gt; class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public class RestIT extends AbstractSeedWebIT {
+    @Inject
+    MyService myService; 
+
+    @Deployment
+    public static WebArchive createDeployment() {
+        return ShrinkWrap
+            .create(WebArchive.class)
+            .addAsResource(
+                &amp;quot;my-conf.props&amp;quot;, 
+                &amp;quot;META-INF/configuration/my-conf.props&amp;quot;
+            );
+    }
+
+    @Test
+    public void my_service_is_injectable() {
+        Assertions.assertThat(myService).isNotNull();
+    }
+
+    @RunAsClient
+    @Test
+    public void my_rest_resource_is_working(@ArquillianResource URL baseURL) {
+        expect().statusCode(200).when().get(baseURL.toString() + &amp;quot;rest/my-resource&amp;quot;);
+    }       
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In this example:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The test class itself is NOT instantiated by Seed injector and, as such, cannot benefit from AOP interception. It benefits
+from dependency injection though.&lt;/li&gt;
+&lt;li&gt;The kernel is started via the Web application listener, automatically registered (no need for a &lt;code&gt;web.xml&lt;/code&gt; file although one can be specified). A unique kernel is used for all test methods. This behavior cannot be altered.&lt;/li&gt;
+&lt;li&gt;The first test method, named &lt;code&gt;my_service_is_injectable()&lt;/code&gt;, is a server-side test. It can test if injected dependencies,
+like a service of the Web application here, are working correctly.&lt;/li&gt;
+&lt;li&gt;The second test method, named &lt;code&gt;my_rest_resource_is_working()&lt;/code&gt;, is a client-side test. It is executed in a separate
+thread and can invoke the deployed Web application through the URL provided by the
+&lt;code&gt;@org.jboss.arquillian.test.api.ArquillianResource&lt;/code&gt; annotated parameter.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;&lt;a href=&#34;http://tomcat.apache.org/&#34;&gt;Apache Tomcat&lt;/a&gt; is the default test server configured. You can override this choice by specifying
+a custom &lt;code&gt;arquillian.xml&lt;/code&gt; file at the root of the classpath. Arquillian provides many more features than described in
+this section. For more information about Arquillian, visit the &lt;a href=&#34;http://arquillian.org/&#34;&gt;official website&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;maven-settings&#34;&gt;Maven settings&lt;/h1&gt;
+
+&lt;p&gt;It is often useful to separate integration tests and unit tests into different source folders. If you use Maven your can
+do so by adding the following configuration to your project root &lt;code&gt;pom.xml&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;build&amp;gt;
+  &amp;lt;testResources&amp;gt;
+    &amp;lt;testResource&amp;gt;
+      &amp;lt;directory&amp;gt;src/it/resources&amp;lt;/directory&amp;gt;
+    &amp;lt;/testResource&amp;gt;
+    &amp;lt;testResource&amp;gt;
+      &amp;lt;directory&amp;gt;src/test/resources&amp;lt;/directory&amp;gt;
+    &amp;lt;/testResource&amp;gt;
+  &amp;lt;/testResources&amp;gt;
+  &amp;lt;plugins&amp;gt;
+    &amp;lt;plugin&amp;gt;
+      &amp;lt;groupId&amp;gt;org.apache.maven.plugins&amp;lt;/groupId&amp;gt;
+      &amp;lt;artifactId&amp;gt;maven-failsafe-plugin&amp;lt;/artifactId&amp;gt;
+      &amp;lt;version&amp;gt;...&amp;lt;/version&amp;gt;
+      &amp;lt;executions&amp;gt;
+        &amp;lt;execution&amp;gt;
+          &amp;lt;id&amp;gt;execute-integration-tests&amp;lt;/id&amp;gt;
+          &amp;lt;phase&amp;gt;integration-test&amp;lt;/phase&amp;gt;
+          &amp;lt;goals&amp;gt;
+            &amp;lt;goal&amp;gt;integration-test&amp;lt;/goal&amp;gt;
+          &amp;lt;/goals&amp;gt;
+        &amp;lt;/execution&amp;gt;
+        &amp;lt;execution&amp;gt;
+          &amp;lt;id&amp;gt;verify-integration-tests&amp;lt;/id&amp;gt;
+          &amp;lt;phase&amp;gt;verify&amp;lt;/phase&amp;gt;
+          &amp;lt;goals&amp;gt;
+            &amp;lt;goal&amp;gt;verify&amp;lt;/goal&amp;gt;
+          &amp;lt;/goals&amp;gt;
+        &amp;lt;/execution&amp;gt;
+      &amp;lt;/executions&amp;gt;
+    &amp;lt;/plugin&amp;gt;
+    &amp;lt;plugin&amp;gt;
+      &amp;lt;groupId&amp;gt;org.codehaus.mojo&amp;lt;/groupId&amp;gt;
+      &amp;lt;artifactId&amp;gt;build-helper-maven-plugin&amp;lt;/artifactId&amp;gt;
+      &amp;lt;version&amp;gt;...&amp;lt;/version&amp;gt;
+      &amp;lt;executions&amp;gt;
+        &amp;lt;execution&amp;gt;
+          &amp;lt;id&amp;gt;add-it-sources&amp;lt;/id&amp;gt;
+          &amp;lt;phase&amp;gt;generate-test-sources&amp;lt;/phase&amp;gt;
+          &amp;lt;goals&amp;gt;
+            &amp;lt;goal&amp;gt;add-test-source&amp;lt;/goal&amp;gt;
+          &amp;lt;/goals&amp;gt;
+          &amp;lt;configuration&amp;gt;
+            &amp;lt;sources&amp;gt;
+              &amp;lt;source&amp;gt;src/it/java&amp;lt;/source&amp;gt;
+            &amp;lt;/sources&amp;gt;
+          &amp;lt;/configuration&amp;gt;
+        &amp;lt;/execution&amp;gt;
+      &amp;lt;/executions&amp;gt;
+    &amp;lt;/plugin&amp;gt;
+  &amp;lt;/plugins&amp;gt;
+&amp;lt;/build&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

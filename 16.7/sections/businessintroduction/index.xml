@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/sections/businessintroduction/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/sections/businessintroduction/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Bibliography</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/bibliography/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/bibliography/</guid>
+      <description>
+
+&lt;p&gt;To go beyond what is described in this documentation, we recommend a few books which will help you to better understand
+DDD, independently of the business framework.&lt;/p&gt;
+
+&lt;h1 id=&#34;eric-evans-domain-driven-design&#34;&gt;Eric Evans: Domain-Driven Design&lt;/h1&gt;
+
+
+&lt;figure class=&#34;img-thumbnail pull-right&#34;&gt;
+    
+        &lt;img src=&#34;img/book_ddd.jpg&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;This is the original book of Domain-Driven Design, the one which introduced this approach to the world.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215/&#34;&gt;Buy it online&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div style=&#34;clear: both;&#34;&gt;&lt;/div&gt;
+
+&lt;h1 id=&#34;vaughn-vernon-implementing-domain-driven-design&#34;&gt;Vaughn Vernon: Implementing Domain-Driven Design&lt;/h1&gt;
+
+
+&lt;figure class=&#34;img-thumbnail pull-right&#34;&gt;
+    
+        &lt;img src=&#34;img/book_implementing_ddd.jpg&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;This books builds upon the one from Eric Evans and a decade of DDD experience to provide concrete guidance on
+implementing the DDD in real-world projects. This book is a must-read for anybody looking to put DDD into practice.
+It also addresses the use of DDD in relation to popular architectural styles like REST.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.amazon.com/Implementing-Domain-Driven-Design-Vaughn-Vernon/dp/0321834577&#34;&gt;Buy it online&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div style=&#34;clear: both;&#34;&gt;&lt;/div&gt;
+
+&lt;h1 id=&#34;abel-avram-floyd-marinescu-domain-driven-design-quickly&#34;&gt;Abel Avram, Floyd Marinescu: Domain-Driven Design Quickly&lt;/h1&gt;
+
+
+&lt;figure class=&#34;img-thumbnail pull-right&#34;&gt;
+    
+        &lt;img src=&#34;img/book_ddd_quickly.jpg&#34; /&gt;
+    
+    
+&lt;/figure&gt;
+
+
+&lt;p&gt;This book is a short, quickly-readable summary and introduction to the fundamentals of DDD; it does not introduce any
+new concepts; it attempts to concisely summarize the essence of what DDD is, drawing mostly Eric Evans&amp;rsquo; original book,
+as well other sources since published such as Jimmy Nilsson&amp;rsquo;s Applying Domain Driven Design, and various DDD discussion
+forums. The main topics covered in the book include: Building Domain Knowledge, The Ubiquitous Language, Model Driven
+Design, Refactoring Toward Deeper Insight, and Preserving Model Integrity.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.infoq.com/resource/minibooks/domain-driven-design-quickly/en/pdf/DomainDrivenDesignQuicklyOnline.pdf&#34;&gt;Free PDF version&lt;/a&gt;, also available in &lt;a href=&#34;http://blog.infosaurus.fr/public/docs/DDDViteFait.pdf&#34;&gt;french&lt;/a&gt; or in
+&lt;a href=&#34;http://www.infoq.com/resource/minibooks/domain-driven-design-quickly/zh/pdf/dddquickly-chinese-version.pdf&#34;&gt;chinese&lt;/a&gt;. You can also &lt;a href=&#34;http://www.amazon.com/Domain-Driven-Design-Quickly-Abel-Avram/dp/1411609255&#34;&gt;buy a paper version&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div style=&#34;clear: both;&#34;&gt;&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Business framework</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/</guid>
+      <description>&lt;p&gt;SeedStack business framework is a simple and coherent set of building blocks that enable you to code high quality business
+logic efficiently. It is based on the &lt;strong&gt;&amp;laquo;Domain-Driven Design (DDD)&amp;raquo;&lt;/strong&gt; software development approach from which it implements
+the main concepts. Following the DDD principles will help you to produce a supple and scalable design. Using the business
+framework will help you to implement it quickly and cleanly.&lt;/p&gt;
+
+&lt;p&gt;The term term has been coined by Eric Evans in his book &amp;laquo;Domain-Driven design&amp;raquo;, published in 2003. It is an approach of
+software development for medium to complex needs, based on the following premises:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Placing the project&amp;rsquo;s primary focus on the core domain and domain logic.&lt;/li&gt;
+&lt;li&gt;Basing design on a model of the domain.&lt;/li&gt;
+&lt;li&gt;Initiating a creative collaboration between technical and domain experts to iteratively refine a conceptual model that
+addresses particular domain problems.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;DDD really shines when applied on medium to complex business needs but can also be used successfully on simpler projects,
+especially since the business framework considerably lowers the cost of implementing such projects by providing many
+helpers and base implementations.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;This documentation is not intended to replace a good understanding of DDD principles which can be gathered from various
+source material described in the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/business/bibliography/&#34;&gt;bibliography&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;requirements&#34;&gt;Requirements&lt;/h1&gt;
+
+&lt;h2 id=&#34;an-iterative-process&#34;&gt;An iterative process&lt;/h2&gt;
+
+&lt;p&gt;An iterative design and development process is required to successfully implement DDD in a project. Any agile methodology
+that fits the team can be used. Frequent communication between domain experts and the development team is key to get
+the model right before too much code is written. This communication should not cease after the first version of the model
+is produced because the software will probably be continuously refined until it is no longer needed by the business.&lt;/p&gt;
+
+&lt;h2 id=&#34;business-involvement&#34;&gt;Business involvement&lt;/h2&gt;
+
+&lt;p&gt;The domain being the area of application of the software, an access to domain experts is critical to achieve a high quality
+model. One goal of the DDD is to express the mental model spread across business experts into a refined, precise and
+usable domain model. To be able to achieve this goal, domain experts should contribute to software design by defining
+the &lt;a href=&#39;http://seedstack.org/archives/16.7/glossary#ubiquitous-language&#39;&gt;Ubiquitous Language&lt;/a&gt; with the development team.&lt;/p&gt;
+
+&lt;p&gt;This collaboration will lead to a software that is exactly what is needed by business.&lt;/p&gt;
+
+&lt;h2 id=&#34;development&#34;&gt;Development&lt;/h2&gt;
+
+&lt;p&gt;To successfully apply DDD and use the business framework, some prerequisites must be met by the development team:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Being fluent with Object-Oriented (OO) programming paradigm with a focus on polymorphism, encapsulation and composition.&lt;/li&gt;
+&lt;li&gt;Have a good knowledge of design patterns:
+
+&lt;ul&gt;
+&lt;li&gt;Identify patterns,&lt;/li&gt;
+&lt;li&gt;Know when to use them,&lt;/li&gt;
+&lt;li&gt;Know when NOT use them.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Some patterns are widely employed in the business framework and in SeedStack in general. Having a good understanding of
+them is required.&lt;/p&gt;
+
+&lt;h1 id=&#34;the-business-framework&#34;&gt;The business framework&lt;/h1&gt;
+
+&lt;p&gt;The business framework is a Java implementation of the DDD approach that builds upon the java framework to provide
+high-level, ready to use building blocks. To add the business framework to your project, add the following dependency:&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-business-business-core-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-business-business-core-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-business-business-core-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.business&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;business-core&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-business-business-core-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.1&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-business-business-core-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-business-business-core-show&#34; onclick=&#34;$(&#39;#org-seedstack-business-business-core-version, #org-seedstack-business-business-core-warn&#39;).show(); $(&#39;#org-seedstack-business-business-core-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-business-business-core-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.business:business-core:2.3.1&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Your will be guided through the design and development of your project but it is crucial for its success to understand the
+concepts and the associated building blocks. While the business framework provides a rich set of helpers and base
+implementations, no code is generated. &lt;strong&gt;The development team has to design and write the code, according to this
+documentation and the DDD philosophy.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Sometimes, several design or implementation choices are possible for a given business need. In that case, the pros
+and cons of each choice are presented to help you decide which is right for you specific need. When available, additional
+source material is referenced for a further understanding.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Because the business framework is mostly about development, it focus itself on the &lt;a href=&#39;http://seedstack.org/archives/16.7/glossary#tactical-design&#39;&gt;tactical side&lt;/a&gt;
+of DDD with the implementation of concepts such as entities, repositories, aggregates and so on. But there is a
+&lt;a href=&#39;http://seedstack.org/archives/16.7/glossary#strategic-design&#39;&gt;strategic side&lt;/a&gt; to DDD that you shouldn&amp;rsquo;t overlook and is crucial to your project success,
+especially if its domain is large or complex. SeedStack inherent modularity will help you to separate bounded contexts
+in modules and reuse them across multiple projects easily.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;A majority of DDD concepts are implemented as building blocks by the business framework to help you code faster. But you
+don&amp;rsquo;t always want to go for the fastest implementation and may need to abstract your code from the framework a bit further.&lt;/p&gt;
+
+&lt;h1 id=&#34;three-abstraction-levels&#34;&gt;Three abstraction levels&lt;/h1&gt;
+
+&lt;p&gt;The business framework allows you to choose the abstraction level you want for your code. There are three abstraction
+level that can you can choose from, on a class-by-class basis:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Annotation level&lt;/strong&gt;. You can make the framework recognize your classes simply by annotating them. No need to implement any
+interface, nor extend base classes. While this mode is great for decoupling your code from the framework you may find that
+some of the helpers cannot work these classes as they won&amp;rsquo;t have the required signatures. You will have full dependency
+injection though, provided that you define interfaces for your classes yourself. &lt;em&gt;Framework coupling is at the minimum
+but development speed is reduced. Also note that this mode is preferably reserved to people fluent with DDD principles.&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Interface level&lt;/strong&gt;. Implementing framework interfaces will make the framework recognize your classes and will allow
+it to work with them as they will have the required signatures. In this mode you benefit from full dependency injection
+and almost full framework functionality. Some predefined behaviors may be missing for some objects like out-of-the-box
+equality for entities and value objects. &lt;em&gt;It is a good balance between framework coupling and development speed and is
+suitable to people that know the DDD principles well.&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Base class level&lt;/strong&gt;. Extending framework base classes will provide you full framework functionality, including base
+behavior. &lt;em&gt;Framework coupling is higher but a higher development speed is gained. It allows people starting with DDD to
+benefit from implementation correctness in various areas.&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;Note that although you can mix the three levels in the same project, it is recommended to define which approach suits
+your team best and stick with it.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;code-pattern-detection&#34;&gt;Code pattern detection&lt;/h1&gt;
+
+&lt;p&gt;To recognize your classes, the business framework scans them and recognize code patterns depending on the abstraction
+level you use (see above). It works in two steps:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;First it scans interfaces that are annotated with a recognized concept,&lt;/li&gt;
+&lt;li&gt;Then is collects classes implementing those interfaces. If multiple implementations are found for an interface, it
+can detects qualifiers to differentiate them. See &lt;a href=&#34;#qualified-injection&#34;&gt;qualified injection&lt;/a&gt; below for more information.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Once a code pattern is properly recognized, it can be injected through its interface in any managed instance.&lt;/p&gt;
+
+&lt;div class=&#39;pull-right margin-top-20&#39;&gt;
+    &lt;a href=&#39;manual&#39; class=&#34;btn btn-u&#34;&gt;Next: start reading the manual...&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&#34;clearfix&#34;&gt;&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

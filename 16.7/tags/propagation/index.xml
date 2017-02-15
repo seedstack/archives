@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/propagation/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/propagation/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Transactions</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/manual/transactions/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/manual/transactions/</guid>
+      <description>&lt;p&gt;Seed transaction management allows interactions between the application code and one or more external resource(s) to be
+done transactionally (ie. in an all-or-nothing paradigm). It is used in conjunction with other supports handling external
+resources such as persistence or messaging. For more detail about transactions, refer to this &lt;a href=&#34;http://en.wikipedia.org/wiki/Transaction_processing&#34;&gt;wikipedia page&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;dependency&#34;&gt;Dependency&lt;/h1&gt;
+
+&lt;p&gt;To enable transactions in your project, add the &lt;code&gt;seed-transaction&lt;/code&gt; module to your classpath.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-transaction-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-transaction-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-seed-seed-transaction-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;seed-transaction&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-seed-seed-transaction-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-seed-seed-transaction-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-seed-seed-transaction-show&#34; onclick=&#34;$(&#39;#org-seedstack-seed-seed-transaction-version, #org-seedstack-seed-seed-transaction-warn&#39;).show(); $(&#39;#org-seedstack-seed-seed-transaction-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-seed-seed-transaction-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.seed:seed-transaction:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;p&gt;Note that this dependency is rarely explicitly required as it is transitively provided by any transaction-capable add-on
+like JPA persistence, JMS, &amp;hellip;&lt;/p&gt;
+
+&lt;h1 id=&#34;transaction-manager&#34;&gt;Transaction manager&lt;/h1&gt;
+
+&lt;p&gt;The transaction manager is responsible for detecting transaction boundaries in the application code and wrap them with
+an interceptor. This interceptor will then automatically create, commit or rollback and release a transaction when the
+transactional code is invoked. The behavior of the transaction manager is heavily customizable depending on your business requirement.&lt;/p&gt;
+
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+
+&lt;p&gt;A Seed application can have &lt;strong&gt;only one&lt;/strong&gt; transaction manager. The transaction manager is specified with following configuration property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.seedstack.seed.transaction.transaction-manager = fully.qualified.name.of.TransactionManagerClass
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;local-transaction-manager&#34;&gt;Local transaction manager&lt;/h2&gt;
+
+&lt;p&gt;The local transaction manager manages transactions within the application. It cannot handle global transactions managed
+by an external transaction monitor like a J2EE Web server and doesn&amp;rsquo;t support spanning transactions over multiple
+resources. However it is very lightweight and adequate for most common applications uses. This is the default transaction
+manager.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.seedstack.seed.transaction.transaction-manager = org.seedstack.seed.transaction.internal.LocalTransactionManager
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;jta-transaction-manager&#34;&gt;JTA transaction manager&lt;/h2&gt;
+
+&lt;p&gt;The JTA transaction manager integrates code demarcated with Seed transactions with any external JTA-compliant transaction
+monitor such as ones found in J2EE Web servers. To use it, just specify the following configuration property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.seedstack.seed.transaction.transaction-manager = org.seedstack.seed.transaction.internal.JtaTransactionManager
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Some supports may need additional configuration to be able to participate in a JTA transaction.&lt;/p&gt;
+
+&lt;h1 id=&#34;transaction-metadata&#34;&gt;Transaction metadata&lt;/h1&gt;
+
+&lt;p&gt;Transactions have several attributes that define their behavior and outcome:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Propagation&lt;/strong&gt; determines if a new transaction should be started and/or how an existing transaction should be handled, if any. Possible values are:
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;REQUIRED&lt;/code&gt;: use existing transaction or create a new one if none exists. &lt;strong&gt;It is the default value.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;REQUIRES_NEW&lt;/code&gt;: create a new transaction and suspend the previous one if any exists.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;MANDATORY&lt;/code&gt;: throw an exception if no existing transaction is found.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;SUPPORTS&lt;/code&gt;: execute code outside any transaction if no existing transaction is found.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;NOT_SUPPORTED&lt;/code&gt;: execute code outside any transaction and suspend the current transaction if one exists.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;NEVER&lt;/code&gt;: execute code outside any transaction and throw an exception if an existing transaction is found.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Rollback&lt;/strong&gt; behavior is defined:
+
+&lt;ul&gt;
+&lt;li&gt;a list of exception classes triggering a rollback if thrown from transactional code (default is &lt;code&gt;java.lang.Exception&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;a list of exception classes that will NOT trigger a rollback if thrown from transactional code (default value is empty).&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;readOnly&lt;/strong&gt; attribute determines if a transaction is read-only or not.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;rollbackOnParticipationFailure&lt;/strong&gt; attribute determines if a participating method should mark the transaction as rollback-only if an error occurs.&lt;/li&gt;
+&lt;li&gt;The &lt;strong&gt;transaction handler&lt;/strong&gt; will interact with the transacted resource(s).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Resource identifier&lt;/strong&gt; is required when multiple resources are handled by the same transaction handler.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These attributes are called transaction metadata and default values can be overridden explicitly or by inferred
+values from transaction metadata resolvers. &lt;strong&gt;The explicitly specified values always take precedence over the automatically
+inferred ones, which in turn always take precedence over the default ones.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;demarcation-via-annotation&#34;&gt;Demarcation via annotation&lt;/h1&gt;
+
+&lt;p&gt;Transaction metadata can be explicitly specified through &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;transaction.&amp;amp;#8203;Transactional&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/transaction/Transactional.html&#39;&gt;@Transactional&lt;/a&gt;&lt;/code&gt; annotation and associated annotations (for
+each type of transactional resource). These annotations can be placed on methods, classes, interfaces and other annotations.
+The search for the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;transaction.&amp;amp;#8203;Transactional&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/transaction/Transactional.html&#39;&gt;@Transactional&lt;/a&gt;&lt;/code&gt; annotation starts for all methods of any Seed managed class, using the following order:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The method and any annotation on this method,&lt;/li&gt;
+&lt;li&gt;The declaring class and any annotation on this class,&lt;/li&gt;
+&lt;li&gt;Any superclass or interface up in the hierarchy, with the following sub-order for each class/interface:
+
+&lt;ul&gt;
+&lt;li&gt;The overridden method and any annotation on this method,&lt;/li&gt;
+&lt;li&gt;The class/interface and any annotation on this class.
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If no &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;transaction.&amp;amp;#8203;Transactional&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/transaction/Transactional.html&#39;&gt;@Transactional&lt;/a&gt;&lt;/code&gt; annotation is found when the top of the class hierarchy is reached, the method is not transactional
+and not intercepted at all.&lt;/p&gt;
+
+&lt;h1 id=&#34;automatic-metadata-resolution&#34;&gt;Automatic metadata resolution&lt;/h1&gt;
+
+&lt;p&gt;Transaction metadata resolvers are means of automatically determining transaction metadata for a specific context. A
+transaction metadata resolver must implement &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;transaction.&amp;amp;#8203;spi.&amp;amp;#8203;TransactionMetadataResolver&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/transaction/spi/TransactionMetadataResolver.html&#39;&gt;TransactionMetadataResolver&lt;/a&gt;&lt;/code&gt; interface
+and provide a default constructor. They are scanned and registered at application startup and queried &lt;strong&gt;in no predefined
+order&lt;/strong&gt; at the beginning of method interception. Since they are queried inside the transaction interceptor,
+&lt;strong&gt;an explicit transaction demarcation has to be present&lt;/strong&gt; in the first place. They cannot add behavior to not
+demarcated code.&lt;/p&gt;
+
+&lt;h2 id=&#34;resolving&#34;&gt;Resolving&lt;/h2&gt;
+
+&lt;p&gt;The &lt;code&gt;resolve()&lt;/code&gt; method is called on each resolver with the intercepted method as parameter. Its return is Return is either an instance
+of &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;transaction.&amp;amp;#8203;spi.&amp;amp;#8203;TransactionMetadata&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/transaction/spi/TransactionMetadata.html&#39;&gt;TransactionMetadata&lt;/a&gt;&lt;/code&gt; with the inferred attributes set ot &lt;code&gt;null&lt;/code&gt; when nothing can be inferred.
+inferred attributes set.&lt;/p&gt;
+
+&lt;p&gt;Seed provides a built-in always active resolver which automatically associate the transaction handler if only
+one is available. In this case, it is not necessary to explicitly specify the corresponding transaction handler.&lt;/p&gt;
+
+&lt;p&gt;Other Seed modules can register their own resolvers that will infer more transaction metadata for specific contexts. For
+instance the JMS add-on can automatically detect the transacted resource when the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;transaction.&amp;amp;#8203;Transactional&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/transaction/Transactional.html&#39;&gt;@Transactional&lt;/a&gt;&lt;/code&gt; annotation is used
+inside a JMS listener. More documentation is available in modules where this is applicable.&lt;/p&gt;
+
+&lt;p&gt;Remember that an explicitly specified &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;transaction.&amp;amp;#8203;Transactional&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/transaction/Transactional.html&#39;&gt;@Transactional&lt;/a&gt;&lt;/code&gt; annotation will always override any automatically resolved metadata.&lt;/p&gt;
+
+&lt;h1 id=&#34;examples&#34;&gt;Examples&lt;/h1&gt;
+
+&lt;h2 id=&#34;with-an-explicit-jms-resource&#34;&gt;With an explicit JMS resource&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;@Transactional
+@JmsConnection(&amp;quot;connection1&amp;quot;)
+public void send(String stringMessage) throws JMSException {
+    Destination queue = session.createQueue(&amp;quot;queue1&amp;quot;);
+    TextMessage message1 = session.createTextMessage();
+    message1.setText(stringMessage);
+    MessageProducer producer = session.createProducer(queue);
+    producer.send(message1);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;with-an-explicit-jpa-resource&#34;&gt;With an explicit JPA resource&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+Item1Repository item1Repository;
+
+@Transactional
+@JpaUnit(&amp;quot;unit1&amp;quot;)
+public void save() throws Exception {
+    Item1 item1 = new Item1();
+    item1.setName(&amp;quot;item1Name&amp;quot;);
+    item1Repository.save(item1);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;with-an-implicit-resource&#34;&gt;With an implicit resource&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+Item1Repository item1Repository;
+
+@Transactional
+public void save() throws Exception {
+    Item1 item1 = new Item1();
+    item1.setName(&amp;quot;item1Name&amp;quot;);
+    item1Repository.save(item1);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;JPA resource is assumed since it is the only resource available.&lt;/li&gt;
+&lt;li&gt;JpaUnit is assumed since only one is defined.&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

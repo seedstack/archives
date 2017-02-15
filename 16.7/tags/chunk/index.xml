@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/chunk/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/chunk/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Pagination</title>
+      <link>http://seedstack.org/archives/16.7/docs/business/manual/pagination/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/business/manual/pagination/</guid>
+      <description>&lt;p&gt;The data presentation API helps developers presenting the data from their domain to external actors. Those are
+generally remote REST clients like a browser, web services consumers or RPC/RMI clients. The data presentation API supports
+patterns often used in data restitution: pagination, infinite-scroll, random chunk access.&lt;/p&gt;
+
+&lt;h1 id=&#34;concepts&#34;&gt;Concepts&lt;/h1&gt;
+
+&lt;p&gt;The following describes the API. We&amp;rsquo;ll specialize some concepts already presented like the finder.
+We focus the creation of this API on solving the problem of returning portion result out of very big one.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://seedstack.org/archives/16.7/puml/business/business-api-interfaces-finder.png&#34; alt=&#34;domain aggregates&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A &lt;strong&gt;Range&lt;/strong&gt; is just a class that represents an &lt;strong&gt;offset&lt;/strong&gt; and a &lt;strong&gt;size&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;A &lt;strong&gt;Result&lt;/strong&gt; symbolises a canonical representation of the ranged return of a request made from a persistence. It holds:
+
+&lt;ul&gt;
+&lt;li&gt;the list that contains the result itself,&lt;/li&gt;
+&lt;li&gt;the actual list size,&lt;/li&gt;
+&lt;li&gt;the full size of the whole request.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;A &lt;strong&gt;View&lt;/strong&gt; represents a viewpoint of an already existing list. Its focus is the restitution of a portion of the given
+list.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;RangeFinder&amp;lt;Item,Criteria&amp;gt;&lt;/code&gt; is a High level interfaces for finder that sum up the following assertion: Given a
+&lt;strong&gt;Range&lt;/strong&gt; and a &lt;strong&gt;Criteria&lt;/strong&gt; please find the &lt;strong&gt;Result&lt;/strong&gt; for the Item type.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+Notice that &lt;strong&gt;Criteria&lt;/strong&gt; here, is not a type, but a generic to be substituted when subclassing. For
+instance a &lt;code&gt;Map&amp;lt;String, Object&amp;gt;&lt;/code&gt; or a custom class.
+&lt;/div&gt;
+
+&lt;p&gt;In order to &lt;strong&gt;move out the complex computation (page, chunk, ..) away from the RangeFinder&lt;/strong&gt; we only provide him a
+Range. Its first and only objective is to fetch data from persistence according to a given criteria. View management is
+completely orthogonal to the restitution a given list from a criteria.&lt;/p&gt;
+
+&lt;p&gt;The actual &lt;em&gt;Range&lt;/em&gt; can be greater than the needed portion. This way, the result can be reused according that the Criteria
+and the result size has not changed.&lt;/p&gt;
+
+&lt;h1 id=&#34;example&#34;&gt;Example&lt;/h1&gt;
+
+&lt;p&gt;Create a finder by extending the &lt;code&gt;BaseRangeFinder&lt;/code&gt; class. This abstract class needs you to implement two methods.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;computeResultList()&lt;/code&gt; method which should return the list of matching entity with the expected range.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;computeFullRequestSize()&lt;/code&gt; method should return the size of complete list matching the criteria.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For instance create the following interface:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; @Finder
+ public interface Dto1Finder extends RangeFinder&amp;lt;Dto1, Map&amp;lt;String, Object&amp;gt;&amp;gt; {
+
+     PaginatedView&amp;lt;ProductRepresentation&amp;gt; findItemByQuery(Page page, String searchQuery);
+ }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Implement it as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@JpaUnit(&amp;quot;my-unit&amp;quot;)
+@Transactional
+public class Dto1SimpleJpaFinder extends BaseRangeFinder&amp;lt;Dto1, String&amp;gt;
+    implements Dto1Finder {
+
+    @Inject
+    private EntityManager entityManager;
+
+    @Override
+    public PaginatedView&amp;lt;ProductRepresentation&amp;gt; findItemByQuery(Page page, String query) {
+        Range range = Range.rangeFromPageInfo(page.getIndex(), page.getCapacity());
+        Result&amp;lt;Dto1&amp;gt; result = find(range, query);
+        return new PaginatedView&amp;lt;Dto1&amp;gt;(result, page);
+    }
+
+    @Override
+    protected List&amp;lt;Dto1&amp;gt; computeResultList(Range range , String criteria) {
+        CriteriaQuery&amp;lt;AggRoot1&amp;gt; query = getAggRoot1CriteriaQuery(criteria);
+        List&amp;lt;AggRoot1&amp;gt; resultList = entityManager.createQuery(query)
+                .setFirstResult((new BigDecimal(range.getOffset()).intValue()))
+                .setMaxResults(new BigDecimal(range.getSize()).intValue())
+                .getResultList();
+
+        return assemblers.assembleDtoFromAggregate(resultList);
+    }
+
+    @Override
+    protected long computeFullRequestSize(String criteria) {
+        CriteriaQuery&amp;lt;Long&amp;gt; query = getAggRoot1CountCriteriaQuery(criteria);
+        return entityManager.createQuery(query).getSingleResult();
+    }
+
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then, inject the finder with its interface and use it as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@Inject
+Dto1Finder dto1Finder;
+
+@GET
+@Rel(&amp;quot;search&amp;quot;)
+@Produces(MediaType.APPLICATION_JSON)
+public Response list(@QueryParam(&amp;quot;q&amp;quot;) String searchQuery,
+                     @DefaultValue(&amp;quot;0&amp;quot;) @QueryParam(&amp;quot;pageIndex&amp;quot;) Long pageIndex,
+                     @DefaultValue(&amp;quot;10&amp;quot;) @QueryParam(&amp;quot;pageSize&amp;quot;) Integer pageSize) {
+
+    // Call the finder with the requested page
+    Page page = new Page(pageIndex, pageSize);
+    PaginatedView&amp;lt;Dto1&amp;gt; view = dto1Finder.findItemByQuery(page, searchQuery);
+
+    // Create an HAL representation with the page and the total number of elements
+    Dto1sRepresentation representation = new Dto1sRepresentation(page,
+        view.getResultSize());
+
+    // Add the list of item to the representation
+    representation.embedded(&amp;quot;items&amp;quot;, view.getView());
+
+    // If a next page is available add to link to it
+    if (view.hasNext()) {
+        Page next = view.next();
+
+        representation.link(&amp;quot;next&amp;quot;, relRegistry.uri(&amp;quot;search&amp;quot;)
+                .set(&amp;quot;pageIndex&amp;quot;, next.getIndex())
+                .set(&amp;quot;pageSize&amp;quot;, next.getCapacity()).expand());
+    }
+
+    // If a previous page is available add to link to it
+    if (view.hasPrev()) {
+        Page prev = view.prev();
+
+        representation.link(&amp;quot;prev&amp;quot;, relRegistry.uri(&amp;quot;search&amp;quot;)
+                .set(&amp;quot;pageIndex&amp;quot;, prev.getIndex())
+                .set(&amp;quot;pageSize&amp;quot;, prev.getCapacity()).expand());
+    }
+
+    return Response.ok(representation).build();
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;div class=&#34;callout callout-info&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+                &lt;i class=&#34;fa fa-info-circle icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The following example uses the HAL media type. For more information about it, read the documentation about
+&lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/manual/rest/#restful-api&#34;&gt;hypermedia&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

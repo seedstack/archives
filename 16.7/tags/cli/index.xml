@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/cli/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/cli/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Command-line</title>
+      <link>http://seedstack.org/archives/16.7/docs/seed/manual/cli/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/docs/seed/manual/cli/</guid>
+      <description>&lt;p&gt;Writing advanced command-line applications is simple with the Java framework command-line interface (CLI) module. Seed
+provides support for multiple commands, each with their own options and argument combinations. To enable CLI support
+to your project, add the &lt;code&gt;seed-cli&lt;/code&gt; module to your classpath.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-cli-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-seed-seed-cli-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-seed-seed-cli-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.seed&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;seed-cli&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-seed-seed-cli-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-seed-seed-cli-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-seed-seed-cli-show&#34; onclick=&#34;$(&#39;#org-seedstack-seed-seed-cli-version, #org-seedstack-seed-seed-cli-warn&#39;).show(); $(&#39;#org-seedstack-seed-seed-cli-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-seed-seed-cli-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.seed:seed-cli:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h1 id=&#34;defining-commands&#34;&gt;Defining commands&lt;/h1&gt;
+
+&lt;p&gt;To define a CLI command, simply declare a class implementing the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;cli.&amp;amp;#8203;CommandLineHandler&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/cli/CommandLineHandler.html&#39;&gt;CommandLineHandler&lt;/a&gt;&lt;/code&gt;
+interface and annotated with &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;cli.&amp;amp;#8203;CliCommand&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/cli/CliCommand.html&#39;&gt;@CliCommand&lt;/a&gt;&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@CliCommand(&amp;quot;my-command&amp;quot;)
+public class MyCommandLineHandler implements CommandLineHandler {
+
+    @Override
+    public Integer call() throws Exception {
+        return 0;
+    }
+
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will register the command named &lt;code&gt;my-command&lt;/code&gt; without any option or argument. When this command is invoked
+from the command-line, the &lt;code&gt;call&lt;/code&gt; method is invoked. You must return an integer code from this method which will be
+returned to the operating system.&lt;/p&gt;
+
+&lt;h1 id=&#34;running-commands&#34;&gt;Running commands&lt;/h1&gt;
+
+&lt;p&gt;When the &lt;code&gt;seed-cli&lt;/code&gt; module is present on the classpath, you can launch any command by invoking the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;core.&amp;amp;#8203;SeedMain&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/core/SeedMain.html&#39;&gt;SeedMain&lt;/a&gt;&lt;/code&gt;
+main class from the command-line:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;java [jvm-args] -cp ... org.seedstack.core.SeedMain my-command
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will execute the &lt;code&gt;call()&lt;/code&gt; method of the &lt;code&gt;MyCommandLineHandler&lt;/code&gt; class defined above.&lt;/p&gt;
+
+&lt;div class=&#34;callout callout-warning&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+            
+            
+                &lt;i class=&#34;fa fa-exclamation-triangle icon-2x&#34;&gt;&lt;/i&gt;
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;The &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;core.&amp;amp;#8203;SeedMain&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/core/SeedMain.html&#39;&gt;SeedMain&lt;/a&gt;&lt;/code&gt; class will search for a &lt;em&gt;unique&lt;/em&gt; implementation of the &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;spi.&amp;amp;#8203;SeedLauncher&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/spi/SeedLauncher.html&#39;&gt;SeedLauncher&lt;/a&gt;&lt;/code&gt;
+interface in the classpath and execute it. The &lt;code&gt;seed-cli&lt;/code&gt; module provides an implementation for command-line execution
+but the &lt;code&gt;seed-web-undertow&lt;/code&gt; module provides one for embedded Web server execution. If both are in
+the classpath at the same time, an exception will occur. &lt;strong&gt;To avoid this situation, be sure use separate modules for
+command-line applications and web applications.&lt;/strong&gt;&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;One difficulty of running a Java application from the command line is to properly set its classpath. As such, launching
+a Seed application from the command line is often used in combination with über-JAR packaging where a unique JAR contains
+all the necessary classes and dependencies to run the application. With this kind of packaging, launching the application
+becomes as simple as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;java [jvm-args] -jar app.jar [app-args]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Check the &lt;a href=&#34;http://seedstack.org/archives/16.7/docs/seed/maven-plugin/&#34;&gt;SeedStack Maven plugin&lt;/a&gt; for more information about how to easily package such a JAR.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h1 id=&#34;arguments-and-options&#34;&gt;Arguments and options&lt;/h1&gt;
+
+&lt;p&gt;More often than not, commands must accept various options and arguments to alter their behaviors. This is well supported
+by the Java framework through annotations:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;cli.&amp;amp;#8203;CliOption&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/cli/CliOption.html&#39;&gt;@CliOption&lt;/a&gt;&lt;/code&gt; annotation can be applied to &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;cli.&amp;amp;#8203;CommandLineHandler&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/cli/CommandLineHandler.html&#39;&gt;CommandLineHandler&lt;/a&gt;&lt;/code&gt;s
+fields to inject an option.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;cli.&amp;amp;#8203;CliArgs&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/cli/CliArgs.html&#39;&gt;@CliArgs&lt;/a&gt;&lt;/code&gt; annotation can be applied to &lt;code&gt;&lt;a data-toggle=&#34;tooltip&#34; data-html=&#34;true&#34; title=&#39;org.&amp;amp;#8203;seedstack.&amp;amp;#8203;seed.&amp;amp;#8203;cli.&amp;amp;#8203;CommandLineHandler&#39; href=&#39;http://seedstack.org/javadoc/org/seedstack/seed/cli/CommandLineHandler.html&#39;&gt;CommandLineHandler&lt;/a&gt;&lt;/code&gt;s
+fields to inject command arguments.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Consider the following example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@CliCommand(&amp;quot;test&amp;quot;)
+public class SampleCommandLineHandler implements CommandLineHandler {
+    @CliOption(name = &amp;quot;o1&amp;quot;, longName = &amp;quot;option1&amp;quot;)
+    private Boolean hasOption1;
+
+    @CliOption(name = &amp;quot;o2&amp;quot;, longName = &amp;quot;option2&amp;quot; valueCount = 1, mandatory = true)
+    private String option2;
+
+    @CliOption(name = &amp;quot;o3&amp;quot;, valueCount = 2, mandatoryValue = true, defaultValues = {&amp;quot;1&amp;quot;, &amp;quot;2&amp;quot;})
+    private String[] option3;
+
+    @CliOption(name = &amp;quot;o4&amp;quot;, valueCount = -1, valueSeparator = &#39;=&#39;)
+    private Map&amp;lt;String, String&amp;gt; option4;
+
+    @CliArgs(mandatoryCount = 2)
+    private String[] args;
+
+    @Override
+    public Integer call() throws Exception {
+        return 0;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The annotations above define:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;An option named &lt;code&gt;o1&lt;/code&gt; or &lt;code&gt;option1&lt;/code&gt; which acts as a flag, present or not. Its presence is injected in the &lt;code&gt;hasOption1&lt;/code&gt;
+boolean field. &lt;em&gt;This can be specified with &lt;code&gt;-o1&lt;/code&gt; or &lt;code&gt;--option1&lt;/code&gt; on the command-line.&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;An option named &lt;code&gt;o2&lt;/code&gt; or &lt;code&gt;option2&lt;/code&gt; which takes a unique value. Its value is injected in the &lt;code&gt;option2&lt;/code&gt; string field.
+This option is mandatory. &lt;em&gt;This can be specified with the &lt;code&gt;-o2 value&lt;/code&gt; or &lt;code&gt;--option2 value&lt;/code&gt; on the command-line.&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;An option named &lt;code&gt;o3&lt;/code&gt; which takes 2 comma-separated values (the default separator). The values for this option are
+mandatory and default to &lt;code&gt;1&lt;/code&gt; and &lt;code&gt;2&lt;/code&gt;. They are injected in the &lt;code&gt;option3&lt;/code&gt; string array field. &lt;em&gt;This can be specified with
+&lt;code&gt;-o3 5,6&lt;/code&gt; on the command-line&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;An option named &lt;code&gt;o4&lt;/code&gt; which takes and unlimited number of values separated by &lt;code&gt;=&lt;/code&gt;. The odd/even value pairs are injected
+as key/value pairs in the map. &lt;em&gt;This can be specified as &lt;code&gt;-o4 key1=value1 -o4 key2=value2&lt;/code&gt; on the command-line&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Any number of arguments with at-least two which are mandatory. &lt;em&gt;This can be specified as &lt;code&gt;arg1 arg2&lt;/code&gt; on the command-line&lt;/em&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&#34;callout callout-tips&#34;&gt;
+    &lt;div style=&#34;display:table; width: 100%&#34;&gt;
+        &lt;div style=&#34;display:table-cell; width: 50px; vertical-align: middle;&#34;&gt;
+            
+                &lt;i class=&#34;fa fa-lightbulb-o icon-2x&#34; style=&#34;line-height: 30px;&#34;&gt;&lt;/i&gt;
+            
+            
+            
+            
+        &lt;/div&gt;
+        &lt;div style=&#34;display:table-cell; vertical-align: middle;&#34;&gt;
+            &lt;p&gt;You can find more information about the various parameters and combinations in the &lt;a href=&#34;http://seedstack.org/javadoc/org/seedstack/seed/cli/package-summary.html&#34;&gt;Javadoc&lt;/a&gt;.&lt;/p&gt;
+
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

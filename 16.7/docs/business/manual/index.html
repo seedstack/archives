@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+
+
+
+<html lang="en">
+<head>
+
+    
+
+<title>
+    Business framework basics
+</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="robots" content="noindex,nofollow">
+
+
+
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,700,300,400" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Bitter:700" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/css/style.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/assets/unify/plugins/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="http://seedstack.org/archives/16.7/css/style.css">
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "SoftwareApplication",
+  "name" : "SeedStack",
+  "image" : "http://www.seedstack.org/img/logos/seedstack-logo-round.svg",
+  "publisher" : {
+    "@type" : "Organization",
+    "name" : "Open-Source Software"
+  },
+  "applicationCategory" : "development stack"
+}
+</script>
+
+
+
+<meta property="og:title" content="Business framework basics" />
+<meta property="og:description" content="" />
+<meta property="og:url" content="http://seedstack.org/archives/16.7/docs/business/manual/" />
+<meta property="og:site_name" content="SeedStack" />
+<meta property="og:image" content="http://seedstack.org/archives/16.7/img/opengraph-default.png" />
+
+
+
+<link rel="search" type="application/opensearchdescription+xml" href="http://seedstack.org/archives/16.7/opensearch.xml" title="SeedStack" />
+
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://seedstack.org/archives/16.7/img/favicons/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-194x194.png" sizes="194x194">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="http://seedstack.org/archives/16.7/img/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="http://seedstack.org/archives/16.7/img/favicons/manifest.json">
+<meta name="apple-mobile-web-app-title" content="SeedStack">
+<meta name="application-name" content="SeedStack">
+<meta name="msapplication-TileColor" content="#00a300">
+<meta name="msapplication-TileImage" content="/img/favicons/mstile-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<script type="text/javascript">
+    window.seedstack = {
+        baseUrl: "http:\/\/seedstack.org\/archives\/16.7\/",
+        state: {}
+    };
+</script>
+
+
+</head>
+<body class="homepage">
+    
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5R5FP9"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5R5FP9');</script>
+
+
+    <div id="header">
+        <div class="header">
+    <div class="container">
+        <a class="logo" href="http://seedstack.org/archives/16.7/">SeedStack</a>
+        <div class="topbar hidden-xs hidden-sm">
+            <ul class="loginbar pull-right">
+                <li><i class="fa fa-stack-overflow"></i> <a style="color: orange;" target="_blank" href="http://stackoverflow.com/questions/ask?tags=seedstack">Ask a question</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-comments"></i> <a target="_blank" href="https://kiwiirc.com/client/irc.freenode.net#seedstack">Discuss on IRC</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-github"></i> <a target="_blank" href="https://github.com/seedstack">GitHub</a></li>
+                <li class="topbar-devider"></li>
+                <li><i class="fa fa-keyboard-o"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openHelp();">Shortcuts</a></li>
+            </ul>
+        </div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="fa fa-bars"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse navbar-responsive-collapse" data-role="navigation" style="pointer-events: none;">
+        <div class="container">
+            <ul class="nav navbar-nav" style="pointer-events: auto;">
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/getting-started">Getting started</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        Documentation
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://seedstack.org/archives/16.7/docs/seed">Java framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/w20">Web framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/docs/business">Business framework</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/guides">Guides</a></li>
+                        <li><a target="_blank" href="https://github.com/seedstack/samples">Samples</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/addons">Add-ons</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/themes">Themes</a>
+                </li>
+                <li>
+                    <a href="http://seedstack.org/archives/16.7/posts">Blog</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        More
+                    </a>
+                    <ul class="dropdown-menu">
+                        
+                        
+                        <li><a href="http://seedstack.org/archives/16.7/project/community">Community</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/roadmap">Roadmap</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/project/faq">FAQ</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/glossary">Glossary</a></li>
+                        <li><a href="http://seedstack.org/archives/16.7/tags">Tags</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <i class="search fa fa-search search-btn"></i>
+                    <div class="search-open">
+                        <form method="GET" action="/search">
+                            <div class="input-group animated fadeInDown">
+                                <input id="search-field" type="text" class="form-control" placeholder="Search" name="q">
+                                <span class="input-group-btn">
+                                    <button class="btn-u" type="submit">Go</button>
+                                </span>
+                            </div>
+                        </form>
+                        
+                            
+                        
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+        
+<div class="title-header small">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-12">
+                <h2>Business framework</h2>
+                <p class="hidden-xs">Based on the Domain-Driven-Design methodology, the business framework will help you structure and implement your business code cleanly and efficiently.</p>
+            </div>
+            <div class="col-md-3 hidden-sm hidden-xs">
+                <div class="header-image-wrapper">
+                    <img class="header-image" src="http://seedstack.org/archives/16.7/img/logos/business-logo.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="title-subheader">
+    <div class="container">
+        <ul>
+            <li><h3 class=''><i class="fa fa-play-circle"></i> <a href="http://seedstack.org/archives/16.7/docs/business">Introduction</a></h3></li>
+            <li><h3 class='active'><i class="fa fa-book"></i> <a href="http://seedstack.org/archives/16.7/docs/business/manual">Manual</a></h3></li>
+            <li><h3><i class="fa fa-info-circle"></i> <a href="http://seedstack.org/archives/16.7/javadoc" target="_blank">Javadoc</a></h3></li>
+            <li><h3><i class="fa fa-tag"></i> <a href="https://github.com/seedstack/business/releases" target="_blank">Releases</a></h3></li>
+            <li><h3><i class="fa fa-github"></i> <a href="https://github.com/seedstack/business" target="_blank">Source</a></h3></li>
+        </ul>
+    </div>
+</div>
+
+    </div>
+    <div id="content" class="container">
+        <div class="row">
+    <div class="col-md-9">
+        <div class="content-wrapper">
+            <div class="doc-content">
+                <p>This manual will begin by to introducing and explaining all the concepts that you will need to know and master to build
+successful business applications. These concepts come from the DDD software approach which is central to the Business
+framework. You will NOT be presented with in-depth coverage of all the DDD subtleties, so to go beyond the basics you
+should have a look at the <a href="http://seedstack.org/archives/16.7/docs/business/bibliography/">bibliography</a>. Moreover, links will be provided in the text when related
+quality content is available.</p>
+
+<p>Domain-Driven Design is <strong>more about a way of thinking than about code</strong> but this approach has nonetheless a great
+impact on the way your business will be coded. DDD does not introduce new concepts or design patterns on its own. As
+a matter of fact, you will surely recognize some patterns you already know behind DDD names. It goes beyond design
+patterns though, as it dictates when, where and how to use them to solve real business problems.</p>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>As its name suggest, DDD is focused on the business and its model. This model exists independently of applications and
+specific use cases and should be designed a such. Applications are clients of the model: software that will use this
+model to address enterprise needs. Naturally, particular use cases and UI ideas can be used as inputs for thinking about
+the model as the software is produced. But the model itself should be independent of its clients.</p>
+
+        </div>
+    </div>
+</div>
+
+<h1 id="big-picture">Big picture</h1>
+
+<p>The following diagram represents the key concepts of tactical Domain-Driven Design and how they relate to each other.
+This manual will describe all those patterns and how they can be implemented with SeedStack.</p>
+
+<p><img src="img/all-domain.png" alt="Tactical domain-driven design" /></p>
+
+<h1 id="architecture">Architecture</h1>
+
+<p>For starters, it is important to know that DDD doesn&rsquo;t require a particular architecture. Since the domain is defined
+and contained inside a <a href='/glossary#bounded-context'>bounded context</a>, it doesn&rsquo;t influence the architecture of the whole application
+or system. There are several pertinent architectural styles that you can apply to the surroundings of the domain. Some
+are very broad and tend to define every aspect of the system, others are more focused and try to address a specific
+demand.</p>
+
+<p>The business framework can itself adapt to several of these architectural styles. In this section we will present
+the <strong>layers architecture pattern</strong>.</p>
+
+<h2 id="layers">Layers</h2>
+
+<p>The layers architecture pattern is commonly used in Web, enterprise and desktop applications. In this architecture
+pattern, the concerns are separated into well-defined layers.</p>
+
+<h3 id="traditional-definition">Traditional definition</h3>
+
+<p>The main rule of this pattern is that each layer may couple only to itself and below. The strict layers architecture
+only allows to couple to the layer directly below. We recommend to use the <strong>relaxed layers architecture</strong> though, which
+allows any higher-level layer to couple to any layer below it.</p>
+
+<p><img src="img/layers.png" alt="DDD applied to layers architecture" /></p>
+
+<h3 id="dependency-inversion-principle">Dependency Inversion Principle</h3>
+
+<p>In the traditional view of the layers architecture, the infrastructure is at the bottom, containing technical
+mechanisms like persistence, messaging or any component dependent on third-party libraries. So every upper-layer must
+couple to the infrastructure layer to use the technical facilities. It is not desirable in DDD where we want to avoid
+any coupling of the domain to the infrastructure. In fact we want to avoid any coupling of any layer to the
+infrastructure. To achieve this independence, we will apply the <strong><a href='/glossary#dependency-inversion-principle'>Dependency Inversion Principle</a></strong> which
+states that:</p>
+
+<blockquote>
+<p>High-level modules should not depend on low-level modules. Both should depend on abstractions.</p>
+
+<p>Abstractions should not depend upon details. Details should depend upon abstractions.</p>
+</blockquote>
+
+<p>What does it mean in terms of code, is that a low-level component should implement interfaces defined by high components.
+As such, we can move the infrastructure layer to the side.</p>
+
+<p><img src="img/layers_dip.png" alt="DDD applied to layers architecture" /></p>
+
+<p>As an example of this architecture, we would have a <code>JpaCustomerRepository</code> implementation class which would belong to
+the infrastructure and which implements the <code>CustomerRepository</code> interface defined in the domain layer. When injecting
+the repository elsewhere like in services, we would only use the interface. The
+<a href="http://seedstack.org/archives/16.7/docs/seed/manual/#dependency-injection">dependency injection mechanism</a> of the Java framework would provide
+the correct implementation from the infrastructure.</p>
+
+<h2 id="interface-layer">Interface layer</h2>
+
+<p>The interface layer contains the components that handle <strong>interactions with other systems</strong>, such as Web application
+views, REST resources, Web-Services, etc&hellip;</p>
+
+<ul>
+<li>It handles the <strong>interpretation</strong>, <strong>validation</strong> and <strong>translation</strong> of the inputs.</li>
+<li>It handles the <strong>serialization</strong> of the outputs, such as DTO classes to JSON, XML, etc.</li>
+</ul>
+
+<h2 id="application-layer">Application layer</h2>
+
+<p>The application layer is responsible for <strong>driving the workflow of the application</strong>, executing the use cases of the system.</p>
+
+<ul>
+<li>These operations are independent of the interfaces by which they are exposed.</li>
+<li>This layer is well suited for <strong>spanning transactions</strong>, high-level <strong>logging</strong> and <strong>security</strong>.</li>
+<li>The application layer is thin in terms of domain logic, it merely <strong>coordinates the domain layer objects</strong> to perform
+the actual work through <strong>Application Services</strong>.</li>
+</ul>
+
+<h2 id="domain-layer">Domain layer</h2>
+
+<p>The Domain Layer is where the <strong>business is expressed</strong>.</p>
+
+<ul>
+<li>The domain is independent of the use cases of the system, but is used to achieve their realization,</li>
+<li>It is a very <strong>behaviour-rich</strong> and <strong>expressive</strong> model of the domain, based on entities, values objects and aggregates.</li>
+<li>It contains additional blocks, such as domain services, repositories, factories, policies, etc&hellip;</li>
+</ul>
+
+<h2 id="infrastructure-layer">Infrastructure layer</h2>
+
+<p>The infrastructure layer contains the technology-specific implementations of interfaces defined in other layers.</p>
+
+<ul>
+<li>It supports all of the three other layers in different ways, facilitating communication between the layers.</li>
+<li>It consists of everything that would still exist without the application: external libraries, database engine,
+application server, messaging backend and so on.</li>
+<li>This layer can be completely replaced by another one with other technological choices without altering the system behavior.</li>
+</ul>
+
+<p>We often declare interfaces in <strong>Interfaces</strong>, <strong>Application</strong> and <strong>Domain</strong> layers and implement them in the
+infrastructure Layer. A good example is the repository: interfaces are located in the domain layer but the
+implementation is in the infrastructure.</p>
+
+<h1 id="supple-design">Supple design</h1>
+
+<blockquote>
+<p>The ultimate purpose of software is to serve users. But first, that
+same software has to serve developers. [Eric Evans]</p>
+</blockquote>
+
+<p>A software is not a piece code written in a one shot sprint. It is
+project that evolves. A lot of developers will have to work on it, to
+refactor it or add new features. Supple design is about making it
+a pleasure. It should invite to change and avoid the maintenance hell.</p>
+
+<p>Complex and monolithic methods make hard to refactor or reuse parts of
+the code. When developers are not confident about what the software
+does, they start duplicating code. When this happens, iterative
+process and refactoring stops.</p>
+
+<p>A supple design reveals the intent of the design. Side effects should
+contained and easy to predict. Behaviour should be obvious making it
+easy to reason about without having to investigate the implementation.</p>
+
+<p>There is no one-way to achieve this suppleness but Eric Evans provides
+us some clues with a set of patterns. We will try to define and
+illustrate them.</p>
+
+<h2 id="intention-revealing-interface">Intention-Revealing Interface</h2>
+
+<p>This concept is all about communication between developers through
+code. Names of classes and methods should describe intents instead of
+means. The <em>ubiquitous language</em> must be used to define these
+names. It will improves the comprehension of the code by the other
+members of the team.</p>
+
+<blockquote>
+<p>If a developer must consider the implementation of a component in
+order to use it, the value of encapsulation is lost.</p>
+</blockquote>
+
+<p>Implementation changes should not affect the expected behaviour.</p>
+
+<p>You can also make methods signatures clearer using meaningful Value
+Objects and Entities rather than primitives and associated classes
+(eg. String, long, BigDecimal, etc.). For instance, given the
+following method:</p>
+
+<pre><code class="language-java">void setAddress(String address)
+</code></pre>
+
+<p>How the client developer can know what the address should look like ?
+Does the model allow to change the address or is it just for
+initialization purpose ? Using the concept of <em>Intention-Revealing
+Interface</em> will leads us to this newer version of the method:</p>
+
+<pre><code class="language-java">void changeAddress(Address address)
+</code></pre>
+
+<h2 id="side-effect-free-function">Side-Effect-Free Function</h2>
+
+<p>We just explained how a good naming can improve the comprehension of a
+model, but this is not always enougth. Complex methods usually call a
+combination of other methods. When all these nested methods have
+side-effects, it become hard to predict the overall behaviour.</p>
+
+<blockquote>
+<p>In computer science side-effect means any modification in the state of
+a system.</p>
+</blockquote>
+
+<p>Lets say we are working on a software managing teams. We had to
+implement a method allowing to merged teams. So we first wrote this:</p>
+
+<pre><code class="language-java">teamOne.add(teamTwo)
+</code></pre>
+
+<p>Ok, it takes members of the <em>teamTwo</em> and add them to the
+<em>teamOne</em>. It does the job. Wait ! What happens to <em>teamTwo</em> ? Has it
+been modified also ? We can&rsquo;t be sure whithout looking at the code of
+the <em>add</em> method because this method is not <em>side-effect-free</em>. After
+refactoring the code, here is the second version:</p>
+
+<pre><code class="language-java">Team newTeam = teamOne.mergeWith(teamTwo)
+</code></pre>
+
+<p>In the newer version, <em>teamOne</em> and <em>teamTwo</em> are not
+modified. Instead we create a new object, like that developers don&rsquo;t
+have to understand the implementation. The knowledge is capture in the
+newly created team. The idea here is not to remove all the
+side-effects otherwise the code will just allow you to perform
+queries. But side-effects should be contained in small entities
+methods and complex computation isoltated in value objects.</p>
+
+<h2 id="assertion">Assertion</h2>
+
+<p>In the previous section we talk about limiting side-effects. But some
+of them will remains. The problem is that when they are implicit, it becomes
+impossible to anticipate the changes on the state of the application
+whithout following the execution path. Which breaks the
+encapsulation. So in order to make them explicit use <em>assertions</em>. It
+can be done using method post-condition (for instance, with <code>@Valid</code> from the
+Validation JSR) or by using unit tests.</p>
+
+<h2 id="going-further">Going further</h2>
+
+<p>In this article, we described methods for making intentions explicit
+using <em>Intention-Revealing Interface</em>, <em>Side-Effect-Free Functions</em>
+and <em>Assertion</em>. These methods allow us to communicate intents,
+protecting encapsulation. This is very important if we want to keep
+the advantages of using a <em>Object-oriented-language</em>. It also allow
+the client developer to focus on his design instead of having
+understand all the inner workings of the API he uses.</p>
+
+<p>In his book &laquo;Domain Driven Design&raquo;, Eric Evans go further describing
+three additional concepts: <em>Conceptual contour</em>, <em>Standalone</em>,
+<em>Closure of Operations</em>. I invite you to read his book if you want to
+have all the tools to reach the suppleness.</p>
+
+<h1 id="package-layout">Package layout</h1>
+
+<p>We propose and recommend a well-defined package layout for organizing your business code, which is described in this
+section.</p>
+
+<h2 id="the-domain">The domain</h2>
+
+<h3 id="standalone-domain">Standalone domain</h3>
+
+<p>If you want to build a reusable domain it must be located in its own project. It is the recommended way to build a domain
+because it allows to reuse it across applications and doesn&rsquo;t cost more than in-application domains. In that case, the
+domain must be named and live in its own package, for instance:</p>
+
+<pre><code>org.myorganization.domains.mydomain
+</code></pre>
+
+<p>Here the domain is named <code>mydomain</code>. Its prefix would naturally be adapted to your organization rules.</p>
+
+<h3 id="in-application-domain">In-application domain</h3>
+
+<p>If you plan to place the domain inside to your application (which is not recommended), you can just code it along
+your application packages. In that case it can stay without name and live as a subpackage of your project, for instance:</p>
+
+<pre><code>org.myorganization.myproject.domain
+</code></pre>
+
+<p>Here the domain is not named, as it lives under the domain subpackage of the project. The project package would naturally
+be adapted to your organization rules.</p>
+
+<h3 id="package-organization">Package organization</h3>
+
+<p>In the DDD approach, entities are grouped in sets called aggregates. Aggregates are represented as a package containing
+an aggregate root and possibly additional entities. This package also contains the factory (interface and implementation),
+the repository interface and the possible value objects or policies related to your aggregate.
+Value objects and policies which may be used by multiple aggregates should be placed in a shared package.
+Services are located in their own package.</p>
+
+<p>Implementations can be located in the <code>internal</code> subpackage if they are independent of technical aspects like a third-party
+library. Otherwise they must be located in the infrastructure.</p>
+
+<pre><code class="language-plain">org.myorganization.domains.mydomain (can also be org.myorganization.myproject.domain for in-application domain)
+    - model
+        - myaggregate1
+            - MyAggregateRoot
+            - MyEntity1
+            - MyEntity2
+            - MyAggregateFactory
+            - MyValueObject
+            - MyRepository
+            - MyPolicy
+            - internal
+                - MyPolicyImpl
+                - MyAggregateFactoryImpl
+        - myaggregate2
+            ...
+
+    - services
+        - MyService1
+        - MyService2
+        - internal
+            - MyService1Impl
+
+    - shared
+        - MySharedValueObject
+        - MySharedPolicy1
+        - internal
+            - MySharedPolicy1Impl
+</code></pre>
+
+<div class="callout callout-warn">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>The domain should never depends on specific technical aspects. As such no infrastructure package have a place in a reusable
+domain. The infrastructure for the domain should reside in the client of the domain (the application using the domain) as
+it is specific to it (a same domain can be persisted very differently in different applications).</p>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="the-application">The application</h2>
+
+<p>The application layer contains application services which should be located in the application package. Implementations
+can be in <code>internal</code> subpackages if they are independent of technical aspects (third-party library). Otherwise, they must
+be located in the infrastructure package.</p>
+
+<pre><code class="language-plain">org.myorganization.myproject
+    - application
+        - services
+            - MyService3
+            - MyService4
+            - internal
+                - MyService3Impl
+
+    - infrastructure
+        - services
+            - 3rdparty-lib
+                - MyService4Lib
+        - repositories
+            - jpa
+                - MyRepositoryJpa
+</code></pre>
+
+<div class="callout callout-info">
+    <div style="display:table; width: 100%">
+        <div style="display:table-cell; width: 50px; vertical-align: middle;">
+            
+            
+                <i class="fa fa-info-circle icon-2x" style="line-height: 30px;"></i>
+            
+            
+            
+        </div>
+        <div style="display:table-cell; vertical-align: middle;">
+            <p>Note that the infrastructure also contains the implementation of domain concepts related to a specific technology, such
+as implementations of repositories or of some services.</p>
+
+        </div>
+    </div>
+</div>
+
+<h2 id="the-interfaces">The interfaces</h2>
+
+<pre><code class="language-plain">org.myorganization.myproject
+    - rest
+        - usecase1
+            - UseCase1Assembler
+            - UserCase1Resource
+            - UseCase1Finder
+            - UseCase1Representation
+        - usecase2
+            ...
+
+    - infrastructure
+        - finders
+            - jpa
+                - UseCase1FinderJpa
+                - UseCase2FinderJpa
+</code></pre>
+
+<h1 id="tuples">Tuples</h1>
+
+<p>A tuple is a data structure corresponding to a sequence of immutable
+objects. It&rsquo;s just like an array of objects but typed and which can&rsquo;t be changed,
+i.e. tuples are immutable.</p>
+
+<p>Tuples are commonly used to:</p>
+
+<ul>
+<li>Represent a set of data without creating temparary object
+that have no real meaning.</li>
+<li>Easy access to, and manipulation of, a data set.</li>
+<li>Returning mutliple values from a method.</li>
+<li>Passing multiple values to a method through a single parameter.</li>
+</ul>
+
+<p>In the Business framework, we usually see them in factories and
+assemblers. As implementation for tuples we use
+<a href="http://javatuples.org">javatuples.org</a>. It provides tuple classes
+from one to ten elements:</p>
+
+<pre><code>Unit&lt;A&gt; (1 element)
+Pair&lt;A,B&gt; (2 elements)
+Triplet&lt;A,B,C&gt; (3 elements)
+Quartet&lt;A,B,C,D&gt; (4 elements)
+Quintet&lt;A,B,C,D,E&gt; (5 elements)
+Sextet&lt;A,B,C,D,E,F&gt; (6 elements)
+Septet&lt;A,B,C,D,E,F,G&gt; (7 elements)
+Octet&lt;A,B,C,D,E,F,G,H&gt; (8 elements)
+Ennead&lt;A,B,C,D,E,F,G,H,I&gt; (9 elements)
+Decade&lt;A,B,C,D,E,F,G,H,I,J&gt; (10 elements)
+</code></pre>
+
+<p>Plus a couple of very common 2-element tuple classes equivalent to
+Pair, just for the sake of code semantics:</p>
+
+<pre><code class="language-java">KeyValue&lt;A,B&gt;
+LabelValue&lt;A,B&gt;
+</code></pre>
+
+<p>All the tuple classes respect the following properties:</p>
+
+<ul>
+<li>Typesafe</li>
+<li>Immutable</li>
+<li>Iterable</li>
+<li>Serializable</li>
+<li>Comparable (implements Comparable)</li>
+<li>Implementing equals(&hellip;) and hashCode()</li>
+<li>Implementing toString()</li>
+</ul>
+
+<p>Usage:</p>
+
+<pre><code class="language-java">Pair&lt;Integer, String&gt; pair = new Pair&lt;Integer, String&gt;(10, &quot;foo&quot;);
+Integer value0 = pair.getValue0();
+String value1 = pair.getValue1();
+</code></pre>
+
+<p>We also provide an helper class to create tuples.</p>
+
+<pre><code class="language-java">Pair&lt;Integer, String&gt; pair = Tuples.create(10, &quot;foo&quot;);
+Tuple tuple = Tuples.create(10, &quot;foo&quot;, new Customer());
+</code></pre>
+
+<h1 id="qualified-injection">Qualified injection</h1>
+
+<p>The Business framework supports the use of qualifiers defined by the JSR 330. This feature provides the ability to
+create multiple implementations for the same interface. This is useful when you have multiple algorithms or implementation
+technologies for an interface.</p>
+
+<h2 id="an-example-with-policies">An example with policies</h2>
+
+<p>This pattern can be used in various situations but proves itself very useful in the case of DDD policies. To leverage it,
+define a Policy interface as follows:</p>
+
+<pre><code class="language-java">@Policy
+public interface TaxesPolicy {
+
+    Integer computeTaxes(Order order);
+}
+</code></pre>
+
+<p>Then define an implementation annotated by a qualifier. The annotation <code>@Named</code> allows to qualify an implementation with
+a String.</p>
+
+<pre><code class="language-java">@Named(&quot;FR&quot;)
+public class FranceTaxesPolicy implements TaxesService {
+
+    Integer computeTaxes(Order order){
+        ...
+    }
+
+}
+</code></pre>
+
+<p>Finally you can inject it as follows:</p>
+
+<pre><code class="language-java">@Inject @Named(&quot;FR&quot;)
+private TaxesPolicy frenchTaxes;
+
+@Inject @Named(&quot;UK&quot;)
+private TaxesPolicy ukTaxes;
+</code></pre>
+
+<p>Or you can select it dynamically using the <code><a data-toggle="tooltip" data-html="true" title='org.&amp;#8203;seedstack.&amp;#8203;business.&amp;#8203;domain.&amp;#8203;DomainRegistry' href='http://seedstack.org/javadoc/org/seedstack/business/domain/DomainRegistry.html'>DomainRegistry</a></code>:</p>
+
+<pre><code class="language-java">TaxesPolicy userTaxesPolicy = domainRegistry.getPolicy(TaxesPolicy.class, userLocal);
+</code></pre>
+
+<h2 id="use-a-custom-qualifier">Use a custom qualifier</h2>
+
+<p>If a qualifier is often used, you can create a custom qualifier annotation as follows.</p>
+
+<pre><code class="language-java">import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import javax.inject.Qualifier;
+
+@Qualifier
+@Target({ TYPE, METHOD, FIELD })
+@Retention(RUNTIME)
+public @interface France {
+}
+</code></pre>
+
+<p>Then you use it like the <code>@Named</code> annotation.</p>
+
+<pre><code class="language-java">@Inject @France
+private TaxesService taxesService;
+</code></pre>
+
+<h2 id="list-of-concepts-supporting-qualifiers">List of concepts supporting qualifiers</h2>
+
+<p>Qualified injection can be used on these concepts out-of-the-box:</p>
+
+<ul>
+<li>Assembler,</li>
+<li>Repository,</li>
+<li>Factory,</li>
+<li>Policy,</li>
+<li>Service,</li>
+<li>Finder.</li>
+</ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        
+<div class="side-menu">
+    
+        
+        <div class="list-group">
+            <ul class="nav">
+                
+                
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/" class="list-group-item  active ">
+                            Business framework basics
+                        </a>
+                        
+                        
+                            <nav id="TableOfContents">
+<ul>
+<li><a href="#big-picture">Big picture</a></li>
+<li><a href="#architecture">Architecture</a>
+<ul>
+<li><a href="#layers">Layers</a>
+<ul>
+<li><a href="#traditional-definition">Traditional definition</a></li>
+<li><a href="#dependency-inversion-principle">Dependency Inversion Principle</a></li>
+</ul></li>
+<li><a href="#interface-layer">Interface layer</a></li>
+<li><a href="#application-layer">Application layer</a></li>
+<li><a href="#domain-layer">Domain layer</a></li>
+<li><a href="#infrastructure-layer">Infrastructure layer</a></li>
+</ul></li>
+<li><a href="#supple-design">Supple design</a>
+<ul>
+<li><a href="#intention-revealing-interface">Intention-Revealing Interface</a></li>
+<li><a href="#side-effect-free-function">Side-Effect-Free Function</a></li>
+<li><a href="#assertion">Assertion</a></li>
+<li><a href="#going-further">Going further</a></li>
+</ul></li>
+<li><a href="#package-layout">Package layout</a>
+<ul>
+<li><a href="#the-domain">The domain</a>
+<ul>
+<li><a href="#standalone-domain">Standalone domain</a></li>
+<li><a href="#in-application-domain">In-application domain</a></li>
+<li><a href="#package-organization">Package organization</a></li>
+</ul></li>
+<li><a href="#the-application">The application</a></li>
+<li><a href="#the-interfaces">The interfaces</a></li>
+</ul></li>
+<li><a href="#tuples">Tuples</a></li>
+<li><a href="#qualified-injection">Qualified injection</a>
+<ul>
+<li><a href="#an-example-with-policies">An example with policies</a></li>
+<li><a href="#use-a-custom-qualifier">Use a custom qualifier</a></li>
+<li><a href="#list-of-concepts-supporting-qualifiers">List of concepts supporting qualifiers</a></li>
+</ul></li>
+</ul>
+</nav>
+                            <script>
+                                seedstack.state.previousPage = '';
+                            </script>
+                            
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/model/" class="list-group-item ">
+                            Domain model
+                        </a>
+                        
+                            <script>
+                                seedstack.state.nextPage = '\/archives\/16.7\/docs\/business\/manual\/model\/';
+                            </script>
+                            
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/aggregates/" class="list-group-item ">
+                            Aggregates
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/repositories/" class="list-group-item ">
+                            Repositories
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/factories/" class="list-group-item ">
+                            Factories
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/events/" class="list-group-item ">
+                            Domain events
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/policies/" class="list-group-item ">
+                            Policies
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/assemblers/" class="list-group-item ">
+                            Assemblers
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/finders/" class="list-group-item ">
+                            Finders
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+                    
+                    <li>
+                        <a href="/archives/16.7/docs/business/manual/pagination/" class="list-group-item ">
+                            Pagination
+                        </a>
+                        
+                        
+                    </li>
+                    
+                
+            </ul>
+        </div>
+        
+    
+    
+    <div class="list-group">
+        <ul class="nav">
+            <li class="list-group-item"><div style="margin-bottom: 10px;"><i class="fa fa-tag"></i> Tags</div>
+                <div class="tags">
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/architecture">Architecture</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/package">Package</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/injection">Injection</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/tuple">Tuple</a>
+                    
+                    <a class="label label-default" href="http://seedstack.org/archives/16.7/tags/design">Design</a>
+                    
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="list-group">
+        <ul class="nav">
+            
+                <li><a class="list-group-item" href="https://github.com/seedstack/website/edit/master/content/docs/business/manual/index.md" target="_blank"><i class="fa fa-edit"></i> Contribute to this page</a></li>
+            
+        </ul>
+    </div>
+</div>
+
+    </div>
+</div>
+
+    </div>
+    <div id="footer">
+        <div class="footer-v3">
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="headline"><h2>About</h2></div>
+                    <p class="margin-bottom-25 md-margin-bottom-40">SeedStack is an Open-Source enterprise-class development stack for building modern and robust applications.</p>
+                </div>
+
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="posts">
+                        <div class="headline"><h2>License</h2></div>
+                        <p>
+                            Code licensed under the <a href="https://www.mozilla.org/MPL/2.0" target="_blank">Mozilla Public License 2.0</a>.
+                            <br/>
+                            Documentation licensed under <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-4 map-img">
+                    <div class="headline"><h2>Contact us</h2></div>
+                    <address>
+                        <p>
+                            IRC channel <a href="irc://chat.freenode.net/seedstack">#seedstack on Freenode community</a>
+                            <br/>
+                            Google group <a href="https://groups.google.com/forum/#!forum/seedstack">seedstack@googlegroups.com</a>
+                        </p>
+                    </address>
+
+                    <div class="headline"><h2>Stay in touch</h2></div>
+                    <div style="margin-bottom: 20px;">
+                        <a class="twitter-follow-button"
+                           href="https://twitter.com/seedstack"
+                           data-show-count="false"
+                           data-lang="en">
+                            Follow @seedstack
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+    <div id="hotkeys-modal" class="modal">
+    <div class="modal-dialog" style="min-width: 960px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Keyboard shortcuts <a id="show-all-shortcuts" style="cursor: pointer;" onclick="seedstack.ui.showAllShortcuts();">(Show all)</a></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Global shortcuts</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>?</kbd>
+                                </td>
+                                <td>Show this help dialog</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>/</kbd>
+                                </td>
+                                <td>Focus the search field</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↑</kbd>
+                                </td>
+                                <td>Go to previous menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>alt</kbd> <kbd>↓</kbd>
+                                </td>
+                                <td>Go to next menu item</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>S</kbd>
+                                </td>
+                                <td>Go to Seed framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>W</kbd>
+                                </td>
+                                <td>Go to W20 framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>B</kbd>
+                                </td>
+                                <td>Go to Business framework</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>A</kbd>
+                                </td>
+                                <td>Go to add-ons</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>G</kbd>
+                                </td>
+                                <td>Go to guides</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Seed framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>t</kbd>
+                                </td>
+                                <td>Go to testing</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to cryptography</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>w</kbd>
+                                </td>
+                                <td>Go to Web</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>r</kbd>
+                                </td>
+                                <td>Go to REST</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>o</kbd>
+                                </td>
+                                <td>Go to operations</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>s</kbd> <kbd>T</kbd>
+                                </td>
+                                <td>Go to transactions</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>Business framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>m</kbd>
+                                </td>
+                                <td>Go to model</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>l</kbd>
+                                </td>
+                                <td>Go to lifecycle</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>e</kbd>
+                                </td>
+                                <td>Go to events</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>p</kbd>
+                                </td>
+                                <td>Go to policies</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>a</kbd>
+                                </td>
+                                <td>Go to assemblers</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>f</kbd>
+                                </td>
+                                <td>Go to finders</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>b</kbd> <kbd>P</kbd>
+                                </td>
+                                <td>Go to pagination</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 hidden-shortcuts" style="display: none;">
+                        <table class="keyboard-mappings">
+                            <tbody>
+                            <tr>
+                                <th></th>
+                                <th>W20 framework</th>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>b</kbd>
+                                </td>
+                                <td>Go to basics</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>s</kbd>
+                                </td>
+                                <td>Go to security</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>c</kbd>
+                                </td>
+                                <td>Go to culture</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>h</kbd>
+                                </td>
+                                <td>Go to hypermedia</td>
+                            </tr>
+                            <tr>
+                                <td class="keys">
+                                    <kbd>g</kbd> <kbd>w</kbd> <kbd>u</kbd>
+                                </td>
+                                <td>Go to UI</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="versions-modal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 id="versions-title" class="modal-title">Fetching components...</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="versions-table" class="table table-striped table-hover table-bordered">
+                            <tr>
+                                <th>Component</th>
+                                <th>Version</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/github.min.css">
+
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mousetrap/1.4.6/mousetrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lunr.js/0.5.9/lunr.min.js"></script>
+<script src="/assets/unify/plugins/smoothScroll.js"></script>
+<script src="/js/xml2json.js"></script>
+<script src="/js/jquery.highlight.js"></script>
+<script src="/js/seedstack.js"></script>
+<script>
+    $(document).ready(function () {
+        var $search = $('.search-btn');
+
+        $('.search').click(function () {
+            if ($search.hasClass('fa-search')) {
+                seedstack.ui.openSearch();
+            } else {
+                seedstack.ui.closeSearch();
+            }
+        });
+
+        $('pre code').each(function (i, block) {
+            hljs.highlightBlock(block);
+        });
+
+        $('.side-menu').affix({
+            offset: {
+                top: $('#header').height() + 20,
+                bottom: $('#footer').height() + 40
+            }
+        });
+
+        Mousetrap.bind('/', function () {
+            seedstack.ui.openSearch();
+            return false;
+        });
+
+        Mousetrap.bind('alt+up', function () {
+            if (seedstack.state.previousPage) {
+                window.location = seedstack.state.previousPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('alt+down', function () {
+            if (seedstack.state.nextPage) {
+                window.location = seedstack.state.nextPage;
+            }
+            return false;
+        });
+
+        Mousetrap.bind('?', function () {
+            seedstack.ui.openHelp();
+            return false;
+        });
+
+        Mousetrap.bind('esc', function () {
+            seedstack.ui.closeHelp();
+            seedstack.ui.closeSearch();
+            return false;
+        });
+
+        var originalCallback = Mousetrap.stopCallback;
+        Mousetrap.stopCallback = function (e, element, combo) {
+            if (combo === 'esc') {
+                return false;
+            }
+
+            return originalCallback(e, element, combo);
+        };
+
+        function bindShortcuts(value) {
+            $.each(value, function (sequence, item) {
+                if (typeof item === 'string') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item;
+                        return false;
+                    });
+                } else if (typeof item === 'object') {
+                    Mousetrap.bind("g " + sequence, function () {
+                        window.location = item.path;
+                        return false;
+                    });
+                    if (item.shortcuts && location.pathname.indexOf(item.path) === 0) {
+                        bindShortcuts(item.shortcuts);
+                    }
+                }
+            });
+        }
+
+        function resolveVersions() {
+            var $versionsTitle = $('#versions-title');
+            if (!seedstack.versions) {
+                $.ajax({
+                    dataType: 'text',
+                    url: '/distribution.pom.xml'
+                }).done(function (data) {
+                    var pom = new X2JS().xml_str2json(data);
+
+                    if (pom.project && pom.project.properties && pom.project.version) {
+                        var $versions = $('#versions-table');
+                        var blackList = ['seedstack-maven-plugin', 'java-compiler', 'maven-failsafe-plugin', 'logback'];
+                        var versions = {};
+
+                        $versionsTitle.text("SeedStack " + pom.project.version);
+
+                        $.each(pom.project.properties, function (name, value) {
+                            if (/\.version$/.test(name)) {
+                                var shortName = name.substr(0, name.indexOf('.version'));
+                                if ($.inArray(shortName, blackList) === -1) {
+                                    versions[shortName] = value;
+                                    $versions.append(
+                                            '<tr>' +
+                                            '<td>' +
+                                            shortName.substr(0, 1).toUpperCase() + shortName.substr(1, shortName.length - 1).replace(/-/g, ' ') +
+                                            '</td>' +
+                                            '<td>' + value + '</td>' +
+                                            '</tr>');
+                                }
+                            }
+                        });
+
+                        $('.loginbar').prepend(
+                                '<li class="hidden-xs hidden-sm"><i class="fa fa-tag"></i> <a style="cursor: pointer;" onclick="seedstack.ui.openVersions();">Latest version: ' + pom.project.version + '</a></li>' +
+                                '<li class="topbar-devider"></li>'
+                        );
+
+                        seedstack.versions = versions;
+                    }
+                }).error(function () {
+                    console.error("SeedStack version could not be resolved");
+                });
+            }
+        }
+
+        bindShortcuts(seedstack.ui.shortcuts);
+
+        resolveVersions();
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $('#hotkeys-modal, #versions-modal').bind('hidden.bs.modal', function () {
+            $("html").css("margin-right", "0px");
+        }).bind('show.bs.modal', function () {
+            $("html").css("margin-right", "-15px");
+        });
+
+        var query = seedstack.strings.parseQueryString(location);
+        if (query.h && query.h.length > 0) {
+            $('.doc-content').highlight(query.h);
+            if (query.scroll) {
+                $('html, body').animate({
+                    scrollTop: $('span[class=highlight]:first').offset().top - 20
+                }, 250);
+            }
+        }
+    });
+</script>
+<script>window.twttr = (function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0], t = window.twttr || {};
+    if (d.getElementById(id))return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    t._e = [];
+    t.ready = function (f) {
+        t._e.push(f);
+    };
+    return t;
+}(document, "script", "twitter-wjs"));</script>
+
+</body>
+</html>

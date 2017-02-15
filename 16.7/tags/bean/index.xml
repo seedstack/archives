@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <link>http://seedstack.org/archives/16.7/tags/bean/index.xml</link>
+    <description>Recent content on </description>
+    <generator>Hugo -- gohugo.io</generator>
+    <atom:link href="http://seedstack.org/archives/16.7/tags/bean/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/validation/</link>
+      <pubDate>Thu, 21 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/validation/</guid>
+      <description>&lt;p&gt;SeedStack validation add-on allows developers to use Bean Validation 1.0 and 1.1:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Bean Validation 1.0 brings static validation (aka JSR 303).&lt;/li&gt;
+&lt;li&gt;Bean Validation API 1.1 brings dynamic validation (aka JSR 349).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Data validation is a very common concern at each and every layer of an application. As such, it has been standardized
+through Bean Validation using JSR 303 and JSR 349. Implementation uses &lt;strong&gt;Hibernate Validator&lt;/strong&gt; that you need to add
+explicitly in your project:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use Hibernate Validator version 4.x to support Bean Validation 1.0 only (like in strict JEE6 environments)&lt;/li&gt;
+&lt;li&gt;Use Hibernate Validator version 5.x to support Bean Validation 1.1.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To use this add-on add the following dependency:&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-validation-validation-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-validation-validation-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-validation-validation-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.validation&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;validation&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-validation-validation-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.3.0&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-validation-validation-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-validation-validation-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-validation-validation-version, #org-seedstack-addons-validation-validation-warn&#39;).show(); $(&#39;#org-seedstack-addons-validation-validation-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-validation-validation-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.validation:validation:2.3.0&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+</description>
+    </item>
+    
+    <item>
+      <title>Basics</title>
+      <link>http://seedstack.org/archives/16.7/addons/spring-bridge/</link>
+      <pubDate>Wed, 25 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>http://seedstack.org/archives/16.7/addons/spring-bridge/</guid>
+      <description>
+
+&lt;p&gt;Seed Spring support is a bi-directional injection bridge between Seed managed instances and Spring beans. It allows to
+inject Spring beans in Seed instances and Seed instances as Spring beans.&lt;/p&gt;
+
+&lt;p&gt;Additionally, this support fills in a gap between Seed and Spring code allowing for instance to initiate a Spring-based
+transaction from Seed code. Tt also provides a Spring namespace handler to make its features as easy to use as possible.&lt;/p&gt;
+
+
+
+
+
+
+    
+        
+            
+        
+    
+
+&lt;div class=&#34;tab-v2&#34;&gt;
+    &lt;ul class=&#34;nav nav-tabs&#34;&gt;
+        &lt;li class=&#34;active&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-spring-spring-core-maven&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Maven&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&#34;&#34;&gt;&lt;a href=&#34;#tab-org-seedstack-addons-spring-spring-core-gradle&#34; data-toggle=&#34;tab&#34; aria-expanded=&#34;true&#34;&gt;Gradle&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;span class=&#34;tabs-icon fa-2x fa fa-cubes pull-right&#34;&gt;&lt;/span&gt;
+    &lt;div class=&#34;clear-both&#34;&gt;&lt;/div&gt;
+    &lt;div class=&#34;tab-content&#34;&gt;
+        &lt;div class=&#34;tab-pane in active&#34; id=&#34;tab-org-seedstack-addons-spring-spring-core-maven&#34;&gt;
+            &lt;pre style=&#34;margin-top: 0;&#34;&gt;&lt;code class=&#34;xml&#34;&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.seedstack.addons.spring&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;spring-core&amp;lt;/artifactId&amp;gt;&lt;span id=&#34;org-seedstack-addons-spring-spring-core-version&#34; style=&#34;display: none;&#34;&gt;
+    &amp;lt;version&amp;gt;2.2.1&amp;lt;/version&amp;gt;&lt;/span&gt;
+&amp;lt;/dependency&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+            &lt;small class=&#34;pull-right&#34; style=&#34;color: #aaa; margin-top: -20px; margin-right: 5px;&#34;&gt;
+                &lt;span id=&#34;org-seedstack-addons-spring-spring-core-warn&#34; style=&#34;display: none;&#34;&gt;&lt;i class=&#34;fa fa-warning&#34; style=&#34;color: orange;&#34;&gt;&lt;/i&gt; Specifying versions manually is error-prone, use the &lt;a href=&#34;http://seedstack.org/archives/16.7/getting-started/distribution&#34;&gt;distribution&lt;/a&gt; instead.&lt;/span&gt;
+                &lt;a style=&#34;cursor: pointer;&#34; id=&#34;org-seedstack-addons-spring-spring-core-show&#34; onclick=&#34;$(&#39;#org-seedstack-addons-spring-spring-core-version, #org-seedstack-addons-spring-spring-core-warn&#39;).show(); $(&#39;#org-seedstack-addons-spring-spring-core-show&#39;).hide();&#34;&gt;Show version&lt;/a&gt;
+            &lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class=&#34;tab-pane in&#34; id=&#34;tab-org-seedstack-addons-spring-spring-core-gradle&#34;&gt;
+            &lt;pre style=&#34;margin-bottom: 0;&#34;&gt;&lt;code class=&#34;java&#34;&gt;dependencies {
+    compile(&#34;org.seedstack.addons.spring:spring-core:2.2.1&#34;)
+}&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;h1 id=&#34;spring-to-seed&#34;&gt;Spring to Seed&lt;/h1&gt;
+
+&lt;p&gt;Any Spring context located in the &lt;code&gt;META-INF/spring&lt;/code&gt; classpath directory and named with the pattern &lt;code&gt;*-context.xml&lt;/code&gt; will
+be autodetected by Seed. You can turn off auto detection with the following configuration property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.seedstack.spring.autodetect = false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can add custom contexts located anywhere in the classpath with the following configuration property:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;org.seedstack.spring.contexts = /resource/path/to/context1.xml, /resource/path/to/context2.xml
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can inject any Spring bean from contexts detected by Seed in any Seed injectable component. You can inject using the
+bean Class and the bean name:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject @Named(&amp;quot;theBeanId&amp;quot;) BeanClass bean;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can inject using the bean parent&amp;rsquo;s Class (if not Object) and the bean name:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject @Named(&amp;quot;theBeanId&amp;quot;) BeanParentClass bean;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can inject using any directly implemented Interface and the bean name:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject @Named(&amp;quot;theBeanId&amp;quot;) BeanImplementedInterface bean;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that you always need to qualify your injection with the bean identifier (&lt;code&gt;@Named(&amp;quot;theBeanId&amp;quot;)&lt;/code&gt;)&lt;/p&gt;
+
+&lt;h1 id=&#34;seed-to-spring&#34;&gt;Seed to Spring&lt;/h1&gt;
+
+&lt;p&gt;To use Seed instances in Spring contexts, you need to add the Seed namespace to your Spring files:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;beans xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot; 
+       xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+       xmlns:seed=&amp;quot;http://www.seedstack.org/xml-schemas/spring-support&amp;quot;
+
+       xsi:schemaLocation=&amp;quot;
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+        http://www.seedstack.org/xml-schemas/spring-support http://www.seedstack.org/xml-schemas/spring-support/spring-support-1.1.xsd&amp;quot;&amp;gt;
+
+    ...
+
+&amp;lt;/beans&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can then create a spring bean from any Seed instance bound with a class name:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;seed:instance id=&amp;quot;myService&amp;quot; class=&amp;quot;org.myorganization.myproject.MyService&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It is equivalent to this Seed injection:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+org.myorganization.myproject.MyService myService;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Named Seed bindings (bound with a &lt;code&gt;@Named&lt;/code&gt; qualifier) are also supported:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;seed:instance id=&amp;quot;myService&amp;quot; class=&amp;quot;org.myorganization.myproject.MyService&amp;quot; qualifier=&amp;quot;myQualifier&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It is equivalent to this Seed injection:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Inject
+@Named(&amp;quot;myQualifier&amp;quot;)
+org.myorganization.myproject.MyService myService;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Since Seed can inject Spring beans and Spring can inject Seed instances, there is a circular dependency between the two
+injectors. To alleviate this problem, Seed instances are by default proxied for lazy initialization. It allows Spring to
+initialize its context without needing the Seed injector to be initialized too. You can explicitly disable this proxy:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;seed:instance id=&amp;quot;myService&amp;quot; class=&amp;quot;org.myorganization.myproject.MyService&amp;quot; qualifier=&amp;quot;myQualifier&amp;quot; proxy=&amp;quot;false&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can also inject configuration values directly:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;bean id=&amp;quot;...&amp;quot; class=&amp;quot;...&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;configurationValue&amp;quot;&amp;gt;
+        &amp;lt;seed:configuration key=&amp;quot;org.myorganization.myproject.my-configuration-value&amp;quot;/&amp;gt;
+    &amp;lt;/property&amp;gt;
+&amp;lt;/bean&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It is equivalent to this Seed configuration injection:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Configuration(&amp;quot;org.myorganization.myproject.my-configuration-value&amp;quot;)
+String configurationValue;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Configuration values don&amp;rsquo;t require Seed injector to be initialized and are all available at context initialization. You
+can specify a default value:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;seed:configuration key=&amp;quot;org.myorganization.myproject.my-configuration-value&amp;quot; default=&amp;quot;myDefaultValue&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It is equivalent to this Seed configuration injection:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@Configuration(value = &amp;quot;org.myorganization.myproject.my-configuration-value&amp;quot;, defaultValue=&amp;quot;myDefaultValue&amp;quot;)
+String configurationValue;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can control if a property is mandatory with the mandatory attribute (true by default):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;seed:configuration key=&amp;quot;org.myorganization.myproject.my-configuration-value&amp;quot; mandatory=&amp;quot;false&amp;quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If no configuration value nor default value is available and the injection is not mandatory, &lt;code&gt;null&lt;/code&gt; will be used.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
